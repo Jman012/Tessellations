@@ -38,7 +38,7 @@ struct Piece {
     var absLogicalAngle: UInt
 }
 
-class OctSquareBoard {
+class OctSquareBoard: NSObject {
     
     private var octWidth: UInt
     private var octHeight: UInt
@@ -68,9 +68,9 @@ class OctSquareBoard {
     }
     
     func logicalRowColToPhysical(row row: Int, col: Int) -> (pieceType: PieceType, pRow: Int, pCol: Int)? {
-        if row % 2 == 0 && col % 2 == 0 {
+        if row % 2 == 0 && col % 2 == 0 && row/2 < Int(self.octHeight) && col/2 < Int(self.octWidth) {
             return (.Octagon, row / 2, col / 2)
-        } else if row % 2 == 1 && col % 2 == 1 {
+        } else if row % 2 == 1 && col % 2 == 1 && (row-1)/2 < Int(self.octHeight) && (col-1)/2 < Int(self.octWidth) {
             return (.Square, (row - 1) / 2, (col - 1) / 2)
         } else {
             return nil
@@ -95,7 +95,6 @@ class OctSquareBoard {
                 return Piece(row: row, col: col, type: .Square, pipeBits: self.squares[pRow][pCol], absLogicalAngle: self.getPieceAngle(row: row, col: col)!)
             }
         } else {
-            print("Bad logical address: row=\(row), col=\(col). Exiting.")
             return nil
         }
     }
@@ -109,7 +108,6 @@ class OctSquareBoard {
                 return self.logicalSquareAngles[pRow][pCol]
             }
         } else {
-            print("Bad logical address: row=\(row), col=\(col). Exiting.")
             return nil
         }
     }
@@ -215,18 +213,18 @@ class OctSquareBoard {
         return true
     }
     
-    func forAllPieces(callback: (row: Int, col: Int, pieceType: PieceType, pipeBits: UInt8) -> Void) {
+    func forAllPieces(callback: (piece: Piece) -> Void) {
         for (pRow, rows) in self.octagons.enumerate() {
             for (pCol, pipeBits) in rows.enumerate() {
                 let (lRow, lCol) = self.physicalRowColToLogical(row: pRow, col: pCol, pieceType: .Octagon)
-                callback(row: lRow, col: lCol, pieceType: .Octagon, pipeBits: pipeBits)
+                callback(piece: Piece(row: lRow, col: lCol, type: .Octagon, pipeBits: pipeBits, absLogicalAngle: self.getPieceAngle(row: lRow, col: lCol)!))
             }
         }
         
         for (pRow, rows) in self.squares.enumerate() {
             for (pCol, pipeBits) in rows.enumerate() {
                 let (lRow, lCol) = self.physicalRowColToLogical(row: pRow, col: pCol, pieceType: .Square)
-                callback(row: lRow, col: lCol, pieceType: .Square, pipeBits: pipeBits)
+                callback(piece: Piece(row: lRow, col: lCol, type: .Square, pipeBits: pipeBits, absLogicalAngle: self.getPieceAngle(row: lRow, col: lCol)!))
             }
         }
     }
@@ -243,11 +241,23 @@ class OctSquareBoard {
         }
     }
     
+    var hakRow: Int = 0
+    var hakCol: Int = 0
+    var hakRunning: Bool = false
     func generateHuntAndKill() {
-        self.setPipeDirection(row: 0, col: 0, direction: .South, set: true)
-        if let del = self.delegate {
-            let piece = self.getPiece(row: 0, col: 0)!
-            del.pieceDidChange(piece)
+        if hakRunning == false {
+            self.clearBoard()
+            hakRow = 0
+            hakCol = 0
+            hakRunning = true
+        }
+        
+        if let _ = self.getPiece(row: hakRow, col: hakCol) where hakRunning == true {
+            self.setPipeDirection(row: hakRow, col: hakCol, direction: .South, set: true)
+            hakCol = hakCol + 2
+            self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.5)
+        } else {
+            hakRunning = false
         }
     }
     

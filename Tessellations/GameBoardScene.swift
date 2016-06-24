@@ -96,11 +96,14 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         
         self.logicalBoard.forAllPieces {
             // TODO: Change to Piece()
-            (row: Int, col: Int, pieceType: PieceType, pipeBits: UInt8) -> Void in
+            (piece: Piece) in
+            
+            // To reduce repetition below
+            let (row, col) = (piece.row, piece.col)
             
             print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
             let node: SKShapeNode
-            switch pieceType {
+            switch piece.type {
             case .Octagon:
                 let octagon = SKShapeNode(path: self.octPath)
                 octagon.position = self.rowColToPoint(row: row, col: col)
@@ -125,7 +128,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             self.addChild(node)
             self.rowColToNode[RowCol(row: row, col: col)] = node
             
-            self.refreshPipesForPiece(node, piece: Piece(row: row, col: col, type: pieceType, pipeBits: pipeBits, absLogicalAngle: 0)) // TODO: Change to Piece()
+            self.refreshPipesForPiece(node, piece: piece)
             
         }
     }
