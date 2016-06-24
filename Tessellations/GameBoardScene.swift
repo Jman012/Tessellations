@@ -95,6 +95,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         super.didMoveToView(view)
         
         self.logicalBoard.forAllPieces {
+            // TODO: Change to Piece()
             (row: Int, col: Int, pieceType: PieceType, pipeBits: UInt8) -> Void in
             
             print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
@@ -124,27 +125,31 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             self.addChild(node)
             self.rowColToNode[RowCol(row: row, col: col)] = node
             
-            pipeBits.forEachBit {
-                (bit, flag) in
-                
-                guard flag else {
-                    return
-                }
-                
-                let path: CGMutablePath
-                if pieceType == .Octagon {
-                    path = self.octPipePath
-                } else {
-                    path = self.squarePipePath
-                }
-                
-                let pipe = SKShapeNode(path: path)
-                pipe.fillColor = UIColor.greenColor()
-                pipe.strokeColor = UIColor.clearColor()
-                pipe.name = "Pipe \(bit) \(row) \(col)"
-                pipe.runAction(SKAction.rotateByAngle(-CGFloat(bit) * CGFloat(M_PI_4), duration: 0))
-                node.addChild(pipe)
+            self.refreshPipesForPiece(node, piece: Piece(row: row, col: col, type: pieceType, pipeBits: pipeBits, absLogicalAngle: 0)) // TODO: Change to Piece()
+        }
+    }
+    
+    func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {
+        piece.pipeBits.forEachBit {
+            (bit, flag) in
+            
+            guard flag else {
+                return
             }
+            
+            let path: CGMutablePath
+            if piece.type == .Octagon {
+                path = self.octPipePath
+            } else {
+                path = self.squarePipePath
+            }
+            
+            let pipe = SKShapeNode(path: path)
+            pipe.fillColor = UIColor.greenColor()
+            pipe.strokeColor = UIColor.clearColor()
+            pipe.name = "Pipe \(bit) \(piece.row) \(piece.col)"
+            pipe.runAction(SKAction.rotateByAngle(-CGFloat(bit) * CGFloat(M_PI_4), duration: 0))
+            node.addChild(pipe)
         }
     }
     
