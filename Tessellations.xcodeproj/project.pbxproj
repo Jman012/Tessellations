@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE451D1CC43B0008224D /* AppDelegate.swift */; };
+		1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE471D1CC43B0008224D /* ViewController.swift */; };
+		1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE491D1CC43B0008224D /* Main.storyboard */; };
+		1A82DE4D1D1CC43B0008224D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE4C1D1CC43B0008224D /* Assets.xcassets */; };
+		1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */; };
+		1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */; };
+		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A82DE571D1CC43B0008224D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A82DE3A1D1CC43B0008224D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A82DE411D1CC43B0008224D;
+			remoteInfo = Tessellations;
+		};
+		1A82DE621D1CC43B0008224D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A82DE3A1D1CC43B0008224D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A82DE411D1CC43B0008224D;
+			remoteInfo = Tessellations;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A82DE421D1CC43B0008224D /* Tessellations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tessellations.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A82DE451D1CC43B0008224D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1A82DE471D1CC43B0008224D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1A82DE4A1D1CC43B0008224D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1A82DE4C1D1CC43B0008224D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A82DE4F1D1CC43B0008224D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1A82DE511D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A82DE561D1CC43B0008224D /* TessellationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TessellationsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsTests.swift; sourceTree = "<group>"; };
+		1A82DE5C1D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A82DE611D1CC43B0008224D /* TessellationsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TessellationsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsUITests.swift; sourceTree = "<group>"; };
+		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A82DE3F1D1CC43B0008224D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE531D1CC43B0008224D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE5E1D1CC43B0008224D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A82DE391D1CC43B0008224D = {
+			isa = PBXGroup;
+			children = (
+				1A82DE441D1CC43B0008224D /* Tessellations */,
+				1A82DE591D1CC43B0008224D /* TessellationsTests */,
+				1A82DE641D1CC43B0008224D /* TessellationsUITests */,
+				1A82DE431D1CC43B0008224D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A82DE431D1CC43B0008224D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A82DE421D1CC43B0008224D /* Tessellations.app */,
+				1A82DE561D1CC43B0008224D /* TessellationsTests.xctest */,
+				1A82DE611D1CC43B0008224D /* TessellationsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A82DE441D1CC43B0008224D /* Tessellations */ = {
+			isa = PBXGroup;
+			children = (
+				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
+				1A82DE471D1CC43B0008224D /* ViewController.swift */,
+				1A82DE491D1CC43B0008224D /* Main.storyboard */,
+				1A82DE4C1D1CC43B0008224D /* Assets.xcassets */,
+				1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */,
+				1A82DE511D1CC43B0008224D /* Info.plist */,
+			);
+			path = Tessellations;
+			sourceTree = "<group>";
+		};
+		1A82DE591D1CC43B0008224D /* TessellationsTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */,
+				1A82DE5C1D1CC43B0008224D /* Info.plist */,
+			);
+			path = TessellationsTests;
+			sourceTree = "<group>";
+		};
+		1A82DE641D1CC43B0008224D /* TessellationsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */,
+				1A82DE671D1CC43B0008224D /* Info.plist */,
+			);
+			path = TessellationsUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A82DE411D1CC43B0008224D /* Tessellations */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A82DE6A1D1CC43B0008224D /* Build configuration list for PBXNativeTarget "Tessellations" */;
+			buildPhases = (
+				1A82DE3E1D1CC43B0008224D /* Sources */,
+				1A82DE3F1D1CC43B0008224D /* Frameworks */,
+				1A82DE401D1CC43B0008224D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tessellations;
+			productName = Tessellations;
+			productReference = 1A82DE421D1CC43B0008224D /* Tessellations.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A82DE551D1CC43B0008224D /* TessellationsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A82DE6D1D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsTests" */;
+			buildPhases = (
+				1A82DE521D1CC43B0008224D /* Sources */,
+				1A82DE531D1CC43B0008224D /* Frameworks */,
+				1A82DE541D1CC43B0008224D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A82DE581D1CC43B0008224D /* PBXTargetDependency */,
+			);
+			name = TessellationsTests;
+			productName = TessellationsTests;
+			productReference = 1A82DE561D1CC43B0008224D /* TessellationsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1A82DE601D1CC43B0008224D /* TessellationsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A82DE701D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsUITests" */;
+			buildPhases = (
+				1A82DE5D1D1CC43B0008224D /* Sources */,
+				1A82DE5E1D1CC43B0008224D /* Frameworks */,
+				1A82DE5F1D1CC43B0008224D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A82DE631D1CC43B0008224D /* PBXTargetDependency */,
+			);
+			name = TessellationsUITests;
+			productName = TessellationsUITests;
+			productReference = 1A82DE611D1CC43B0008224D /* TessellationsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A82DE3A1D1CC43B0008224D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "James Linnell";
+				TargetAttributes = {
+					1A82DE411D1CC43B0008224D = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					1A82DE551D1CC43B0008224D = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1A82DE411D1CC43B0008224D;
+					};
+					1A82DE601D1CC43B0008224D = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1A82DE411D1CC43B0008224D;
+					};
+				};
+			};
+			buildConfigurationList = 1A82DE3D1D1CC43B0008224D /* Build configuration list for PBXProject "Tessellations" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A82DE391D1CC43B0008224D;
+			productRefGroup = 1A82DE431D1CC43B0008224D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A82DE411D1CC43B0008224D /* Tessellations */,
+				1A82DE551D1CC43B0008224D /* TessellationsTests */,
+				1A82DE601D1CC43B0008224D /* TessellationsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A82DE401D1CC43B0008224D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */,
+				1A82DE4D1D1CC43B0008224D /* Assets.xcassets in Resources */,
+				1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE541D1CC43B0008224D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE5F1D1CC43B0008224D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A82DE3E1D1CC43B0008224D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
+				1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE521D1CC43B0008224D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A82DE5D1D1CC43B0008224D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A82DE581D1CC43B0008224D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A82DE411D1CC43B0008224D /* Tessellations */;
+			targetProxy = 1A82DE571D1CC43B0008224D /* PBXContainerItemProxy */;
+		};
+		1A82DE631D1CC43B0008224D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A82DE411D1CC43B0008224D /* Tessellations */;
+			targetProxy = 1A82DE621D1CC43B0008224D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1A82DE491D1CC43B0008224D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A82DE4A1D1CC43B0008224D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A82DE4F1D1CC43B0008224D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1A82DE681D1CC43B0008224D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1A82DE691D1CC43B0008224D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1A82DE6B1D1CC43B0008224D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Tessellations/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.Tessellations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1A82DE6C1D1CC43B0008224D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Tessellations/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.Tessellations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1A82DE6E1D1CC43B0008224D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TessellationsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.TessellationsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tessellations.app/Tessellations";
+			};
+			name = Debug;
+		};
+		1A82DE6F1D1CC43B0008224D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TessellationsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.TessellationsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tessellations.app/Tessellations";
+			};
+			name = Release;
+		};
+		1A82DE711D1CC43B0008224D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TessellationsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.TessellationsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tessellations;
+			};
+			name = Debug;
+		};
+		1A82DE721D1CC43B0008224D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TessellationsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = jamesnlinnell.TessellationsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Tessellations;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A82DE3D1D1CC43B0008224D /* Build configuration list for PBXProject "Tessellations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A82DE681D1CC43B0008224D /* Debug */,
+				1A82DE691D1CC43B0008224D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A82DE6A1D1CC43B0008224D /* Build configuration list for PBXNativeTarget "Tessellations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A82DE6B1D1CC43B0008224D /* Debug */,
+				1A82DE6C1D1CC43B0008224D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1A82DE6D1D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A82DE6E1D1CC43B0008224D /* Debug */,
+				1A82DE6F1D1CC43B0008224D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1A82DE701D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A82DE711D1CC43B0008224D /* Debug */,
+				1A82DE721D1CC43B0008224D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A82DE3A1D1CC43B0008224D /* Project object */;
+}
