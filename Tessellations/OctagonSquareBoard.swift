@@ -27,6 +27,7 @@ enum Direction: UInt {
 protocol OctSquareBoardProtocol {
     func pieceDidChange(piece: Piece)
     func pieceDidRotate(piece: Piece)
+    func boardDidClear()
 }
 
 struct Piece {
@@ -39,20 +40,31 @@ struct Piece {
 
 class OctSquareBoard {
     
+    private var octWidth: UInt
+    private var octHeight: UInt
+    
+    
     private var octagons: [[UInt8]]
     private var squares: [[UInt8]]
     private var logicalOctagonAngles: [[UInt]]
     private var logicalSquareAngles: [[UInt]]
     var delegate: OctSquareBoardProtocol?
     
-    init(octagonsWide octWidth: Int, octagonsTall octHeight: Int) {
+    init(octagonsWide octWidth: UInt, octagonsTall octHeight: UInt) {
+        
+        guard octWidth >= 1 && octHeight >= 1 else {
+            exit(1)
+        }
+        
+        self.octWidth = octWidth
+        self.octHeight = octHeight
         
         // Initialize the two tables of pieces, squares being one less in both directions
-        octagons = Array<Array<UInt8>>(count: octHeight, repeatedValue: Array<UInt8>(count: octWidth, repeatedValue: 0))
-        squares = Array<Array<UInt8>>(count: octHeight - 1, repeatedValue: Array<UInt8>(count: octWidth - 1, repeatedValue: 0))
+        octagons = Array<Array<UInt8>>(count: Int(octHeight), repeatedValue: Array<UInt8>(count: Int(octWidth), repeatedValue: 0))
+        squares = Array<Array<UInt8>>(count: Int(octHeight - 1), repeatedValue: Array<UInt8>(count: Int(octWidth - 1), repeatedValue: 0))
         
-        logicalOctagonAngles = Array<Array<UInt>>(count: octHeight, repeatedValue: Array<UInt>(count: octWidth, repeatedValue: 0))
-        logicalSquareAngles = Array<Array<UInt>>(count: octHeight - 1, repeatedValue: Array<UInt>(count: octWidth - 1, repeatedValue: 0))
+        logicalOctagonAngles = Array<Array<UInt>>(count: Int(octHeight), repeatedValue: Array<UInt>(count: Int(octWidth), repeatedValue: 0))
+        logicalSquareAngles = Array<Array<UInt>>(count: Int(octHeight - 1), repeatedValue: Array<UInt>(count: Int(octWidth - 1), repeatedValue: 0))
     }
     
     func logicalRowColToPhysical(row row: Int, col: Int) -> (pieceType: PieceType, pRow: Int, pCol: Int)? {
@@ -209,6 +221,22 @@ class OctSquareBoard {
                 callback(row: lRow, col: lCol, pieceType: .Square, pipeBits: pipeBits)
             }
         }
+    }
+    
+    func clearBoard() {
+        octagons = Array<Array<UInt8>>(count: Int(self.octHeight), repeatedValue: Array<UInt8>(count: Int(self.octWidth), repeatedValue: 0))
+        squares = Array<Array<UInt8>>(count: Int(self.octHeight - 1), repeatedValue: Array<UInt8>(count: Int(self.octWidth - 1), repeatedValue: 0))
+        
+        logicalOctagonAngles = Array<Array<UInt>>(count: Int(self.octHeight), repeatedValue: Array<UInt>(count: Int(self.octWidth), repeatedValue: 0))
+        logicalSquareAngles = Array<Array<UInt>>(count: Int(self.octHeight - 1), repeatedValue: Array<UInt>(count: Int(self.octWidth - 1), repeatedValue: 0))
+        
+        if let del = self.delegate {
+            del.boardDidClear()
+        }
+    }
+    
+    func generateHuntAndKill() {
+        
     }
     
 }

@@ -19,6 +19,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         self.scene = GameBoardScene(size: CGSize(width: 1000, height: 1000))
+        self.scene.scaleMode = .AspectFit
+        
         self.sceneView.presentScene(self.scene)
     }
 

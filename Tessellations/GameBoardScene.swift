@@ -65,7 +65,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         CGPathCloseSubpath  (self.squarePipePath)
         
         
-        self.logicalBoard = OctSquareBoard(octagonsWide: self.octagonsWide, octagonsTall: self.octagonsTall)
+        self.logicalBoard = OctSquareBoard(octagonsWide: UInt(self.octagonsWide), octagonsTall: UInt(self.octagonsTall))
         
         super.init(size: size)
         
@@ -130,6 +130,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     }
     
     func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {
+        node.removeAllChildren()
+        
         piece.pipeBits.forEachBit {
             (bit, flag) in
             
@@ -194,13 +196,20 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         }
     }
     
+    func boardDidClear() {
+        for node in self.children {
+            // Remove the pipes of each piece
+            node.removeAllChildren()
+        }
+    }
+    
     func pieceDidChange(piece: Piece) {
-        
+        self.refreshPipesForPiece(self.rowColToNode[RowCol(row: piece.row, col: piece.col)]!, piece: piece)
     }
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            node.runAction(SKAction.rotateToAngle(-CGFloat(M_PI_4) * CGFloat(piece.absLogicalAngle), duration: 1, shortestUnitArc: true))
+            node.runAction(SKAction.rotateToAngle(-CGFloat(M_PI_4) * CGFloat(piece.absLogicalAngle), duration: 0.5, shortestUnitArc: true))
         }
     }
 }
