@@ -39,3 +39,10 @@ extension Double {
     public var degrees: Double { return self * M_PI / 180 }
     public var radians: Double { return self * 180 / M_PI }
 }
+
+extension Array {
+    func randomItem() -> Element {
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return self[index]
+    }
+}

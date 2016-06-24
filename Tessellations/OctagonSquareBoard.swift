@@ -22,6 +22,10 @@ enum Direction: UInt {
     case SouthWest = 5
     case West      = 6
     case NorthWest = 7
+    
+    func opposite() -> Direction {
+        return Direction(rawValue: (self.rawValue + 4) % 8)!
+    }
 }
 
 protocol OctSquareBoardProtocol {
@@ -67,10 +71,19 @@ class OctSquareBoard: NSObject {
         logicalSquareAngles = Array<Array<UInt>>(count: Int(octHeight - 1), repeatedValue: Array<UInt>(count: Int(octWidth - 1), repeatedValue: 0))
     }
     
+    func pRowColIsLegalOfType(type: PieceType, pRow: Int, pCol: Int) -> Bool {
+        switch type {
+        case .Octagon:
+            return pRow < Int(self.octHeight) && pRow >= 0 && pCol < Int(self.octWidth) && pCol >= 0
+        case .Square:
+            return pRow < Int(self.octHeight-1) && pRow >= 0 && pCol < Int(self.octWidth-1) && pCol >= 0
+        }
+    }
+    
     func logicalRowColToPhysical(row row: Int, col: Int) -> (pieceType: PieceType, pRow: Int, pCol: Int)? {
-        if row % 2 == 0 && col % 2 == 0 && row/2 < Int(self.octHeight) && col/2 < Int(self.octWidth) {
+        if row % 2 == 0 && col % 2 == 0 {
             return (.Octagon, row / 2, col / 2)
-        } else if row % 2 == 1 && col % 2 == 1 && (row-1)/2 < Int(self.octHeight) && (col-1)/2 < Int(self.octWidth) {
+        } else if row % 2 == 1 && col % 2 == 1 {
             return (.Square, (row - 1) / 2, (col - 1) / 2)
         } else {
             return nil
@@ -87,7 +100,9 @@ class OctSquareBoard: NSObject {
     }
     
     func getPiece(row row: Int, col: Int) -> Piece? {
-        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col) {
+        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)
+            where self.pRowColIsLegalOfType(pieceType, pRow: pRow, pCol: pCol) {
+            
             switch pieceType {
             case .Octagon:
                 return Piece(row: row, col: col, type: .Octagon, pipeBits: self.octagons[pRow][pCol], absLogicalAngle: self.getPieceAngle(row: row, col: col)!)
@@ -100,7 +115,9 @@ class OctSquareBoard: NSObject {
     }
     
     func getPieceAngle(row row: Int, col: Int) -> UInt? {
-        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col) {
+        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)
+            where self.pRowColIsLegalOfType(pieceType, pRow: pRow, pCol: pCol) {
+            
             switch pieceType {
             case .Octagon:
                 return self.logicalOctagonAngles[pRow][pCol]
@@ -113,7 +130,9 @@ class OctSquareBoard: NSObject {
     }
     
     func setPiecePipeBits(row row: Int, col: Int, pipeBits: UInt8) -> Bool {
-        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col) {
+        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)
+            where self.pRowColIsLegalOfType(pieceType, pRow: pRow, pCol: pCol) {
+            
             let absLogicalAngle: UInt
             switch pieceType {
             case .Octagon:
@@ -241,11 +260,29 @@ class OctSquareBoard: NSObject {
         }
     }
     
+    func randomizeBoard() {
+        self.forAllPieces {
+            piece in
+            
+            let numRots = random() % 8
+            for _ in 0..<numRots {
+                self.rotatePiece(row: piece.row, col: piece.col)
+            }
+        }
+    }
+    
     var hakRow: Int = 0
     var hakCol: Int = 0
     var hakRunning: Bool = false
+}
+
+extension OctSquareBoard {
+
+    
     func generateHuntAndKill() {
+        // Reset and start algorithm
         if hakRunning == false {
+            print("Starting Hunt and Kill")
             self.clearBoard()
             hakRow = 0
             hakCol = 0
@@ -253,11 +290,99 @@ class OctSquareBoard: NSObject {
         }
         
         if let _ = self.getPiece(row: hakRow, col: hakCol) where hakRunning == true {
-            self.setPipeDirection(row: hakRow, col: hakCol, direction: .South, set: true)
-            hakCol = hakCol + 2
-            self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.5)
+            // Run the algorithm
+            let neighbors = self.freeNeighbors(row: hakRow, col: hakCol)
+            
+            if neighbors.count > 0 {
+                let neighborDir = neighbors.randomItem()
+                let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, direction: neighborDir)!
+                print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
+                
+                self.setPipeDirection(row: hakRow, col: hakCol, direction: neighborDir, set: true)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), set: true)
+                
+                hakRow = neighbor.row
+                hakCol = neighbor.col
+                print("    Now, r=\(hakRow),c=\(hakCol)")
+                
+//                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.3)
+                self.generateHuntAndKill()
+
+            } else if let (row, col) = hunt() {
+                print("No neighbors, hunted new target: r=\(row),c=\(col)")
+                
+                let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
+                let neighbor = self.getPieceNSEW(row: row, col: col, direction: neighborDir)!
+                
+                self.setPipeDirection(row: row, col: col, direction: neighborDir, set: true)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), set: true)
+                
+                hakRow = row
+                hakCol = col
+                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 1.0)
+            } else {
+                print("On r=\(hakRow),c=\(hakCol). No neighbors. Hunt failed. Stopping.")
+                hakRunning = false
+            }
+
         } else {
+            // Stop the algorithm
+            print("Error")
             hakRunning = false
+        }
+    }
+    
+    func adjacentNeighbors(row row: Int, col: Int) -> [Direction] {
+        let piece = self.getPiece(row: row, col: col)
+        let dirs: [Direction]
+        if piece?.type == .Square {
+            dirs = [.NorthEast, .NorthWest, .SouthEast, .SouthWest]
+        } else {
+            dirs = [.North, .NorthEast, .NorthWest, .South, .SouthEast, .SouthWest, .East, .West]
+        }
+        return dirs.filter {
+            if let piece = self.getPieceNSEW(row: row, col: col, direction: $0) {
+                return piece.pipeBits > 0
+            } else {
+                return false
+            }
+        }
+
+    }
+    
+    func freeNeighbors(row row: Int, col: Int) -> [Direction] {
+        let piece = self.getPiece(row: row, col: col)
+        let dirs: [Direction]
+        if piece?.type == .Square {
+            dirs = [.NorthEast, .NorthWest, .SouthEast, .SouthWest]
+        } else {
+            dirs = [.North, .NorthEast, .NorthWest, .South, .SouthEast, .SouthWest, .East, .West]
+        }
+        return dirs.filter {
+            if let piece = self.getPieceNSEW(row: row, col: col, direction: $0) {
+                return piece.pipeBits == 0
+            } else {
+                return false
+            }
+        }
+    }
+    
+    func hunt() -> (row: Int, col: Int)? {
+        var row: Int = -1
+        var col: Int = -1
+        self.forAllPieces {
+            piece in
+            
+            if piece.pipeBits == 0 && self.adjacentNeighbors(row: piece.row, col: piece.col).count > 0 {
+                (row, col) = (piece.row, piece.col)
+                return
+            }
+        }
+        
+        if row != -1 && col != -1 {
+            return (row, col)
+        } else {
+            return nil
         }
     }
     

@@ -11,8 +11,8 @@ import SpriteKit
 
 class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
-    let octagonsWide = 3
-    let octagonsTall = 3
+    let octagonsWide = 5
+    let octagonsTall = 5
     
     let octagonDiameter: CGFloat
     let adjustedDiameter: CGFloat

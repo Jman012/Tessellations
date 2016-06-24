@@ -29,6 +29,11 @@
                                             <action selector="toolbarOneDidTouch:" destination="BYZ-38-t0r" id="S3K-DP-Fx2"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Randomize" id="IDH-hH-VHf">
+                                        <connections>
+                                            <action selector="toolbarTwoDidTouch:" destination="BYZ-38-t0r" id="Kuf-fO-eqd"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

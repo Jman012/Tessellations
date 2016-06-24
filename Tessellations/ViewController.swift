@@ -33,6 +33,10 @@ class ViewController: UIViewController {
     @IBAction func toolbarOneDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.generateHuntAndKill()
     }
+    
+    @IBAction func toolbarTwoDidTouch(sender: UIBarButtonItem) {
+        self.scene.logicalBoard.randomizeBoard()
+    }
 
 }
 
