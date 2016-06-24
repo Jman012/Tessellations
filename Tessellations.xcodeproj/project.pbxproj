@@ -14,6 +14,9 @@
 		1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */; };
 		1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */; };
 		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
+		1A82DE741D1CC4BF0008224D /* GameBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */; };
+		1A82DE791D1CC4F00008224D /* OctagonSquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE781D1CC4F00008224D /* OctagonSquareBoard.swift */; };
+		1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7C1D1CC5600008224D /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		1A82DE611D1CC43B0008224D /* TessellationsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TessellationsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsUITests.swift; sourceTree = "<group>"; };
 		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardScene.swift; sourceTree = "<group>"; };
+		1A82DE781D1CC4F00008224D /* OctagonSquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OctagonSquareBoard.swift; sourceTree = "<group>"; };
+		1A82DE7C1D1CC5600008224D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Utils/Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +103,15 @@
 		1A82DE441D1CC43B0008224D /* Tessellations */ = {
 			isa = PBXGroup;
 			children = (
+				1A82DE751D1CC4CB0008224D /* Utils */,
 				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
 				1A82DE471D1CC43B0008224D /* ViewController.swift */,
 				1A82DE491D1CC43B0008224D /* Main.storyboard */,
 				1A82DE4C1D1CC43B0008224D /* Assets.xcassets */,
 				1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */,
 				1A82DE511D1CC43B0008224D /* Info.plist */,
+				1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */,
+				1A82DE781D1CC4F00008224D /* OctagonSquareBoard.swift */,
 			);
 			path = Tessellations;
 			sourceTree = "<group>";
@@ -123,6 +132,14 @@
 				1A82DE671D1CC43B0008224D /* Info.plist */,
 			);
 			path = TessellationsUITests;
+			sourceTree = "<group>";
+		};
+		1A82DE751D1CC4CB0008224D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1A82DE7C1D1CC5600008224D /* Utils.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +273,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
+				1A82DE791D1CC4F00008224D /* OctagonSquareBoard.swift in Sources */,
+				1A82DE741D1CC4BF0008224D /* GameBoardScene.swift in Sources */,
 				1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
