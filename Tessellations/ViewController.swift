@@ -31,7 +31,7 @@ class ViewController: UIViewController {
 
     
     @IBAction func toolbarOneDidTouch(sender: UIBarButtonItem) {
-        
+        self.scene.logicalBoard.clearBoard()
     }
 
 }

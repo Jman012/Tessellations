@@ -126,6 +126,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             self.rowColToNode[RowCol(row: row, col: col)] = node
             
             self.refreshPipesForPiece(node, piece: Piece(row: row, col: col, type: pieceType, pipeBits: pipeBits, absLogicalAngle: 0)) // TODO: Change to Piece()
+            
         }
     }
     
@@ -200,11 +201,14 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         for node in self.children {
             // Remove the pipes of each piece
             node.removeAllChildren()
+            node.runAction(SKAction.rotateToAngle(0, duration: 0))
         }
     }
     
     func pieceDidChange(piece: Piece) {
-        self.refreshPipesForPiece(self.rowColToNode[RowCol(row: piece.row, col: piece.col)]!, piece: piece)
+        if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
+            self.refreshPipesForPiece(node, piece: piece)
+        }
     }
     
     func pieceDidRotate(piece: Piece) {

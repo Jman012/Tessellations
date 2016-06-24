@@ -86,16 +86,29 @@ class OctSquareBoard {
         }
     }
     
-    func getPiece(row row: Int, col: Int) -> (pRow: Int, pCol: Int, PieceType, UInt8)? {
+    func getPiece(row row: Int, col: Int) -> Piece? {
         if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col) {
             switch pieceType {
             case .Octagon:
-                return (pRow, pCol, .Octagon, self.octagons[pRow][pCol])
+                return Piece(row: row, col: col, type: .Octagon, pipeBits: self.octagons[pRow][pCol], absLogicalAngle: self.getPieceAngle(row: row, col: col)!)
             case .Square:
-                return (pRow, pCol, .Square, self.squares[pRow][pCol])
+                return Piece(row: row, col: col, type: .Square, pipeBits: self.squares[pRow][pCol], absLogicalAngle: self.getPieceAngle(row: row, col: col)!)
             }
         } else {
-            // Bad logical address
+            print("Bad logical address: row=\(row), col=\(col). Exiting.")
+            return nil
+        }
+    }
+    
+    func getPieceAngle(row row: Int, col: Int) -> UInt? {
+        if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col) {
+            switch pieceType {
+            case .Octagon:
+                return self.logicalOctagonAngles[pRow][pCol]
+            case .Square:
+                return self.logicalSquareAngles[pRow][pCol]
+            }
+        } else {
             print("Bad logical address: row=\(row), col=\(col). Exiting.")
             return nil
         }
@@ -114,7 +127,7 @@ class OctSquareBoard {
             }
             
             if let del = self.delegate {
-                del.pieceDidChange(Piece(row: row, col: col, type: .Square, pipeBits: pipeBits, absLogicalAngle: absLogicalAngle))
+                del.pieceDidChange(Piece(row: row, col: col, type: pieceType, pipeBits: pipeBits, absLogicalAngle: absLogicalAngle))
             }
         } else {
             // Bad logical address
@@ -125,7 +138,7 @@ class OctSquareBoard {
         return true
     }
     
-    func getPieceNSEW(row row: Int, col: Int, direction: Direction) -> (PieceType, UInt8, row: Int, col: Int)? {
+    func getPieceNSEW(row row: Int, col: Int, direction: Direction) -> Piece? {
         var row = row, col = col
         switch direction {
         case .North:
@@ -150,20 +163,16 @@ class OctSquareBoard {
             col = col - 1
         }
         
-        if let (_, _, pieceType, pipeBits) = self.getPiece(row: row, col: col) {
-            return (pieceType, pipeBits, row, col)
-        } else {
-            return nil
-        }
+        return self.getPiece(row: row, col: col)
     }
     
     func setPipeDirection(row row: Int, col: Int, direction: Direction, set: Bool) -> Bool {
-        guard let (_, _, pieceType, pipeBits) = self.getPiece(row: row, col: col) else {
+        guard let piece = self.getPiece(row: row, col: col) else {
             return false
         }
         
         
-        if pieceType == .Square && (direction == .North || direction == .South ||
+        if piece.type == .Square && (direction == .North || direction == .South ||
             direction == .East || direction == .West) {
             print("Trying to set invalid direction for square piece")
             return false
@@ -171,35 +180,34 @@ class OctSquareBoard {
         
         let newPipeBits: UInt8
         if set {
-            newPipeBits = pipeBits | UInt8(1 << direction.rawValue)
+            newPipeBits = piece.pipeBits | UInt8(1 << direction.rawValue)
         } else {
-            newPipeBits = pipeBits & ~UInt8(1 << direction.rawValue)
+            newPipeBits = piece.pipeBits & ~UInt8(1 << direction.rawValue)
         }
         
+        // This will call the delegate for us
         self.setPiecePipeBits(row: row, col: col, pipeBits: newPipeBits)
-        
-        if let del = self.delegate {
-            del.pieceDidChange(Piece(row: row, col: col, type: pieceType, pipeBits: pipeBits, absLogicalAngle: 0))
-        }
         
         return true
     }
     
     func rotatePiece(row row: Int, col: Int) -> Bool {
-        guard let (pRow, pCol, pieceType, pipeBits) = self.getPiece(row: row, col: col) else {
+        guard let piece = self.getPiece(row: row, col: col) else {
             return false
         }
         
-        switch pieceType {
+        let (_, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)!
+        
+        switch piece.type {
         case .Octagon:
             self.logicalOctagonAngles[pRow][pCol] = (self.logicalOctagonAngles[pRow][pCol] + 1) % 8
             if let del = self.delegate {
-                del.pieceDidRotate(Piece(row: row, col: col, type: .Octagon, pipeBits: pipeBits, absLogicalAngle: self.logicalOctagonAngles[pRow][pCol]))
+                del.pieceDidRotate(Piece(row: row, col: col, type: .Octagon, pipeBits: piece.pipeBits, absLogicalAngle: self.logicalOctagonAngles[pRow][pCol]))
             }
         case .Square:
             self.logicalSquareAngles[pRow][pCol] = (self.logicalSquareAngles[pRow][pCol] + 2) % 8
             if let del = self.delegate {
-                del.pieceDidRotate(Piece(row: row, col: col, type: .Square, pipeBits: pipeBits, absLogicalAngle: self.logicalSquareAngles[pRow][pCol]))
+                del.pieceDidRotate(Piece(row: row, col: col, type: .Square, pipeBits: piece.pipeBits, absLogicalAngle: self.logicalSquareAngles[pRow][pCol]))
             }
             
         }
@@ -236,7 +244,11 @@ class OctSquareBoard {
     }
     
     func generateHuntAndKill() {
-        
+        self.setPipeDirection(row: 0, col: 0, direction: .South, set: true)
+        if let del = self.delegate {
+            let piece = self.getPiece(row: 0, col: 0)!
+            del.pieceDidChange(piece)
+        }
     }
     
 }
