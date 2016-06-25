@@ -216,7 +216,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            node.runAction(SKAction.rotateToAngle(-CGFloat(M_PI_4) * CGFloat(piece.absLogicalAngle), duration: 0.5, shortestUnitArc: true))
+            node.runAction(SKAction.rotateToAngle(-CGFloat(M_PI_4) * CGFloat(piece.absLogicalAngle), duration: 0, shortestUnitArc: true))
         }
     }
 }

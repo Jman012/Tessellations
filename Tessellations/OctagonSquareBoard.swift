@@ -305,8 +305,8 @@ extension OctSquareBoard {
                 hakCol = neighbor.col
                 print("    Now, r=\(hakRow),c=\(hakCol)")
                 
-//                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.3)
-                self.generateHuntAndKill()
+                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
+//                self.generateHuntAndKill()
 
             } else if let (row, col) = hunt() {
                 print("No neighbors, hunted new target: r=\(row),c=\(col)")
@@ -319,7 +319,7 @@ extension OctSquareBoard {
                 
                 hakRow = row
                 hakCol = col
-                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 1.0)
+                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.5)
             } else {
                 print("On r=\(hakRow),c=\(hakCol). No neighbors. Hunt failed. Stopping.")
                 hakRunning = false

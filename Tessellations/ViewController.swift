@@ -21,6 +21,10 @@ class ViewController: UIViewController {
         self.scene = GameBoardScene(size: CGSize(width: 1000, height: 1000))
         self.scene.scaleMode = .AspectFit
         
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.showsDrawCount = true
+        self.sceneView.showsNodeCount = true
         self.sceneView.presentScene(self.scene)
     }
 
