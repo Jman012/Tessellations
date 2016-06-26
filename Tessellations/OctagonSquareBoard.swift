@@ -27,6 +27,10 @@ enum PipeDir: UInt {
         return PipeDir(rawValue: (self.rawValue + 4) % 8)!
     }
     
+    func withOffsetAngle(angle: Int) -> PipeDir {
+        return PipeDir(rawValue: UInt((Int(self.rawValue) + angle + 8) % 8))!
+    }
+    
     func withOffsetAngle(angle: UInt) -> PipeDir {
         return PipeDir(rawValue: (self.rawValue + angle) % 8)!
     }
@@ -40,10 +44,10 @@ enum PipeState: UInt {
 }
 
 extension UInt16 {
-    func forEachPipeState(callback: (pipeDir: PipeDir, status: PipeState) -> Void) {
+    func forEachPipeState(callback: (pipeDir: PipeDir, state: PipeState) -> Void) {
         var copy = self
         for num: UInt in 0..<8 {
-            callback(pipeDir: PipeDir(rawValue: num)!, status: PipeState(rawValue: UInt(copy & 0b11))!)
+            callback(pipeDir: PipeDir(rawValue: num)!, state: PipeState(rawValue: UInt(copy & 0b11))!)
             copy = copy >> 2
         }
     }
@@ -260,9 +264,9 @@ class OctSquareBoard: NSObject {
         }
         
         let (_, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)!
-        
         // Before the rotation, disable the pipe tree following any branches
         self.disablePipesFrom(row: row, col: col)
+        
         
         switch piece.type {
         case .Octagon:
@@ -275,8 +279,11 @@ class OctSquareBoard: NSObject {
             if let del = self.delegate {
                 del.pieceDidRotate(Piece(row: row, col: col, type: .Square, pipeBits: piece.pipeBits, absLogicalAngle: self.logicalSquareAngles[pRow][pCol]))
             }
-            
         }
+        
+        
+        // After the rotation, try re-enabling any pipes
+        self.enablePipesFrom(row: row, col: col)
         
         return true
     }
@@ -286,14 +293,71 @@ class OctSquareBoard: NSObject {
             piece.pipeBits.forEachPipeState {
                 pipeDir, state in
                 
-                if state == .Source || state == .Branch {
+                if (state == .Source || state == .Branch) && !(row == self.sourceRow && col == self.sourceCol) {
                     self.setPipeDirection(row: row, col: col, pipeDir: pipeDir, state: .Disabled)
                 }
                 
                 if state == .Branch {
                     if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
-                    where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(adjPiece.absLogicalAngle).opposite()) == .Source {
+                        where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle))) == .Source {
                         self.disablePipesFrom(row: adjPiece.row, col: adjPiece.col)
+                    }
+                }
+            }
+        }
+    }
+    
+    func enablePipesFrom(row row: Int, col: Int) {
+        if let piece = self.getPiece(row: row, col: col) {
+            
+            var sourcePresent = false
+            
+            // Find any Sources after the rotation
+            piece.pipeBits.forEachPipeState {
+                pipeDir, state in
+                
+                if piece.pipeBits.pipeStateForPipeDir(pipeDir) == .Disabled {
+                    if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
+                        where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle))) == .Branch {
+                        
+                        // If a Disabled pipe is touching an adjacent Branch pipe,
+                        // then turn our Disabled to a Source
+                        
+                        sourcePresent = true
+                        
+                        self.setPipeDirection(row: piece.row, col: piece.col, pipeDir: pipeDir, state: .Source)
+                    }
+                }
+            }
+            
+            
+            // Get new pipe bits
+            let piece = self.getPiece(row: row, col: col)!
+            // If we have sources, set the Disabled ones to Branches
+            guard sourcePresent else {
+                if row == self.sourceRow && col == self.sourceCol {
+                    piece.pipeBits.forEachPipeState {
+                        pipeDir, state in
+                        
+                        // Source piece, find our branches and recur from there
+                        if state == .Branch {
+                            if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
+                                self.enablePipesFrom(row: adjPiece.row, col: adjPiece.col)
+                            }
+                        }
+                    }
+                }
+                return
+            }
+            
+            piece.pipeBits.forEachPipeState {
+                pipeDir, state in
+                
+                if state == .Disabled {
+                    self.setPipeDirection(row: piece.row, col: piece.col, pipeDir: pipeDir, state: .Branch)
+                    
+                    if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
+                        self.enablePipesFrom(row: adjPiece.row, col: adjPiece.col)
                     }
                 }
             }
