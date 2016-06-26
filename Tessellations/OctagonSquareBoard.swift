@@ -28,6 +28,27 @@ enum Direction: UInt {
     }
 }
 
+enum PipeStatus: UInt {
+    case None   = 0
+    case Off    = 1
+    case Source = 2
+    case Branch = 3
+}
+
+extension UInt16 {
+    func forEachPipeStatus(callback: (direction: Direction, status: PipeStatus) -> Void) {
+        var copy = self
+        for num: UInt in 0..<8 {
+            callback(direction: Direction(rawValue: num)!, status: PipeStatus(rawValue: UInt(copy & 0b11))!)
+            copy = copy >> 2
+        }
+    }
+    
+    func pipeStatusForDirection(direction: Direction) -> PipeStatus {
+        return PipeStatus(rawValue: UInt((self >> UInt16(direction.rawValue * 2)) & 0b11))!
+    }
+}
+
 protocol OctSquareBoardProtocol {
     func pieceDidChange(piece: Piece)
     func pieceDidRotate(piece: Piece)
@@ -38,7 +59,7 @@ struct Piece {
     var row: Int
     var col: Int
     var type: PieceType
-    var pipeBits: UInt8
+    var pipeBits: UInt16
     var absLogicalAngle: UInt
 }
 
@@ -47,11 +68,25 @@ class OctSquareBoard: NSObject {
     private var octWidth: UInt
     private var octHeight: UInt
     
+    // These two hold the bit masks for where or not there's a pipe
+    // in a Direction. Squares ignore the NSEW.
+    // UInt16, 2 bits per direction.
+    // PipeStatus:
+    // 00 = None, there is no pipe
+    // 01 = Off, there is a pipe, but it's off
+    // 10 = Source, this pipe is on from another shape
+    // 11 = Branch, this pipe is one from a pipe within the shape,
+    //      and delivers to outside shapes
+    private var octagons: [[UInt16]] = []
+    private var squares: [[UInt16]] = []
     
-    private var octagons: [[UInt8]]
-    private var squares: [[UInt8]]
-    private var logicalOctagonAngles: [[UInt]]
-    private var logicalSquareAngles: [[UInt]]
+    // Which piece is the main source
+    private var sourceRow: Int = 0
+    private var sourceCol: Int = 0
+    
+    
+    private var logicalOctagonAngles: [[UInt]] = []
+    private var logicalSquareAngles: [[UInt]] = []
     var delegate: OctSquareBoardProtocol?
     
     init(octagonsWide octWidth: UInt, octagonsTall octHeight: UInt) {
@@ -63,9 +98,15 @@ class OctSquareBoard: NSObject {
         self.octWidth = octWidth
         self.octHeight = octHeight
         
+        super.init()
+        
+        self.initPieces()
+    }
+    
+    func initPieces() {
         // Initialize the two tables of pieces, squares being one less in both directions
-        octagons = Array<Array<UInt8>>(count: Int(octHeight), repeatedValue: Array<UInt8>(count: Int(octWidth), repeatedValue: 0))
-        squares = Array<Array<UInt8>>(count: Int(octHeight - 1), repeatedValue: Array<UInt8>(count: Int(octWidth - 1), repeatedValue: 0))
+        octagons = Array<Array<UInt16>>(count: Int(octHeight), repeatedValue: Array<UInt16>(count: Int(octWidth), repeatedValue: 0))
+        squares = Array<Array<UInt16>>(count: Int(octHeight - 1), repeatedValue: Array<UInt16>(count: Int(octWidth - 1), repeatedValue: 0))
         
         logicalOctagonAngles = Array<Array<UInt>>(count: Int(octHeight), repeatedValue: Array<UInt>(count: Int(octWidth), repeatedValue: 0))
         logicalSquareAngles = Array<Array<UInt>>(count: Int(octHeight - 1), repeatedValue: Array<UInt>(count: Int(octWidth - 1), repeatedValue: 0))
@@ -129,7 +170,7 @@ class OctSquareBoard: NSObject {
         }
     }
     
-    func setPiecePipeBits(row row: Int, col: Int, pipeBits: UInt8) -> Bool {
+    func setPiecePipeBits(row row: Int, col: Int, pipeBits: UInt16) -> Bool {
         if let (pieceType, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)
             where self.pRowColIsLegalOfType(pieceType, pRow: pRow, pCol: pCol) {
             
@@ -183,7 +224,7 @@ class OctSquareBoard: NSObject {
         return self.getPiece(row: row, col: col)
     }
     
-    func setPipeDirection(row row: Int, col: Int, direction: Direction, set: Bool) -> Bool {
+    func setPipeDirection(row row: Int, col: Int, direction: Direction, status: PipeStatus) -> Bool {
         guard let piece = self.getPiece(row: row, col: col) else {
             return false
         }
@@ -195,12 +236,12 @@ class OctSquareBoard: NSObject {
             return false
         }
         
-        let newPipeBits: UInt8
-        if set {
-            newPipeBits = piece.pipeBits | UInt8(1 << direction.rawValue)
-        } else {
-            newPipeBits = piece.pipeBits & ~UInt8(1 << direction.rawValue)
-        }
+        var newPipeBits: UInt16
+        // Clear first
+        newPipeBits = piece.pipeBits & ~UInt16(0b11 << (direction.rawValue * 2))
+        // Then set
+        newPipeBits = newPipeBits | UInt16(status.rawValue << (direction.rawValue * 2))
+        
         
         // This will call the delegate for us
         self.setPiecePipeBits(row: row, col: col, pipeBits: newPipeBits)
@@ -214,6 +255,9 @@ class OctSquareBoard: NSObject {
         }
         
         let (_, pRow, pCol) = self.logicalRowColToPhysical(row: row, col: col)!
+        
+        // Before the rotation, disable the pipe tree following any branches
+        self.disablePipesFrom(row: row, col: col)
         
         switch piece.type {
         case .Octagon:
@@ -230,6 +274,25 @@ class OctSquareBoard: NSObject {
         }
         
         return true
+    }
+    
+    func disablePipesFrom(row row: Int, col: Int) {
+        if let piece = self.getPiece(row: row, col: col) {
+            piece.pipeBits.forEachPipeStatus {
+                direction, status in
+                
+                if status == .Source || status == .Branch {
+                    self.setPipeDirection(row: row, col: col, direction: direction, status: .Off)
+                }
+                
+                if status == .Branch {
+                    if let adjPiece = self.getPieceNSEW(row: row, col: col, direction: direction)
+                    where adjPiece.pipeBits.pipeStatusForDirection(direction.opposite()) == .Source {
+                        self.disablePipesFrom(row: adjPiece.row, col: adjPiece.col)
+                    }
+                }
+            }
+        }
     }
     
     func forAllPieces(callback: (piece: Piece) -> Void) {
@@ -249,11 +312,7 @@ class OctSquareBoard: NSObject {
     }
     
     func clearBoard() {
-        octagons = Array<Array<UInt8>>(count: Int(self.octHeight), repeatedValue: Array<UInt8>(count: Int(self.octWidth), repeatedValue: 0))
-        squares = Array<Array<UInt8>>(count: Int(self.octHeight - 1), repeatedValue: Array<UInt8>(count: Int(self.octWidth - 1), repeatedValue: 0))
-        
-        logicalOctagonAngles = Array<Array<UInt>>(count: Int(self.octHeight), repeatedValue: Array<UInt>(count: Int(self.octWidth), repeatedValue: 0))
-        logicalSquareAngles = Array<Array<UInt>>(count: Int(self.octHeight - 1), repeatedValue: Array<UInt>(count: Int(self.octWidth - 1), repeatedValue: 0))
+        self.initPieces()
         
         if let del = self.delegate {
             del.boardDidClear()
@@ -298,15 +357,14 @@ extension OctSquareBoard {
                 let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, direction: neighborDir)!
                 print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
                 
-                self.setPipeDirection(row: hakRow, col: hakCol, direction: neighborDir, set: true)
-                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), set: true)
+                self.setPipeDirection(row: hakRow, col: hakCol, direction: neighborDir, status: .Branch)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), status: .Source)
                 
                 hakRow = neighbor.row
                 hakCol = neighbor.col
                 print("    Now, r=\(hakRow),c=\(hakCol)")
                 
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
-//                self.generateHuntAndKill()
 
             } else if let (row, col) = hunt() {
                 print("No neighbors, hunted new target: r=\(row),c=\(col)")
@@ -314,8 +372,8 @@ extension OctSquareBoard {
                 let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
                 let neighbor = self.getPieceNSEW(row: row, col: col, direction: neighborDir)!
                 
-                self.setPipeDirection(row: row, col: col, direction: neighborDir, set: true)
-                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), set: true)
+                self.setPipeDirection(row: row, col: col, direction: neighborDir, status: .Source)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), status: .Branch)
                 
                 hakRow = row
                 hakCol = col

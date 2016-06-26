@@ -136,10 +136,10 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {
         node.removeAllChildren()
         
-        piece.pipeBits.forEachBit {
-            (bit, flag) in
+        piece.pipeBits.forEachPipeStatus {
+            (direction, status) in
             
-            guard flag else {
+            guard status != .None else {
                 return
             }
             
@@ -151,10 +151,20 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             }
             
             let pipe = SKShapeNode(path: path)
-            pipe.fillColor = UIColor.greenColor()
+            switch status {
+            case .Off:
+                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 1.0)
+                
+            case .Source:
+                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 1.0, blue: 0, alpha: 1.0)
+            case .Branch:
+                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0.6, blue: 0, alpha: 1.0)
+                
+            default: break
+            }
             pipe.strokeColor = UIColor.clearColor()
-            pipe.name = "Pipe \(bit) \(piece.row) \(piece.col)"
-            pipe.runAction(SKAction.rotateByAngle(-CGFloat(bit) * CGFloat(M_PI_4), duration: 0))
+            pipe.name = "Pipe \(direction.rawValue) \(piece.row) \(piece.col)"
+            pipe.runAction(SKAction.rotateByAngle(-CGFloat(direction.rawValue) * CGFloat(M_PI_4), duration: 0))
             node.addChild(pipe)
         }
     }

@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.scene = GameBoardScene(size: CGSize(width: 1000, height: 1000))
+        self.scene = GameBoardScene(size: CGSize(width: self.view.frame.width, height: self.view.frame.width))
         self.scene.scaleMode = .AspectFit
         
         self.sceneView.frameInterval = 4
