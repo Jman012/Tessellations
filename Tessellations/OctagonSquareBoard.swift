@@ -26,6 +26,10 @@ enum PipeDir: UInt {
     func opposite() -> PipeDir {
         return PipeDir(rawValue: (self.rawValue + 4) % 8)!
     }
+    
+    func withOffsetAngle(angle: UInt) -> PipeDir {
+        return PipeDir(rawValue: (self.rawValue + angle) % 8)!
+    }
 }
 
 enum PipeState: UInt {
@@ -287,8 +291,8 @@ class OctSquareBoard: NSObject {
                 }
                 
                 if state == .Branch {
-                    if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir)
-                    where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.opposite()) == .Source {
+                    if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
+                    where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(adjPiece.absLogicalAngle).opposite()) == .Source {
                         self.disablePipesFrom(row: adjPiece.row, col: adjPiece.col)
                     }
                 }
