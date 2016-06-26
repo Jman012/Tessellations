@@ -13,7 +13,7 @@ enum PieceType {
     case Square
 }
 
-enum Direction: UInt {
+enum PipeDir: UInt {
     case North     = 0
     case NorthEast = 1
     case East      = 2
@@ -23,29 +23,29 @@ enum Direction: UInt {
     case West      = 6
     case NorthWest = 7
     
-    func opposite() -> Direction {
-        return Direction(rawValue: (self.rawValue + 4) % 8)!
+    func opposite() -> PipeDir {
+        return PipeDir(rawValue: (self.rawValue + 4) % 8)!
     }
 }
 
-enum PipeStatus: UInt {
-    case None   = 0
-    case Off    = 1
-    case Source = 2
-    case Branch = 3
+enum PipeState: UInt {
+    case None     = 0
+    case Disabled = 1
+    case Source   = 2
+    case Branch   = 3
 }
 
 extension UInt16 {
-    func forEachPipeStatus(callback: (direction: Direction, status: PipeStatus) -> Void) {
+    func forEachPipeState(callback: (pipeDir: PipeDir, status: PipeState) -> Void) {
         var copy = self
         for num: UInt in 0..<8 {
-            callback(direction: Direction(rawValue: num)!, status: PipeStatus(rawValue: UInt(copy & 0b11))!)
+            callback(pipeDir: PipeDir(rawValue: num)!, status: PipeState(rawValue: UInt(copy & 0b11))!)
             copy = copy >> 2
         }
     }
     
-    func pipeStatusForDirection(direction: Direction) -> PipeStatus {
-        return PipeStatus(rawValue: UInt((self >> UInt16(direction.rawValue * 2)) & 0b11))!
+    func pipeStateForPipeDir(pipeDir: PipeDir) -> PipeState {
+        return PipeState(rawValue: UInt((self >> UInt16(pipeDir.rawValue * 2)) & 0b11))!
     }
 }
 
@@ -69,9 +69,9 @@ class OctSquareBoard: NSObject {
     private var octHeight: UInt
     
     // These two hold the bit masks for where or not there's a pipe
-    // in a Direction. Squares ignore the NSEW.
-    // UInt16, 2 bits per direction.
-    // PipeStatus:
+    // in a direction. Squares ignore the NSEW.
+    // UInt16, 2 bits per PipeDir.
+    // PipeState:
     // 00 = None, there is no pipe
     // 01 = Off, there is a pipe, but it's off
     // 10 = Source, this pipe is on from another shape
@@ -196,9 +196,9 @@ class OctSquareBoard: NSObject {
         return true
     }
     
-    func getPieceNSEW(row row: Int, col: Int, direction: Direction) -> Piece? {
+    func getPieceNSEW(row row: Int, col: Int, pipeDir: PipeDir) -> Piece? {
         var row = row, col = col
-        switch direction {
+        switch pipeDir {
         case .North:
             row = row - 2
         case .South:
@@ -224,23 +224,24 @@ class OctSquareBoard: NSObject {
         return self.getPiece(row: row, col: col)
     }
     
-    func setPipeDirection(row row: Int, col: Int, direction: Direction, status: PipeStatus) -> Bool {
+    func setPipeDirection(row row: Int, col: Int, pipeDir: PipeDir, state: PipeState) -> Bool {
         guard let piece = self.getPiece(row: row, col: col) else {
             return false
         }
         
         
-        if piece.type == .Square && (direction == .North || direction == .South ||
-            direction == .East || direction == .West) {
-            print("Trying to set invalid direction for square piece")
+        if piece.type == .Square &&
+            (pipeDir == .North || pipeDir == .South ||
+            pipeDir == .East || pipeDir == .West) {
+            print("Trying to set invalid PipeDir for square piece")
             return false
         }
         
         var newPipeBits: UInt16
         // Clear first
-        newPipeBits = piece.pipeBits & ~UInt16(0b11 << (direction.rawValue * 2))
+        newPipeBits = piece.pipeBits & ~UInt16(0b11 << (pipeDir.rawValue * 2))
         // Then set
-        newPipeBits = newPipeBits | UInt16(status.rawValue << (direction.rawValue * 2))
+        newPipeBits = newPipeBits | UInt16(state.rawValue << (pipeDir.rawValue * 2))
         
         
         // This will call the delegate for us
@@ -278,16 +279,16 @@ class OctSquareBoard: NSObject {
     
     func disablePipesFrom(row row: Int, col: Int) {
         if let piece = self.getPiece(row: row, col: col) {
-            piece.pipeBits.forEachPipeStatus {
-                direction, status in
+            piece.pipeBits.forEachPipeState {
+                pipeDir, state in
                 
-                if status == .Source || status == .Branch {
-                    self.setPipeDirection(row: row, col: col, direction: direction, status: .Off)
+                if state == .Source || state == .Branch {
+                    self.setPipeDirection(row: row, col: col, pipeDir: pipeDir, state: .Disabled)
                 }
                 
-                if status == .Branch {
-                    if let adjPiece = self.getPieceNSEW(row: row, col: col, direction: direction)
-                    where adjPiece.pipeBits.pipeStatusForDirection(direction.opposite()) == .Source {
+                if state == .Branch {
+                    if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir)
+                    where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.opposite()) == .Source {
                         self.disablePipesFrom(row: adjPiece.row, col: adjPiece.col)
                     }
                 }
@@ -354,11 +355,11 @@ extension OctSquareBoard {
             
             if neighbors.count > 0 {
                 let neighborDir = neighbors.randomItem()
-                let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, direction: neighborDir)!
+                let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, pipeDir: neighborDir)!
                 print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
                 
-                self.setPipeDirection(row: hakRow, col: hakCol, direction: neighborDir, status: .Branch)
-                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), status: .Source)
+                self.setPipeDirection(row: hakRow, col: hakCol, pipeDir: neighborDir, state: .Branch)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Source)
                 
                 hakRow = neighbor.row
                 hakCol = neighbor.col
@@ -370,10 +371,10 @@ extension OctSquareBoard {
                 print("No neighbors, hunted new target: r=\(row),c=\(col)")
                 
                 let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
-                let neighbor = self.getPieceNSEW(row: row, col: col, direction: neighborDir)!
+                let neighbor = self.getPieceNSEW(row: row, col: col, pipeDir: neighborDir)!
                 
-                self.setPipeDirection(row: row, col: col, direction: neighborDir, status: .Source)
-                self.setPipeDirection(row: neighbor.row, col: neighbor.col, direction: neighborDir.opposite(), status: .Branch)
+                self.setPipeDirection(row: row, col: col, pipeDir: neighborDir, state: .Source)
+                self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Branch)
                 
                 hakRow = row
                 hakCol = col
@@ -390,16 +391,16 @@ extension OctSquareBoard {
         }
     }
     
-    func adjacentNeighbors(row row: Int, col: Int) -> [Direction] {
+    func adjacentNeighbors(row row: Int, col: Int) -> [PipeDir] {
         let piece = self.getPiece(row: row, col: col)
-        let dirs: [Direction]
+        let dirs: [PipeDir]
         if piece?.type == .Square {
             dirs = [.NorthEast, .NorthWest, .SouthEast, .SouthWest]
         } else {
             dirs = [.North, .NorthEast, .NorthWest, .South, .SouthEast, .SouthWest, .East, .West]
         }
         return dirs.filter {
-            if let piece = self.getPieceNSEW(row: row, col: col, direction: $0) {
+            if let piece = self.getPieceNSEW(row: row, col: col, pipeDir: $0) {
                 return piece.pipeBits > 0
             } else {
                 return false
@@ -408,16 +409,16 @@ extension OctSquareBoard {
 
     }
     
-    func freeNeighbors(row row: Int, col: Int) -> [Direction] {
+    func freeNeighbors(row row: Int, col: Int) -> [PipeDir] {
         let piece = self.getPiece(row: row, col: col)
-        let dirs: [Direction]
+        let dirs: [PipeDir]
         if piece?.type == .Square {
             dirs = [.NorthEast, .NorthWest, .SouthEast, .SouthWest]
         } else {
             dirs = [.North, .NorthEast, .NorthWest, .South, .SouthEast, .SouthWest, .East, .West]
         }
         return dirs.filter {
-            if let piece = self.getPieceNSEW(row: row, col: col, direction: $0) {
+            if let piece = self.getPieceNSEW(row: row, col: col, pipeDir: $0) {
                 return piece.pipeBits == 0
             } else {
                 return false
