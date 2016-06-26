@@ -153,13 +153,12 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             let pipe = SKShapeNode(path: path)
             switch status {
             case .Disabled:
-                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 1.0)
+                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0.7, blue: 0, alpha: 1.0)
                 
+            case .Branch: fallthrough
             case .Source:
                 pipe.fillColor = UIColor(colorLiteralRed: 0, green: 1.0, blue: 0, alpha: 1.0)
-            case .Branch:
-                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0.6, blue: 0, alpha: 1.0)
-                
+                            
             default: break
             }
             pipe.strokeColor = UIColor.clearColor()
