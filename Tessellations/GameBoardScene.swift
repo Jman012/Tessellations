@@ -9,6 +9,13 @@
 import UIKit
 import SpriteKit
 
+let bgColor =        UIColor.whiteColor()
+let baseColor =      UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+let secondaryColor = UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+let strokeColor =    UIColor.clearColor()
+let pipeOnColor =    UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
+let pipeOffColor =   UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
+
 class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     let octagonsWide = 5
@@ -19,10 +26,10 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     let squareWidth: CGFloat
     let pipeWidth: CGFloat
     
-    let octPath: CGMutablePath
-    let squarePath: CGPath
+    var octPath: CGMutablePath
+    var squarePath: CGPath
     
-    let octPipePath: CGMutablePath
+    var octPipePath: CGMutablePath
     var squarePipePath: CGMutablePath
     let rotateActionOct = SKAction.rotateByAngle(CGFloat(-M_PI_4), duration: 0)
     let rotateActionSquare = SKAction.rotateByAngle(CGFloat(-M_PI_2), duration: 0)
@@ -36,7 +43,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         self.octagonDiameter = size.width / CGFloat(self.octagonsWide * 2)
         self.adjustedDiameter = octagonDiameter + (octagonDiameter * CGFloat(cos(0.degrees)) - octagonDiameter * CGFloat(cos(22.5.degrees)))
         self.squareWidth = adjustedDiameter * CGFloat(sin((45/2).degrees) * 2)
-        self.pipeWidth = squareWidth / 3
+        self.pipeWidth = squareWidth / 2.5
         
         self.octPath = CGPathCreateMutable()
         var angle = 45.0 / 2
@@ -46,16 +53,21 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             CGPathAddLineToPoint(self.octPath, nil, self.adjustedDiameter * CGFloat(cos(angle.degrees)), self.adjustedDiameter * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(self.octPath)
+        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
+        self.octPath = CGPathCreateMutableCopyByTransformingPath(self.octPath, &transformScale)!
         
         var transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
         self.squarePath = CGPathCreateWithRect(CGRectMake(-self.squareWidth / 2, -self.squareWidth / 2, self.squareWidth, self.squareWidth), &transform)
+        self.squarePath = CGPathCreateMutableCopyByTransformingPath(self.squarePath, &transformScale)!
         
         self.octPipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (self.octPipePath, nil, self.pipeWidth * (-1/2), self.octagonDiameter)
-        CGPathAddLineToPoint(self.octPipePath, nil, self.pipeWidth * (1/2), self.octagonDiameter)
+        CGPathMoveToPoint   (self.octPipePath, nil, self.pipeWidth * (-1/2), self.octagonDiameter - 0.5)
+        CGPathAddLineToPoint(self.octPipePath, nil, self.pipeWidth * (1/2), self.octagonDiameter - 0.5)
         CGPathAddLineToPoint(self.octPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (self.octPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (self.octPipePath)
+        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
+        self.octPipePath = CGPathCreateMutableCopyByTransformingPath(self.octPipePath, &transformScale)!
         
         self.squarePipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (self.squarePipePath, nil, self.pipeWidth * (-1/2), self.squareWidth / 2)
@@ -63,6 +75,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         CGPathAddLineToPoint(self.squarePipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (self.squarePipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (self.squarePipePath)
+        self.squarePipePath = CGPathCreateMutableCopyByTransformingPath(self.squarePipePath, &transformScale)!
+
         
         
         self.logicalBoard = OctSquareBoard(octagonsWide: UInt(self.octagonsWide), octagonsTall: UInt(self.octagonsTall))
@@ -94,6 +108,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         
+        self.backgroundColor = bgColor
+        
         self.logicalBoard.forAllPieces {
             // TODO: Change to Piece()
             (piece: Piece) in
@@ -101,27 +117,27 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             // To reduce repetition below
             let (row, col) = (piece.row, piece.col)
             
-            print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
+//            print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
             let node: SKShapeNode
             switch piece.type {
             case .Octagon:
                 let octagon = SKShapeNode(path: self.octPath)
                 octagon.position = self.rowColToPoint(row: row, col: col)
-                octagon.fillColor = UIColor.brownColor()
-                octagon.strokeColor = UIColor.whiteColor()
+                octagon.fillColor = baseColor
                 octagon.name = "Octagon \(row) \(col)"
                 node = octagon
                 
             case .Square:
                 let square = SKShapeNode(path: self.squarePath)
                 square.position = self.rowColToPoint(row: row, col: col)
-                square.fillColor = UIColor.redColor()
-                square.strokeColor = UIColor.whiteColor()
+                square.fillColor = secondaryColor
                 square.name = "Square \(row) \(col)"
                 
                 node = square
             }
             
+            node.strokeColor = strokeColor
+            node.lineWidth = 0.0
             node.userData = NSMutableDictionary()
             node.userData!["row"] = row
             node.userData!["col"] = col
@@ -153,12 +169,12 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             let pipe = SKShapeNode(path: path)
             switch status {
             case .Disabled:
-                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 0.7, blue: 0, alpha: 1.0)
+                pipe.fillColor = pipeOffColor
                 
             case .Branch: fallthrough
             case .Source:
-                pipe.fillColor = UIColor(colorLiteralRed: 0, green: 1.0, blue: 0, alpha: 1.0)
-                            
+                pipe.fillColor = pipeOnColor
+                
             default: break
             }
             pipe.strokeColor = UIColor.clearColor()
@@ -204,7 +220,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             let row = node.userData!["row"] as! Int
             let col = node.userData!["col"] as! Int
             
-            print("Touched at r=\(row), c=\(col)")
+//            print("Touched at r=\(row), c=\(col)")
             self.logicalBoard.rotatePiece(row: row, col: col)
         }
     }

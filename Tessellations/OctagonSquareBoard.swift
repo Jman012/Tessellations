@@ -410,7 +410,7 @@ extension OctSquareBoard {
     func generateHuntAndKill() {
         // Reset and start algorithm
         if hakRunning == false {
-            print("Starting Hunt and Kill")
+//            print("Starting Hunt and Kill")
             self.clearBoard()
             hakRow = 0
             hakCol = 0
@@ -424,19 +424,19 @@ extension OctSquareBoard {
             if neighbors.count > 0 {
                 let neighborDir = neighbors.randomItem()
                 let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, pipeDir: neighborDir)!
-                print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
+//                print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
                 
                 self.setPipeDirection(row: hakRow, col: hakCol, pipeDir: neighborDir, state: .Branch)
                 self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Source)
                 
                 hakRow = neighbor.row
                 hakCol = neighbor.col
-                print("    Now, r=\(hakRow),c=\(hakCol)")
+//                print("    Now, r=\(hakRow),c=\(hakCol)")
                 
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
 
             } else if let (row, col) = hunt() {
-                print("No neighbors, hunted new target: r=\(row),c=\(col)")
+//                print("No neighbors, hunted new target: r=\(row),c=\(col)")
                 
                 let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
                 let neighbor = self.getPieceNSEW(row: row, col: col, pipeDir: neighborDir)!
@@ -448,7 +448,7 @@ extension OctSquareBoard {
                 hakCol = col
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.5)
             } else {
-                print("On r=\(hakRow),c=\(hakCol). No neighbors. Hunt failed. Stopping.")
+//                print("On r=\(hakRow),c=\(hakCol). No neighbors. Hunt failed. Stopping.")
                 hakRunning = false
             }
 
