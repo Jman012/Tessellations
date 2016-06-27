@@ -399,9 +399,21 @@ class OctSquareBoard: NSObject {
         }
     }
     
-    var hakRow: Int = 0
-    var hakCol: Int = 0
-    var hakRunning: Bool = false
+    func randomPiece() -> Piece {
+        var row = random() % Int(self.octHeight * 2)
+        var col = random() % Int(self.octWidth * 2)
+        while row % 2 != col % 2 {
+            row = random() % Int(self.octHeight * 2)
+            col = random() % Int(self.octWidth * 2)
+        }
+        
+        return self.getPiece(row: row, col: col)!
+    }
+    
+    // Maze generaton variables
+    var mazeRow: Int = 0
+    var mazeCol: Int = 0
+    var mazeRunning: Bool = false
 }
 
 extension OctSquareBoard {
@@ -409,29 +421,32 @@ extension OctSquareBoard {
     
     func generateHuntAndKill() {
         // Reset and start algorithm
-        if hakRunning == false {
+        if mazeRunning == false {
 //            print("Starting Hunt and Kill")
             self.clearBoard()
-            hakRow = 0
-            hakCol = 0
-            hakRunning = true
+            let randomPiece = self.randomPiece()
+            mazeRow = randomPiece.row
+            mazeCol = randomPiece.col
+            self.sourceRow = mazeRow
+            self.sourceCol = mazeCol
+            mazeRunning = true
         }
         
-        if let _ = self.getPiece(row: hakRow, col: hakCol) where hakRunning == true {
+        if let _ = self.getPiece(row: mazeRow, col: mazeCol) where mazeRunning == true {
             // Run the algorithm
-            let neighbors = self.freeNeighbors(row: hakRow, col: hakCol)
+            let neighbors = self.freeNeighbors(row: mazeRow, col: mazeCol)
             
             if neighbors.count > 0 {
                 let neighborDir = neighbors.randomItem()
-                let neighbor = self.getPieceNSEW(row: hakRow, col: hakCol, pipeDir: neighborDir)!
-//                print("On r=\(hakRow),c=\(hakCol). Going \(neighborDir.rawValue)")
+                let neighbor = self.getPieceNSEW(row: mazeRow, col: mazeCol, pipeDir: neighborDir)!
+//                print("On r=\(mazeRow),c=\(mazeCol). Going \(neighborDir.rawValue)")
                 
-                self.setPipeDirection(row: hakRow, col: hakCol, pipeDir: neighborDir, state: .Branch)
+                self.setPipeDirection(row: mazeRow, col: mazeCol, pipeDir: neighborDir, state: .Branch)
                 self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Source)
                 
-                hakRow = neighbor.row
-                hakCol = neighbor.col
-//                print("    Now, r=\(hakRow),c=\(hakCol)")
+                mazeRow = neighbor.row
+                mazeCol = neighbor.col
+//                print("    Now, r=\(mazeRow),c=\(mazeCol)")
                 
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
 
@@ -444,18 +459,18 @@ extension OctSquareBoard {
                 self.setPipeDirection(row: row, col: col, pipeDir: neighborDir, state: .Source)
                 self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Branch)
                 
-                hakRow = row
-                hakCol = col
-                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.5)
+                mazeRow = row
+                mazeCol = col
+                self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
             } else {
-//                print("On r=\(hakRow),c=\(hakCol). No neighbors. Hunt failed. Stopping.")
-                hakRunning = false
+//                print("On r=\(mazeRow),c=\(mazeCol). No neighbors. Hunt failed. Stopping.")
+                mazeRunning = false
             }
 
         } else {
             // Stop the algorithm
             print("Error")
-            hakRunning = false
+            mazeRunning = false
         }
     }
     
@@ -512,6 +527,6 @@ extension OctSquareBoard {
             return nil
         }
     }
-    
+
 }
 

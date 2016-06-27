@@ -26,8 +26,6 @@ struct RowCol: Hashable, Equatable {
             return row.hashValue &* 31 &+ col.hashValue
         }
     }
-    
-    
 }
 
 func ==(lhs: RowCol, rhs: RowCol) -> Bool {
