@@ -35,10 +35,14 @@ class ViewController: UIViewController {
 
     
     @IBAction func toolbarOneDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.generateHuntAndKill()
+        self.scene.logicalBoard.generateKruskal()
     }
     
     @IBAction func toolbarTwoDidTouch(sender: UIBarButtonItem) {
+        self.scene.logicalBoard.generateHuntAndKill()
+    }
+    
+    @IBAction func toolbarThreeDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.randomizeBoard()
     }
 

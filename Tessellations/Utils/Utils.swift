@@ -44,3 +44,41 @@ extension Array {
         return self[index]
     }
 }
+
+class UnionFind {
+    var parent: UnionFind?
+    
+    func addToSet(set: UnionFind) {
+        if self.parent == nil {
+            self.parent = set
+        } else {
+            self.parent?.addToSet(set)
+        }
+    }
+    
+    func root() -> UnionFind {
+        if self.parent == nil {
+            return self
+        } else {
+            return self.parent!.root()
+        }
+    }
+    
+    class func areEqualSets(one one: UnionFind, two: UnionFind) -> Bool {
+        return ObjectIdentifier(one.root()) == ObjectIdentifier(two.root())
+    }
+}
+
+extension MutableCollectionType where Index == Int {
+    /// Shuffle the elements of `self` in-place.
+    mutating func shuffleInPlace() {
+        // empty and single-element collections don't shuffle
+        if count < 2 { return }
+        
+        for i in 0..<count - 1 {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            guard i != j else { continue }
+            swap(&self[i], &self[j])
+        }
+    }
+}

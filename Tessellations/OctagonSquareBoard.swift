@@ -414,15 +414,212 @@ class OctSquareBoard: NSObject {
     var mazeRow: Int = 0
     var mazeCol: Int = 0
     var mazeRunning: Bool = false
+    
+    // Kruskal Data Structures
+    var kruOctSets: [[UnionFind]] = []
+    var kruSquareSets: [[UnionFind]] = []
+    var kruEdges: [(RowCol, RowCol)] = []
 }
 
 extension OctSquareBoard {
+    
+    
+    func generateKruskal() {
+        // Reset and start algorithm
+        if mazeRunning == false {
+            self.clearBoard()
+            let randomPiece = self.randomPiece()
+            mazeRow = randomPiece.row
+            mazeCol = randomPiece.col
+            self.sourceRow = mazeRow
+            self.sourceCol = mazeCol
+            
+            for pRow: Int in 0..<Int(octHeight) {
+                kruOctSets.insert([], atIndex: pRow)
+                for pCol: Int in 0..<Int(octWidth) {
+                    let rowCol = RowCol(row: pRow * 2, col: pCol * 2)
+                    kruOctSets[pRow].insert(UnionFind(), atIndex: pCol)
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row, col: rowCol.col+2)))
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col+1)))
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row+2, col: rowCol.col)))
+                    
+                }
+            }
+            for pRow: Int in 0..<Int(octHeight-1) {
+                kruSquareSets.insert([], atIndex: pRow)
+                for pCol: Int in 0..<Int(octWidth-1) {
+                    let rowCol = RowCol(row: (pRow * 2) + 1, col: (pCol * 2) + 1)
+                    kruSquareSets[pRow].insert(UnionFind(), atIndex: pCol)
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row-1, col: rowCol.col+1)))
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col+1)))
+                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col-1)))
+                }
+            }
+            
+            kruEdges.shuffleInPlace()
+            
+            mazeRunning = true
+        }
+        
+        var pipeAdded = false
+        while let (rowCol1, rowCol2) = kruEdges.popLast() {
+            
+            if let _ = self.getPiece(row: rowCol1.row, col: rowCol1.col)
+                , _ = self.getPiece(row: rowCol2.row, col: rowCol2.col)
+                where self.rowColInSameSet(rowCol1, rowCol2: rowCol2) == false {
+                
+                
+                let direction = self.directionBetweenRowCols(rowCol1, rowCol2: rowCol2)!
+
+                self.setPipeDirection(row: rowCol1.row, col: rowCol1.col, pipeDir: direction, state: .Disabled)
+                self.setPipeDirection(row: rowCol2.row, col: rowCol2.col, pipeDir: direction.opposite(), state: .Disabled)
+                
+                self.joinRowColSets(rowCol1, rowCol2: rowCol2)
+                self.performSelector(#selector(self.generateKruskal), withObject: nil, afterDelay: 0.1)
+                pipeAdded = true
+                break
+            } else {
+                continue
+            }
+        }
+        
+        if pipeAdded == false {
+            mazeRunning = false
+            
+            // Set all pipes in the source piece to be branches
+            // then traverse the tree and do the right .Source or .Branch's
+            if let piece = self.getPiece(row: self.sourceRow, col: self.sourceCol) {
+                piece.pipeBits.forEachPipeState {
+                    pipeDir, state in
+                    
+                    guard state == .Disabled else {
+                        return
+                    }
+                    
+                    guard let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: pipeDir) else {
+                        return
+                    }
+                    
+                    self.setPipeDirection(row: piece.row, col: piece.col, pipeDir: pipeDir, state: .Branch)
+                    self.setPipeDirection(row: adjPiece.row, col: adjPiece.col, pipeDir: pipeDir.opposite(), state: .Source)
+                    
+                    self.traverseAndSetPipes(fromRow: adjPiece.row, col: adjPiece.col)
+                }
+            }
+        }
+    }
+    
+    func traverseAndSetPipes(fromRow row: Int, col: Int) {
+        if let piece = self.getPiece(row: row, col: col) {
+            piece.pipeBits.forEachPipeState {
+                pipeDir, state in
+                
+                if state == .Disabled {
+                    guard let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: pipeDir) else {
+                        return
+                    }
+                    
+                    self.setPipeDirection(row: piece.row, col: piece.col, pipeDir: pipeDir, state: .Branch)
+                    self.setPipeDirection(row: adjPiece.row, col: adjPiece.col, pipeDir: pipeDir.opposite(), state: .Source)
+                    
+                    self.traverseAndSetPipes(fromRow: adjPiece.row, col: adjPiece.col)
+                }
+            }
+        }
+    }
+    
+    func joinRowColSets(rowCol1: RowCol, rowCol2: RowCol) {
+        var set1: UnionFind
+        if let (type, pRow, pCol) = self.logicalRowColToPhysical(row: rowCol1.row, col: rowCol1.col)
+            where self.pRowColIsLegalOfType(type, pRow: pRow, pCol: pCol) {
+            switch type {
+            case .Octagon:
+                set1 = kruOctSets[pRow][pCol]
+            case .Square:
+                set1 = kruSquareSets[pRow][pCol]
+            }
+        } else {
+            return
+        }
+        
+        var set2: UnionFind
+        if let (type, pRow, pCol) = self.logicalRowColToPhysical(row: rowCol2.row, col: rowCol2.col)
+            where self.pRowColIsLegalOfType(type, pRow: pRow, pCol: pCol) {
+            switch type {
+            case .Octagon:
+                set2 = kruOctSets[pRow][pCol]
+            case .Square:
+                set2 = kruSquareSets[pRow][pCol]
+            }
+        } else {
+            return
+        }
+        
+        set2.addToSet(set1)
+    }
+    
+    func directionBetweenRowCols(rowCol1: RowCol, rowCol2: RowCol) -> PipeDir? {
+        let dRow = rowCol1.row - rowCol2.row
+        let dCol = rowCol1.col - rowCol2.col
+        
+        if dRow > 0 && dCol == 0 {
+            return .North
+        } else if dRow > 0 && dCol < 0 {
+            return .NorthEast
+        } else if dRow == 0 && dCol < 0 {
+            return .East
+        } else if dRow < 0 && dCol < 0 {
+            return .SouthEast
+        } else if dRow < 0 && dCol == 0 {
+            return .South
+        } else if dRow < 0 && dCol > 0 {
+            return .SouthWest
+        } else if dRow == 0 && dCol > 0 {
+            return .West
+        } else if dRow > 0 && dCol > 0 {
+            return .NorthWest
+        } else {
+            return nil
+        }
+    }
+    
+    func rowColInSameSet(rowCol1: RowCol, rowCol2: RowCol) -> Bool {
+        
+        var set1: UnionFind
+        if let (type, pRow, pCol) = self.logicalRowColToPhysical(row: rowCol1.row, col: rowCol1.col)
+            where self.pRowColIsLegalOfType(type, pRow: pRow, pCol: pCol) {
+            switch type {
+            case .Octagon:
+                set1 = kruOctSets[pRow][pCol]
+            case .Square:
+                set1 = kruSquareSets[pRow][pCol]
+            }
+        } else {
+            return false
+        }
+        
+        var set2: UnionFind
+        if let (type, pRow, pCol) = self.logicalRowColToPhysical(row: rowCol2.row, col: rowCol2.col)
+            where self.pRowColIsLegalOfType(type, pRow: pRow, pCol: pCol) {
+            switch type {
+            case .Octagon:
+                set2 = kruOctSets[pRow][pCol]
+            case .Square:
+                set2 = kruSquareSets[pRow][pCol]
+            }
+        } else {
+            return false
+        }
+
+        return UnionFind.areEqualSets(one: set1, two: set2)
+    }
+    
+    
 
     
     func generateHuntAndKill() {
         // Reset and start algorithm
         if mazeRunning == false {
-//            print("Starting Hunt and Kill")
             self.clearBoard()
             let randomPiece = self.randomPiece()
             mazeRow = randomPiece.row
@@ -439,19 +636,16 @@ extension OctSquareBoard {
             if neighbors.count > 0 {
                 let neighborDir = neighbors.randomItem()
                 let neighbor = self.getPieceNSEW(row: mazeRow, col: mazeCol, pipeDir: neighborDir)!
-//                print("On r=\(mazeRow),c=\(mazeCol). Going \(neighborDir.rawValue)")
                 
                 self.setPipeDirection(row: mazeRow, col: mazeCol, pipeDir: neighborDir, state: .Branch)
                 self.setPipeDirection(row: neighbor.row, col: neighbor.col, pipeDir: neighborDir.opposite(), state: .Source)
                 
                 mazeRow = neighbor.row
                 mazeCol = neighbor.col
-//                print("    Now, r=\(mazeRow),c=\(mazeCol)")
                 
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
 
             } else if let (row, col) = hunt() {
-//                print("No neighbors, hunted new target: r=\(row),c=\(col)")
                 
                 let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
                 let neighbor = self.getPieceNSEW(row: row, col: col, pipeDir: neighborDir)!
@@ -463,7 +657,6 @@ extension OctSquareBoard {
                 mazeCol = col
                 self.performSelector(#selector(self.generateHuntAndKill), withObject: nil, afterDelay: 0.1)
             } else {
-//                print("On r=\(mazeRow),c=\(mazeCol). No neighbors. Hunt failed. Stopping.")
                 mazeRunning = false
             }
 

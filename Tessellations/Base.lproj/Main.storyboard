@@ -24,14 +24,19 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-ke-esU">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Hunt and Kill" id="9Mo-Cb-CmH">
+                                    <barButtonItem title="Kruskal" id="9Mo-Cb-CmH">
                                         <connections>
                                             <action selector="toolbarOneDidTouch:" destination="BYZ-38-t0r" id="S3K-DP-Fx2"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="HuntAndKill" id="5wS-Iu-v2P">
+                                        <connections>
+                                            <action selector="toolbarTwoDidTouch:" destination="BYZ-38-t0r" id="l7P-wd-Ibg"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Randomize" id="IDH-hH-VHf">
                                         <connections>
-                                            <action selector="toolbarTwoDidTouch:" destination="BYZ-38-t0r" id="Kuf-fO-eqd"/>
+                                            <action selector="toolbarThreeDidTouch:" destination="BYZ-38-t0r" id="PTs-t5-txv"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
