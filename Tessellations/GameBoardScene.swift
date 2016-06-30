@@ -16,7 +16,13 @@ let strokeColor =    UIColor.clearColor()
 let pipeOnColor =    UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
 let pipeOffColor =   UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
+protocol GameBoardSceneProtocol {
+    func gameWon()
+}
+
 class GameBoardScene: SKScene, OctSquareBoardProtocol {
+    
+    var del: GameBoardSceneProtocol?
     
     let octagonsWide = 5
     let octagonsTall = 5
@@ -222,6 +228,12 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             
 //            print("Touched at r=\(row), c=\(col)")
             self.logicalBoard.rotatePiece(row: row, col: col)
+        }
+    }
+    
+    func gameWon() {
+        if let del = self.del {
+            del.gameWon()
         }
     }
     

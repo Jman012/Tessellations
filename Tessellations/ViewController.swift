@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, GameBoardSceneProtocol {
 
     @IBOutlet weak var sceneView: SKView!
     var scene: GameBoardScene!
@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         
         self.scene = GameBoardScene(size: CGSize(width: self.view.frame.width, height: self.view.frame.width))
         self.scene.scaleMode = .AspectFit
+        self.scene.del = self
         
         self.sceneView.frameInterval = 4
         self.sceneView.showsFPS = true
@@ -44,6 +45,12 @@ class ViewController: UIViewController {
     
     @IBAction func toolbarThreeDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.randomizeBoard()
+    }
+    
+    func gameWon() {
+        let alert = UIAlertController(title: "Won!", message: "Congrats", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "K.", style: .Cancel, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }

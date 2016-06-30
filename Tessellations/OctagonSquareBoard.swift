@@ -61,6 +61,7 @@ protocol OctSquareBoardProtocol {
     func pieceDidChange(piece: Piece)
     func pieceDidRotate(piece: Piece)
     func boardDidClear()
+    func gameWon()
 }
 
 struct Piece {
@@ -258,6 +259,37 @@ class OctSquareBoard: NSObject {
         return true
     }
     
+    func boardComplete() -> Bool {
+        var good = true
+        self.forAllPieces {
+            piece in
+            
+            piece.pipeBits.forEachPipeState {
+                pipeDir, state in
+                
+                guard state == .Branch || state == .Source else {
+                    if state == .Disabled {
+                        good = false
+                    }
+                    return
+                }
+                
+                if let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
+                    
+                    let adjState = adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle)))
+                    
+                    if adjState == .None || adjState == .Disabled {
+                        good = false
+                    }
+                } else {
+                    good = false
+                }
+            }
+        }
+        
+        return good
+    }
+    
     func rotatePiece(row row: Int, col: Int) -> Bool {
         guard let piece = self.getPiece(row: row, col: col) else {
             return false
@@ -284,6 +316,10 @@ class OctSquareBoard: NSObject {
         
         // After the rotation, try re-enabling any pipes
         self.enablePipesFrom(row: row, col: col)
+        
+        if let del = self.delegate where self.boardComplete() {
+            del.gameWon()
+        }
         
         return true
     }
@@ -316,7 +352,7 @@ class OctSquareBoard: NSObject {
             piece.pipeBits.forEachPipeState {
                 pipeDir, state in
                 
-                if piece.pipeBits.pipeStateForPipeDir(pipeDir) == .Disabled {
+                if state == .Disabled {
                     if let adjPiece = self.getPieceNSEW(row: row, col: col, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
                         where adjPiece.pipeBits.pipeStateForPipeDir(pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle))) == .Branch {
                         
