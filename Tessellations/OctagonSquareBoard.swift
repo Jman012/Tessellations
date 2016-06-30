@@ -428,7 +428,7 @@ class OctSquareBoard: NSObject {
         self.forAllPieces {
             piece in
             
-            let numRots = random() % 8
+            let numRots = Int(arc4random() % 8)
             for _ in 0..<numRots {
                 self.rotatePiece(row: piece.row, col: piece.col)
             }
@@ -436,11 +436,11 @@ class OctSquareBoard: NSObject {
     }
     
     func randomPiece() -> Piece {
-        var row = random() % Int(self.octHeight * 2)
-        var col = random() % Int(self.octWidth * 2)
+        var row = Int(arc4random() % UInt32(self.octHeight * 2 - 1))
+        var col = Int(arc4random() % UInt32(self.octWidth * 2 - 1))
         while row % 2 != col % 2 {
-            row = random() % Int(self.octHeight * 2)
-            col = random() % Int(self.octWidth * 2)
+            row = Int(arc4random() % UInt32(self.octHeight * 2 - 1))
+            col = Int(arc4random() % UInt32(self.octWidth * 2 - 1))
         }
         
         return self.getPiece(row: row, col: col)!
@@ -455,9 +455,88 @@ class OctSquareBoard: NSObject {
     var kruOctSets: [[UnionFind]] = []
     var kruSquareSets: [[UnionFind]] = []
     var kruEdges: [(RowCol, RowCol)] = []
+    
+    // Prim data structures
+    var visited: Set<RowCol> = []
+    var frontier: Set<RowCol> = []
 }
 
 extension OctSquareBoard {
+    
+    
+    func generatePrim() {
+        // Reset and start algorithm
+        if mazeRunning == false {
+            self.clearBoard()
+            let randomPiece = self.randomPiece()
+            mazeRow = randomPiece.row
+            mazeCol = randomPiece.col
+            self.sourceRow = mazeRow
+            self.sourceCol = mazeCol
+            
+            self.visited = [RowCol(row: mazeRow, col: mazeCol)]
+            self.addNeighborsToFrontier(rowCol: visited.first!)
+            
+            mazeRunning = true
+        }
+        
+        if let rowCol = frontier.popFirst() {
+            
+//            print("Popped: \(rowCol)\nremaining: \(frontier)\nvisited: \(visited)")
+            let piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
+            
+            var dirs: [PipeDir]
+            if piece.type == .Octagon {
+                dirs = [.North, .NorthEast, .East, .SouthEast, .South, .SouthWest, .West, .NorthWest]
+            } else {
+                dirs = [.NorthEast, .SouthEast, .SouthWest, .NorthWest]
+            }
+            dirs.shuffleInPlace()
+            
+            for dir in dirs {
+                if let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: dir)
+                    where self.visited.contains(RowCol(row: adjPiece.row, col: adjPiece.col)) == true {
+                    
+                    self.setPipeDirection(row: piece.row, col: piece.col, pipeDir: dir, state: .Source)
+                    self.setPipeDirection(row: adjPiece.row, col: adjPiece.col, pipeDir: dir.opposite(), state: .Branch)
+                    
+//                    print("1: remaining: \(frontier)\nvisited: \(self.visited)")
+                    self.visited.insert(rowCol) // Insert the piece we're on, not the adjPiece. That's already in there
+//                    print("2: remaining: \(frontier)\nvisited: \(self.visited)")
+                    self.addNeighborsToFrontier(rowCol: rowCol) // then insert from this piece too
+//                    print("3: remaining: \(frontier)\nvisited: \(self.visited)")
+                    
+                    break
+                }
+            }
+            
+            self.performSelector(#selector(self.generatePrim), withObject: nil, afterDelay: 0.1)
+        } else {
+            mazeRunning = false
+        }
+    }
+    
+    func addNeighborsToFrontier(rowCol rowCol: RowCol) {
+        if let piece = self.getPiece(row: rowCol.row, col: rowCol.col) {
+            
+            var dirs: [PipeDir]
+            if piece.type == .Octagon {
+                dirs = [.North, .NorthEast, .East, .SouthEast, .South, .SouthWest, .West, .NorthWest]
+            } else {
+                dirs = [.NorthEast, .SouthEast, .SouthWest, .NorthWest]
+            }
+            
+            for dir in dirs {
+                
+                if let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: dir) {
+                    let adjPieceRowCol = RowCol(row: adjPiece.row, col: adjPiece.col)
+                    if self.frontier.contains(adjPieceRowCol) == false && self.visited.contains(adjPieceRowCol) == false {
+                        self.frontier.insert(adjPieceRowCol)
+                    }
+                }
+            }
+        }
+    }
     
     
     func generateKruskal() {

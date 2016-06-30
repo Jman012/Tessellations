@@ -22,7 +22,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
-        self.sceneView.frameInterval = 4
+//        self.sceneView.frameInterval = 4
         self.sceneView.showsFPS = true
         self.sceneView.showsDrawCount = true
         self.sceneView.showsNodeCount = true
@@ -45,6 +45,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func toolbarThreeDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.randomizeBoard()
+    }
+    
+    @IBAction func toolbarFourDidTouch(sender: UIBarButtonItem) {
+        self.scene.logicalBoard.generatePrim()
     }
     
     func gameWon() {
