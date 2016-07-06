@@ -25,12 +25,13 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     var del: GameBoardSceneProtocol?
     
     let octagonsWide = 5
-    let octagonsTall = 5
+    let octagonsTall = 7
     
     let octagonDiameter: CGFloat
     let adjustedDiameter: CGFloat
     let squareWidth: CGFloat
     let pipeWidth: CGFloat
+    var boardFrame: CGRect
     
     var octPath: CGMutablePath
     var squarePath: CGPath
@@ -50,6 +51,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         self.adjustedDiameter = octagonDiameter + (octagonDiameter * CGFloat(cos(0.degrees)) - octagonDiameter * CGFloat(cos(22.5.degrees)))
         self.squareWidth = adjustedDiameter * CGFloat(sin((45/2).degrees) * 2)
         self.pipeWidth = squareWidth / 2.5
+        self.boardFrame = CGRect(x: 0, y: 0, width: self.octagonDiameter * 2 * CGFloat(self.octagonsWide), height: self.octagonDiameter * 2 * CGFloat(self.octagonsTall))
+
         
         self.octPath = CGPathCreateMutable()
         var angle = 45.0 / 2
@@ -89,6 +92,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         
         super.init(size: size)
         
+        self.boardFrame.origin.y = (self.frame.height - self.octagonDiameter * 2 * CGFloat(self.octagonsTall)) / 2.0
+        
         self.logicalBoard.delegate = self
         
     }
@@ -101,11 +106,11 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         if row % 2 == 0 && col % 2 == 0 {
             /* Octagon */
             return CGPoint(x: (CGFloat(col) * self.octagonDiameter) + self.octagonDiameter,
-                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter)
+                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter - self.boardFrame.origin.y)
         } else if row % 2 == 1 && col % 2 == 1 {
             /* Square */
             return CGPoint(x: (CGFloat(col) * self.octagonDiameter) + self.octagonDiameter,
-                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter)
+                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter - self.boardFrame.origin.y)
         } else {
             return CGPoint(x: 0, y: 0)
         }

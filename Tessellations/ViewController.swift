@@ -18,15 +18,18 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.scene = GameBoardScene(size: CGSize(width: self.view.frame.width, height: self.view.frame.width))
+        self.scene = GameBoardScene(size: self.view.bounds.size)
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
-//        self.sceneView.frameInterval = 4
+        self.sceneView.frameInterval = 4
         self.sceneView.showsFPS = true
-        self.sceneView.showsDrawCount = true
-        self.sceneView.showsNodeCount = true
         self.sceneView.presentScene(self.scene)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.scene.size = self.view.bounds.size
     }
 
     override func didReceiveMemoryWarning() {
