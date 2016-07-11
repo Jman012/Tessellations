@@ -39,7 +39,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
 
     
     @IBAction func toolbarOneDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.generateKruskal()
+//        self.scene.logicalBoard.generateKruskal()
     }
     
     @IBAction func toolbarTwoDidTouch(sender: UIBarButtonItem) {

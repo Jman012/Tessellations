@@ -43,7 +43,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var rowColToNode: [RowCol: SKShapeNode] = [:]
     
-    var logicalBoard: OctSquareBoard
+    var logicalBoard: OctagonSquareBoard
     
     required override init(size: CGSize) {
         
@@ -88,7 +88,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
 
         
         
-        self.logicalBoard = OctSquareBoard(octagonsWide: UInt(self.octagonsWide), octagonsTall: UInt(self.octagonsTall))
+        self.logicalBoard = OctagonSquareBoard(octagonsWide: UInt(self.octagonsWide), octagonsTall: UInt(self.octagonsTall))
         
         super.init(size: size)
         
@@ -129,7 +129,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             let (row, col) = (piece.row, piece.col)
             
 //            print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
-            let node: SKShapeNode
+            let node: SKShapeNode!
             switch piece.type {
             case .Octagon:
                 let octagon = SKShapeNode(path: self.octPath)
@@ -145,6 +145,10 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
                 square.name = "Square \(row) \(col)"
                 
                 node = square
+            
+            default:
+                print("Error line 150")
+                return
             }
             
             node.strokeColor = strokeColor
@@ -163,8 +167,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {
         node.removeAllChildren()
         
-        piece.pipeBits.forEachPipeState {
-            (pipeDir, status) in
+        piece.forEachPipeState {
+            trueDir, status in
             
             guard status != .None else {
                 return
@@ -189,8 +193,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             default: break
             }
             pipe.strokeColor = UIColor.clearColor()
-            pipe.name = "Pipe \(pipeDir.rawValue) \(piece.row) \(piece.col)"
-            pipe.runAction(SKAction.rotateByAngle(-CGFloat(pipeDir.rawValue) * CGFloat(M_PI_4), duration: 0))
+            pipe.name = "Pipe \(trueDir.rawValue) \(piece.row) \(piece.col)"
+            pipe.runAction(SKAction.rotateByAngle(-CGFloat(trueDir.rawValue) * CGFloat(M_PI_4), duration: 0))
             node.addChild(pipe)
         }
     }

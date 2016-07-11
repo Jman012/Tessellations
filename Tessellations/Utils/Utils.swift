@@ -18,8 +18,8 @@ extension UInt8 {
 }
 
 struct RowCol: Hashable, Equatable {
-    let row: Int
-    let col: Int
+    var row: Int
+    var col: Int
     
     var hashValue: Int {
         get {
@@ -42,6 +42,14 @@ extension Array {
     func randomItem() -> Element {
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
+    }
+    
+    subscript(i: UInt) -> Element {
+        get {
+            return self[Int(i)]
+        } set(from) {
+            self[Int(i)] = from
+        }  
     }
 }
 
