@@ -147,8 +147,8 @@ struct Piece {
 
 class AbstractGameBoard: NSObject {
     
-    var octWidth: UInt
-    var octHeight: UInt
+    var boardWidth: Int
+    var boardHeight: Int
     
     var board: [[Piece?]] = []
     
@@ -158,14 +158,14 @@ class AbstractGameBoard: NSObject {
     
     var delegate: OctSquareBoardProtocol?
     
-    init(octagonsWide octWidth: UInt, octagonsTall octHeight: UInt) {
+    init(octagonsWide boardWidth: Int, octagonsTall boardHeight: Int) {
         
-        guard octWidth >= 1 && octHeight >= 1 else {
+        guard boardWidth >= 1 && boardHeight >= 1 else {
             exit(1)
         }
         
-        self.octWidth = octWidth
-        self.octHeight = octHeight
+        self.boardWidth = boardWidth
+        self.boardHeight = boardHeight
         
         super.init()
         
@@ -184,7 +184,10 @@ class AbstractGameBoard: NSObject {
     }
     
     func getPiece(row row: Int, col: Int) -> Piece? {
-        
+        guard row >= 0 && row < self.boardHeight
+            && col >= 0 && col < self.boardWidth else {
+            return nil
+        }
         return self.board[row][col]
         
     }
@@ -369,8 +372,8 @@ class AbstractGameBoard: NSObject {
     
     func forAllPieces(callback: (piece: Piece) -> Void) {
         
-        for row in 0..<Int(self.octHeight) {
-            for col in 0..<Int(self.octWidth) {
+        for row in 0..<self.boardHeight {
+            for col in 0..<self.boardWidth {
                 if let piece = self.getPiece(row: row, col: col) {
                     callback(piece: piece)
                 }
@@ -399,14 +402,11 @@ class AbstractGameBoard: NSObject {
     }
     
     func randomPiece() -> Piece {
-        var row = Int(arc4random() % UInt32(self.octHeight * 2 - 1))
-        var col = Int(arc4random() % UInt32(self.octWidth * 2 - 1))
-        while row % 2 != col % 2 {
-            row = Int(arc4random() % UInt32(self.octHeight * 2 - 1))
-            col = Int(arc4random() % UInt32(self.octWidth * 2 - 1))
+        var piece = self.getPiece(row: Int(arc4random()) % self.boardHeight, col: Int(arc4random()) % self.boardWidth)
+        while piece == nil {
+            piece = self.getPiece(row: Int(arc4random()) % self.boardHeight, col: Int(arc4random()) % self.boardWidth)
         }
-        
-        return self.getPiece(row: row, col: col)!
+        return piece!
     }
     
     // Maze generaton variables
@@ -505,9 +505,9 @@ extension AbstractGameBoard {
 //            self.sourceRow = mazeRow
 //            self.sourceCol = mazeCol
 //            
-//            for pRow: Int in 0..<Int(octHeight) {
+//            for pRow: Int in 0..<Int(boardHeight) {
 //                kruOctSets.insert([], atIndex: pRow)
-//                for pCol: Int in 0..<Int(octWidth) {
+//                for pCol: Int in 0..<Int(boardWidth) {
 //                    let rowCol = RowCol(row: pRow * 2, col: pCol * 2)
 //                    kruOctSets[pRow].insert(UnionFind(), atIndex: pCol)
 //                    kruEdges.append((rowCol, RowCol(row: rowCol.row, col: rowCol.col+2)))
@@ -516,9 +516,9 @@ extension AbstractGameBoard {
 //                    
 //                }
 //            }
-//            for pRow: Int in 0..<Int(octHeight-1) {
+//            for pRow: Int in 0..<Int(boardHeight-1) {
 //                kruSquareSets.insert([], atIndex: pRow)
-//                for pCol: Int in 0..<Int(octWidth-1) {
+//                for pCol: Int in 0..<Int(boardWidth-1) {
 //                    let rowCol = RowCol(row: (pRow * 2) + 1, col: (pCol * 2) + 1)
 //                    kruSquareSets[pRow].insert(UnionFind(), atIndex: pCol)
 //                    kruEdges.append((rowCol, RowCol(row: rowCol.row-1, col: rowCol.col+1)))

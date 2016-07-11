@@ -12,9 +12,9 @@ class OctagonSquareBoard: AbstractGameBoard {
     
     override func initPieces() {
         
-        for row in 0..<Int(octHeight) {
+        for row in 0..<boardHeight {
             board.append([])
-            for col in 0..<Int(octWidth) {
+            for col in 0..<boardWidth {
                 if row % 2 == 0 && col % 2 == 0 {
                     let piece = Piece(row: row, col: col, type: .Octagon)
                     board[row].append(piece)

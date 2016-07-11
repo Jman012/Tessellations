@@ -88,7 +88,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
 
         
         
-        self.logicalBoard = OctagonSquareBoard(octagonsWide: UInt(self.octagonsWide), octagonsTall: UInt(self.octagonsTall))
+        self.logicalBoard = OctagonSquareBoard(octagonsWide: self.octagonsWide, octagonsTall: self.octagonsTall)
         
         super.init(size: size)
         
