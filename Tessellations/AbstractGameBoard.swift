@@ -85,7 +85,7 @@ struct Piece {
         self.row = row
         self.col = col
         self.type = type
-        self.pipes = Array<PipeState>(count: 8, repeatedValue: .None)
+        self.pipes = Array<PipeState>(count: 16, repeatedValue: .None)
         self.absLogicalAngle = 0
         
         switch type {
@@ -120,7 +120,7 @@ struct Piece {
     
     func forEachPipeState(callback: (trueDir: PipeDir, state: PipeState) -> Void) {
         for legalLogDir in legalDirections {
-            callback(trueDir: self.trueDirForLogicalDir(legalLogDir), state: pipes[legalLogDir.rawValue])
+            callback(trueDir: self.trueDirForLogicalDir(legalLogDir), state: pipes[legalLogDir.toIndex()])
         }
     }
     
