@@ -28,7 +28,7 @@ class OctagonSquareBoard: AbstractGameBoard {
         }
     }
     
-    override func adjacentPieceDisplacement(piece piece: Piece, direction: PipeDir) -> RowCol? {
+    override func adjacentPieceDisplacement(piece piece: Piece, direction: Direction) -> RowCol? {
         guard piece.legalDirections.contains(direction) else {
             print("Invalid direction \(direction) for piece \(piece) for displacement.")
             return nil

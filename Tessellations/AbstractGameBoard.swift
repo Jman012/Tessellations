@@ -19,7 +19,7 @@ enum PieceType {
     case Square30
 }
 
-enum PipeDir: Int {
+enum Direction: Int {
     case North          = 0
     case NorthNorthEast = 30
     case NorthEast      = 45
@@ -37,16 +37,16 @@ enum PipeDir: Int {
     case NorthWest      = 315
     case NorthNorthWest = 330
     
-    func opposite() -> PipeDir {
-        return PipeDir(rawValue: (self.rawValue + 180) % 360)!
+    func opposite() -> Direction {
+        return Direction(rawValue: (self.rawValue + 180) % 360)!
     }
     
-    func withOffsetAngle(angle: Int) -> PipeDir {
-        return PipeDir(rawValue: (Int(self.rawValue) + angle + 360) % 360)!
+    func withOffsetAngle(angle: Int) -> Direction {
+        return Direction(rawValue: (Int(self.rawValue) + angle + 360) % 360)!
     }
     
     func toIndex() -> Int {
-        let translation: [PipeDir: Int] = [.North: 0, .NorthNorthEast: 1, .NorthEast: 2, .NorthEastEast: 3, .East: 4,
+        let translation: [Direction: Int] = [.North: 0, .NorthNorthEast: 1, .NorthEast: 2, .NorthEastEast: 3, .East: 4,
                            .SouthEastEast: 5, .SouthEast: 6, .SouthSouthEast: 7, .South: 8,
                            .SouthSouthWest: 9, .SouthWest: 10, .SouthWestWest: 11, .West: 12,
                            .NorthWestWest: 13, .NorthWest: 14, .NorthNorthWest: 15]
@@ -75,7 +75,7 @@ struct Piece {
     var pipes: [PipeState]
     var absLogicalAngle: Int
     var angleStep: Int
-    var legalDirections: [PipeDir]
+    var legalDirections: [Direction]
     
     init(row: Int, col: Int, type: PieceType) {
         self.row = row
@@ -97,15 +97,15 @@ struct Piece {
         }
     }
     
-    func trueDirForLogicalDir(dir: PipeDir) -> PipeDir {
-        return PipeDir(rawValue: (dir.rawValue + absLogicalAngle) % 360)!
+    func trueDirForLogicalDir(dir: Direction) -> Direction {
+        return Direction(rawValue: (dir.rawValue + absLogicalAngle) % 360)!
     }
     
-    func logicalDirForTrueDir(dir: PipeDir) -> PipeDir {
-        return PipeDir(rawValue: (dir.rawValue - absLogicalAngle + 360) % 360)!
+    func logicalDirForTrueDir(dir: Direction) -> Direction {
+        return Direction(rawValue: (dir.rawValue - absLogicalAngle + 360) % 360)!
     }
     
-    func pipeState(forTrueDir trueDir: PipeDir) -> PipeState? {
+    func pipeState(forTrueDir trueDir: Direction) -> PipeState? {
         let logDir = self.logicalDirForTrueDir(trueDir)
         if legalDirections.contains(logDir) {
             return pipes[logDir.toIndex()]
@@ -114,13 +114,13 @@ struct Piece {
         }
     }
     
-    func forEachPipeState(callback: (trueDir: PipeDir, state: PipeState) -> Void) {
+    func forEachPipeState(callback: (trueDir: Direction, state: PipeState) -> Void) {
         for legalLogDir in legalDirections {
             callback(trueDir: self.trueDirForLogicalDir(legalLogDir), state: pipes[legalLogDir.toIndex()])
         }
     }
     
-    mutating func setPipeState(state: PipeState, forTrueDir trueDir: PipeDir) -> Bool {
+    mutating func setPipeState(state: PipeState, forTrueDir trueDir: Direction) -> Bool {
         let logDir = self.logicalDirForTrueDir(trueDir)
         if legalDirections.contains(logDir) {
             pipes[logDir.toIndex()] = state
@@ -196,12 +196,12 @@ class AbstractGameBoard: NSObject {
 //        }
 //    }
     
-    func adjacentPieceDisplacement(piece piece: Piece, direction: PipeDir) -> RowCol? {
+    func adjacentPieceDisplacement(piece piece: Piece, direction: Direction) -> RowCol? {
         print("adjacentPieceDisplacement not implemented")
         return nil
     }
     
-    func getPiece(inDir trueDir: PipeDir, ofPiece piece: Piece) -> Piece? {
+    func getPiece(inDir trueDir: Direction, ofPiece piece: Piece) -> Piece? {
         var row = piece.row, col = piece.col
         
         if let displacement = self.adjacentPieceDisplacement(piece: piece, direction: trueDir) {
@@ -214,7 +214,7 @@ class AbstractGameBoard: NSObject {
         }
     }
     
-    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: PipeDir) -> Bool {
+    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Bool {
         var piece = piece
         
         if piece.setPipeState(state, forTrueDir: trueDir) {
@@ -736,7 +736,7 @@ extension AbstractGameBoard {
         }
     }
     
-    func adjacentNeighbors(row row: Int, col: Int) -> [PipeDir] {
+    func adjacentNeighbors(row row: Int, col: Int) -> [Direction] {
         let piece = self.getPiece(row: row, col: col)!
         let dirs = piece.legalDirections
         return dirs.filter {
@@ -765,7 +765,7 @@ extension AbstractGameBoard {
 
     }
     
-    func freeNeighbors(row row: Int, col: Int) -> [PipeDir] {
+    func freeNeighbors(row row: Int, col: Int) -> [Direction] {
         let piece = self.getPiece(row: row, col: col)!
         let dirs = piece.legalDirections
         return dirs.filter {
