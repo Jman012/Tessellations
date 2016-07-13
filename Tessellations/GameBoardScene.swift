@@ -194,7 +194,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             }
             pipe.strokeColor = UIColor.clearColor()
             pipe.name = "Pipe \(trueDir.rawValue) \(piece.row) \(piece.col)"
-            pipe.runAction(SKAction.rotateByAngle(-CGFloat(trueDir.rawValue) * CGFloat(M_PI_4), duration: 0))
+            pipe.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.logicalDirForTrueDir(trueDir).rawValue).degrees), duration: 0, shortestUnitArc: true))
             node.addChild(pipe)
         }
     }
@@ -262,7 +262,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            node.runAction(SKAction.rotateToAngle(-CGFloat(M_PI_4) * CGFloat(piece.absLogicalAngle), duration: 0, shortestUnitArc: true))
+            print("rotating piece")
+            node.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.absLogicalAngle).degrees), duration: 0.5, shortestUnitArc: true))
         }
     }
 }

@@ -19,7 +19,7 @@ enum PieceType {
     case Square30
 }
 
-enum PipeDir: UInt {
+enum PipeDir: Int {
     case North          = 0
     case NorthNorthEast = 30
     case NorthEast      = 45
@@ -42,11 +42,7 @@ enum PipeDir: UInt {
     }
     
     func withOffsetAngle(angle: Int) -> PipeDir {
-        return PipeDir(rawValue: UInt((Int(self.rawValue) + angle + 360) % 360))!
-    }
-    
-    func withOffsetAngle(angle: UInt) -> PipeDir {
-        return PipeDir(rawValue: (self.rawValue + angle) % 360)!
+        return PipeDir(rawValue: (Int(self.rawValue) + angle + 360) % 360)!
     }
     
     func toIndex() -> Int {
@@ -77,8 +73,8 @@ struct Piece {
     var col: Int
     var type: PieceType
     var pipes: [PipeState]
-    var absLogicalAngle: UInt
-    var angleStep: UInt
+    var absLogicalAngle: Int
+    var angleStep: Int
     var legalDirections: [PipeDir]
     
     init(row: Int, col: Int, type: PieceType) {
@@ -226,10 +222,10 @@ class AbstractGameBoard: NSObject {
                 del.pieceDidChange(piece)
             }
             
+            self.syncPiece(piece)
+            
             return true
         }
-        
-        self.syncPiece(piece)
         
         return false
     }
@@ -268,6 +264,7 @@ class AbstractGameBoard: NSObject {
     }
     
     func rotatePiece(row row: Int, col: Int) -> Bool {
+        print("rotate!")
         guard var piece = self.getPiece(row: row, col: col) else {
             return false
         }
