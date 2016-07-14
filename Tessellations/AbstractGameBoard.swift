@@ -214,7 +214,7 @@ class AbstractGameBoard: NSObject {
         }
     }
     
-    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Bool {
+    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Piece? {
         var piece = piece
         
         if piece.setPipeState(state, forTrueDir: trueDir) {
@@ -224,10 +224,11 @@ class AbstractGameBoard: NSObject {
             
             self.syncPiece(piece)
             
-            return true
+            // Return new piece
+            return self.getPiece(row: piece.row, col: piece.col)
         }
         
-        return false
+        return nil
     }
     
     func boardComplete() -> Bool {
@@ -264,7 +265,7 @@ class AbstractGameBoard: NSObject {
     }
     
     func rotatePiece(row row: Int, col: Int) -> Bool {
-        print("rotate!")
+
         guard var piece = self.getPiece(row: row, col: col) else {
             return false
         }
@@ -289,18 +290,21 @@ class AbstractGameBoard: NSObject {
     }
     
     func disablePipesFrom(piece: Piece) {
+        var piece = piece
+        print("disable: on piece \(piece.row),\(piece.col)")
         piece.forEachPipeState {
             trueDir, state in
             
             if (state == .Source || state == .Branch) && !(piece.row == self.sourceRow && piece.col == self.sourceCol) {
-                self.setPipeState(.Disabled, ofPiece: piece, inTrueDir: trueDir)
+                print("disable: on piece \(piece.row),\(piece.col), dir \(trueDir) is \(state), disabling")
+                piece = self.setPipeState(.Disabled, ofPiece: piece, inTrueDir: trueDir)!
             }
             
             if state == .Branch {
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
                     where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Source {
-//                if let adjPiece = self.getPieceNSEW(piece, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
-//                    where adjPiece.pipes[pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle)).rawValue] == .Source {
+                    
+                    print("disable: on piece \(piece.row),\(piece.col), state is .Branch, found adjacent. disabling in tree")
                     self.disablePipesFrom(adjPiece)
                 }
             }
@@ -308,6 +312,7 @@ class AbstractGameBoard: NSObject {
     }
     
     func enablePipesFrom(piece: Piece) {
+        var piece = piece
         var sourcePresent = false
         
         // Find any Sources after the rotation
@@ -317,23 +322,21 @@ class AbstractGameBoard: NSObject {
             if state == .Disabled {
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
                     where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Branch {
-//                if let adjPiece = self.getPieceNSEW(piece, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle))
-//                    where adjPiece.pipes[pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle)).rawValue] == .Branch {
                 
                     // If a Disabled pipe is touching an adjacent Branch pipe,
                     // then turn our Disabled to a Source
                     
                     sourcePresent = true
                     
-                    self.setPipeState(.Source, ofPiece: piece, inTrueDir: trueDir)
-//                    self.setPipeDirection(piece: piece, pipeDir: pipeDir, state: .Source)
+                    piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: trueDir)!
                 }
             }
         }
         
         
-        // Get new pipe bits
-        let piece = self.getPiece(row: piece.row, col: piece.col)!
+//        // Get new pipe bits
+//        let piece = self.getPiece(row: piece.row, col: piece.col)!
+
         // If we have sources, set the Disabled ones to Branches
         guard sourcePresent else {
             if piece.row == self.sourceRow && piece.col == self.sourceCol {
@@ -356,11 +359,9 @@ class AbstractGameBoard: NSObject {
             trueDir, state in
             
             if state == .Disabled {
-                self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)
-//                self.setPipeDirection(piece: piece, pipeDir: pipeDir, state: .Branch)
+                piece = self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)!
                 
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
-//                if let adjPiece = self.getPieceNSEW(piece, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
                     self.enablePipesFrom(adjPiece)
                 }
             }
@@ -443,7 +444,7 @@ extension AbstractGameBoard {
         if let rowCol = frontier.popFirst() {
             
 //            print("Popped: \(rowCol)\nremaining: \(frontier)\nvisited: \(visited)")
-            let piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
+            var piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
             
             var dirs = piece.legalDirections
             dirs.shuffleInPlace()
@@ -451,10 +452,8 @@ extension AbstractGameBoard {
             for dir in dirs {
                 if let adjPiece = self.getPiece(inDir: dir, ofPiece: piece)
                     where self.visited.contains(RowCol(row: adjPiece.row, col: adjPiece.col)) == true {
-//                if let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: dir)
-//                    where self.visited.contains(RowCol(row: adjPiece.row, col: adjPiece.col)) == true {
                     
-                    self.setPipeState(.Source, ofPiece: piece, inTrueDir: dir)
+                    piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: dir)!
                     self.setPipeState(.Branch, ofPiece: adjPiece, inTrueDir: dir.opposite())
                     
 //                    print("1: remaining: \(frontier)\nvisited: \(self.visited)")

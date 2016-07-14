@@ -262,8 +262,7 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            print("rotating piece")
-            node.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.absLogicalAngle).degrees), duration: 0.5, shortestUnitArc: true))
+            node.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.absLogicalAngle).degrees), duration: 0, shortestUnitArc: true))
         }
     }
 }
