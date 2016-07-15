@@ -11,6 +11,7 @@ import Foundation
 class OctagonSquareBoard: AbstractGameBoard {
     
     override func initPieces() {
+        board = []
         
         for row in 0..<boardHeight {
             board.append([])
