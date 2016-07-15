@@ -179,6 +179,10 @@ class AbstractGameBoard: NSObject {
         self.board[piece.row][piece.col] = piece
     }
     
+    func refreshPiece(piece: Piece) -> Piece {
+        return self.getPiece(row: piece.row, col: piece.col)!
+    }
+    
     func getPiece(row row: Int, col: Int) -> Piece? {
         guard row >= 0 && row < self.boardHeight
             && col >= 0 && col < self.boardWidth else {
@@ -271,7 +275,8 @@ class AbstractGameBoard: NSObject {
         }
         
         self.disablePipesFrom(piece)
-        
+        piece = self.refreshPiece(piece)
+    
         piece.absLogicalAngle = (piece.absLogicalAngle + piece.angleStep) % 360
         self.syncPiece(piece)
         
@@ -319,9 +324,13 @@ class AbstractGameBoard: NSObject {
         piece.forEachPipeState {
             trueDir, state in
             
+            print("piece (\(piece.row), \(piece.col)) trueDir=\(trueDir), state is \(state)")
+            
             if state == .Disabled {
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
                     where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Branch {
+                    
+                    print("    found adjacent where it's branch: (\(adjPiece.row), \(adjPiece.col))")
                 
                     // If a Disabled pipe is touching an adjacent Branch pipe,
                     // then turn our Disabled to a Source
