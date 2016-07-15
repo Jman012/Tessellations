@@ -192,13 +192,9 @@ class AbstractGameBoard: NSObject {
         
     }
     
-//    func getPieceAngle(row row: Int, col: Int) -> UInt? {
-//        if let piece = self.getPiece(row: row, col: col) {
-//            return piece.absLogicalAngle
-//        } else {
-//            return nil
-//        }
-//    }
+    func pieceIsRoot(piece: Piece) -> Bool {
+        return piece.row == self.sourceRow && piece.col == self.sourceCol
+    }
     
     func adjacentPieceDisplacement(piece piece: Piece, direction: Direction) -> RowCol? {
         print("adjacentPieceDisplacement not implemented")
@@ -251,10 +247,8 @@ class AbstractGameBoard: NSObject {
                 }
                 
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
-//                if let adjPiece = self.getPieceNSEW(piece, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
                     
                     let adjState = adjPiece.pipeState(forTrueDir: trueDir.opposite())
-//                    let adjState = adjPiece.pipes[pipeDir.withOffsetAngle(piece.absLogicalAngle).opposite().withOffsetAngle(-Int(adjPiece.absLogicalAngle)).rawValue]
                     
                     if adjState == .None || adjState == .Disabled {
                         good = false
@@ -324,13 +318,9 @@ class AbstractGameBoard: NSObject {
         piece.forEachPipeState {
             trueDir, state in
             
-            print("piece (\(piece.row), \(piece.col)) trueDir=\(trueDir), state is \(state)")
-            
             if state == .Disabled {
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
                     where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Branch {
-                    
-                    print("    found adjacent where it's branch: (\(adjPiece.row), \(adjPiece.col))")
                 
                     // If a Disabled pipe is touching an adjacent Branch pipe,
                     // then turn our Disabled to a Source
@@ -341,37 +331,31 @@ class AbstractGameBoard: NSObject {
                 }
             }
         }
-        
-        
-//        // Get new pipe bits
-//        let piece = self.getPiece(row: piece.row, col: piece.col)!
 
         // If we have sources, set the Disabled ones to Branches
-        guard sourcePresent else {
-            if piece.row == self.sourceRow && piece.col == self.sourceCol {
-                piece.forEachPipeState {
-                    trueDir, state in
-                    
-                    // Source piece, find our branches and recur from there
-                    if state == .Branch {
-                        if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
-//                        if let adjPiece = self.getPieceNSEW(piece, pipeDir: pipeDir.withOffsetAngle(piece.absLogicalAngle)) {
-                            self.enablePipesFrom(adjPiece)
-                        }
+        if self.pieceIsRoot(piece) {
+            piece.forEachPipeState {
+                trueDir, state in
+                
+                // Source piece, find our branches and recur from there
+                if state == .Branch {
+                    if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
+                        self.enablePipesFrom(adjPiece)
                     }
                 }
             }
-            return
-        }
-        
-        piece.forEachPipeState {
-            trueDir, state in
             
-            if state == .Disabled {
-                piece = self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)!
+        } else {
+            
+            piece.forEachPipeState {
+                trueDir, state in
                 
-                if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
-                    self.enablePipesFrom(adjPiece)
+                if state == .Disabled {
+                    piece = self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)!
+                    
+                    if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
+                        self.enablePipesFrom(adjPiece)
+                    }
                 }
             }
         }
@@ -452,7 +436,6 @@ extension AbstractGameBoard {
         
         if let rowCol = frontier.popFirst() {
             
-//            print("Popped: \(rowCol)\nremaining: \(frontier)\nvisited: \(visited)")
             var piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
             
             var dirs = piece.legalDirections
@@ -465,11 +448,8 @@ extension AbstractGameBoard {
                     piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: dir)!
                     self.setPipeState(.Branch, ofPiece: adjPiece, inTrueDir: dir.opposite())
                     
-//                    print("1: remaining: \(frontier)\nvisited: \(self.visited)")
                     self.visited.insert(rowCol) // Insert the piece we're on, not the adjPiece. That's already in there
-//                    print("2: remaining: \(frontier)\nvisited: \(self.visited)")
                     self.addNeighborsToFrontier(rowCol: rowCol) // then insert from this piece too
-//                    print("3: remaining: \(frontier)\nvisited: \(self.visited)")
                     
                     break
                 }
@@ -489,7 +469,6 @@ extension AbstractGameBoard {
             for dir in dirs {
                 
                 if let adjPiece = self.getPiece(inDir: dir, ofPiece: piece) {
-//                if let adjPiece = self.getPieceNSEW(row: piece.row, col: piece.col, pipeDir: dir) {
                     let adjPieceRowCol = RowCol(row: adjPiece.row, col: adjPiece.col)
                     if self.frontier.contains(adjPieceRowCol) == false && self.visited.contains(adjPieceRowCol) == false {
                         self.frontier.insert(adjPieceRowCol)
@@ -754,23 +733,6 @@ extension AbstractGameBoard {
                 return false
             }
         }
-        
-        
-//        let piece = self.getPiece(row: row, col: col)
-//        let dirs: [PipeDir]
-//        if piece?.type == .Square {
-//            dirs = [.NorthEast, .NorthWest, .SouthEast, .SouthWest]
-//        } else {
-//            dirs = [.North, .NorthEast, .NorthWest, .South, .SouthEast, .SouthWest, .East, .West]
-//        }
-//        return dirs.filter {
-//            if let piece = self.getPieceNSEW(row: row, col: col, pipeDir: $0) {
-//                return piece.pipeBits > 0
-//            } else {
-//                return false
-//            }
-//        }
-
     }
     
     func freeNeighbors(row row: Int, col: Int) -> [Direction] {
