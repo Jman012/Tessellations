@@ -68,7 +68,7 @@ protocol OctSquareBoardProtocol {
     func gameWon()
 }
 
-struct Piece {
+class Piece: NSObject {
     var row: Int
     var col: Int
     var type: PieceType
@@ -120,7 +120,7 @@ struct Piece {
         }
     }
     
-    mutating func setPipeState(state: PipeState, forTrueDir trueDir: Direction) -> Bool {
+    func setPipeState(state: PipeState, forTrueDir trueDir: Direction) -> Bool {
         let logDir = self.logicalDirForTrueDir(trueDir)
         if legalDirections.contains(logDir) {
             pipes[logDir.toIndex()] = state
@@ -172,17 +172,6 @@ class AbstractGameBoard: NSObject {
         print("initPieces not implemented")
     }
     
-    func syncPiece(piece: Piece) {
-        // Should be called after affecting a board's piece to 
-        // sync the changes back into the board. Structs and whatnot.
-        
-        self.board[piece.row][piece.col] = piece
-    }
-    
-    func refreshPiece(piece: Piece) -> Piece {
-        return self.getPiece(row: piece.row, col: piece.col)!
-    }
-    
     func getPiece(row row: Int, col: Int) -> Piece? {
         guard row >= 0 && row < self.boardHeight
             && col >= 0 && col < self.boardWidth else {
@@ -214,21 +203,18 @@ class AbstractGameBoard: NSObject {
         }
     }
     
-    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Piece? {
-        var piece = piece
+    func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Bool {
         
         if piece.setPipeState(state, forTrueDir: trueDir) {
             if let del = self.delegate {
                 del.pieceDidChange(piece)
             }
             
-            self.syncPiece(piece)
-            
             // Return new piece
-            return self.getPiece(row: piece.row, col: piece.col)
+            return true
         }
         
-        return nil
+        return false
     }
     
     func boardComplete() -> Bool {
@@ -264,15 +250,13 @@ class AbstractGameBoard: NSObject {
     
     func rotatePiece(row row: Int, col: Int) -> Bool {
 
-        guard var piece = self.getPiece(row: row, col: col) else {
+        guard let piece = self.getPiece(row: row, col: col) else {
             return false
         }
         
         self.disablePipesFrom(piece)
-        piece = self.refreshPiece(piece)
     
         piece.absLogicalAngle = (piece.absLogicalAngle + piece.angleStep) % 360
-        self.syncPiece(piece)
         
         if let del = self.delegate {
             del.pieceDidRotate(piece)
@@ -289,47 +273,25 @@ class AbstractGameBoard: NSObject {
     }
     
     func disablePipesFrom(piece: Piece) {
-        var piece = piece
-        print("disable: on piece \(piece.row),\(piece.col)")
         piece.forEachPipeState {
             trueDir, state in
             
-            if (state == .Source || state == .Branch) && !(piece.row == self.sourceRow && piece.col == self.sourceCol) {
-                print("disable: on piece \(piece.row),\(piece.col), dir \(trueDir) is \(state), disabling")
-                piece = self.setPipeState(.Disabled, ofPiece: piece, inTrueDir: trueDir)!
+            if (state == .Source || state == .Branch) && !self.pieceIsRoot(piece) {
+                self.setPipeState(.Disabled, ofPiece: piece, inTrueDir: trueDir)
             }
             
             if state == .Branch {
                 if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
                     where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Source {
                     
-                    print("disable: on piece \(piece.row),\(piece.col), state is .Branch, found adjacent. disabling in tree")
                     self.disablePipesFrom(adjPiece)
                 }
             }
         }
     }
     
-    func enablePipesFrom(piece: Piece) {
-        var piece = piece
-        
-        // Find any Sources after the rotation
-        piece.forEachPipeState {
-            trueDir, state in
-            
-            if state == .Disabled {
-                if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
-                    where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Branch {
-                
-                    // If a Disabled pipe is touching an adjacent Branch pipe,
-                    // then turn our Disabled to a Source
-                                        
-                    piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: trueDir)!
-                }
-            }
-        }
+    @objc func enablePipesFrom(piece: Piece) {
 
-        // If we have sources, set the Disabled ones to Branches
         if self.pieceIsRoot(piece) {
             piece.forEachPipeState {
                 trueDir, state in
@@ -344,14 +306,34 @@ class AbstractGameBoard: NSObject {
             
         } else {
             
+            // Find any Sources after the rotation
+            var sourceSet = false
             piece.forEachPipeState {
                 trueDir, state in
                 
                 if state == .Disabled {
-                    piece = self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)!
+                    if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
+                        where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Branch {
+                                                
+                        // If a Disabled pipe is touching an adjacent Branch pipe,
+                        // then turn our Disabled to a Source
+                        
+                        self.setPipeState(.Source, ofPiece: piece, inTrueDir: trueDir)
+                        sourceSet = true
+                    }
+                }
+            }
+            
+            if sourceSet {
+                piece.forEachPipeState {
+                    trueDir, state in
                     
-                    if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
-                        self.enablePipesFrom(adjPiece)
+                    if state == .Disabled {
+                        self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)
+                        
+                        if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
+                            self.enablePipesFrom(adjPiece)
+                        }
                     }
                 }
             }
@@ -433,7 +415,7 @@ extension AbstractGameBoard {
         
         if let rowCol = frontier.popFirst() {
             
-            var piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
+            let piece = self.getPiece(row: rowCol.row, col: rowCol.col)!
             
             var dirs = piece.legalDirections
             dirs.shuffleInPlace()
@@ -442,7 +424,7 @@ extension AbstractGameBoard {
                 if let adjPiece = self.getPiece(inDir: dir, ofPiece: piece)
                     where self.visited.contains(RowCol(row: adjPiece.row, col: adjPiece.col)) == true {
                     
-                    piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: dir)!
+                    self.setPipeState(.Source, ofPiece: piece, inTrueDir: dir)
                     self.setPipeState(.Branch, ofPiece: adjPiece, inTrueDir: dir.opposite())
                     
                     self.visited.insert(rowCol) // Insert the piece we're on, not the adjPiece. That's already in there
