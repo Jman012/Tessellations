@@ -323,9 +323,7 @@ class AbstractGameBoard: NSObject {
                 
                     // If a Disabled pipe is touching an adjacent Branch pipe,
                     // then turn our Disabled to a Source
-                    
-                    sourcePresent = true
-                    
+                                        
                     piece = self.setPipeState(.Source, ofPiece: piece, inTrueDir: trueDir)!
                 }
             }
