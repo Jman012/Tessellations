@@ -32,6 +32,24 @@ func ==(lhs: RowCol, rhs: RowCol) -> Bool {
     return lhs.row == rhs.row && lhs.col == rhs.col
 }
 
+struct Duplet<A: Hashable, B: Hashable>: Hashable {
+    let one: A
+    let two: B
+    
+    var hashValue: Int {
+        return one.hashValue ^ two.hashValue
+    }
+    
+    init(_ one: A, _ two: B) {
+        self.one = one
+        self.two = two
+    }
+}
+
+func ==<A, B> (lhs: Duplet<A, B>, rhs: Duplet<A, B>) -> Bool {
+    return lhs.one == rhs.one && lhs.two == rhs.two
+}
+
 
 extension Double {
     public var degrees: Double { return self * M_PI / 180 }
