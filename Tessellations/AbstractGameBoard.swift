@@ -312,7 +312,6 @@ class AbstractGameBoard: NSObject {
     
     func enablePipesFrom(piece: Piece) {
         var piece = piece
-        var sourcePresent = false
         
         // Find any Sources after the rotation
         piece.forEachPipeState {
