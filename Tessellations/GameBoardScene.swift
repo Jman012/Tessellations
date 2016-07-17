@@ -24,8 +24,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var del: GameBoardSceneProtocol?
     
-    let octagonsWide = 5
-    let octagonsTall = 7
+    let logicalBoardWidth = 5
+    let logicalBoardHeight = 7
     
     let octagonDiameter: CGFloat
     let adjustedDiameter: CGFloat
@@ -47,11 +47,11 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     required override init(size: CGSize) {
         
-        self.octagonDiameter = size.width / CGFloat(self.octagonsWide * 2)
+        self.octagonDiameter = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
         self.adjustedDiameter = octagonDiameter + (octagonDiameter * CGFloat(cos(0.degrees)) - octagonDiameter * CGFloat(cos(22.5.degrees)))
         self.squareWidth = adjustedDiameter * CGFloat(sin((45/2).degrees) * 2)
         self.pipeWidth = squareWidth / 2.5
-        self.boardFrame = CGRect(x: 0, y: 0, width: self.octagonDiameter * 2 * CGFloat(self.octagonsWide), height: self.octagonDiameter * 2 * CGFloat(self.octagonsTall))
+        self.boardFrame = CGRect(x: 0, y: 0, width: self.octagonDiameter * 2 * CGFloat(self.logicalBoardWidth), height: self.octagonDiameter * 2 * CGFloat(self.logicalBoardHeight))
 
         
         self.octPath = CGPathCreateMutable()
@@ -88,11 +88,11 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
 
         
         
-        self.logicalBoard = OctagonSquareBoard(octagonsWide: self.octagonsWide, octagonsTall: self.octagonsTall)
+        self.logicalBoard = OctagonSquareBoard(octagonsWide: self.logicalBoardWidth, octagonsTall: self.logicalBoardHeight)
         
         super.init(size: size)
         
-        self.boardFrame.origin.y = (self.frame.height - self.octagonDiameter * 2 * CGFloat(self.octagonsTall)) / 2.0
+        self.boardFrame.origin.y = (self.frame.height - self.octagonDiameter * CGFloat(self.logicalBoardHeight)) / 2.0
         
         self.logicalBoard.delegate = self
         
@@ -122,13 +122,11 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
         self.backgroundColor = bgColor
         
         self.logicalBoard.forAllPieces {
-            // TODO: Change to Piece()
             (piece: Piece) in
             
             // To reduce repetition below
             let (row, col) = (piece.row, piece.col)
             
-//            print("r=\(row), c=\(col) -> \(self.rowColToPoint(row: row, col: col))")
             let node: SKShapeNode!
             switch piece.type {
             case .Octagon:
