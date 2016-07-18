@@ -14,7 +14,7 @@
 		1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */; };
 		1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */; };
 		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
-		1A82DE741D1CC4BF0008224D /* GameBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */; };
+		1A82DE741D1CC4BF0008224D /* AbstractGameBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE731D1CC4BF0008224D /* AbstractGameBoardScene.swift */; };
 		1A82DE791D1CC4F00008224D /* AbstractGameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE781D1CC4F00008224D /* AbstractGameBoard.swift */; };
 		1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7C1D1CC5600008224D /* Utils.swift */; };
 		1A82DE7F1D2D947B0008224D /* OctagonSquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */; };
@@ -51,7 +51,7 @@
 		1A82DE611D1CC43B0008224D /* TessellationsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TessellationsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsUITests.swift; sourceTree = "<group>"; };
 		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardScene.swift; sourceTree = "<group>"; };
+		1A82DE731D1CC4BF0008224D /* AbstractGameBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractGameBoardScene.swift; sourceTree = "<group>"; };
 		1A82DE781D1CC4F00008224D /* AbstractGameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractGameBoard.swift; sourceTree = "<group>"; };
 		1A82DE7C1D1CC5600008224D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Utils/Utils.swift; sourceTree = "<group>"; };
 		1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OctagonSquareBoard.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				1A82DE4C1D1CC43B0008224D /* Assets.xcassets */,
 				1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */,
 				1A82DE511D1CC43B0008224D /* Info.plist */,
-				1A82DE731D1CC4BF0008224D /* GameBoardScene.swift */,
+				1A82DE731D1CC4BF0008224D /* AbstractGameBoardScene.swift */,
 				1A82DE781D1CC4F00008224D /* AbstractGameBoard.swift */,
 				1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */,
 			);
@@ -281,7 +281,7 @@
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
 				1A82DE791D1CC4F00008224D /* AbstractGameBoard.swift in Sources */,
 				1A82DE7F1D2D947B0008224D /* OctagonSquareBoard.swift in Sources */,
-				1A82DE741D1CC4BF0008224D /* GameBoardScene.swift in Sources */,
+				1A82DE741D1CC4BF0008224D /* AbstractGameBoardScene.swift in Sources */,
 				1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,6 +511,7 @@
 				1A82DE6C1D1CC43B0008224D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A82DE6D1D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +520,7 @@
 				1A82DE6F1D1CC43B0008224D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A82DE701D1CC43B0008224D /* Build configuration list for PBXNativeTarget "TessellationsUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +529,7 @@
 				1A82DE721D1CC43B0008224D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -175,7 +175,8 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
             case .Disabled:
                 pipe.fillColor = pipeOffColor
                 
-            case .Branch: fallthrough
+            case .Branch:
+                pipe.fillColor = UIColor.redColor()
             case .Source:
                 pipe.fillColor = pipeOnColor
                 
