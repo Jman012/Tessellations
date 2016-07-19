@@ -26,7 +26,6 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     let logicalBoardWidth = 5
     let logicalBoardHeight = 7
-    var boardFrame: CGRect = CGRect()
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
@@ -37,13 +36,12 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     required override init(size: CGSize) {
         
-        self.logicalBoard = OctagonSquareBoard(octagonsWide: self.logicalBoardWidth, octagonsTall: self.logicalBoardHeight)
+        self.logicalBoard = OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
         
         super.init(size: size)
         
         self.logicalBoard.delegate = self
         self.setShapePaths()
-        self.boardFrame = self.calculateBoardFrame()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,10 +50,6 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func setShapePaths() {
         fatalError("setShapePaths() has not been implemented")
-    }
-    
-    func calculateBoardFrame() -> CGRect {
-        fatalError("calculateBoardFrame() has not been implemented")
     }
     
     func pieceToPoint(piece: Piece) -> CGPoint {

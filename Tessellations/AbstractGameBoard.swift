@@ -154,7 +154,7 @@ class AbstractGameBoard: NSObject {
     
     var delegate: OctSquareBoardProtocol?
     
-    init(octagonsWide boardWidth: Int, octagonsTall boardHeight: Int) {
+    init(width boardWidth: Int, height boardHeight: Int) {
         
         guard boardWidth >= 1 && boardHeight >= 1 else {
             exit(1)

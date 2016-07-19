@@ -15,6 +15,7 @@ class OctagonSquareScene: AbstractGameBoardScene {
     var adjustedDiameter: CGFloat = 0
     var squareWidth: CGFloat = 0
     var pipeWidth: CGFloat = 0
+    var boardFrame: CGRect = CGRect()
     
     required init(size: CGSize) {
         super.init(size: size)
@@ -69,14 +70,10 @@ class OctagonSquareScene: AbstractGameBoardScene {
         squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
         self.pipePaths[.Square] = squarePipePath
         
-
-    }
-    
-    override func calculateBoardFrame() -> CGRect {
-        return CGRect(x: 0,
-                      y: (self.frame.height - self.octagonDiameter * CGFloat(self.logicalBoardHeight)) / 2.0,
-                      width: self.octagonDiameter * 2 * CGFloat(self.logicalBoardWidth),
-                      height: self.octagonDiameter * 2 * CGFloat(self.logicalBoardHeight))
+        self.boardFrame = CGRect(x: 0,
+                                 y: (self.frame.height - self.octagonDiameter * CGFloat(self.logicalBoardHeight)) / 2.0,
+                                 width: self.octagonDiameter * 2 * CGFloat(self.logicalBoardWidth),
+                                 height: self.octagonDiameter * 2 * CGFloat(self.logicalBoardHeight))
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {
