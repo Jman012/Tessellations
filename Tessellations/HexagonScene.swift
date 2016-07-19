@@ -20,10 +20,11 @@ class HexagonScene: AbstractGameBoardScene {
 
     override func setShapePaths() {
         
-        hexDiameter = (size.width / CGFloat(self.logicalBoardWidth)) / 2.0
+        hexDiameter =
+            size.width / (ceil(CGFloat(self.logicalBoardWidth) / CGFloat(2.0)) + ((floor(CGFloat(self.logicalBoardWidth) / CGFloat(2.0))) * CGFloat(cos(60.0.degrees)))) / CGFloat(2.0)
         adjustedDiameter = hexDiameter * CGFloat(sin(60.0.degrees))
         
-        let hexPath = CGPathCreateMutable()
+        var hexPath = CGPathCreateMutable()
         var angle = 0.0
         CGPathMoveToPoint(hexPath, nil, hexDiameter * CGFloat(cos(angle.degrees)), hexDiameter * CGFloat(sin(angle.degrees)))
         for _ in 0..<5 {
@@ -31,6 +32,8 @@ class HexagonScene: AbstractGameBoardScene {
             CGPathAddLineToPoint(hexPath, nil, hexDiameter * CGFloat(cos(angle.degrees)), hexDiameter * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(hexPath)
+        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
+        hexPath = CGPathCreateMutableCopyByTransformingPath(hexPath, &transformScale)!
         self.shapePaths[.Hexagon] = hexPath
         
     }

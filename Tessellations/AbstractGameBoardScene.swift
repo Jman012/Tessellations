@@ -12,7 +12,7 @@ import SpriteKit
 let bgColor =        UIColor.whiteColor()
 let baseColor =      UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
 let secondaryColor = UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
-let strokeColor =    UIColor.blackColor()
+let strokeColor =    UIColor.clearColor()
 let pipeOnColor =    UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
 let pipeOffColor =   UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
@@ -25,7 +25,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     var del: GameBoardSceneProtocol?
     
     let logicalBoardWidth = 5
-    let logicalBoardHeight = 8
+    let logicalBoardHeight = 6
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
@@ -65,7 +65,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         node.fillColor = baseColor
         
         node.strokeColor = strokeColor
-        node.lineWidth = 1.0
+        node.lineWidth = 0.0
         node.userData = NSMutableDictionary()
         node.userData!["row"] = piece.row
         node.userData!["col"] = piece.col
