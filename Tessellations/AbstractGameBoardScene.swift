@@ -20,27 +20,16 @@ protocol GameBoardSceneProtocol {
     func gameWon()
 }
 
-class GameBoardScene: SKScene, OctSquareBoardProtocol {
+class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var del: GameBoardSceneProtocol?
     
     let logicalBoardWidth = 5
     let logicalBoardHeight = 7
+    var boardFrame: CGRect = CGRect()
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
-    
-    let octagonDiameter: CGFloat
-    let adjustedDiameter: CGFloat
-    let squareWidth: CGFloat
-    let pipeWidth: CGFloat
-    var boardFrame: CGRect
-    
-//    var octPath: CGMutablePath
-//    var squarePath: CGPath
-    
-//    var octPipePath: CGMutablePath
-//    var squarePipePath: CGMutablePath
     
     var rowColToNode: [RowCol: SKShapeNode] = [:]
     
@@ -48,79 +37,29 @@ class GameBoardScene: SKScene, OctSquareBoardProtocol {
     
     required override init(size: CGSize) {
         
-        self.octagonDiameter = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
-        self.adjustedDiameter = octagonDiameter + (octagonDiameter * CGFloat(cos(0.degrees)) - octagonDiameter * CGFloat(cos(22.5.degrees)))
-        self.squareWidth = adjustedDiameter * CGFloat(sin((45/2).degrees) * 2)
-        self.pipeWidth = squareWidth / 2.5
-        self.boardFrame = CGRect(x: 0, y: 0, width: self.octagonDiameter * 2 * CGFloat(self.logicalBoardWidth), height: self.octagonDiameter * 2 * CGFloat(self.logicalBoardHeight))
-
-        
-        var octPath = CGPathCreateMutable()
-        var angle = 45.0 / 2
-        CGPathMoveToPoint(octPath, nil, self.adjustedDiameter * CGFloat(cos(angle.degrees)), self.adjustedDiameter * CGFloat(sin(angle.degrees)))
-        for _ in 0..<7 {
-            angle += 45.0
-            CGPathAddLineToPoint(octPath, nil, self.adjustedDiameter * CGFloat(cos(angle.degrees)), self.adjustedDiameter * CGFloat(sin(angle.degrees)))
-        }
-        CGPathCloseSubpath(octPath)
-        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
-        octPath = CGPathCreateMutableCopyByTransformingPath(octPath, &transformScale)!
-        self.shapePaths[.Octagon] = octPath
-        
-        var transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
-        var squarePath = CGPathCreateWithRect(CGRectMake(-self.squareWidth / 2, -self.squareWidth / 2, self.squareWidth, self.squareWidth), &transform)
-        squarePath = CGPathCreateMutableCopyByTransformingPath(squarePath, &transformScale)!
-        self.shapePaths[.Square] = squarePath
-        
-        var octPipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (octPipePath, nil, self.pipeWidth * (-1/2), self.octagonDiameter - 0.5)
-        CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), self.octagonDiameter - 0.5)
-        CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), 0)
-        CGPathAddArc        (octPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
-        CGPathCloseSubpath  (octPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
-        octPipePath = CGPathCreateMutableCopyByTransformingPath(octPipePath, &transformScale)!
-        self.pipePaths[.Octagon] = octPipePath
-        
-        var squarePipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (squarePipePath, nil, self.pipeWidth * (-1/2), self.squareWidth / 2)
-        CGPathAddLineToPoint(squarePipePath, nil, self.pipeWidth * (1/2), self.squareWidth / 2)
-        CGPathAddLineToPoint(squarePipePath, nil, self.pipeWidth * (1/2), 0)
-        CGPathAddArc        (squarePipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
-        CGPathCloseSubpath  (squarePipePath)
-        squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
-        self.pipePaths[.Square] = squarePipePath
-
-        
-        
         self.logicalBoard = OctagonSquareBoard(octagonsWide: self.logicalBoardWidth, octagonsTall: self.logicalBoardHeight)
         
         super.init(size: size)
         
-        self.boardFrame.origin.y = (self.frame.height - self.octagonDiameter * CGFloat(self.logicalBoardHeight)) / 2.0
-        
         self.logicalBoard.delegate = self
-        
+        self.setShapePaths()
+        self.boardFrame = self.calculateBoardFrame()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setShapePaths() {
+        fatalError("setShapePaths() has not been implemented")
+    }
+    
+    func calculateBoardFrame() -> CGRect {
+        fatalError("calculateBoardFrame() has not been implemented")
+    }
+    
     func pieceToPoint(piece: Piece) -> CGPoint {
-        let (row, col) = (piece.row, piece.col)
-        
-        if row % 2 == 0 && col % 2 == 0 {
-            /* Octagon */
-            return CGPoint(x: (CGFloat(col) * self.octagonDiameter) + self.octagonDiameter,
-                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter - self.boardFrame.origin.y)
-        } else if row % 2 == 1 && col % 2 == 1 {
-            /* Square */
-            return CGPoint(x: (CGFloat(col) * self.octagonDiameter) + self.octagonDiameter,
-                           y: self.size.height - (CGFloat(row) * self.octagonDiameter) - self.octagonDiameter - self.boardFrame.origin.y)
-        } else {
-            return CGPoint(x: 0, y: 0)
-        }
+        fatalError("pieceToPoint() has not been implemented")
     }
     
     func nodeForPiece(piece: Piece) -> SKShapeNode {
