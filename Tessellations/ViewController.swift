@@ -29,7 +29,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.scene.size = self.view.bounds.size
+        self.scene.size = self.sceneView.frame.size
     }
 
     override func didReceiveMemoryWarning() {
