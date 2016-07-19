@@ -12,13 +12,14 @@ import SpriteKit
 class ViewController: UIViewController, GameBoardSceneProtocol {
 
     @IBOutlet weak var sceneView: SKView!
-    var scene: OctagonSquareScene!
+    var scene: AbstractGameBoardScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.scene = OctagonSquareScene(size: self.view.bounds.size)
+//        self.scene = OctagonSquareScene(size: self.view.bounds.size)
+        self.scene = HexagonScene(size: self.view.bounds.size)
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         

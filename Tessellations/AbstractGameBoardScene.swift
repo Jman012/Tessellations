@@ -12,7 +12,7 @@ import SpriteKit
 let bgColor =        UIColor.whiteColor()
 let baseColor =      UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
 let secondaryColor = UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
-let strokeColor =    UIColor.clearColor()
+let strokeColor =    UIColor.blackColor()
 let pipeOnColor =    UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
 let pipeOffColor =   UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
@@ -25,27 +25,30 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     var del: GameBoardSceneProtocol?
     
     let logicalBoardWidth = 5
-    let logicalBoardHeight = 7
+    let logicalBoardHeight = 8
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
     
     var rowColToNode: [RowCol: SKShapeNode] = [:]
     
-    var logicalBoard: OctagonSquareBoard
+    var logicalBoard: AbstractGameBoard!
     
     required override init(size: CGSize) {
         
-        self.logicalBoard = OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
-        
         super.init(size: size)
         
+        self.initLogicalBoard()
         self.logicalBoard.delegate = self
         self.setShapePaths()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initLogicalBoard() {
+        fatalError("initLogialBoard() has not been implemented")
     }
     
     func setShapePaths() {
@@ -62,7 +65,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         node.fillColor = baseColor
         
         node.strokeColor = strokeColor
-        node.lineWidth = 0.0
+        node.lineWidth = 1.0
         node.userData = NSMutableDictionary()
         node.userData!["row"] = piece.row
         node.userData!["col"] = piece.col
@@ -109,13 +112,14 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
                 pipe.fillColor = pipeOffColor
                 
             case .Branch:
-                pipe.fillColor = UIColor.redColor()
+                fallthrough
+//                pipe.fillColor = UIColor.redColor()
             case .Source:
                 pipe.fillColor = pipeOnColor
                 
             default: break
             }
-            pipe.strokeColor = UIColor.clearColor()
+            pipe.strokeColor = strokeColor
             pipe.name = "Pipe \(trueDir.rawValue) \(piece.row) \(piece.col)"
             pipe.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.logicalDirForTrueDir(trueDir).rawValue).degrees), duration: 0, shortestUnitArc: true))
             node.addChild(pipe)

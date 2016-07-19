@@ -26,6 +26,10 @@ class OctagonSquareScene: AbstractGameBoardScene {
     }
     
     
+    override func initLogicalBoard() {
+        self.logicalBoard = OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    }
+    
     override func setShapePaths() {
         self.octagonDiameter = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
         self.adjustedDiameter = octagonDiameter + (octagonDiameter * CGFloat(cos(0.degrees)) - octagonDiameter * CGFloat(cos(22.5.degrees)))

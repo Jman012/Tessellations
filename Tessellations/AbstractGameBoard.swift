@@ -17,6 +17,7 @@ enum PieceType {
     case TriangleRight
     case Square
     case Square30
+    case Hexagon
 }
 
 enum Direction: Int {
@@ -91,6 +92,9 @@ class Piece: NSObject {
         case .Square:
             legalDirections = [.NorthEast, .SouthEast, .SouthWest, .NorthWest]
             angleStep = 90
+        case .Hexagon:
+            legalDirections = [.North, .NorthEastEast, .SouthEastEast, .South, .SouthWestWest, .NorthWestWest]
+            angleStep = 60
         default:
             legalDirections = []
             angleStep = 0
@@ -386,8 +390,8 @@ class AbstractGameBoard: NSObject {
     
     // Kruskal Data Structures
     var kruSets: [[UnionFind?]] = []
-    var kruEdges: Set<Duplet<RowCol, RowCol>> = []
-//    var kruEdges: [(RowCol, RowCol)] = []
+    var kruEdgesSet: Set<Duplet<RowCol, RowCol>> = []
+    var kruEdgesList: [Duplet<RowCol, RowCol>] = []
     
     // Prim data structures
     var visited: Set<RowCol> = []
@@ -469,7 +473,7 @@ extension AbstractGameBoard {
             self.sourceCol = mazeCol
             
             kruSets = Array<Array<UnionFind?>>(count: self.boardHeight, repeatedValue: Array<UnionFind?>(count: self.boardWidth, repeatedValue: nil))
-            kruEdges.removeAll()
+            kruEdgesSet.removeAll()
             
             self.forAllPieces {
                 piece in
@@ -479,41 +483,19 @@ extension AbstractGameBoard {
                 let edgeDirs: [Direction] = [.East, .SouthEastEast, .SouthEast, .SouthSouthEast, .South]
                 for dir in edgeDirs where piece.legalDirections.contains(dir) {
                     if let adjPiece = self.getPiece(inDir: dir, ofPiece: piece) {
-                        self.kruEdges.insert(Duplet<RowCol, RowCol>(RowCol(row: piece.row, col: piece.col), RowCol(row: adjPiece.row, col: adjPiece.col)))
+                        self.kruEdgesSet.insert(Duplet<RowCol, RowCol>(RowCol(row: piece.row, col: piece.col), RowCol(row: adjPiece.row, col: adjPiece.col)))
                     }
                 }
             }
             
-//            for pRow: Int in 0..<Int(boardHeight) {
-//                kruOctSets.insert([], atIndex: pRow)
-//                for pCol: Int in 0..<Int(boardWidth) {
-//                    let rowCol = RowCol(row: pRow * 2, col: pCol * 2)
-//                    kruOctSets[pRow].insert(UnionFind(), atIndex: pCol)
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row, col: rowCol.col+2)))
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col+1)))
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row+2, col: rowCol.col)))
-//                    
-//                }
-//            }
-//            for pRow: Int in 0..<Int(boardHeight-1) {
-//                kruSquareSets.insert([], atIndex: pRow)
-//                for pCol: Int in 0..<Int(boardWidth-1) {
-//                    let rowCol = RowCol(row: (pRow * 2) + 1, col: (pCol * 2) + 1)
-//                    kruSquareSets[pRow].insert(UnionFind(), atIndex: pCol)
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row-1, col: rowCol.col+1)))
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col+1)))
-//                    kruEdges.append((rowCol, RowCol(row: rowCol.row+1, col: rowCol.col-1)))
-//                }
-//            }
-            
-//            kruEdges.shuffleInPlace()
+            kruEdgesList = Array(kruEdgesSet)
+            kruEdgesList.shuffleInPlace()
             
             mazeRunning = true
         }
         
         var pipeAdded = false
-        while let duplet = kruEdges.popFirst() {
-//        while let (rowCol1, rowCol2) = kruEdges.popLast() {
+        while let duplet = kruEdgesList.popLast() {
             let rowCol1 = duplet.one
             let rowCol2 = duplet.two
         
@@ -538,7 +520,6 @@ extension AbstractGameBoard {
         
         if pipeAdded == false {
             mazeRunning = false
-            print("source: \(sourceRow), \(sourceCol)")
             
             // Set all pipes in the source piece to be branches
             // then traverse the tree and do the right .Source or .Branch's
@@ -554,7 +535,6 @@ extension AbstractGameBoard {
                         return
                     }
                     
-                    print("init from source on dir \(trueDir) to adj (\(adjPiece.row), \(adjPiece.col))")
                     self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)
                     self.setPipeState(.Source, ofPiece: adjPiece, inTrueDir: trueDir.opposite())
                     
@@ -573,9 +553,7 @@ extension AbstractGameBoard {
                     guard let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) else {
                         return
                     }
-                    
-                    print("traverse: setting from (\(piece.row), \(piece.col)) in dir \(trueDir) to adj (\(adjPiece.row), \(adjPiece.col))")
-                    
+                                        
                     self.setPipeState(.Branch, ofPiece: piece, inTrueDir: trueDir)
                     self.setPipeState(.Source, ofPiece: adjPiece, inTrueDir: trueDir.opposite())
                     
