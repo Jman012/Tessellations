@@ -26,8 +26,8 @@ class OctagonSquareScene: AbstractGameBoardScene {
     }
     
     
-    override func initLogicalBoard() {
-        self.logicalBoard = OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    override func initLogicalBoard() -> AbstractGameBoard {
+        return OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {

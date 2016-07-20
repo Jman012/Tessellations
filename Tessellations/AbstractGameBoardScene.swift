@@ -38,7 +38,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         
         super.init(size: size)
         
-        self.initLogicalBoard()
+        self.logicalBoard = self.initLogicalBoard()
         self.logicalBoard.delegate = self
         self.setShapePaths()
     }
@@ -47,7 +47,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initLogicalBoard() {
+    func initLogicalBoard() -> AbstractGameBoard {
         fatalError("initLogialBoard() has not been implemented")
     }
     

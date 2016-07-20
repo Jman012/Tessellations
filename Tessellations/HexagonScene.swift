@@ -15,8 +15,8 @@ class HexagonScene: AbstractGameBoardScene {
     var adjustedDiameter: CGFloat = 0
     var totalHeight: CGFloat = 0
     
-    override func initLogicalBoard() {
-        self.logicalBoard = HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    override func initLogicalBoard() -> AbstractGameBoard {
+        return HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
 
     override func setShapePaths() {
