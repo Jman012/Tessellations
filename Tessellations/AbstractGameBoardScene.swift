@@ -24,8 +24,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var del: GameBoardSceneProtocol?
     
-    let logicalBoardWidth = 5
-    let logicalBoardHeight = 6
+    let logicalBoardWidth = 8
+    let logicalBoardHeight = 8
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
@@ -154,7 +154,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         
         if let node = self.pieceAtPoint(touch!) {
@@ -188,7 +188,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            node.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.absLogicalAngle).degrees), duration: 0, shortestUnitArc: true))
+            node.zRotation = -CGFloat(Double(piece.absLogicalAngle).degrees)
         }
     }
 }

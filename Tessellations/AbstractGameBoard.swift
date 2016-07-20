@@ -365,12 +365,26 @@ class AbstractGameBoard: NSObject {
     }
     
     func randomizeBoard() {
+        guard let source = self.getPiece(row: self.sourceRow, col: self.sourceCol) else {
+            fatalError("No source?!")
+        }
+        
+        self.disablePipesFrom(source)
+        
         self.forAllPieces {
             piece in
             
-            let numRots = Int(arc4random() % 8)
-            for _ in 0..<numRots {
-                self.rotatePiece(row: piece.row, col: piece.col)
+            let numRots = Int(arc4random() % 16)
+            piece.absLogicalAngle = (numRots * piece.angleStep) % 360
+        }
+        
+        // After the rotation, try re-enabling any pipes
+        self.enablePipesFrom(source)
+        
+        if let del = self.delegate {
+            self.forAllPieces {
+                piece in
+                del.pieceDidRotate(piece)
             }
         }
     }
@@ -483,7 +497,6 @@ extension AbstractGameBoard {
                 for dir in piece.legalDirections {
                     if let _ = self.getPiece(inDir: dir, ofPiece: piece) {
                         self.kruEdgesSet.insert(Duplet<RowCol, Direction>(RowCol(row: piece.row, col: piece.col), dir))
-                        print("Kru: Adding \(piece.row, piece.col) in dir \(dir)")
                     }
                 }
             }
