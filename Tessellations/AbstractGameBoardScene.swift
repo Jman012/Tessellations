@@ -24,7 +24,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var del: GameBoardSceneProtocol?
     
-    let logicalBoardWidth = 8
+    let logicalBoardWidth = 7
     let logicalBoardHeight = 8
     
     var shapePaths: [PieceType: CGPath] = [:]
@@ -97,6 +97,9 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {
         node.removeAllChildren()
         
+        var numPipes = 0
+        var pipeAdded: SKShapeNode?
+        
         piece.forEachPipeState {
             trueDir, status in
             
@@ -123,6 +126,26 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             pipe.name = "Pipe \(trueDir.rawValue) \(piece.row) \(piece.col)"
             pipe.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.logicalDirForTrueDir(trueDir).rawValue).degrees), duration: 0, shortestUnitArc: true))
             node.addChild(pipe)
+            
+            numPipes += 1
+            pipeAdded = pipe
+        }
+        
+        if self.logicalBoard.pieceIsRoot(piece) {
+            let sourceMarker = SKShapeNode(path: self.shapePaths[piece.type]!)
+            sourceMarker.runAction(SKAction.scaleTo(0.17, duration: 0))
+            sourceMarker.fillColor = baseColor
+            sourceMarker.strokeColor = UIColor.clearColor()
+            sourceMarker.lineWidth = 0.0
+            node.addChild(sourceMarker)
+        }
+        
+        if let pipe = pipeAdded where numPipes == 1 {
+            let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.75)
+            bubble.fillColor = pipe.fillColor
+            bubble.strokeColor = UIColor.clearColor()
+            bubble.lineWidth = 0.0
+            pipe.addChild(bubble)
         }
     }
     
