@@ -23,6 +23,7 @@ class HexagonScene: AbstractGameBoardScene {
         hexDiameter =
             size.width / (ceil(CGFloat(self.logicalBoardWidth) / CGFloat(2.0)) + ((floor(CGFloat(self.logicalBoardWidth) / CGFloat(2.0))) * CGFloat(cos(60.0.degrees)))) / CGFloat(2.0)
         adjustedDiameter = hexDiameter * CGFloat(sin(60.0.degrees))
+        let pipeWidth = adjustedDiameter / 2.0
         
         var hexPath = CGPathCreateMutable()
         var angle = 0.0
@@ -36,14 +37,25 @@ class HexagonScene: AbstractGameBoardScene {
         hexPath = CGPathCreateMutableCopyByTransformingPath(hexPath, &transformScale)!
         self.shapePaths[.Hexagon] = hexPath
         
+        
+        var hexPipePath = CGPathCreateMutable()
+        CGPathMoveToPoint   (hexPipePath, nil, pipeWidth * (-1/2), adjustedDiameter - 0.5)
+        CGPathAddLineToPoint(hexPipePath, nil, pipeWidth * (1/2), adjustedDiameter - 0.5)
+        CGPathAddLineToPoint(hexPipePath, nil, pipeWidth * (1/2), 0)
+        CGPathAddArc        (hexPipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
+        CGPathCloseSubpath  (hexPipePath)
+        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
+        hexPipePath = CGPathCreateMutableCopyByTransformingPath(hexPipePath, &transformScale)!
+        self.pipePaths[.Hexagon] = hexPipePath
+        
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {
         let x = hexDiameter + (CGFloat(piece.col) * (hexDiameter + hexDiameter * CGFloat(cos(60.0.degrees))))
-        var y = adjustedDiameter + (CGFloat(piece.row) * adjustedDiameter * 2)
-        if piece.col % 2 == 1 {
+        var y = 2 * adjustedDiameter + (CGFloat(piece.row) * adjustedDiameter * 2)
+        if piece.col % 2 == 0 {
             y += adjustedDiameter
         }
-        return CGPoint(x: x, y: y)
+        return CGPoint(x: x, y: size.height - y)
     }
 }

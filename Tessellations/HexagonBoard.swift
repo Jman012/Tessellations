@@ -15,7 +15,7 @@ class HexagonBoard: AbstractGameBoard {
         for row in 0..<boardHeight {
             board.append([])
             for col in 0..<boardWidth {
-                if col % 2 == 0 && row == 0 {
+                if col % 2 == 0 && row + 1 == boardHeight {
                     board[row].append(nil)
                 } else {
                     let piece = Piece(row: row, col: col, type: .Hexagon)
@@ -35,29 +35,41 @@ class HexagonBoard: AbstractGameBoard {
         
         switch direction {
         case .North:
-            rowCol.row = rowCol.row - 2
-            rowCol.col = rowCol.col + 0
-        case .NorthEast:
             rowCol.row = rowCol.row - 1
-            rowCol.col = rowCol.col + 1
-        case .East:
-            rowCol.row = rowCol.row + 0
-            rowCol.col = rowCol.col + 2
-        case .SouthEast:
-            rowCol.row = rowCol.row + 1
-            rowCol.col = rowCol.col + 1
         case .South:
-            rowCol.row = rowCol.row + 2
-            rowCol.col = rowCol.col + 0
-        case .SouthWest:
             rowCol.row = rowCol.row + 1
-            rowCol.col = rowCol.col - 1
-        case .West:
-            rowCol.row = rowCol.row + 0
-            rowCol.col = rowCol.col - 2
-        case .NorthWest:
-            rowCol.row = rowCol.row - 1
-            rowCol.col = rowCol.col - 1
+        case .NorthEastEast:
+            if piece.col % 2 == 0 {
+                rowCol.row = rowCol.row + 0
+                rowCol.col = rowCol.col + 1
+            } else {
+                rowCol.row = rowCol.row - 1
+                rowCol.col = rowCol.col + 1
+            }
+        case .SouthEastEast:
+            if piece.col % 2 == 0 {
+                rowCol.row = rowCol.row + 1
+                rowCol.col = rowCol.col + 1
+            } else {
+                rowCol.row = rowCol.row + 0
+                rowCol.col = rowCol.col + 1
+            }
+        case .NorthWestWest:
+            if piece.col % 2 == 0 {
+                rowCol.row = rowCol.row + 0
+                rowCol.col = rowCol.col - 1
+            } else {
+                rowCol.row = rowCol.row - 1
+                rowCol.col = rowCol.col - 1
+            }
+        case .SouthWestWest:
+            if piece.col % 2 == 0 {
+                rowCol.row = rowCol.row + 1
+                rowCol.col = rowCol.col - 1
+            } else {
+                rowCol.row = rowCol.row + 0
+                rowCol.col = rowCol.col - 1
+            }
         default:
             return nil
         }
