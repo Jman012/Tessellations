@@ -390,8 +390,8 @@ class AbstractGameBoard: NSObject {
     
     // Kruskal Data Structures
     var kruSets: [[UnionFind?]] = []
-    var kruEdgesSet: Set<Duplet<RowCol, RowCol>> = []
-    var kruEdgesList: [Duplet<RowCol, RowCol>] = []
+    var kruEdgesSet: Set<Duplet<RowCol, Direction>> = []
+    var kruEdgesList: [Duplet<RowCol, Direction>] = []
     
     // Prim data structures
     var visited: Set<RowCol> = []
@@ -480,10 +480,10 @@ extension AbstractGameBoard {
                 
                 self.kruSets[piece.row][piece.col] = UnionFind()
                 
-                let edgeDirs: [Direction] = [.East, .SouthEastEast, .SouthEast, .SouthSouthEast, .South]
-                for dir in edgeDirs where piece.legalDirections.contains(dir) {
-                    if let adjPiece = self.getPiece(inDir: dir, ofPiece: piece) {
-                        self.kruEdgesSet.insert(Duplet<RowCol, RowCol>(RowCol(row: piece.row, col: piece.col), RowCol(row: adjPiece.row, col: adjPiece.col)))
+                for dir in piece.legalDirections {
+                    if let _ = self.getPiece(inDir: dir, ofPiece: piece) {
+                        self.kruEdgesSet.insert(Duplet<RowCol, Direction>(RowCol(row: piece.row, col: piece.col), dir))
+                        print("Kru: Adding \(piece.row, piece.col) in dir \(dir)")
                     }
                 }
             }
@@ -497,19 +497,16 @@ extension AbstractGameBoard {
         var pipeAdded = false
         while let duplet = kruEdgesList.popLast() {
             let rowCol1 = duplet.one
-            let rowCol2 = duplet.two
+            let direction = duplet.two
         
             if let piece1 = self.getPiece(row: rowCol1.row, col: rowCol1.col)
-                , piece2 = self.getPiece(row: rowCol2.row, col: rowCol2.col)
-                where self.rowColInSameSet(rowCol1, rowCol2: rowCol2) == false {
+                , piece2 = self.getPiece(inDir: direction, ofPiece: piece1)
+                where self.piecesInSameSet(piece1: piece1, piece2: piece2) == false {
                 
-                
-                let direction = self.directionBetweenRowCols(rowCol1, rowCol2: rowCol2)!
-
                 self.setPipeState(.Disabled, ofPiece: piece1, inTrueDir: direction)
                 self.setPipeState(.Disabled, ofPiece: piece2, inTrueDir: direction.opposite())
                 
-                self.joinRowColSets(rowCol1, rowCol2: rowCol2)
+                self.joinRowColSets(piece1: piece1, piece2: piece2)
                 self.performSelector(#selector(self.generateKruskal), withObject: nil, afterDelay: 0.1)
                 pipeAdded = true
                 break
@@ -563,9 +560,9 @@ extension AbstractGameBoard {
         }
     }
     
-    func joinRowColSets(rowCol1: RowCol, rowCol2: RowCol) {
-        if let set1: UnionFind = kruSets[rowCol1.row][rowCol1.col],
-            let set2: UnionFind = kruSets[rowCol2.row][rowCol2.col] {
+    func joinRowColSets(piece1 piece1: Piece, piece2: Piece) {
+        if let set1: UnionFind = kruSets[piece1.row][piece1.col],
+            let set2: UnionFind = kruSets[piece2.row][piece2.col] {
             
             set2.addToSet(set1)
         } else {
@@ -573,34 +570,9 @@ extension AbstractGameBoard {
         }
     }
     
-    func directionBetweenRowCols(rowCol1: RowCol, rowCol2: RowCol) -> Direction? {
-        let dRow = rowCol1.row - rowCol2.row
-        let dCol = rowCol1.col - rowCol2.col
-        
-        if dRow > 0 && dCol == 0 {
-            return .North
-        } else if dRow > 0 && dCol < 0 {
-            return .NorthEast
-        } else if dRow == 0 && dCol < 0 {
-            return .East
-        } else if dRow < 0 && dCol < 0 {
-            return .SouthEast
-        } else if dRow < 0 && dCol == 0 {
-            return .South
-        } else if dRow < 0 && dCol > 0 {
-            return .SouthWest
-        } else if dRow == 0 && dCol > 0 {
-            return .West
-        } else if dRow > 0 && dCol > 0 {
-            return .NorthWest
-        } else {
-            return nil
-        }
-    }
-    
-    func rowColInSameSet(rowCol1: RowCol, rowCol2: RowCol) -> Bool {
-        if let set1: UnionFind = kruSets[rowCol1.row][rowCol1.col],
-            let set2: UnionFind = kruSets[rowCol2.row][rowCol2.col] {
+    func piecesInSameSet(piece1 piece1: Piece, piece2: Piece) -> Bool {
+        if let set1: UnionFind = kruSets[piece1.row][piece1.col],
+            let set2: UnionFind = kruSets[piece2.row][piece2.col] {
             
             return UnionFind.areEqualSets(one: set1, two: set2)
         } else {
