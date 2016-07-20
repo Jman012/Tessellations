@@ -13,6 +13,7 @@ class HexagonScene: AbstractGameBoardScene {
     
     var hexDiameter: CGFloat = 0
     var adjustedDiameter: CGFloat = 0
+    var totalHeight: CGFloat = 0
     
     override func initLogicalBoard() {
         self.logicalBoard = HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
@@ -23,6 +24,7 @@ class HexagonScene: AbstractGameBoardScene {
         hexDiameter =
             size.width / (ceil(CGFloat(self.logicalBoardWidth) / CGFloat(2.0)) + ((floor(CGFloat(self.logicalBoardWidth) / CGFloat(2.0))) * CGFloat(cos(60.0.degrees)))) / CGFloat(2.0)
         adjustedDiameter = hexDiameter * CGFloat(sin(60.0.degrees))
+        totalHeight = CGFloat(self.logicalBoardHeight * 2) * adjustedDiameter
         let pipeWidth = adjustedDiameter / 2.0
         
         var hexPath = CGPathCreateMutable()
@@ -56,6 +58,6 @@ class HexagonScene: AbstractGameBoardScene {
         if piece.col % 2 == 0 {
             y += adjustedDiameter
         }
-        return CGPoint(x: x, y: size.height - y)
+        return CGPoint(x: x, y: size.height - y - (size.height - totalHeight)/2)
     }
 }
