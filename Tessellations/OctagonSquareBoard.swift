@@ -20,7 +20,7 @@ class OctagonSquareBoard: AbstractGameBoard {
                     let piece = Piece(row: row, col: col, type: .Octagon)
                     board[row].append(piece)
                 } else if row % 2 == 1 && col % 2 == 1 {
-                    let piece = Piece(row: row, col: col, type: .Square)
+                    let piece = Piece(row: row, col: col, type: .Square45)
                     board[row].append(piece)
                 } else {
                     board[row].append(nil)

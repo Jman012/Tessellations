@@ -19,7 +19,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         // Do any additional setup after loading the view, typically from a nib.
         
 //        self.scene = OctagonSquareScene(size: self.view.bounds.size)
-        self.scene = HexagonScene(size: self.view.bounds.size)
+//        self.scene = HexagonScene(size: self.view.bounds.size)
+        self.scene = SquareScene(size: self.view.bounds.size)
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         

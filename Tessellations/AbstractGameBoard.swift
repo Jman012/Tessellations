@@ -89,12 +89,15 @@ class Piece: NSObject {
         case .Octagon:
             legalDirections = [.North, .NorthEast, .East, .SouthEast, .South, .SouthWest, .West, .NorthWest]
             angleStep = 45
-        case .Square:
+        case .Square45:
             legalDirections = [.NorthEast, .SouthEast, .SouthWest, .NorthWest]
             angleStep = 90
         case .Hexagon:
             legalDirections = [.North, .NorthEastEast, .SouthEastEast, .South, .SouthWestWest, .NorthWestWest]
             angleStep = 60
+        case .Square:
+            legalDirections = [.North, .East, .South, .West]
+            angleStep = 90
         default:
             legalDirections = []
             angleStep = 0

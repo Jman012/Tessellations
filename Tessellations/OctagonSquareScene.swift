@@ -53,7 +53,7 @@ class OctagonSquareScene: AbstractGameBoardScene {
         var transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
         var squarePath = CGPathCreateWithRect(CGRectMake(-self.squareWidth / 2, -self.squareWidth / 2, self.squareWidth, self.squareWidth), &transform)
         squarePath = CGPathCreateMutableCopyByTransformingPath(squarePath, &transformScale)!
-        self.shapePaths[.Square] = squarePath
+        self.shapePaths[.Square45] = squarePath
         
         var octPipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (octPipePath, nil, self.pipeWidth * (-1/2), self.octagonDiameter - 0.5)
@@ -72,7 +72,7 @@ class OctagonSquareScene: AbstractGameBoardScene {
         CGPathAddArc        (squarePipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (squarePipePath)
         squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
-        self.pipePaths[.Square] = squarePipePath
+        self.pipePaths[.Square45] = squarePipePath
         
         self.boardFrame = CGRect(x: 0,
                                  y: (self.frame.height - self.octagonDiameter * CGFloat(self.logicalBoardHeight)) / 2.0,
