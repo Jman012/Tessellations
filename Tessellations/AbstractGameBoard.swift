@@ -98,6 +98,12 @@ class Piece: NSObject {
         case .Square:
             legalDirections = [.North, .East, .South, .West]
             angleStep = 90
+        case .TriangleUp:
+            legalDirections = [.NorthEastEast, .South, .NorthWestWest]
+            angleStep = 120
+        case .TriangleDown:
+            legalDirections = [.North, .SouthEastEast, .SouthWestWest]
+            angleStep = 120
         default:
             legalDirections = []
             angleStep = 0

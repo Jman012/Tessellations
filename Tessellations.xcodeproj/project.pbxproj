@@ -23,6 +23,8 @@
 		1A82DE7F1D2D947B0008224D /* OctagonSquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */; };
 		1AE82DAD1D3FF27A00F8166F /* SquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DAC1D3FF27A00F8166F /* SquareScene.swift */; };
 		1AE82DB11D3FF29E00F8166F /* SquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DB01D3FF29E00F8166F /* SquareBoard.swift */; };
+		1AE82DB31D40990600F8166F /* TriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DB21D40990600F8166F /* TriangleBoard.swift */; };
+		1AE82DB51D409CCA00F8166F /* TriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DB41D409CCA00F8166F /* TriangleScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OctagonSquareBoard.swift; sourceTree = "<group>"; };
 		1AE82DAC1D3FF27A00F8166F /* SquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareScene.swift; sourceTree = "<group>"; };
 		1AE82DB01D3FF29E00F8166F /* SquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareBoard.swift; sourceTree = "<group>"; };
+		1AE82DB21D40990600F8166F /* TriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBoard.swift; sourceTree = "<group>"; };
+		1AE82DB41D409CCA00F8166F /* TriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +165,7 @@
 				1A31511C1D3D8DEC006E6C76 /* OctagonSquareScene.swift */,
 				1A31511E1D3DA95F006E6C76 /* HexagonScene.swift */,
 				1AE82DAC1D3FF27A00F8166F /* SquareScene.swift */,
+				1AE82DB41D409CCA00F8166F /* TriangleScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				1A82DE7E1D2D947B0008224D /* OctagonSquareBoard.swift */,
 				1A3151201D3EA18C006E6C76 /* HexagonBoard.swift */,
 				1AE82DB01D3FF29E00F8166F /* SquareBoard.swift */,
+				1AE82DB21D40990600F8166F /* TriangleBoard.swift */,
 			);
 			name = Boards;
 			sourceTree = "<group>";
@@ -310,8 +316,10 @@
 			files = (
 				1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
+				1AE82DB51D409CCA00F8166F /* TriangleScene.swift in Sources */,
 				1AE82DB11D3FF29E00F8166F /* SquareBoard.swift in Sources */,
 				1A82DE791D1CC4F00008224D /* AbstractGameBoard.swift in Sources */,
+				1AE82DB31D40990600F8166F /* TriangleBoard.swift in Sources */,
 				1A82DE7F1D2D947B0008224D /* OctagonSquareBoard.swift in Sources */,
 				1A82DE741D1CC4BF0008224D /* AbstractGameBoardScene.swift in Sources */,
 				1AE82DAD1D3FF27A00F8166F /* SquareScene.swift in Sources */,

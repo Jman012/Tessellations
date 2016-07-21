@@ -25,8 +25,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     var del: GameBoardSceneProtocol?
     
-    let logicalBoardWidth = 7
-    let logicalBoardHeight = 8
+    var logicalBoardWidth = 7
+    var logicalBoardHeight = 6
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
@@ -78,6 +78,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         super.didMoveToView(view)
         
         self.backgroundColor = bgColor
+        
+        self.removeAllChildren()
         
         self.logicalBoard.forAllPieces {
             (piece: Piece) in
@@ -134,7 +136,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         
         if self.logicalBoard.pieceIsRoot(piece) {
             let sourceMarker = SKShapeNode(path: self.shapePaths[piece.type]!)
-            sourceMarker.runAction(SKAction.scaleTo(0.17, duration: 0))
+            sourceMarker.runAction(SKAction.scaleTo(0.12, duration: 0))
             sourceMarker.fillColor = baseColor
             sourceMarker.strokeColor = UIColor.clearColor()
             sourceMarker.lineWidth = 0.0

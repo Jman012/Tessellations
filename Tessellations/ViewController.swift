@@ -13,14 +13,21 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
 
     @IBOutlet weak var sceneView: SKView!
     var scene: AbstractGameBoardScene!
+    var octSquareScene: OctagonSquareScene!
+    var hexagonScene: HexagonScene!
+    var squareScene: SquareScene!
+    var triangleScene: TriangleScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        self.scene = OctagonSquareScene(size: self.view.bounds.size)
-//        self.scene = HexagonScene(size: self.view.bounds.size)
-        self.scene = SquareScene(size: self.view.bounds.size)
+        self.octSquareScene = OctagonSquareScene(size: self.view.bounds.size)
+        self.hexagonScene = HexagonScene(size: self.view.bounds.size)
+        self.squareScene = SquareScene(size: self.view.bounds.size)
+        self.triangleScene = TriangleScene(size: self.view.bounds.size)
+        
+        self.scene = self.triangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -31,7 +38,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.scene.size = self.sceneView.frame.size
+        self.octSquareScene.size = self.sceneView.frame.size
+        self.hexagonScene.size = self.sceneView.frame.size
+        self.squareScene.size = self.sceneView.frame.size
+        self.triangleScene.size = self.sceneView.frame.size
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +64,46 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func toolbarFourDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.generatePrim()
+    }
+    
+    @IBAction func toolbarFiveDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.octSquareScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarSixDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.hexagonScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarSevenDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.squareScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarEightDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.triangleScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
     }
     
     func gameWon() {

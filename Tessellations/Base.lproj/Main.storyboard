@@ -34,14 +34,36 @@
                                             <action selector="toolbarOneDidTouch:" destination="BYZ-38-t0r" id="S3K-DP-Fx2"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="HuntAndKill" id="5wS-Iu-v2P">
+                                    <barButtonItem title="HaK" id="5wS-Iu-v2P">
                                         <connections>
                                             <action selector="toolbarTwoDidTouch:" destination="BYZ-38-t0r" id="l7P-wd-Ibg"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Randomize" id="IDH-hH-VHf">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="85t-LD-Fjp"/>
+                                    <barButtonItem title="Rand" id="IDH-hH-VHf">
                                         <connections>
                                             <action selector="toolbarThreeDidTouch:" destination="BYZ-38-t0r" id="PTs-t5-txv"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dHM-fu-QHY"/>
+                                    <barButtonItem title="OS" id="iBX-Ob-4dv">
+                                        <connections>
+                                            <action selector="toolbarFiveDidTouch:" destination="BYZ-38-t0r" id="xOS-Qs-ybb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="H" id="2ED-0h-Ydt">
+                                        <connections>
+                                            <action selector="toolbarSixDidTouch:" destination="BYZ-38-t0r" id="52E-cd-zFm"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="S" id="Idp-Cs-WIe">
+                                        <connections>
+                                            <action selector="toolbarSevenDidTouch:" destination="BYZ-38-t0r" id="mha-2Q-VPw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="T" id="B3R-ir-KKY">
+                                        <connections>
+                                            <action selector="toolbarEightDidTouch:" destination="BYZ-38-t0r" id="8lV-Ea-WrK"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
