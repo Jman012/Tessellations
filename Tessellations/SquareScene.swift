@@ -15,6 +15,8 @@ class SquareScene: AbstractGameBoardScene {
     var totalHeight: CGFloat = 0
 
     override func initLogicalBoard() -> AbstractGameBoard {
+        self.logicalBoardWidth = 7
+        self.logicalBoardHeight = 8
         return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
