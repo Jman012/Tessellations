@@ -17,8 +17,8 @@ class TriangleScene: AbstractGameBoardScene {
     var totalHeight: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 6
+        self.logicalBoardWidth = 11
+        self.logicalBoardHeight = 10
         return TriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
@@ -64,7 +64,7 @@ class TriangleScene: AbstractGameBoardScene {
     
     override func pieceToPoint(piece: Piece) -> CGPoint {
         let x = tri_a/2 + (CGFloat(piece.col) * tri_a/2)
-        var y = CGFloat(piece.row) * (tri_r + tri_R)
+        var y = tri_r + CGFloat(piece.row) * (tri_r + tri_R)
         if piece.col % 2 == piece.row % 2 {
             y += tri_r
         } else {
