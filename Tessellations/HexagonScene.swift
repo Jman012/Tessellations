@@ -17,7 +17,7 @@ class HexagonScene: AbstractGameBoardScene {
     
     override func initLogicalBoard() -> AbstractGameBoard {
         self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 8
+        self.logicalBoardHeight = 10
         return HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
 

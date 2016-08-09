@@ -77,6 +77,7 @@ class Piece: NSObject {
     var absLogicalAngle: Int
     var angleStep: Int
     var legalDirections: [Direction]
+    var enabling: Bool = false
     
     init(row: Int, col: Int, type: PieceType) {
         self.row = row
@@ -167,6 +168,10 @@ class AbstractGameBoard: NSObject {
     
     var delegate: OctSquareBoardProtocol?
     
+    // This is for the disable/enable functions when
+    // rotating. Helps with loops
+    var piecesToRevisit: [Piece] = []
+    
     init(width boardWidth: Int, height boardHeight: Int) {
         
         guard boardWidth >= 1 && boardHeight >= 1 else {
@@ -196,6 +201,10 @@ class AbstractGameBoard: NSObject {
     
     func pieceIsRoot(piece: Piece) -> Bool {
         return piece.row == self.sourceRow && piece.col == self.sourceCol
+    }
+    
+    func rootPiece() -> Piece {
+        return self.getPiece(row: self.sourceRow, col: self.sourceCol)!
     }
     
     func adjacentPieceDisplacement(piece piece: Piece, direction: Direction) -> RowCol? {
@@ -267,7 +276,9 @@ class AbstractGameBoard: NSObject {
             return false
         }
         
-        self.disablePipesFrom(piece)
+        self.disablePipes()
+//        self.disablePipesFrom(piece)
+        // TODO: Revisit pieces
     
         piece.absLogicalAngle = (piece.absLogicalAngle + piece.angleStep) % 360
         
@@ -276,13 +287,41 @@ class AbstractGameBoard: NSObject {
         }
         
         // After the rotation, try re-enabling any pipes
-        self.enablePipesFrom(piece)
+//        self.enablePipesFrom(piece)
+        self.enablePipesFromRoot()
         
         if let del = self.delegate where self.boardComplete() {
             del.gameWon()
         }
         
         return true
+    }
+    
+    func disablePipes() {
+        self.forAllPieces {
+            piece in
+            
+            piece.forEachPipeState {
+                trueDir, state in
+                
+                if state != .None {
+                    self.setPipeState(.Disabled, ofPiece: piece, inTrueDir: trueDir)
+                }
+            }
+        }
+        
+        let root = self.rootPiece()
+        root.forEachPipeState {
+            trueDir, state in
+            
+            if state != .None {
+                self.setPipeState(.Branch, ofPiece: root, inTrueDir: trueDir)
+            }
+        }
+    }
+    
+    func enablePipesFromRoot() {
+        self.enablePipesFrom(self.rootPiece())
     }
     
     func disablePipesFrom(piece: Piece) {
@@ -294,16 +333,24 @@ class AbstractGameBoard: NSObject {
             }
             
             if state == .Branch {
-                if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece)
-                    where adjPiece.pipeState(forTrueDir: trueDir.opposite()) == .Source {
-                    
-                    self.disablePipesFrom(adjPiece)
+                if let adjPiece = self.getPiece(inDir: trueDir, ofPiece: piece) {
+                    let adjState = adjPiece.pipeState(forTrueDir: trueDir.opposite())
+                    if adjState == .Source {
+                        self.disablePipesFrom(adjPiece)
+                    } else if adjState == .Branch {
+                        self.piecesToRevisit.append(adjPiece)
+                    }
                 }
             }
         }
     }
     
     @objc func enablePipesFrom(piece: Piece) {
+        
+        if piece.enabling {
+            return
+        }
+        piece.enabling = true
 
         if self.pieceIsRoot(piece) {
             piece.forEachPipeState {
@@ -351,6 +398,8 @@ class AbstractGameBoard: NSObject {
                 }
             }
         }
+        
+        piece.enabling = false
     }
     
     func forAllPieces(callback: (piece: Piece) -> Void) {
