@@ -15,10 +15,11 @@ class TriangleScene: AbstractGameBoardScene {
     var tri_r: CGFloat = 0
     var tri_R: CGFloat = 0
     var totalHeight: CGFloat = 0
+    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 11
-        self.logicalBoardHeight = 10
+        self.logicalBoardWidth = 9
+        self.logicalBoardHeight = 8
         return TriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
@@ -29,7 +30,17 @@ class TriangleScene: AbstractGameBoardScene {
         tri_a = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0)
         tri_r = tri_a * sqrt(3.0) / 6.0
         tri_R = tri_a * sqrt(3.0) / 3.0
-        totalHeight = CGFloat(self.logicalBoardHeight) * (tri_r + tri_R)
+        totalWidth = self.size.width
+        totalHeight = (tri_r + tri_R) * CGFloat(self.logicalBoardHeight)
+        if totalHeight > self.size.height {
+            let tri_height = self.size.height / CGFloat(self.logicalBoardHeight)
+            tri_r = tri_height / 3.0
+            tri_R = tri_height * (2.0 / 3.0)
+            tri_a = (6 * tri_r) / sqrt(3.0)
+            totalHeight = self.size.height
+            totalWidth = tri_a * ceil(CGFloat(self.logicalBoardWidth) / 2.0)
+        }
+        
         let pipeWidth = tri_a / 5.0
         
         var triangleUpPath = CGPathCreateMutable()
@@ -70,7 +81,7 @@ class TriangleScene: AbstractGameBoardScene {
         } else {
             y += tri_R
         }
-        return CGPoint(x: x, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 
 }
