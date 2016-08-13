@@ -100,14 +100,23 @@ class Piece: NSObject {
             legalDirections = [.North, .East, .South, .West]
             angleStep = 90
         case .TriangleUp:
-            legalDirections = [.NorthEastEast, .South, .NorthWestWest]
+            legalDirections = [.South, .NorthEastEast, .NorthWestWest]
             angleStep = 120
         case .TriangleDown:
             legalDirections = [.North, .SouthEastEast, .SouthWestWest]
             angleStep = 120
-        default:
-            legalDirections = []
-            angleStep = 0
+        case .TriangleLeft:
+            legalDirections = [.East, .SouthSouthWest, .NorthNorthWest]
+            angleStep = 120
+        case .TriangleRight:
+            legalDirections = [.West, .SouthSouthEast, .NorthNorthEast]
+            angleStep = 120
+        case .Square30:
+            legalDirections = [.NorthNorthWest, .NorthEastEast, .SouthSouthEast, .SouthWestWest]
+            angleStep = 90
+//        default:
+//            legalDirections = []
+//            angleStep = 0
         }
     }
     

@@ -17,6 +17,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var hexagonScene: HexagonScene!
     var squareScene: SquareScene!
     var triangleScene: TriangleScene!
+    var squareTriangleCrazyScene: SquareTriangleCrazyScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.hexagonScene = HexagonScene(size: self.view.bounds.size)
         self.squareScene = SquareScene(size: self.view.bounds.size)
         self.triangleScene = TriangleScene(size: self.view.bounds.size)
+        self.squareTriangleCrazyScene = SquareTriangleCrazyScene(size: self.view.bounds.size)
         
-        self.scene = self.triangleScene
+        self.scene = self.squareTriangleCrazyScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -42,6 +44,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.hexagonScene.size = self.sceneView.frame.size
         self.squareScene.size = self.sceneView.frame.size
         self.triangleScene.size = self.sceneView.frame.size
+        self.squareTriangleCrazyScene.size = self.sceneView.frame.size
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +101,16 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func toolbarEightDidTouch(sender: UIBarButtonItem) {
         self.scene = self.triangleScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarNineDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.squareTriangleCrazyScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         

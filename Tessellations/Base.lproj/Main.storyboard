@@ -29,7 +29,7 @@
                                             <action selector="toolbarFourDidTouch:" destination="BYZ-38-t0r" id="dV5-5B-VHy"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Kruskal" id="9Mo-Cb-CmH">
+                                    <barButtonItem title="Krus" id="9Mo-Cb-CmH">
                                         <connections>
                                             <action selector="toolbarOneDidTouch:" destination="BYZ-38-t0r" id="S3K-DP-Fx2"/>
                                         </connections>
@@ -64,6 +64,11 @@
                                     <barButtonItem title="T" id="B3R-ir-KKY">
                                         <connections>
                                             <action selector="toolbarEightDidTouch:" destination="BYZ-38-t0r" id="8lV-Ea-WrK"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="STC" id="Ly0-uU-eLC">
+                                        <connections>
+                                            <action selector="toolbarNineDidTouch:" destination="BYZ-38-t0r" id="E7w-Hz-cF5"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
