@@ -18,6 +18,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var squareScene: SquareScene!
     var triangleScene: TriangleScene!
     var squareTriangleCrazyScene: SquareTriangleCrazyScene!
+    var hexagonTriangleScene: HexagonTriangleScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +29,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.squareScene = SquareScene(size: self.view.bounds.size)
         self.triangleScene = TriangleScene(size: self.view.bounds.size)
         self.squareTriangleCrazyScene = SquareTriangleCrazyScene(size: self.view.bounds.size)
+        self.hexagonTriangleScene = HexagonTriangleScene(size: self.view.bounds.size)
         
-        self.scene = self.squareTriangleCrazyScene
+        self.scene = self.hexagonTriangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -45,6 +47,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.squareScene.size = self.sceneView.frame.size
         self.triangleScene.size = self.sceneView.frame.size
         self.squareTriangleCrazyScene.size = self.sceneView.frame.size
+        self.hexagonTriangleScene.size = self.sceneView.frame.size
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,23 +56,23 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
 
     
-    @IBAction func toolbarOneDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarKrusDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.generateKruskal()
     }
     
-    @IBAction func toolbarTwoDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarHakDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.generateHuntAndKill()
     }
     
-    @IBAction func toolbarThreeDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarRandDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.randomizeBoard()
     }
     
-    @IBAction func toolbarFourDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarPrimDidTouch(sender: UIBarButtonItem) {
         self.scene.logicalBoard.generatePrim()
     }
     
-    @IBAction func toolbarFiveDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarOSDidTouch(sender: UIBarButtonItem) {
         self.scene = self.octSquareScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
@@ -79,7 +82,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.sceneView.presentScene(self.scene)
     }
     
-    @IBAction func toolbarSixDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarHDidTouch(sender: UIBarButtonItem) {
         self.scene = self.hexagonScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
@@ -89,7 +92,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.sceneView.presentScene(self.scene)
     }
     
-    @IBAction func toolbarSevenDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarSDidTouch(sender: UIBarButtonItem) {
         self.scene = self.squareScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
@@ -99,7 +102,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.sceneView.presentScene(self.scene)
     }
     
-    @IBAction func toolbarEightDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarTDidTouch(sender: UIBarButtonItem) {
         self.scene = self.triangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
@@ -109,8 +112,18 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.sceneView.presentScene(self.scene)
     }
     
-    @IBAction func toolbarNineDidTouch(sender: UIBarButtonItem) {
+    @IBAction func toolbarSTCDidTouch(sender: UIBarButtonItem) {
         self.scene = self.squareTriangleCrazyScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarHTDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.hexagonTriangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
