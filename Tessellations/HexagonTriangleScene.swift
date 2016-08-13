@@ -16,16 +16,27 @@ class HexagonTriangleScene: AbstractGameBoardScene {
     var tri_R: CGFloat = 0
     var pipeWidth: CGFloat = 0
     var totalHeight: CGFloat = 0
+    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
         self.logicalBoardWidth = 9
-        self.logicalBoardHeight = 18
+        self.logicalBoardHeight = 14
         return HexagonTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
         
-        tri_a = 30
+        // Try by width
+        tri_a = (self.size.width / ceil(CGFloat(self.logicalBoardWidth)/2)) / 2
+        totalWidth = self.size.width
+        totalHeight = tri_a * CGFloat(self.logicalBoardHeight)
+        if totalHeight > self.size.height {
+            tri_a = self.size.height / CGFloat(self.logicalBoardHeight)
+            totalHeight = self.size.height
+            totalWidth = tri_a * 2 * ceil(CGFloat(self.logicalBoardWidth)/2)
+        }
+        
+//        tri_a = 30
         tri_r = tri_a * sqrt(3.0) / 6.0
         tri_R = tri_a * sqrt(3.0) / 3.0
         pipeWidth = tri_a / 4
@@ -101,7 +112,7 @@ class HexagonTriangleScene: AbstractGameBoardScene {
             y -= tri_R
         }
         
-        return CGPoint(x: x, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 
 }
