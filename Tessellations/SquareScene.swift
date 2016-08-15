@@ -24,7 +24,7 @@ class SquareScene: AbstractGameBoardScene {
         
         squareWidth = size.width / CGFloat(self.logicalBoardWidth)
         totalHeight = CGFloat(self.logicalBoardHeight) * squareWidth
-        let pipeWidth = squareWidth / 4.0
+        let pipeWidth = squareWidth / 3
         
         var squarePath = CGPathCreateMutable()
         CGPathMoveToPoint(squarePath, nil, -squareWidth/2, -squareWidth/2)
@@ -46,7 +46,7 @@ class SquareScene: AbstractGameBoardScene {
         transformScale = CGAffineTransformMakeScale(1.0, 0.95)
         squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
         self.pipePaths[.Square] = squarePipePath
-        
+    
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {

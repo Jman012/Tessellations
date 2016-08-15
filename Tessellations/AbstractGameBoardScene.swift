@@ -145,7 +145,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         }
         
         if let pipe = pipeAdded where numPipes == 1 {
-            let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.75)
+            let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.3)
             bubble.fillColor = pipe.fillColor
             bubble.strokeColor = UIColor.clearColor()
             bubble.lineWidth = 0.0
