@@ -15,16 +15,27 @@ class OctagonSquareScene: AbstractGameBoardScene {
     var adjustedRadius: CGFloat = 0
     var squareWidth: CGFloat = 0
     var pipeWidth: CGFloat = 0
-    var boardFrame: CGRect = CGRect()
+    var totalHeight: CGFloat = 0
+    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
         self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 9
+        self.logicalBoardHeight = 11
         return OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
         self.octagonRadius = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
+        
+        totalWidth = size.width
+        totalHeight = self.octagonRadius * 2 * ceil(CGFloat(self.logicalBoardHeight) / 2.0)
+        if totalHeight > size.height {
+            self.octagonRadius = size.height / ceil(CGFloat(self.logicalBoardHeight) / 2.0) / 2.0
+            
+            totalHeight = size.height
+            totalWidth = self.octagonRadius * 2 * ceil(CGFloat(self.logicalBoardWidth) / 2.0)
+        }
+        
         self.adjustedRadius = octagonRadius + (octagonRadius * CGFloat(cos(0.degrees)) - octagonRadius * CGFloat(cos(22.5.degrees)))
         self.squareWidth = adjustedRadius * CGFloat(sin((45/2).degrees) * 2)
         self.pipeWidth = squareWidth / 2.5
@@ -67,25 +78,12 @@ class OctagonSquareScene: AbstractGameBoardScene {
         squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
         self.pipePaths[.Square45] = squarePipePath
         
-        self.boardFrame = CGRect(x: 0,
-                                 y: (self.frame.height - self.octagonRadius * CGFloat(self.logicalBoardHeight)) / 2.0,
-                                 width: self.octagonRadius * 2 * CGFloat(self.logicalBoardWidth),
-                                 height: self.octagonRadius * 2 * CGFloat(self.logicalBoardHeight))
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {
-        let (row, col) = (piece.row, piece.col)
+        let x: CGFloat = self.octagonRadius + (CGFloat(piece.col) * self.octagonRadius)
+        let y: CGFloat = self.octagonRadius + (CGFloat(piece.row) * self.octagonRadius)
         
-        if row % 2 == 0 && col % 2 == 0 {
-            /* Octagon */
-            return CGPoint(x: (CGFloat(col) * self.octagonRadius) + self.octagonRadius,
-                           y: self.size.height - (CGFloat(row) * self.octagonRadius) - self.octagonRadius - self.boardFrame.origin.y)
-        } else if row % 2 == 1 && col % 2 == 1 {
-            /* Square */
-            return CGPoint(x: (CGFloat(col) * self.octagonRadius) + self.octagonRadius,
-                           y: self.size.height - (CGFloat(row) * self.octagonRadius) - self.octagonRadius - self.boardFrame.origin.y)
-        } else {
-            return CGPoint(x: 0, y: 0)
-        }
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 }
