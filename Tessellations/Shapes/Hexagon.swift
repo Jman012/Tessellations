@@ -40,10 +40,10 @@ class Hexagon: Shape {
         
         var hexPath = CGPathCreateMutable()
         var angle = 0.0
-        CGPathMoveToPoint(hexPath, nil, edgeRadius * CGFloat(cos(angle.degrees)), edgeRadius * CGFloat(sin(angle.degrees)))
+        CGPathMoveToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         for _ in 0..<5 {
             angle += 60.0
-            CGPathAddLineToPoint(hexPath, nil, edgeRadius * CGFloat(cos(angle.degrees)), edgeRadius * CGFloat(sin(angle.degrees)))
+            CGPathAddLineToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(hexPath)
         var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
