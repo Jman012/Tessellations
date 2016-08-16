@@ -80,6 +80,10 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         
         self.backgroundColor = bgColor
         
+        self.refreshAllPieces()
+    }
+    
+    func refreshAllPieces() {
         self.removeAllChildren()
         
         self.logicalBoard.forAllPieces {
@@ -96,6 +100,11 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             self.refreshPipesForPiece(node, piece: piece)
             
         }
+    }
+    
+    func sceneSizeDidChange() {
+        self.setShapePaths()
+        self.refreshAllPieces()
     }
     
     func refreshPipesForPiece(node: SKShapeNode, piece: Piece) {

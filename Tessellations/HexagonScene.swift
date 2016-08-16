@@ -14,19 +14,27 @@ class HexagonScene: AbstractGameBoardScene {
     var hexRadius: CGFloat = 0
     var adjustedRadius: CGFloat = 0
     var totalHeight: CGFloat = 0
+    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 7
+        self.logicalBoardWidth = 6
         self.logicalBoardHeight = 10
         return HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
 
     override func setShapePaths() {
         
-        hexRadius =
-            size.width / (ceil(CGFloat(self.logicalBoardWidth) / CGFloat(2.0)) + ((floor(CGFloat(self.logicalBoardWidth) / CGFloat(2.0))) * CGFloat(cos(60.0.degrees)))) / CGFloat(2.0)
+
+        hexRadius = size.width / (2 + 1.5 * CGFloat(self.logicalBoardWidth-1))
         adjustedRadius = hexRadius * CGFloat(sin(60.0.degrees))
         totalHeight = CGFloat(self.logicalBoardHeight * 2) * adjustedRadius
+        totalWidth = size.width
+        if totalHeight > size.height {
+            hexRadius = size.height / (2 * CGFloat(self.logicalBoardHeight) * CGFloat(sin(60.0.degrees)))
+            adjustedRadius = hexRadius * CGFloat(sin(60.0.degrees))
+            totalHeight = size.height
+            totalWidth = (2*hexRadius) + (CGFloat(self.logicalBoardWidth - 1) * (hexRadius * 1.5))
+        }
         let pipeWidth = adjustedRadius / 2.0
         
         var hexPath = CGPathCreateMutable()
@@ -55,11 +63,11 @@ class HexagonScene: AbstractGameBoardScene {
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {
-        let x = hexRadius + (CGFloat(piece.col) * (hexRadius + hexRadius * CGFloat(cos(60.0.degrees))))
-        var y = 2 * adjustedRadius + (CGFloat(piece.row) * adjustedRadius * 2)
+        let x = hexRadius + (CGFloat(piece.col) * (hexRadius * 1.5))
+        var y = adjustedRadius + (CGFloat(piece.row) * adjustedRadius * 2)
         if piece.col % 2 == 0 {
             y += adjustedRadius
         }
-        return CGPoint(x: x, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 }

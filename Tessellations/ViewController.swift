@@ -43,11 +43,22 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.octSquareScene.size = self.sceneView.frame.size
+        self.octSquareScene.sceneSizeDidChange()
+        
         self.hexagonScene.size = self.sceneView.frame.size
+        self.hexagonScene.sceneSizeDidChange()
+        
         self.squareScene.size = self.sceneView.frame.size
+        self.squareScene.sceneSizeDidChange()
+        
         self.triangleScene.size = self.sceneView.frame.size
+        self.triangleScene.sceneSizeDidChange()
+        
         self.squareTriangleCrazyScene.size = self.sceneView.frame.size
+        self.squareTriangleCrazyScene.sceneSizeDidChange()
+        
         self.hexagonTriangleScene.size = self.sceneView.frame.size
+        self.hexagonTriangleScene.sceneSizeDidChange()
     }
 
     override func didReceiveMemoryWarning() {
