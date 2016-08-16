@@ -23,7 +23,6 @@ class HexagonScene: AbstractGameBoardScene {
 
     override func setShapePaths() {
         
-
         var hexRadius = size.width / (2 + 1.5 * CGFloat(self.logicalBoardWidth-1))
         hexagon = Hexagon(cornerRadius: hexRadius, pipeWidth: hexRadius / 2.5)
         totalHeight = CGFloat(self.logicalBoardHeight * 2) * hexagon.edgeRadius
@@ -37,8 +36,6 @@ class HexagonScene: AbstractGameBoardScene {
         
         self.shapePaths[.Hexagon] = hexagon.path
         self.pipePaths[.Hexagon] = hexagon.pipePath
-        
-        
         
     }
     

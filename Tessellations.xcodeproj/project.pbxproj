@@ -31,6 +31,10 @@
 		1AA129C61D6382F600146731 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C51D6382F600146731 /* Octagon.swift */; };
 		1AA129C81D63918F00146731 /* Square45.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C71D63918F00146731 /* Square45.swift */; };
 		1AA129CA1D63A06E00146731 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C91D63A06E00146731 /* Hexagon.swift */; };
+		1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CB1D63B03E00146731 /* TriangleUp.swift */; };
+		1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CD1D63B47200146731 /* TriangleDown.swift */; };
+		1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CF1D63B59700146731 /* TriangleLeft.swift */; };
+		1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D11D63B5BA00146731 /* TriangleRight.swift */; };
 		1AE82DAD1D3FF27A00F8166F /* SquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DAC1D3FF27A00F8166F /* SquareScene.swift */; };
 		1AE82DB11D3FF29E00F8166F /* SquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DB01D3FF29E00F8166F /* SquareBoard.swift */; };
 		1AE82DB31D40990600F8166F /* TriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE82DB21D40990600F8166F /* TriangleBoard.swift */; };
@@ -85,6 +89,10 @@
 		1AA129C51D6382F600146731 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = Shapes/Octagon.swift; sourceTree = "<group>"; };
 		1AA129C71D63918F00146731 /* Square45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square45.swift; path = Shapes/Square45.swift; sourceTree = "<group>"; };
 		1AA129C91D63A06E00146731 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon.swift; path = Shapes/Hexagon.swift; sourceTree = "<group>"; };
+		1AA129CB1D63B03E00146731 /* TriangleUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleUp.swift; path = Shapes/TriangleUp.swift; sourceTree = "<group>"; };
+		1AA129CD1D63B47200146731 /* TriangleDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleDown.swift; path = Shapes/TriangleDown.swift; sourceTree = "<group>"; };
+		1AA129CF1D63B59700146731 /* TriangleLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleLeft.swift; path = Shapes/TriangleLeft.swift; sourceTree = "<group>"; };
+		1AA129D11D63B5BA00146731 /* TriangleRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleRight.swift; path = Shapes/TriangleRight.swift; sourceTree = "<group>"; };
 		1AE82DAC1D3FF27A00F8166F /* SquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareScene.swift; sourceTree = "<group>"; };
 		1AE82DB01D3FF29E00F8166F /* SquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareBoard.swift; sourceTree = "<group>"; };
 		1AE82DB21D40990600F8166F /* TriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBoard.swift; sourceTree = "<group>"; };
@@ -187,6 +195,10 @@
 				1AA129C51D6382F600146731 /* Octagon.swift */,
 				1AA129C71D63918F00146731 /* Square45.swift */,
 				1AA129C91D63A06E00146731 /* Hexagon.swift */,
+				1AA129CB1D63B03E00146731 /* TriangleUp.swift */,
+				1AA129CD1D63B47200146731 /* TriangleDown.swift */,
+				1AA129CF1D63B59700146731 /* TriangleLeft.swift */,
+				1AA129D11D63B5BA00146731 /* TriangleRight.swift */,
 			);
 			name = Shapes;
 			sourceTree = "<group>";
@@ -354,9 +366,11 @@
 			files = (
 				1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */,
 				1AA129B91D5BD30500146731 /* SquareTriangleCrazyScene.swift in Sources */,
+				1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
 				1AE82DB51D409CCA00F8166F /* TriangleScene.swift in Sources */,
 				1AA129BD1D5EC2FA00146731 /* HexagonTriangleScene.swift in Sources */,
+				1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */,
 				1AA129BF1D626B0D00146731 /* DodecagonHexagonSquareBoard.swift in Sources */,
 				1AE82DB11D3FF29E00F8166F /* SquareBoard.swift in Sources */,
 				1A82DE791D1CC4F00008224D /* AbstractGameBoard.swift in Sources */,
@@ -367,6 +381,8 @@
 				1AA129C81D63918F00146731 /* Square45.swift in Sources */,
 				1A82DE741D1CC4BF0008224D /* AbstractGameBoardScene.swift in Sources */,
 				1AE82DAD1D3FF27A00F8166F /* SquareScene.swift in Sources */,
+				1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */,
+				1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */,
 				1AA129B71D5BCD9A00146731 /* SquareTriangleCrazyBoard.swift in Sources */,
 				1A31511F1D3DA95F006E6C76 /* HexagonScene.swift in Sources */,
 				1A3151211D3EA18C006E6C76 /* HexagonBoard.swift in Sources */,
