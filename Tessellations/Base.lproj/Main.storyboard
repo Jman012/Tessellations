@@ -72,6 +72,11 @@
                                             <action selector="toolbarHTDidTouch:" destination="BYZ-38-t0r" id="gYm-4n-uXw"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="DHS" id="JaQ-Ud-1HV">
+                                        <connections>
+                                            <action selector="toolbarDHSDidTouch:" destination="BYZ-38-t0r" id="XFu-Ra-X9J"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-he-w0k" customClass="SKView">

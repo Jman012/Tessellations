@@ -19,6 +19,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var triangleScene: TriangleScene!
     var squareTriangleCrazyScene: SquareTriangleCrazyScene!
     var hexagonTriangleScene: HexagonTriangleScene!
+    var dodecagonHexagonSquareScene: DodecagonHexagonSquareScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +31,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.triangleScene = TriangleScene(size: self.view.bounds.size)
         self.squareTriangleCrazyScene = SquareTriangleCrazyScene(size: self.view.bounds.size)
         self.hexagonTriangleScene = HexagonTriangleScene(size: self.view.bounds.size)
+        self.dodecagonHexagonSquareScene = DodecagonHexagonSquareScene(size: self.view.bounds.size)
         
-        self.scene = self.hexagonTriangleScene
+        self.scene = self.dodecagonHexagonSquareScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -59,6 +61,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         
         self.hexagonTriangleScene.size = self.sceneView.frame.size
         self.hexagonTriangleScene.sceneSizeDidChange()
+        
+        self.dodecagonHexagonSquareScene.size = self.sceneView.frame.size
+        self.dodecagonHexagonSquareScene.sceneSizeDidChange()
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,6 +140,16 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func toolbarHTDidTouch(sender: UIBarButtonItem) {
         self.scene = self.hexagonTriangleScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarDHSDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.dodecagonHexagonSquareScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         

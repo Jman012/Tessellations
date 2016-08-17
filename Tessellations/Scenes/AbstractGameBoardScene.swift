@@ -160,6 +160,14 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             bubble.lineWidth = 0.0
             pipe.addChild(bubble)
         }
+        
+        // Label
+//        let label = SKLabelNode(fontNamed: "Arial")
+//        label.fontSize = 16;
+//        label.fontColor = UIColor.blackColor()
+//        label.text = "\(piece.type.description()) \(piece.row, piece.col)"
+//        label.name = piece.type.description()
+//        node.addChild(label)
     }
     
     func pieceAtPoint(touch: UITouch) -> SKShapeNode? {

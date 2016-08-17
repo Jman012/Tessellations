@@ -39,6 +39,10 @@
 		1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E61D6411CF00146731 /* SquareBoard.swift */; };
 		1AA129EF1D6411CF00146731 /* SquareTriangleCrazyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E71D6411CF00146731 /* SquareTriangleCrazyBoard.swift */; };
 		1AA129F01D6411CF00146731 /* TriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E81D6411CF00146731 /* TriangleBoard.swift */; };
+		1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */; };
+		1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F31D641FF100146731 /* Dodecagon.swift */; };
+		1AA129F61D64E6BE00146731 /* Square30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F51D64E6BE00146731 /* Square30.swift */; };
+		1AA129F81D64E6C700146731 /* SquareN30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F71D64E6C700146731 /* SquareN30.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +101,10 @@
 		1AA129E61D6411CF00146731 /* SquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareBoard.swift; path = Boards/SquareBoard.swift; sourceTree = "<group>"; };
 		1AA129E71D6411CF00146731 /* SquareTriangleCrazyBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareTriangleCrazyBoard.swift; path = Boards/SquareTriangleCrazyBoard.swift; sourceTree = "<group>"; };
 		1AA129E81D6411CF00146731 /* TriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleBoard.swift; path = Boards/TriangleBoard.swift; sourceTree = "<group>"; };
+		1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DodecagonHexagonSquareScene.swift; path = Scenes/DodecagonHexagonSquareScene.swift; sourceTree = "<group>"; };
+		1AA129F31D641FF100146731 /* Dodecagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dodecagon.swift; path = Shapes/Dodecagon.swift; sourceTree = "<group>"; };
+		1AA129F51D64E6BE00146731 /* Square30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square30.swift; path = Shapes/Square30.swift; sourceTree = "<group>"; };
+		1AA129F71D64E6C700146731 /* SquareN30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareN30.swift; path = Shapes/SquareN30.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +207,9 @@
 				1AA129CD1D63B47200146731 /* TriangleDown.swift */,
 				1AA129CF1D63B59700146731 /* TriangleLeft.swift */,
 				1AA129D11D63B5BA00146731 /* TriangleRight.swift */,
+				1AA129F31D641FF100146731 /* Dodecagon.swift */,
+				1AA129F51D64E6BE00146731 /* Square30.swift */,
+				1AA129F71D64E6C700146731 /* SquareN30.swift */,
 			);
 			name = Shapes;
 			sourceTree = "<group>";
@@ -213,6 +224,7 @@
 				1AA129D71D6411C500146731 /* SquareScene.swift */,
 				1AA129D81D6411C500146731 /* SquareTriangleCrazyScene.swift */,
 				1AA129D91D6411C500146731 /* TriangleScene.swift */,
+				1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -221,13 +233,13 @@
 			isa = PBXGroup;
 			children = (
 				1AA129E11D6411CF00146731 /* AbstractGameBoard.swift */,
-				1AA129E21D6411CF00146731 /* DodecagonHexagonSquareBoard.swift */,
 				1AA129E31D6411CF00146731 /* HexagonBoard.swift */,
 				1AA129E41D6411CF00146731 /* HexagonTriangleBoard.swift */,
 				1AA129E51D6411CF00146731 /* OctagonSquareBoard.swift */,
 				1AA129E61D6411CF00146731 /* SquareBoard.swift */,
 				1AA129E71D6411CF00146731 /* SquareTriangleCrazyBoard.swift */,
 				1AA129E81D6411CF00146731 /* TriangleBoard.swift */,
+				1AA129E21D6411CF00146731 /* DodecagonHexagonSquareBoard.swift */,
 			);
 			name = Boards;
 			sourceTree = "<group>";
@@ -369,6 +381,7 @@
 				1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
 				1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */,
+				1AA129F81D64E6C700146731 /* SquareN30.swift in Sources */,
 				1AA129EF1D6411CF00146731 /* SquareTriangleCrazyBoard.swift in Sources */,
 				1AA129DD1D6411C500146731 /* OctagonSquareScene.swift in Sources */,
 				1AA129DC1D6411C500146731 /* HexagonTriangleScene.swift in Sources */,
@@ -376,6 +389,7 @@
 				1AA129CA1D63A06E00146731 /* Hexagon.swift in Sources */,
 				1AA129C61D6382F600146731 /* Octagon.swift in Sources */,
 				1AA129C81D63918F00146731 /* Square45.swift in Sources */,
+				1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */,
 				1AA129DE1D6411C500146731 /* SquareScene.swift in Sources */,
 				1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */,
 				1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */,
@@ -387,6 +401,8 @@
 				1AA129E91D6411CF00146731 /* AbstractGameBoard.swift in Sources */,
 				1AA129EA1D6411CF00146731 /* DodecagonHexagonSquareBoard.swift in Sources */,
 				1AA129F01D6411CF00146731 /* TriangleBoard.swift in Sources */,
+				1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */,
+				1AA129F61D64E6BE00146731 /* Square30.swift in Sources */,
 				1AA129DF1D6411C500146731 /* SquareTriangleCrazyScene.swift in Sources */,
 				1AA129EB1D6411CF00146731 /* HexagonBoard.swift in Sources */,
 				1AA129C21D62AD4500146731 /* Square.swift in Sources */,
