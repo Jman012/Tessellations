@@ -9,42 +9,14 @@
 import UIKit
 import SpriteKit
 
-class Square45: Shape {
+class Square45: Square {
     
-    var width: CGFloat {
-        get { return self.sideLength }
-    }
-    var halfWidth: CGFloat {
-        get { return width / 2.0 }
-    }
-    var diagonal: CGFloat {
-        get { return CGFloat(sqrt(2.0)) * width }
-    }
-    
-    init(width theWidth: CGFloat, pipeWidth thePipeWidth: CGFloat) {
-        super.init()
+    override init(width theWidth: CGFloat, pipeWidth thePipeWidth: CGFloat) {
+        super.init(width: theWidth, pipeWidth: thePipeWidth)
         
-        self.sideLength = theWidth
-        self.pipeWidth  = thePipeWidth
-        self.pipeLength = self.halfWidth
-        
-        
-        var transformRotate = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
-        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
-
-        var squarePath = CGPathCreateWithRect(CGRectMake(-halfWidth, -halfWidth, width, width), &transformRotate)
-        squarePath = CGPathCreateMutableCopyByTransformingPath(squarePath, &transformScale)!
-        self.path = squarePath
-        
-        var squarePipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (squarePipePath, nil, pipeWidth * (-1/2), halfWidth - 0.5)
-        CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  halfWidth - 0.5)
-        CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  0)
-        CGPathAddArc        (squarePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
-        CGPathCloseSubpath  (squarePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
-        squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
-        self.pipePath = squarePipePath
+        var transformRotate = CGAffineTransformMakeRotation(CGFloat(45.0.degrees))
+        let square45Path = CGPathCreateMutableCopyByTransformingPath(self.path, &transformRotate)!
+        self.path = square45Path
         
     }
     
