@@ -30,10 +30,10 @@ class Square: Shape {
         
         
         var squarePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (squarePath, nil, -halfWidth, -halfWidth/2)
-        CGPathAddLineToPoint(squarePath, nil,  halfWidth, -halfWidth/2)
-        CGPathAddLineToPoint(squarePath, nil,  halfWidth,  halfWidth/2)
-        CGPathAddLineToPoint(squarePath, nil, -halfWidth,  halfWidth/2)
+        CGPathMoveToPoint   (squarePath, nil, -halfWidth, -halfWidth)
+        CGPathAddLineToPoint(squarePath, nil,  halfWidth, -halfWidth)
+        CGPathAddLineToPoint(squarePath, nil,  halfWidth,  halfWidth)
+        CGPathAddLineToPoint(squarePath, nil, -halfWidth,  halfWidth)
         CGPathCloseSubpath(squarePath)
         var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
         squarePath = CGPathCreateMutableCopyByTransformingPath(squarePath, &transformScale)!
