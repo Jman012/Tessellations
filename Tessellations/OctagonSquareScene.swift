@@ -18,8 +18,8 @@ class OctagonSquareScene: AbstractGameBoardScene {
     var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 11
+        self.logicalBoardWidth = 9
+        self.logicalBoardHeight = 13
         return OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
