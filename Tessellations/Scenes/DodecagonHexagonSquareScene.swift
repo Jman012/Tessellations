@@ -28,20 +28,37 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
     
     override func initLogicalBoard() -> AbstractGameBoard {
         self.logicalBoardWidth = 9
-        self.logicalBoardHeight = 9
+        self.logicalBoardHeight = 13
         return DodecagonHexagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
         
-        let steps = CGFloat(self.logicalBoardWidth - 1) / 4.0
-//        totalWidth = dodecagon.edgeDiameter + (dodecagon.edgeDiameter + dodecagon.sideLength) * steps
+        let hSteps = CGFloat(self.logicalBoardWidth - 1) / 4.0
+        let vSteps = CGFloat(self.logicalBoardHeight - 1) / 4.0
         
-        let dodecagonEdgeDiameter = size.width / (1 + steps + 0.25*CGFloat(sqrt(6.0) - sqrt(2.0))*steps)
-//        let dodecagonEdgeDiameter: CGFloat = 130.0
+        /* The code is the reverse of the following line */
+        /* totalWidth = dodecagon.edgeDiameter + (dodecagon.edgeDiameter + dodecagon.sideLength) * steps */
+        let dodecagonEdgeDiameter = size.width / (1 + hSteps + 0.25*CGFloat(sqrt(6.0) - sqrt(2.0))*hSteps)
+        
+        self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter)
+        
         totalWidth = size.width
-        totalHeight = size.height // Temporary
+        totalHeight = dodecagon.edgeDiameter + (vSteps * (2 * hexagon.edgeDiameter + square.width + dodecagon.edgeDiameter))
         
+        if totalHeight > size.height {
+            // Change the proportions to fit the screen is the original didn't fit nicely
+            let percent = size.height / totalHeight
+            
+            totalWidth = totalWidth * percent
+            totalHeight = size.height
+            
+            self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter * percent)
+        }
+        
+    }
+    
+    func makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter: CGFloat) {
         dodecagon = Dodecagon(edgeDiameter: dodecagonEdgeDiameter, pipeWidth: 0)
         dodecagon = Dodecagon(edgeDiameter: dodecagonEdgeDiameter, pipeWidth: dodecagon.sideLength / 3.0)
         self.shapePaths[.Dodecagon] = dodecagon.path
@@ -62,7 +79,6 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
         squareN30 = SquareN30(width: dodecagon.sideLength, pipeWidth: dodecagon.sideLength / 3.0)
         self.shapePaths[.SquareN30] = squareN30.path
         self.pipePaths[.SquareN30] = squareN30.pipePath
-        
     }
     
     override func pieceToPoint(piece: Piece) -> CGPoint {

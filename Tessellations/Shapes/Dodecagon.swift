@@ -51,7 +51,7 @@ class Dodecagon: Shape {
         CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (hexPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (hexPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
+        transformScale = CGAffineTransformMakeScale(1.0, 0.975)
         hexPipePath = CGPathCreateMutableCopyByTransformingPath(hexPipePath, &transformScale)!
         self.pipePath = hexPipePath
     }
