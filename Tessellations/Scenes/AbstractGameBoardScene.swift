@@ -67,7 +67,7 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         node.fillColor = baseColor
         
         node.strokeColor = pathStrokeColor
-        node.lineWidth = 2.0
+        node.lineWidth = 3.0
         node.userData = NSMutableDictionary()
         node.userData!["row"] = piece.row
         node.userData!["col"] = piece.col
