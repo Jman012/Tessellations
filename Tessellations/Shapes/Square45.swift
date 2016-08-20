@@ -28,6 +28,4 @@ class Square45: Square {
         super.init(coder: aDecoder)
     }
     
-    
-    
 }

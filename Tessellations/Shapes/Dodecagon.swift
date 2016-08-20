@@ -32,7 +32,7 @@ class Dodecagon: Shape {
         self.pipeWidth = pipeWidth
         self.pipeLength = edgeRadius
         
-        var hexPath = CGPathCreateMutable()
+        let hexPath = CGPathCreateMutable()
         var angle = 30.0 / 2.0
         CGPathMoveToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         for _ in 0..<11 {
@@ -40,19 +40,15 @@ class Dodecagon: Shape {
             CGPathAddLineToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(hexPath)
-        var transformScale = CGAffineTransformMakeScale(0.975, 0.975)
-        hexPath = CGPathCreateMutableCopyByTransformingPath(hexPath, &transformScale)!
         self.path = hexPath
         
         
-        var hexPipePath = CGPathCreateMutable()
+        let hexPipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (hexPipePath, nil, self.pipeWidth * (-1/2), self.pipeLength - 0.5)
         CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), self.pipeLength - 0.5)
         CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (hexPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (hexPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.975)
-        hexPipePath = CGPathCreateMutableCopyByTransformingPath(hexPipePath, &transformScale)!
         self.pipePath = hexPipePath
     }
     

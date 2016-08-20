@@ -27,7 +27,7 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
     var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 9
+        self.logicalBoardWidth = 13
         self.logicalBoardHeight = 13
         return DodecagonHexagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }

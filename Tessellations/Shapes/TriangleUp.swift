@@ -32,7 +32,7 @@ class TriangleUp: Shape {
         self.pipeLength = r
         
         
-        var triangleUpPath = CGPathCreateMutable()
+        let triangleUpPath = CGPathCreateMutable()
         var angle = 90.0
         CGPathMoveToPoint(triangleUpPath, nil, R * CGFloat(cos(angle.degrees)), R * CGFloat(sin(angle.degrees)))
         for _ in 0..<2 {
@@ -40,19 +40,15 @@ class TriangleUp: Shape {
             CGPathAddLineToPoint(triangleUpPath, nil, R * CGFloat(cos(angle.degrees)), R * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(triangleUpPath)
-        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
-        triangleUpPath = CGPathCreateMutableCopyByTransformingPath(triangleUpPath, &transformScale)!
         self.path = triangleUpPath
         
         
-        var trianglePipePath = CGPathCreateMutable()
+        let trianglePipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (trianglePipePath, nil, pipeWidth * (-1/2), pipeLength - 0.5)
         CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), pipeLength - 0.5)
         CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), 0)
         CGPathAddArc        (trianglePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (trianglePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
-        trianglePipePath = CGPathCreateMutableCopyByTransformingPath(trianglePipePath, &transformScale)!
         self.pipePath = trianglePipePath
     }
     

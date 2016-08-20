@@ -29,24 +29,20 @@ class Square: Shape {
         self.pipeLength = self.halfWidth
         
         
-        var squarePath = CGPathCreateMutable()
+        let squarePath = CGPathCreateMutable()
         CGPathMoveToPoint   (squarePath, nil, -halfWidth, -halfWidth)
         CGPathAddLineToPoint(squarePath, nil,  halfWidth, -halfWidth)
         CGPathAddLineToPoint(squarePath, nil,  halfWidth,  halfWidth)
         CGPathAddLineToPoint(squarePath, nil, -halfWidth,  halfWidth)
         CGPathCloseSubpath(squarePath)
-        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
-        squarePath = CGPathCreateMutableCopyByTransformingPath(squarePath, &transformScale)!
         self.path = squarePath
         
-        var squarePipePath = CGPathCreateMutable()
+        let squarePipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (squarePipePath, nil, pipeWidth * (-1/2), halfWidth - 0.5)
         CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  halfWidth - 0.5)
         CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  0)
         CGPathAddArc        (squarePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (squarePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
-        squarePipePath = CGPathCreateMutableCopyByTransformingPath(squarePipePath, &transformScale)!
         self.pipePath = squarePipePath
         
     }

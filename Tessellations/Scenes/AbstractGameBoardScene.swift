@@ -9,14 +9,14 @@
 import UIKit
 import SpriteKit
 
-let bgColor =        UIColor.whiteColor()
-let baseColor =      UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+let bgColor =         UIColor.whiteColor()
+let baseColor =       UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
 //let baseColor =      UIColor.whiteColor()
-let secondaryColor = UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
-let strokeColor =    UIColor.clearColor()
-//let strokeColor =    UIColor.blackColor()
-let pipeOnColor =    UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
-let pipeOffColor =   UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
+let secondaryColor =  UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+let pathStrokeColor = UIColor.whiteColor()
+let pipeStrokeColor = UIColor.clearColor()
+let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
+let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
 protocol GameBoardSceneProtocol {
     func gameWon()
@@ -66,8 +66,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         node.position = self.pieceToPoint(piece)
         node.fillColor = baseColor
         
-        node.strokeColor = strokeColor
-        node.lineWidth = 1.0
+        node.strokeColor = pathStrokeColor
+        node.lineWidth = 2.0
         node.userData = NSMutableDictionary()
         node.userData!["row"] = piece.row
         node.userData!["col"] = piece.col
@@ -129,13 +129,13 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
                 
             case .Branch:
                 fallthrough
-//                pipe.fillColor = UIColor.redColor()
             case .Source:
                 pipe.fillColor = pipeOnColor
                 
             default: break
             }
-            pipe.strokeColor = strokeColor
+            pipe.strokeColor = pipeStrokeColor
+            pipe.lineWidth = 0.0
             pipe.name = "Pipe \(trueDir.rawValue) \(piece.row) \(piece.col)"
             pipe.runAction(SKAction.rotateToAngle(-CGFloat(Double(piece.logicalDirForTrueDir(trueDir).rawValue).degrees), duration: 0, shortestUnitArc: true))
             node.addChild(pipe)

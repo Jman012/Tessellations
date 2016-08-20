@@ -34,7 +34,7 @@ class Octagon: Shape {
         self.pipeWidth = thePipeWidth
         self.pipeLength = edgeRadius
         
-        var octPath = CGPathCreateMutable()
+        let octPath = CGPathCreateMutable()
         var angle = 45.0 / 2
         CGPathMoveToPoint(octPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         for _ in 0..<7 {
@@ -42,19 +42,15 @@ class Octagon: Shape {
             CGPathAddLineToPoint(octPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(octPath)
-        var transformScale = CGAffineTransformMakeScale(0.95, 0.95)
-        octPath = CGPathCreateMutableCopyByTransformingPath(octPath, &transformScale)!
         self.path = octPath
         
         
-        var octPipePath = CGPathCreateMutable()
+        let octPipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (octPipePath, nil, self.pipeWidth * (-1/2), self.pipeLength - 0.5)
         CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), self.pipeLength - 0.5)
         CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (octPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (octPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, 0.95)
-        octPipePath = CGPathCreateMutableCopyByTransformingPath(octPipePath, &transformScale)!
         self.pipePath = octPipePath
     }
     
