@@ -15,6 +15,7 @@
 		1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */; };
 		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
 		1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7C1D1CC5600008224D /* Utils.swift */; };
+		1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38EF1D68A64900A75469 /* PieceNode.swift */; };
 		1AA129C21D62AD4500146731 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C11D62AD4500146731 /* Square.swift */; };
 		1AA129C41D62E40600146731 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C31D62E40600146731 /* Shape.swift */; };
 		1AA129C61D6382F600146731 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C51D6382F600146731 /* Octagon.swift */; };
@@ -80,6 +81,7 @@
 		1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsUITests.swift; sourceTree = "<group>"; };
 		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A82DE7C1D1CC5600008224D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Utils/Utils.swift; sourceTree = "<group>"; };
+		1A8B38EF1D68A64900A75469 /* PieceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceNode.swift; sourceTree = "<group>"; };
 		1AA129C11D62AD4500146731 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = Shapes/Square.swift; sourceTree = "<group>"; };
 		1AA129C31D62E40600146731 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Shapes/Shape.swift; sourceTree = "<group>"; };
 		1AA129C51D6382F600146731 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = Shapes/Octagon.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				1A82DE751D1CC4CB0008224D /* Utils */,
 				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
 				1A82DE471D1CC43B0008224D /* ViewController.swift */,
+				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
 				1A82DE491D1CC43B0008224D /* Main.storyboard */,
 				1A82DE4C1D1CC43B0008224D /* Assets.xcassets */,
 				1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */,
@@ -415,6 +418,7 @@
 				1AA129F01D6411CF00146731 /* TriangleBoard.swift in Sources */,
 				1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */,
 				1AA129F61D64E6BE00146731 /* Square30.swift in Sources */,
+				1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */,
 				1AA129DF1D6411C500146731 /* SquareTriangleCrazyScene.swift in Sources */,
 				1AA129EB1D6411CF00146731 /* HexagonBoard.swift in Sources */,
 				1AA129C21D62AD4500146731 /* Square.swift in Sources */,

@@ -75,7 +75,7 @@ enum PipeState: UInt {
 }
 
 protocol OctSquareBoardProtocol {
-    func pieceDidChange(piece: Piece)
+    func piecePipeDidChangeState(piece: Piece, logicalDir: Direction, fromOldState oldState: PipeState)
     func pieceDidRotate(piece: Piece)
     func boardDidClear()
     func gameWon()
@@ -259,10 +259,11 @@ class AbstractGameBoard: NSObject {
     }
     
     func setPipeState(state: PipeState, ofPiece piece: Piece, inTrueDir trueDir: Direction) -> Bool {
+        let oldState = piece.pipeState(forTrueDir: trueDir)!
         
         if piece.setPipeState(state, forTrueDir: trueDir) {
             if let del = self.delegate {
-                del.pieceDidChange(piece)
+                del.piecePipeDidChangeState(piece, logicalDir: piece.logicalDirForTrueDir(trueDir), fromOldState: oldState)
             }
             
             // Return new piece
