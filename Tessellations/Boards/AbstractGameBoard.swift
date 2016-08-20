@@ -20,12 +20,14 @@ enum PieceType {
     case Hexagon
     case SquareN30
     case Dodecagon
+    case Hexagon30
     
     func description() -> String {
         let names: [PieceType: String] = [.Octagon: "Oct", .Square45: "Sq45", .TriangleUp: "TriUp",
                                           .TriangleDown: "TriDown", .TriangleLeft: "TriLeft",
                                           .TriangleRight: "TriRight", .Square: "Sq", .Square30: "Sq30",
-                                          .Hexagon: "Hex", .SquareN30: "SqN30", .Dodecagon: "Dodec"]
+                                          .Hexagon: "Hex", .SquareN30: "SqN30", .Dodecagon: "Dodec",
+                                          .Hexagon30: "Hex30"]
         return names[self]!
     }
 }
@@ -131,6 +133,10 @@ class Piece: NSObject {
             legalDirections = [.North, .NorthNorthEast, .NorthEastEast, .East, .SouthEastEast, .SouthSouthEast,
                                 .South, .SouthSouthWest, .SouthWestWest, .West, .NorthWestWest, .NorthNorthWest]
             angleStep = 30
+        case .Hexagon30:
+            legalDirections = [.NorthNorthEast, .East, .SouthSouthEast, .SouthSouthWest, .West, .NorthNorthWest]
+            angleStep = 60
+            
             
 //        default:
 //            legalDirections = []

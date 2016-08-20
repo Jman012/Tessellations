@@ -20,6 +20,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var squareTriangleCrazyScene: SquareTriangleCrazyScene!
     var hexagonTriangleScene: HexagonTriangleScene!
     var dodecagonHexagonSquareScene: DodecagonHexagonSquareScene!
+    var hexagonSquareTriangleScene: HexagonSquareTriangleScene!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +33,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.squareTriangleCrazyScene = SquareTriangleCrazyScene(size: self.view.bounds.size)
         self.hexagonTriangleScene = HexagonTriangleScene(size: self.view.bounds.size)
         self.dodecagonHexagonSquareScene = DodecagonHexagonSquareScene(size: self.view.bounds.size)
+        self.hexagonSquareTriangleScene = HexagonSquareTriangleScene(size: self.view.bounds.size)
         
-        self.scene = self.dodecagonHexagonSquareScene
+        self.scene = self.hexagonSquareTriangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -64,6 +66,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         
         self.dodecagonHexagonSquareScene.size = self.sceneView.frame.size
         self.dodecagonHexagonSquareScene.sceneSizeDidChange()
+        
+        self.hexagonSquareTriangleScene.size = self.sceneView.frame.size
+        self.hexagonSquareTriangleScene.sceneSizeDidChange()
     }
 
     override func didReceiveMemoryWarning() {
@@ -150,6 +155,16 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func toolbarDHSDidTouch(sender: UIBarButtonItem) {
         self.scene = self.dodecagonHexagonSquareScene
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 4
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
+    }
+    
+    @IBAction func toolbarHSTDidTouch(sender: UIBarButtonItem) {
+        self.scene = self.hexagonSquareTriangleScene
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         

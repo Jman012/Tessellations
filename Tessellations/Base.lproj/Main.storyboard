@@ -20,23 +20,23 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-ke-esU">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Prim" id="rXg-ph-6sY">
+                                    <barButtonItem title="P" id="rXg-ph-6sY">
                                         <connections>
                                             <action selector="toolbarPrimDidTouch:" destination="BYZ-38-t0r" id="3xe-er-ojI"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Krus" id="9Mo-Cb-CmH">
+                                    <barButtonItem title="K" id="9Mo-Cb-CmH">
                                         <connections>
                                             <action selector="toolbarKrusDidTouch:" destination="BYZ-38-t0r" id="d7j-mW-Ec1"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="HaK" id="5wS-Iu-v2P">
+                                    <barButtonItem title="H" id="5wS-Iu-v2P">
                                         <connections>
                                             <action selector="toolbarHakDidTouch:" destination="BYZ-38-t0r" id="KOy-eP-lA0"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="85t-LD-Fjp"/>
-                                    <barButtonItem title="Rand" id="IDH-hH-VHf">
+                                    <barButtonItem title="R" id="IDH-hH-VHf">
                                         <connections>
                                             <action selector="toolbarRandDidTouch:" destination="BYZ-38-t0r" id="jF3-zJ-otR"/>
                                         </connections>
@@ -75,6 +75,11 @@
                                     <barButtonItem title="DHS" id="JaQ-Ud-1HV">
                                         <connections>
                                             <action selector="toolbarDHSDidTouch:" destination="BYZ-38-t0r" id="XFu-Ra-X9J"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="HST" id="VxW-fB-A9D">
+                                        <connections>
+                                            <action selector="toolbarHSTDidTouch:" destination="BYZ-38-t0r" id="yVx-wl-gOi"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
