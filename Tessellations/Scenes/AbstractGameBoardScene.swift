@@ -148,9 +148,15 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
     
     func boardDidClear() {
         for node in self.children {
+            guard let pieceNode = node as? PieceNode else {
+                continue
+            }
             // Remove the pipes of each piece
-            node.removeAllChildren()
-            node.runAction(SKAction.rotateToAngle(0, duration: 0))
+            pieceNode.removeAllChildren()
+            pieceNode.pipeNodes.removeAll()
+            pieceNode.rootMarker = nil
+            pieceNode.bubble = nil
+            pieceNode.runAction(SKAction.rotateToAngle(0, duration: 0))
         }
     }
     
@@ -227,16 +233,21 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         
         // Now for miscellaneous stuff to handle
         // Root marker
-        if self.logicalBoard.pieceIsRoot(piece) && node.rootMarker == nil {
+        if self.logicalBoard.pieceIsRoot(piece) {
             let pipe = node.pipeNodes[logicalDir]!
-
-            let rootMarker = SKShapeNode(path: self.shapePaths[piece.type]!)
-            let pipeWidth = pipe.frame.size.width
-            rootMarker.runAction(SKAction.scaleTo(0.9 * (pipeWidth / node.frame.size.width), duration: 0))
-            rootMarker.fillColor = baseColor
-            rootMarker.strokeColor = UIColor.clearColor()
-            rootMarker.lineWidth = 0.0
-            node.addChild(rootMarker)
+            
+            if node.rootMarker == nil {
+                let rootMarker = SKShapeNode(path: self.shapePaths[piece.type]!)
+                let pipeWidth = pipe.frame.size.width
+                rootMarker.runAction(SKAction.scaleTo(0.8 * (pipeWidth / node.frame.size.width), duration: 0))
+                rootMarker.fillColor = baseColor
+                rootMarker.strokeColor = UIColor.clearColor()
+                rootMarker.lineWidth = 0.0
+                node.addChild(rootMarker)
+                node.rootMarker = rootMarker
+            }
+            
+            node.rootMarker!.zPosition = 100
         }
         
         if node.pipeNodes.count == 1 {
