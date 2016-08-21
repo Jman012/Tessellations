@@ -42,7 +42,8 @@ class Octagon: Shape {
             CGPathAddLineToPoint(octPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(octPath)
-        self.path = octPath
+        var transformScale = CGAffineTransformMakeScale((edgeDiameter - margin) / edgeDiameter, (edgeDiameter - margin) / edgeDiameter)
+        self.path = CGPathCreateCopyByTransformingPath(octPath, &transformScale)
         
         
         let octPipePath = CGPathCreateMutable()
@@ -51,7 +52,8 @@ class Octagon: Shape {
         CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (octPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (octPipePath)
-        self.pipePath = octPipePath
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        self.pipePath = CGPathCreateCopyByTransformingPath(octPipePath, &transformScale)
     }
     
     convenience init(edgeRadius: CGFloat, pipeWidth: CGFloat) {

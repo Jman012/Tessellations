@@ -46,7 +46,8 @@ class Hexagon: Shape {
             CGPathAddLineToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(hexPath)
-        self.path = hexPath
+        var transformScale = CGAffineTransformMakeScale((edgeDiameter - margin) / edgeDiameter, (edgeDiameter - margin) / edgeDiameter)
+        self.path = CGPathCreateCopyByTransformingPath(hexPath, &transformScale)
         
         
         let hexPipePath = CGPathCreateMutable()
@@ -55,7 +56,8 @@ class Hexagon: Shape {
         CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (hexPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (hexPipePath)
-        self.pipePath = hexPipePath
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        self.pipePath = CGPathCreateCopyByTransformingPath(hexPipePath, &transformScale)
     }
     
     convenience init(cornerRadius: CGFloat, pipeWidth: CGFloat) {

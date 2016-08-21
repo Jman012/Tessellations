@@ -35,7 +35,8 @@ class Square: Shape {
         CGPathAddLineToPoint(squarePath, nil,  halfWidth,  halfWidth)
         CGPathAddLineToPoint(squarePath, nil, -halfWidth,  halfWidth)
         CGPathCloseSubpath(squarePath)
-        self.path = squarePath
+        var transformScale = CGAffineTransformMakeScale((width - margin) / width, (width - margin) / width)
+        self.path = CGPathCreateCopyByTransformingPath(squarePath, &transformScale)
         
         let squarePipePath = CGPathCreateMutable()
         CGPathMoveToPoint   (squarePipePath, nil, pipeWidth * (-1/2), halfWidth - 0.5)
@@ -43,7 +44,8 @@ class Square: Shape {
         CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  0)
         CGPathAddArc        (squarePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (squarePipePath)
-        self.pipePath = squarePipePath
+        transformScale = CGAffineTransformMakeScale(1.0, (width - margin/2.0) / width)
+        self.pipePath = CGPathCreateCopyByTransformingPath(squarePipePath, &transformScale)
         
     }
     

@@ -32,24 +32,26 @@ class Dodecagon: Shape {
         self.pipeWidth = pipeWidth
         self.pipeLength = edgeRadius
         
-        let hexPath = CGPathCreateMutable()
+        let dodecaPath = CGPathCreateMutable()
         var angle = 30.0 / 2.0
-        CGPathMoveToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
+        CGPathMoveToPoint(dodecaPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         for _ in 0..<11 {
             angle += 30.0
-            CGPathAddLineToPoint(hexPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
+            CGPathAddLineToPoint(dodecaPath, nil, cornerRadius * CGFloat(cos(angle.degrees)), cornerRadius * CGFloat(sin(angle.degrees)))
         }
-        CGPathCloseSubpath(hexPath)
-        self.path = hexPath
+        CGPathCloseSubpath(dodecaPath)
+        var transformScale = CGAffineTransformMakeScale((edgeDiameter - margin) / edgeDiameter, (edgeDiameter - margin) / edgeDiameter)
+        self.path = CGPathCreateCopyByTransformingPath(dodecaPath, &transformScale)
         
         
-        let hexPipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (hexPipePath, nil, self.pipeWidth * (-1/2), self.pipeLength - 0.5)
-        CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), self.pipeLength - 0.5)
-        CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), 0)
-        CGPathAddArc        (hexPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
-        CGPathCloseSubpath  (hexPipePath)
-        self.pipePath = hexPipePath
+        let dodecaPipePath = CGPathCreateMutable()
+        CGPathMoveToPoint   (dodecaPipePath, nil, self.pipeWidth * (-1/2), self.pipeLength - 0.5)
+        CGPathAddLineToPoint(dodecaPipePath, nil, self.pipeWidth * (1/2), self.pipeLength - 0.5)
+        CGPathAddLineToPoint(dodecaPipePath, nil, self.pipeWidth * (1/2), 0)
+        CGPathAddArc        (dodecaPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
+        CGPathCloseSubpath  (dodecaPipePath)
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        self.pipePath = CGPathCreateCopyByTransformingPath(dodecaPipePath, &transformScale)
     }
     
     convenience init(edgeRadius: CGFloat, pipeWidth: CGFloat) {
