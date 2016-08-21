@@ -27,7 +27,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     let camera = SKCameraNode()
     let panRecognizer = UIPanGestureRecognizer()
     let tapRecognizer = UITapGestureRecognizer()
-    let pinchRecognizer = UIPinchGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +40,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(tapRecognizer)
-        
-        pinchRecognizer.addTarget(self, action: #selector(ViewController.handlePinch(_:)))
-        self.view.addGestureRecognizer(pinchRecognizer)
         
         
         self.octSquareScene = OctagonSquareScene(size: self.view.bounds.size)
@@ -59,7 +55,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         for aScene in self.allScenes {
             aScene.camera = self.camera
         }
-        self.camera.setScale(0.75)
+        self.camera.setScale(1.0)
         
         self.scene = self.hexagonSquareTriangleScene
         self.scene.scaleMode = .AspectFit
@@ -133,9 +129,15 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             
         }
     }
+
     
-    func handlePinch(recognizer: UIPinchGestureRecognizer) {
-        self.camera.setScale(1.0/recognizer.scale)
+    @IBAction func zoom(sender: UIBarButtonItem) {
+        if self.camera.xScale == 1.0 {
+            self.camera.setScale(0.7)
+        } else {
+            self.camera.setScale(1.0)
+        }
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
     }
 
     
