@@ -236,8 +236,8 @@ class AbstractGameBoard: NSObject {
         return piece.row == self.sourceRow && piece.col == self.sourceCol
     }
     
-    func rootPiece() -> Piece {
-        return self.getPiece(row: self.sourceRow, col: self.sourceCol)!
+    func rootPiece() -> Piece? {
+        return self.getPiece(row: self.sourceRow, col: self.sourceCol)
     }
     
     func adjacentPieceDisplacement(piece piece: Piece, direction: Direction) -> RowCol? {
@@ -344,18 +344,21 @@ class AbstractGameBoard: NSObject {
             }
         }
         
-        let root = self.rootPiece()
-        root.forEachPipeState {
-            trueDir, state in
-            
-            if state != .None {
-                self.setPipeState(.Branch, ofPiece: root, inTrueDir: trueDir)
+        if let root = self.rootPiece() {
+            root.forEachPipeState {
+                trueDir, state in
+                
+                if state != .None {
+                    self.setPipeState(.Branch, ofPiece: root, inTrueDir: trueDir)
+                }
             }
         }
     }
     
     func enablePipesFromRoot() {
-        self.enablePipesFrom(self.rootPiece())
+        if let root = self.rootPiece() {
+            self.enablePipesFrom(root)
+        }
     }
     
     func disablePipesFrom(piece: Piece) {
