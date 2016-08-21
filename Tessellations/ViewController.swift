@@ -96,7 +96,27 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             var translation = recognizer.translationInView(recognizer.view)
             translation = CGPointMake(-translation.x, translation.y)
             
-            self.camera.position = CGPoint(x: self.camera.position.x + translation.x, y: self.camera.position.y + translation.y)
+            var newPosition = CGPoint(x: self.camera.position.x + translation.x, y: self.camera.position.y + translation.y)
+            
+            let cameraBounds = CGRect(x: self.scene.size.width / 2.0,
+                                      y: self.scene.size.height / 2.0,
+                                      width: self.scene.frame.size.width - self.scene.frame.size.width/self.camera.xScale,
+                                      height: self.scene.frame.size.height - self.scene.frame.size.height/self.camera.yScale)
+            
+            if newPosition.x < cameraBounds.origin.x - cameraBounds.width/2 {
+                newPosition.x = cameraBounds.origin.x - cameraBounds.width/2
+            } else if newPosition.x > cameraBounds.origin.x + cameraBounds.width/2 {
+                newPosition.x = cameraBounds.origin.x + cameraBounds.width/2
+            }
+            
+            if newPosition.y < cameraBounds.origin.y - cameraBounds.height/2 {
+                newPosition.y = cameraBounds.origin.y - cameraBounds.height/2
+            } else if newPosition.y > cameraBounds.origin.y + cameraBounds.height/2 {
+                newPosition.y = cameraBounds.origin.y + cameraBounds.height/2
+            }
+            
+            self.camera.position = newPosition
+            
             
             recognizer.setTranslation(CGPointZero, inView: recognizer.view)
             
