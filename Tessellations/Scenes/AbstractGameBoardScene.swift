@@ -112,14 +112,14 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         self.refreshAllPieces()
     }
     
-    func pieceAtPoint(touch: UITouch) -> PieceNode? {
-        let location = touch.locationInNode(self)
+    func pieceAtPoint(location: CGPoint) -> PieceNode? {
         let nodes = self.nodesAtPoint(location).filter {
             theNode in
             if let shapeNode = theNode as? PieceNode {
                 // TODO: Apply a rotation transform as a safeguard, even though
                 // pieces will always be in the same orientation.
-                return CGPathContainsPoint(shapeNode.path, nil, touch.locationInNode(shapeNode), false)
+                let locationInNode = self.convertPoint(location, toNode: shapeNode)
+                return CGPathContainsPoint(shapeNode.path, nil, locationInNode, false)
             } else {
                 return false
             }
@@ -132,10 +132,9 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         return node
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first
-        
-        if let node = self.pieceAtPoint(touch!) {
+    func gotTapAtLocation(location: CGPoint) {
+        let location = self.convertPointFromView(location)
+        if let node = self.pieceAtPoint(location) {
             
             self.logicalBoard.rotatePiece(row: node.row!, col: node.col!)
         }
