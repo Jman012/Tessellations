@@ -25,15 +25,17 @@ class HexagonTriangleScene: AbstractGameBoardScene {
     }
     
     override func setShapePaths() {
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
         
         // Try by width
-        var tri_a = (self.size.width / ceil(CGFloat(self.logicalBoardWidth)/2)) / 2
+        var tri_a = (effectiveWidth / ceil(CGFloat(self.logicalBoardWidth)/2)) / 2
         triangleUp = TriangleUp(sideLength: tri_a, pipeWidth: tri_a / 4)
-        totalWidth = self.size.width
+        totalWidth = effectiveWidth
         totalHeight = triangleUp.height * CGFloat(self.logicalBoardHeight)
-        if totalHeight > self.size.height {
-            tri_a = self.size.height / CGFloat(self.logicalBoardHeight)
-            totalHeight = self.size.height
+        if totalHeight > effectiveHeight {
+            tri_a = effectiveHeight / CGFloat(self.logicalBoardHeight)
+            totalHeight = effectiveHeight
             totalWidth = tri_a * 2 * ceil(CGFloat(self.logicalBoardWidth)/2)
         }
         

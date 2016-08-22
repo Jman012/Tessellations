@@ -13,16 +13,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
 
     @IBOutlet weak var sceneView: SKView!
     var scene: AbstractGameBoardScene!
-    var octSquareScene: OctagonSquareScene!
-    var hexagonScene: HexagonScene!
-    var squareScene: SquareScene!
-    var triangleScene: TriangleScene!
-    var squareTriangleCrazyScene: SquareTriangleCrazyScene!
-    var hexagonTriangleScene: HexagonTriangleScene!
-    var dodecagonHexagonSquareScene: DodecagonHexagonSquareScene!
-    var hexagonSquareTriangleScene: HexagonSquareTriangleScene!
-    
-    var allScenes: [AbstractGameBoardScene] = []
     
     let camera = SKCameraNode()
     let panRecognizer = UIPanGestureRecognizer()
@@ -34,52 +24,76 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         panRecognizer.addTarget(self, action: #selector(ViewController.handlePan(_:)))
         panRecognizer.minimumNumberOfTouches = 1
         panRecognizer.maximumNumberOfTouches = 1
-        self.view.addGestureRecognizer(panRecognizer)
+        self.sceneView.addGestureRecognizer(panRecognizer)
         
         tapRecognizer.addTarget(self, action: #selector(ViewController.handleTap(_:)))
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(tapRecognizer)
-        
-        
-        self.octSquareScene = OctagonSquareScene(size: self.view.bounds.size)
-        self.hexagonScene = HexagonScene(size: self.view.bounds.size)
-        self.squareScene = SquareScene(size: self.view.bounds.size)
-        self.triangleScene = TriangleScene(size: self.view.bounds.size)
-        self.squareTriangleCrazyScene = SquareTriangleCrazyScene(size: self.view.bounds.size)
-        self.hexagonTriangleScene = HexagonTriangleScene(size: self.view.bounds.size)
-        self.dodecagonHexagonSquareScene = DodecagonHexagonSquareScene(size: self.view.bounds.size)
-        self.hexagonSquareTriangleScene = HexagonSquareTriangleScene(size: self.view.bounds.size)
-        self.allScenes = [octSquareScene, hexagonScene, squareScene, triangleScene, squareTriangleCrazyScene, hexagonTriangleScene, dodecagonHexagonSquareScene, hexagonSquareTriangleScene]
-        
-        for aScene in self.allScenes {
-            aScene.camera = self.camera
-        }
-        self.camera.setScale(1.0)
-        
-        self.scene = self.hexagonSquareTriangleScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
+        self.sceneView.addGestureRecognizer(tapRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        for aScene in self.allScenes {
-            aScene.size = self.sceneView.frame.size
-            aScene.sceneSizeDidChange()
+        if let scene = self.scene {
+            scene.size = self.sceneView.frame.size
+            scene.sceneSizeDidChange()
+            
+            self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        self.navigationController!.navigationBar.shadowImage = UIImage()
+        self.navigationController!.navigationBar.translucent = true
+        
+        self.scene.logicalBoard.generatePrim()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setBoardType(boardType: String) {
+        switch boardType {
+        case "Triangle":
+            self.scene = TriangleScene(size: self.view.bounds.size)
+        case "Square":
+            self.scene = SquareScene(size: self.view.bounds.size)
+        case "Hexagon":
+            self.scene = HexagonScene(size: self.view.bounds.size)
+        case "Octagon":
+            self.scene = OctagonSquareScene(size: self.view.bounds.size)
+        case "Square & Triangle":
+            self.scene = SquareTriangleCrazyScene(size: self.view.bounds.size)
+        case "Hexagon & Triangle":
+            self.scene = HexagonTriangleScene(size: self.view.bounds.size)
+        case "Hexagon & Square & Triangle":
+            self.scene = HexagonSquareTriangleScene(size: self.view.bounds.size)
+        case "Dodeca-Hexa-Square":
+            self.scene = DodecagonHexagonSquareScene(size: self.view.bounds.size)
+
+        default:
+            self.scene = SquareScene(size: self.view.bounds.size)
+        }
+        
+        self.scene.size = self.sceneView.frame.size
+        self.scene.sceneSizeDidChange()
+        
+        self.camera.setScale(1.0)
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
+        self.scene.camera = self.camera
+        
+        self.scene.scaleMode = .AspectFit
+        self.scene.del = self
+        
+        self.sceneView.frameInterval = 3
+        self.sceneView.showsFPS = true
+        self.sceneView.presentScene(self.scene)
     }
     
     func handlePan(recognizer: UIPanGestureRecognizer) {
@@ -138,103 +152,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             self.camera.setScale(1.0)
         }
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
-    }
-
-    
-    @IBAction func toolbarKrusDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.generateKruskal()
-    }
-    
-    @IBAction func toolbarHakDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.generateHuntAndKill()
-    }
-    
-    @IBAction func toolbarRandDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.randomizeBoard()
-    }
-    
-    @IBAction func toolbarPrimDidTouch(sender: UIBarButtonItem) {
-        self.scene.logicalBoard.generatePrim()
-    }
-    
-    @IBAction func toolbarOSDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.octSquareScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarHDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.hexagonScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarSDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.squareScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarTDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.triangleScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarSTCDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.squareTriangleCrazyScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarHTDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.hexagonTriangleScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarDHSDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.dodecagonHexagonSquareScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
-    }
-    
-    @IBAction func toolbarHSTDidTouch(sender: UIBarButtonItem) {
-        self.scene = self.hexagonSquareTriangleScene
-        self.scene.scaleMode = .AspectFit
-        self.scene.del = self
-        
-        self.sceneView.frameInterval = 4
-        self.sceneView.showsFPS = true
-        self.sceneView.presentScene(self.scene)
     }
     
     func gameWon() {

@@ -22,13 +22,15 @@ class SquareScene: AbstractGameBoardScene {
     }
     
     override func setShapePaths() {
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
         
-        var squareWidth = size.width / CGFloat(self.logicalBoardWidth)
+        var squareWidth = effectiveWidth / CGFloat(self.logicalBoardWidth)
         totalHeight = CGFloat(self.logicalBoardHeight) * squareWidth
-        totalWidth = size.width
-        if totalHeight > self.size.height {
-            squareWidth = size.height / CGFloat(self.logicalBoardHeight)
-            totalHeight = size.height
+        totalWidth = effectiveWidth
+        if totalHeight > effectiveHeight {
+            squareWidth = effectiveHeight / CGFloat(self.logicalBoardHeight)
+            totalHeight = effectiveHeight
             totalWidth = CGFloat(self.logicalBoardWidth) * squareWidth
         }
             

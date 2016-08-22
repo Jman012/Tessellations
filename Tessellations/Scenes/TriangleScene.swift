@@ -25,20 +25,23 @@ class TriangleScene: AbstractGameBoardScene {
     
     override func setShapePaths() {
         
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
+        
         // Measurements: http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle_files/image036.gif
         // http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle.htm
-        let tri_a = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0)
+        let tri_a = effectiveWidth / ceil(CGFloat(self.logicalBoardWidth) / 2.0)
         triangleUp = TriangleUp(sideLength: tri_a, pipeWidth: tri_a / 5.0)
         triangleDown = TriangleDown(sideLength: tri_a, pipeWidth: tri_a / 5.0)
 
-        totalWidth = self.size.width
+        totalWidth = effectiveWidth
         totalHeight = triangleUp.height * CGFloat(self.logicalBoardHeight)
-        if totalHeight > self.size.height {
-            let tri_height = self.size.height / CGFloat(self.logicalBoardHeight)
+        if totalHeight > effectiveHeight {
+            let tri_height = effectiveHeight / CGFloat(self.logicalBoardHeight)
             triangleUp = TriangleUp(height: tri_height, pipeWidth: tri_height * 2.0 / (5 * CGFloat(sqrt(3.0))))
             triangleDown = TriangleDown(height: tri_height, pipeWidth: tri_height * 2.0 / (5 * CGFloat(sqrt(3.0))))
 
-            totalHeight = self.size.height
+            totalHeight = effectiveHeight
             totalWidth = triangleUp.sideLength * ceil(CGFloat(self.logicalBoardWidth) / 2.0)
         }
         

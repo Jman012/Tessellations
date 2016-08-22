@@ -24,14 +24,16 @@ class OctagonSquareScene: AbstractGameBoardScene {
     }
     
     override func setShapePaths() {
-        var octagonRadius = size.width / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
+        var octagonRadius = effectiveWidth / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
         
-        totalWidth = size.width
+        totalWidth = effectiveWidth
         totalHeight = octagonRadius * 2 * ceil(CGFloat(self.logicalBoardHeight) / 2.0)
-        if totalHeight > size.height {
-            octagonRadius = size.height / ceil(CGFloat(self.logicalBoardHeight) / 2.0) / 2.0
+        if totalHeight > effectiveHeight {
+            octagonRadius = effectiveHeight / ceil(CGFloat(self.logicalBoardHeight) / 2.0) / 2.0
             
-            totalHeight = size.height
+            totalHeight = effectiveHeight
             totalWidth = octagonRadius * 2 * ceil(CGFloat(self.logicalBoardWidth) / 2.0)
         }
         

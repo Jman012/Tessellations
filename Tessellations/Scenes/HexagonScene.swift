@@ -22,15 +22,17 @@ class HexagonScene: AbstractGameBoardScene {
     }
 
     override func setShapePaths() {
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
         
-        var hexRadius = size.width / (2 + 1.5 * CGFloat(self.logicalBoardWidth-1))
+        var hexRadius = effectiveWidth / (2 + 1.5 * CGFloat(self.logicalBoardWidth-1))
         hexagon = Hexagon(cornerRadius: hexRadius, pipeWidth: hexRadius / 2.5)
         totalHeight = CGFloat(self.logicalBoardHeight * 2) * hexagon.edgeRadius
-        totalWidth = size.width
-        if totalHeight > size.height {
-            hexRadius = size.height / (2 * CGFloat(self.logicalBoardHeight) * CGFloat(sin(60.0.degrees)))
+        totalWidth = effectiveWidth
+        if totalHeight > effectiveHeight {
+            hexRadius = effectiveHeight / (2 * CGFloat(self.logicalBoardHeight) * CGFloat(sin(60.0.degrees)))
             hexagon = Hexagon(cornerRadius: hexRadius, pipeWidth: hexRadius / 2.5)
-            totalHeight = size.height
+            totalHeight = effectiveHeight
             totalWidth = (2*hexRadius) + (CGFloat(self.logicalBoardWidth - 1) * (hexRadius * 1.5))
         }
         

@@ -16,6 +16,8 @@
 		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
 		1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7C1D1CC5600008224D /* Utils.swift */; };
 		1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38EF1D68A64900A75469 /* PieceNode.swift */; };
+		1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */; };
+		1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */; };
 		1AA129C21D62AD4500146731 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C11D62AD4500146731 /* Square.swift */; };
 		1AA129C41D62E40600146731 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C31D62E40600146731 /* Shape.swift */; };
 		1AA129C61D6382F600146731 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C51D6382F600146731 /* Octagon.swift */; };
@@ -82,6 +84,8 @@
 		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A82DE7C1D1CC5600008224D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Utils/Utils.swift; sourceTree = "<group>"; };
 		1A8B38EF1D68A64900A75469 /* PieceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceNode.swift; sourceTree = "<group>"; };
+		1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBoardCell.swift; sourceTree = "<group>"; };
 		1AA129C11D62AD4500146731 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = Shapes/Square.swift; sourceTree = "<group>"; };
 		1AA129C31D62E40600146731 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Shapes/Shape.swift; sourceTree = "<group>"; };
 		1AA129C51D6382F600146731 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = Shapes/Octagon.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				1AE82DAE1D3FF28100F8166F /* Scenes */,
 				1AE82DAF1D3FF28600F8166F /* Boards */,
 				1A82DE751D1CC4CB0008224D /* Utils */,
+				1A8B38F31D6A4EDC00A75469 /* Navigation */,
 				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
 				1A82DE471D1CC43B0008224D /* ViewController.swift */,
 				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
@@ -202,6 +207,15 @@
 				1A82DE7C1D1CC5600008224D /* Utils.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		1A8B38F31D6A4EDC00A75469 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */,
+				1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 		1AA129C01D62AD1A00146731 /* Shapes */ = {
@@ -407,6 +421,8 @@
 				1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */,
 				1AA129DE1D6411C500146731 /* SquareScene.swift in Sources */,
 				1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */,
+				1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */,
+				1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */,
 				1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */,
 				1AA129E01D6411C500146731 /* TriangleScene.swift in Sources */,
 				1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */,

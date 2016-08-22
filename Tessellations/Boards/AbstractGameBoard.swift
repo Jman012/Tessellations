@@ -547,9 +547,11 @@ extension AbstractGameBoard {
                 }
             }
             
-            self.performSelector(#selector(self.generatePrim), withObject: nil, afterDelay: 0.1)
+//            self.performSelector(#selector(self.generatePrim), withObject: nil, afterDelay: 0.05)
+            self.generatePrim()
         } else {
             mazeRunning = false
+            self.randomizeBoard()
         }
     }
     

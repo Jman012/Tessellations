@@ -34,6 +34,8 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
     }
     
     override func setShapePaths() {
+        let effectiveWidth = size.width - self.margins.width*2
+        let effectiveHeight = size.height - self.margins.height*2
         
         let hSteps = CGFloat(self.logicalBoardWidth - 3) / 4.0
 //        let vSteps = CGFloat(self.logicalBoardHeight - 1) / 4.0
@@ -41,21 +43,21 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         /* The code is the reverse of the following line */
         /* totalWidth = (hexagon30.edgeRadius + square.width + hexagon30.edgeDiameter) + (hexagon30.edgeDiameter + square.width) * hSteps */
         let temp = 2.0 / sqrt(3.0)
-        let hexagon30Width = CGFloat(2.0) * size.width / CGFloat(3.0 + temp + (2 + temp) * Double(hSteps))
+        let hexagon30Width = CGFloat(2.0) * effectiveWidth / CGFloat(3.0 + temp + (2 + temp) * Double(hSteps))
 //        let hexagon30Width: CGFloat = 50.0
         
         self.makeShapesForHexa30Width(hexagon30Width)
         
-        totalWidth = size.width
-        totalHeight = size.height - 80
+        totalWidth = effectiveWidth
+        totalHeight = effectiveHeight
 //        totalHeight = dodecagon.edgeDiameter + (vSteps * (2 * hexagon.edgeDiameter + square.width + dodecagon.edgeDiameter))
         
-        if totalHeight > size.height {
+        if totalHeight > effectiveHeight {
             // Change the proportions to fit the screen is the original didn't fit nicely
-            let percent = size.height / totalHeight
+            let percent = effectiveHeight / totalHeight
             
             totalWidth = totalWidth * percent
-            totalHeight = size.height
+            totalHeight = effectiveHeight
             
             self.makeShapesForHexa30Width(hexagon30Width * percent)
         }

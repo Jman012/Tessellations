@@ -3,9 +3,10 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--001-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tessellations" customModuleProvider="target" sceneMemberID="viewController">
@@ -14,94 +15,23 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-he-w0k" customClass="SKView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-ke-esU">
-                                <rect key="frame" x="0.0" y="492" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="P" id="rXg-ph-6sY">
-                                        <connections>
-                                            <action selector="toolbarPrimDidTouch:" destination="BYZ-38-t0r" id="3xe-er-ojI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="K" id="9Mo-Cb-CmH">
-                                        <connections>
-                                            <action selector="toolbarKrusDidTouch:" destination="BYZ-38-t0r" id="d7j-mW-Ec1"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="H" id="5wS-Iu-v2P">
-                                        <connections>
-                                            <action selector="toolbarHakDidTouch:" destination="BYZ-38-t0r" id="KOy-eP-lA0"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="85t-LD-Fjp"/>
-                                    <barButtonItem title="R" id="IDH-hH-VHf">
-                                        <connections>
-                                            <action selector="toolbarRandDidTouch:" destination="BYZ-38-t0r" id="jF3-zJ-otR"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dHM-fu-QHY"/>
-                                    <barButtonItem title="OS" id="iBX-Ob-4dv">
-                                        <connections>
-                                            <action selector="toolbarOSDidTouch:" destination="BYZ-38-t0r" id="l8V-hK-FFF"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="H" id="2ED-0h-Ydt">
-                                        <connections>
-                                            <action selector="toolbarHDidTouch:" destination="BYZ-38-t0r" id="hkG-me-vwX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="S" id="Idp-Cs-WIe">
-                                        <connections>
-                                            <action selector="toolbarSDidTouch:" destination="BYZ-38-t0r" id="scq-Je-cmy"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="T" id="B3R-ir-KKY">
-                                        <connections>
-                                            <action selector="toolbarTDidTouch:" destination="BYZ-38-t0r" id="vbC-8f-Z8w"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="STC" id="Ly0-uU-eLC">
-                                        <connections>
-                                            <action selector="toolbarSTCDidTouch:" destination="BYZ-38-t0r" id="CIB-G6-CA7"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="HT" id="paq-6P-WhY">
-                                        <connections>
-                                            <action selector="toolbarHTDidTouch:" destination="BYZ-38-t0r" id="gYm-4n-uXw"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="DHS" id="JaQ-Ud-1HV">
-                                        <connections>
-                                            <action selector="toolbarDHSDidTouch:" destination="BYZ-38-t0r" id="XFu-Ra-X9J"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="HST" id="VxW-fB-A9D">
-                                        <connections>
-                                            <action selector="toolbarHSTDidTouch:" destination="BYZ-38-t0r" id="yVx-wl-gOi"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ETN-fB-DJK"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tlu-ke-esU" secondAttribute="bottom" id="H4h-P4-4sy"/>
-                            <constraint firstAttribute="trailing" secondItem="tlu-ke-esU" secondAttribute="trailing" id="QcD-j1-5T8"/>
+                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="8TA-7g-juB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="bottom" id="GaE-fi-63T"/>
                             <constraint firstItem="aGV-he-w0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="U1R-Vf-G9f"/>
-                            <constraint firstItem="tlu-ke-esU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Vuo-0b-TzN"/>
-                            <constraint firstItem="tlu-ke-esU" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="bottom" id="dwY-a0-Uiu"/>
                             <constraint firstAttribute="trailing" secondItem="aGV-he-w0k" secondAttribute="trailing" id="wF8-2S-EAM"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Title" id="Hpw-bS-nxi">
+                    <navigationItem key="navigationItem" title="001" id="Hpw-bS-nxi">
                         <barButtonItem key="rightBarButtonItem" title="Zoom" id="cxg-IV-kkc">
                             <connections>
                                 <action selector="zoom:" destination="BYZ-38-t0r" id="o8e-3V-xiE"/>
@@ -114,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="364"/>
+            <point key="canvasLocation" x="1029" y="364"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CwD-qJ-09s">
@@ -125,12 +55,103 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="b3d-4u-x6K"/>
+                        <segue destination="aKv-RP-BuE" kind="relationship" relationship="rootViewController" id="huw-VA-8PX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPI-Qg-5aF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-348" y="364"/>
+            <point key="canvasLocation" x="-376" y="364"/>
+        </scene>
+        <!--Main Menu-->
+        <scene sceneID="8Cs-2g-SqW">
+            <objects>
+                <collectionViewController id="aKv-RP-BuE" customClass="MainMenu" customModule="Tessellations" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" id="S6s-op-C2L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="IYo-2E-VoL">
+                            <size key="itemSize" width="124" height="87"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuBoardCell" id="cV6-Ke-OC7" customClass="MenuBoardCell" customModule="Tessellations" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="124" height="87"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="124" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNi-bg-Kzo">
+                                            <rect key="frame" x="41" y="33" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pla-Jx-DlM">
+                                            <rect key="frame" x="0.0" y="86.5" width="124" height="0.5"/>
+                                            <color key="backgroundColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="0.5" id="5dd-WS-zyA"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4T1-bw-Bf0">
+                                            <rect key="frame" x="124" y="0.0" width="0.0" height="94.5"/>
+                                            <color key="backgroundColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="0.5" id="nM4-Rb-WY2"/>
+                                                <constraint firstAttribute="width" constant="0.5" id="q0V-wx-s5f"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="nM4-Rb-WY2"/>
+                                                </mask>
+                                            </variation>
+                                        </view>
+                                        <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBk-4n-xsB">
+                                            <rect key="frame" x="0.0" y="0.0" width="124" height="87"/>
+                                            <color key="backgroundColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="tBk-4n-xsB" secondAttribute="bottom" constant="-8" id="4gK-Og-6Rf"/>
+                                    <constraint firstItem="4T1-bw-Bf0" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="AE8-dZ-Jda"/>
+                                    <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="B3l-F2-lj3"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Pla-Jx-DlM" secondAttribute="bottom" constant="-8" id="Dxk-hf-wUT"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="tBk-4n-xsB" secondAttribute="trailing" constant="-8" id="HSk-ra-unP"/>
+                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="KNi-bg-Kzo" secondAttribute="trailing" constant="8" id="K8z-52-Nml"/>
+                                    <constraint firstItem="KNi-bg-Kzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="8" id="P5B-59-SLs"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="4T1-bw-Bf0" secondAttribute="trailing" constant="-8" id="TG4-tN-69t"/>
+                                    <constraint firstItem="tBk-4n-xsB" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="TJk-LY-AWW"/>
+                                    <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="bjV-eG-Q8L"/>
+                                    <constraint firstItem="Pla-Jx-DlM" firstAttribute="top" secondItem="4T1-bw-Bf0" secondAttribute="bottom" constant="-8" id="sLw-sk-zp0"/>
+                                    <constraint firstItem="tBk-4n-xsB" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="vwJ-gM-cwe"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Pla-Jx-DlM" secondAttribute="trailing" constant="-8" id="ygE-bd-LAs"/>
+                                    <constraint firstItem="Pla-Jx-DlM" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="yl4-Oe-Ita"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="highlightView" destination="tBk-4n-xsB" id="rOu-tX-1c1"/>
+                                    <outlet property="label" destination="KNi-bg-Kzo" id="N0m-yf-Sbo"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="aKv-RP-BuE" id="0Re-iu-tm0"/>
+                            <outlet property="delegate" destination="aKv-RP-BuE" id="RPV-ma-AX9"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="1uw-43-l5Y"/>
+                    <connections>
+                        <outlet property="collectionView" destination="S6s-op-C2L" id="VeU-XE-RI2"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="MenuBoardCellSegue" id="1f0-Kb-yIx"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xgq-yJ-Dni" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="318" y="364"/>
         </scene>
     </scenes>
 </document>
