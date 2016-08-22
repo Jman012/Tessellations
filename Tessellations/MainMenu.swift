@@ -16,6 +16,8 @@ class MainMenu: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = " "
+        
         self.collectionView?.backgroundColor = UIColor.whiteColor()
     }
     
