@@ -45,12 +45,12 @@ class TriangleUp: Shape {
         
         
         let trianglePipePath = CGPathCreateMutable()
-        CGPathMoveToPoint   (trianglePipePath, nil, pipeWidth * (-1/2), pipeLength - 0.5)
-        CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), pipeLength - 0.5)
+        CGPathMoveToPoint   (trianglePipePath, nil, pipeWidth * (-1/2), pipeLength)
+        CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), pipeLength)
         CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), 0)
         CGPathAddArc        (trianglePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (trianglePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (r - margin) / r)
+        transformScale = CGAffineTransformMakeScale(1.0, (r - margin/2) / r)
         self.pipePath = CGPathCreateCopyByTransformingPath(trianglePipePath, &transformScale)
     }
     
