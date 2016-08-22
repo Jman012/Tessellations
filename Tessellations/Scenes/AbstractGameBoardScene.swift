@@ -256,10 +256,11 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             node.rootMarker!.zPosition = 100
         }
         
+        // Bubble
         if node.pipeNodes.count == 1 {
             let pipe: SKShapeNode = node.pipeNodes[logicalDir]!
             if node.bubble == nil {
-                let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.3)
+                let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.2)
                 bubble.lineWidth = 1.0
                 node.bubble = bubble
             }
