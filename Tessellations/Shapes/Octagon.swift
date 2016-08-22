@@ -52,7 +52,7 @@ class Octagon: Shape {
         CGPathAddLineToPoint(octPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (octPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (octPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin) / edgeDiameter)
         self.pipePath = CGPathCreateCopyByTransformingPath(octPipePath, &transformScale)
     }
     

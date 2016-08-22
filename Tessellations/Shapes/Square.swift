@@ -44,7 +44,7 @@ class Square: Shape {
         CGPathAddLineToPoint(squarePipePath, nil, pipeWidth * (1/2),  0)
         CGPathAddArc        (squarePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (squarePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (width - margin/2.0) / width)
+        transformScale = CGAffineTransformMakeScale(1.0, (width - margin) / width)
         self.pipePath = CGPathCreateCopyByTransformingPath(squarePipePath, &transformScale)
         
     }

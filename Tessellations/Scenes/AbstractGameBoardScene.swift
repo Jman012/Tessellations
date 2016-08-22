@@ -69,8 +69,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
         node.position = self.pieceToPoint(piece)
         node.fillColor = baseColor
         
-        node.strokeColor = pathStrokeColor
-        node.lineWidth = 2.0
+        node.strokeColor = baseColor
+        node.lineWidth = 1.0
         
         node.row = piece.row
         node.col = piece.col
@@ -197,8 +197,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             default: break
             }
             
-            pipe.strokeColor = pipeStrokeColor
-            pipe.lineWidth = 0.0
+            pipe.strokeColor = pipe.fillColor
+            pipe.lineWidth = 1.0
             pipe.name = "Pipe \(logicalDir)"
             node.addChild(pipe)
             node.pipeNodes[logicalDir] = pipe
@@ -232,6 +232,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
                 
             default: break
             }
+            
+            pipe.strokeColor = pipe.fillColor
         }
         
         
@@ -245,8 +247,8 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
                 let pipeWidth = pipe.frame.size.width
                 rootMarker.runAction(SKAction.scaleTo(0.5 * (pipeWidth / node.frame.size.width), duration: 0))
                 rootMarker.fillColor = baseColor
-                rootMarker.strokeColor = UIColor.clearColor()
-                rootMarker.lineWidth = 0.0
+                rootMarker.strokeColor = baseColor
+                rootMarker.lineWidth = 1.0
                 node.addChild(rootMarker)
                 node.rootMarker = rootMarker
             }
@@ -258,10 +260,10 @@ class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
             let pipe: SKShapeNode = node.pipeNodes[logicalDir]!
             if node.bubble == nil {
                 let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.3)
-                bubble.strokeColor = UIColor.clearColor()
-                bubble.lineWidth = 0.0
+                bubble.lineWidth = 1.0
                 node.bubble = bubble
             }
+            node.bubble?.strokeColor = pipe.fillColor
             node.bubble?.fillColor = pipe.fillColor
             
             node.bubble!.removeFromParent()

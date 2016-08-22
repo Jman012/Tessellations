@@ -16,7 +16,7 @@ class Shape {
     var pipeLength: CGFloat = 0
     var pipeWidth:  CGFloat = 0
     
-    let margin: CGFloat = 2.0
+    let margin: CGFloat = 3.0
     
     init() {
         

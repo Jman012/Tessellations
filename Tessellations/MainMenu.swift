@@ -42,6 +42,7 @@ class MainMenu: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MenuBoardCell", forIndexPath: indexPath) as! MenuBoardCell
         
         cell.backgroundColor = UIColor.whiteColor()
+        cell.highlightView.hidden = true
         
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]

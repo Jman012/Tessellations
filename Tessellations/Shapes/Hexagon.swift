@@ -56,7 +56,7 @@ class Hexagon: Shape {
         CGPathAddLineToPoint(hexPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (hexPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (hexPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin) / edgeDiameter)
         self.pipePath = CGPathCreateCopyByTransformingPath(hexPipePath, &transformScale)
     }
     

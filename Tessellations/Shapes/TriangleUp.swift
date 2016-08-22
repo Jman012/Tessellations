@@ -40,7 +40,7 @@ class TriangleUp: Shape {
             CGPathAddLineToPoint(triangleUpPath, nil, R * CGFloat(cos(angle.degrees)), R * CGFloat(sin(angle.degrees)))
         }
         CGPathCloseSubpath(triangleUpPath)
-        var transformScale = CGAffineTransformMakeScale((height - margin) / height, (height - margin) / height)
+        var transformScale = CGAffineTransformMakeScale((height - margin*2) / height, (height - margin*2) / height)
         self.path = CGPathCreateCopyByTransformingPath(triangleUpPath, &transformScale)
         
         
@@ -50,7 +50,7 @@ class TriangleUp: Shape {
         CGPathAddLineToPoint(trianglePipePath, nil, pipeWidth * (1/2), 0)
         CGPathAddArc        (trianglePipePath, nil, 0, 0, pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (trianglePipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (r - margin/2) / r)
+        transformScale = CGAffineTransformMakeScale(1.0, (r - margin) / r)
         self.pipePath = CGPathCreateCopyByTransformingPath(trianglePipePath, &transformScale)
     }
     

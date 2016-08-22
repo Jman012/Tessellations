@@ -50,7 +50,7 @@ class Dodecagon: Shape {
         CGPathAddLineToPoint(dodecaPipePath, nil, self.pipeWidth * (1/2), 0)
         CGPathAddArc        (dodecaPipePath, nil, 0, 0, self.pipeWidth * (1/2), 0, CGFloat(M_PI), true)
         CGPathCloseSubpath  (dodecaPipePath)
-        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin/2.0) / edgeDiameter)
+        transformScale = CGAffineTransformMakeScale(1.0, (edgeDiameter - margin) / edgeDiameter)
         self.pipePath = CGPathCreateCopyByTransformingPath(dodecaPipePath, &transformScale)
     }
     
