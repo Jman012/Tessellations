@@ -25,7 +25,7 @@ class OctagonSquareScene: AbstractGameBoardScene {
     
     override func setShapePaths() {
         let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - self.margins.height*2
+        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         var octagonRadius = effectiveWidth / ceil(CGFloat(self.logicalBoardWidth) / 2.0) / 2.0
         
         totalWidth = effectiveWidth
@@ -52,6 +52,6 @@ class OctagonSquareScene: AbstractGameBoardScene {
         let x: CGFloat = octagon.edgeRadius + (CGFloat(piece.col) * octagon.edgeRadius)
         let y: CGFloat = octagon.edgeRadius + (CGFloat(piece.row) * octagon.edgeRadius)
         
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
     }
 }

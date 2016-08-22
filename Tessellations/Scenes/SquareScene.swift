@@ -17,13 +17,13 @@ class SquareScene: AbstractGameBoardScene {
 
     override func initLogicalBoard() -> AbstractGameBoard {
         self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 7
+        self.logicalBoardHeight = 10
         return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
         let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - self.margins.height*2
+        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         
         var squareWidth = effectiveWidth / CGFloat(self.logicalBoardWidth)
         totalHeight = CGFloat(self.logicalBoardHeight) * squareWidth
@@ -44,6 +44,6 @@ class SquareScene: AbstractGameBoardScene {
     override func pieceToPoint(piece: Piece) -> CGPoint {
         let x = square.width/2 + (CGFloat(piece.col) * square.width)
         let y = square.width/2 + (CGFloat(piece.row) * square.width)
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
     }
 }

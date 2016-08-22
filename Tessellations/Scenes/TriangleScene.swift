@@ -26,7 +26,7 @@ class TriangleScene: AbstractGameBoardScene {
     override func setShapePaths() {
         
         let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - self.margins.height*2
+        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         
         // Measurements: http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle_files/image036.gif
         // http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle.htm
@@ -61,7 +61,7 @@ class TriangleScene: AbstractGameBoardScene {
         } else {
             y += triangleUp.R
         }
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
     }
 
 }
