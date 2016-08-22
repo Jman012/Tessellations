@@ -66,10 +66,10 @@
         <scene sceneID="8Cs-2g-SqW">
             <objects>
                 <collectionViewController id="aKv-RP-BuE" customClass="MainMenu" customModule="Tessellations" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" id="S6s-op-C2L">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="S6s-op-C2L">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="IYo-2E-VoL">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IYo-2E-VoL">
                             <size key="itemSize" width="124" height="87"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -89,26 +89,6 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pla-Jx-DlM">
-                                            <rect key="frame" x="0.0" y="86.5" width="124" height="0.5"/>
-                                            <color key="backgroundColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="5dd-WS-zyA"/>
-                                            </constraints>
-                                        </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4T1-bw-Bf0">
-                                            <rect key="frame" x="124" y="0.0" width="0.0" height="94.5"/>
-                                            <color key="backgroundColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="nM4-Rb-WY2"/>
-                                                <constraint firstAttribute="width" constant="0.5" id="q0V-wx-s5f"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="nM4-Rb-WY2"/>
-                                                </mask>
-                                            </variation>
-                                        </view>
                                         <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBk-4n-xsB">
                                             <rect key="frame" x="0.0" y="0.0" width="124" height="87"/>
                                             <color key="backgroundColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
@@ -118,19 +98,13 @@
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="tBk-4n-xsB" secondAttribute="bottom" constant="-8" id="4gK-Og-6Rf"/>
-                                    <constraint firstItem="4T1-bw-Bf0" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="AE8-dZ-Jda"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="B3l-F2-lj3"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Pla-Jx-DlM" secondAttribute="bottom" constant="-8" id="Dxk-hf-wUT"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="tBk-4n-xsB" secondAttribute="trailing" constant="-8" id="HSk-ra-unP"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="KNi-bg-Kzo" secondAttribute="trailing" constant="8" id="K8z-52-Nml"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="8" id="P5B-59-SLs"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="4T1-bw-Bf0" secondAttribute="trailing" constant="-8" id="TG4-tN-69t"/>
                                     <constraint firstItem="tBk-4n-xsB" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="TJk-LY-AWW"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="bjV-eG-Q8L"/>
-                                    <constraint firstItem="Pla-Jx-DlM" firstAttribute="top" secondItem="4T1-bw-Bf0" secondAttribute="bottom" constant="-8" id="sLw-sk-zp0"/>
                                     <constraint firstItem="tBk-4n-xsB" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="vwJ-gM-cwe"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Pla-Jx-DlM" secondAttribute="trailing" constant="-8" id="ygE-bd-LAs"/>
-                                    <constraint firstItem="Pla-Jx-DlM" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="yl4-Oe-Ita"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="highlightView" destination="tBk-4n-xsB" id="rOu-tX-1c1"/>

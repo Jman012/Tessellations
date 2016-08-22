@@ -18,4 +18,10 @@ class MenuBoardCell: UICollectionViewCell {
             highlightView.hidden = !highlightView.hidden
         }
     }
+    
+    override var selected: Bool {
+        didSet {
+            highlightView.hidden = !highlightView.hidden
+        }
+    }
 }

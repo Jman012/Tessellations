@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class MainMenu: UICollectionViewController {
 
@@ -18,15 +19,17 @@ class MainMenu: UICollectionViewController {
         
         self.title = " "
         
+//        self.collectionView?.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
         self.collectionView?.backgroundColor = UIColor.whiteColor()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize =
-            CGSize(width: self.collectionView!.frame.size.width / 2.0 - 0.5,
-                   height: self.collectionView!.frame.size.width / 2.0 - 0.5)
+            CGSize(width: self.collectionView!.frame.size.width / 2.0,
+                   height: self.collectionView!.frame.size.width / 2.0)
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -43,6 +46,13 @@ class MainMenu: UICollectionViewController {
         
         cell.backgroundColor = UIColor.whiteColor()
         cell.highlightView.hidden = true
+//        if indexPath.row % 4 == 0 {
+            cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+            cell.layer.borderWidth = 0.25
+//        } else {
+//            cell.layer.borderColor = UIColor.clearColor().CGColor
+//            cell.layer.borderWidth = 0.0
+//        }
         
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]
