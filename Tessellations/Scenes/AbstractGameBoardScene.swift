@@ -19,13 +19,13 @@ let pipeStrokeColor = UIColor.clearColor()
 let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
 let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
-protocol GameBoardSceneProtocol {
+protocol GameBoardSceneProtocol: class {
     func gameWon()
 }
 
-class AbstractGameBoardScene: SKScene, OctSquareBoardProtocol {
+class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
-    var del: GameBoardSceneProtocol?
+    weak var del: GameBoardSceneProtocol?
     
     var logicalBoardWidth = 7
     var logicalBoardHeight = 6

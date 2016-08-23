@@ -49,8 +49,12 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.translucent = true
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        self.scene.logicalBoard.generatePrim()
+        self.sceneView.paused = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +98,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.sceneView.frameInterval = 3
         self.sceneView.showsFPS = true
         self.sceneView.presentScene(self.scene)
+        
+        self.scene.logicalBoard.generatePrim()
     }
     
     func handlePan(recognizer: UIPanGestureRecognizer) {

@@ -74,7 +74,7 @@ enum PipeState: UInt {
     case Branch   = 3
 }
 
-protocol OctSquareBoardProtocol {
+protocol AbstractGameBoardProtocol: class {
     func piecePipeDidChangeState(piece: Piece, logicalDir: Direction, fromOldState oldState: PipeState)
     func pieceDidRotate(piece: Piece)
     func boardDidClear()
@@ -199,7 +199,7 @@ class AbstractGameBoard: NSObject {
     var sourceRow: Int = 0
     var sourceCol: Int = 0
     
-    var delegate: OctSquareBoardProtocol?
+    weak var delegate: AbstractGameBoardProtocol?
     
     // This is for the disable/enable functions when
     // rotating. Helps with loops
