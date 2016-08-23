@@ -46,14 +46,10 @@ class MainMenu: UICollectionViewController {
         
         cell.backgroundColor = UIColor.whiteColor()
         cell.highlightView.hidden = true
-//        if indexPath.row % 4 == 0 {
-            cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-            cell.layer.borderWidth = 0.25
-//        } else {
-//            cell.layer.borderColor = UIColor.clearColor().CGColor
-//            cell.layer.borderWidth = 0.0
-//        }
+        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+        cell.layer.borderWidth = 0.25
         
+        cell.typeString = menuData[indexPath.section][indexPath.row]
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]
         

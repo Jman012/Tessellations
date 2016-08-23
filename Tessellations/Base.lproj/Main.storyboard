@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--001-->
@@ -70,27 +71,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="IYo-2E-VoL">
-                            <size key="itemSize" width="124" height="87"/>
+                            <size key="itemSize" width="160" height="160"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuBoardCell" id="cV6-Ke-OC7" customClass="MenuBoardCell" customModule="Tessellations" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="124" height="87"/>
+                                <rect key="frame" x="0.0" y="64" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="124" height="87"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNi-bg-Kzo">
-                                            <rect key="frame" x="41" y="33" width="42" height="21"/>
+                                            <rect key="frame" x="59" y="69" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qO3-Na-ywm">
+                                            <rect key="frame" x="40" y="40" width="80" height="80"/>
+                                        </imageView>
                                         <view hidden="YES" alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tBk-4n-xsB">
-                                            <rect key="frame" x="0.0" y="0.0" width="124" height="87"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                             <color key="backgroundColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
                                         </view>
                                     </subviews>
@@ -98,16 +102,21 @@
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="tBk-4n-xsB" secondAttribute="bottom" constant="-8" id="4gK-Og-6Rf"/>
+                                    <constraint firstItem="qO3-Na-ywm" firstAttribute="height" secondItem="cV6-Ke-OC7" secondAttribute="height" multiplier="0.5" id="8nu-Ck-DKg"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="B3l-F2-lj3"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="tBk-4n-xsB" secondAttribute="trailing" constant="-8" id="HSk-ra-unP"/>
                                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="KNi-bg-Kzo" secondAttribute="trailing" constant="8" id="K8z-52-Nml"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="8" id="P5B-59-SLs"/>
                                     <constraint firstItem="tBk-4n-xsB" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="TJk-LY-AWW"/>
+                                    <constraint firstItem="qO3-Na-ywm" firstAttribute="width" secondItem="cV6-Ke-OC7" secondAttribute="width" multiplier="0.5" id="Way-1c-Upg"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="bjV-eG-Q8L"/>
+                                    <constraint firstItem="qO3-Na-ywm" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="rDH-2B-mnf"/>
                                     <constraint firstItem="tBk-4n-xsB" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="vwJ-gM-cwe"/>
+                                    <constraint firstItem="qO3-Na-ywm" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="zos-dD-0d9"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="highlightView" destination="tBk-4n-xsB" id="rOu-tX-1c1"/>
+                                    <outlet property="imageView" destination="qO3-Na-ywm" id="4lM-ou-S6J"/>
                                     <outlet property="label" destination="KNi-bg-Kzo" id="N0m-yf-Sbo"/>
                                 </connections>
                             </collectionViewCell>

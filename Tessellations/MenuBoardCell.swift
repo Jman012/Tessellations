@@ -10,7 +10,15 @@ import UIKit
 
 class MenuBoardCell: UICollectionViewCell {
 
+    var typeString: String! {
+        didSet {
+            if let image = UIImage(named: typeString) {
+                self.imageView.image = image
+            }
+        }
+    }
     @IBOutlet var label: UILabel!
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet var highlightView: UIView!
     
     override var highlighted: Bool {
