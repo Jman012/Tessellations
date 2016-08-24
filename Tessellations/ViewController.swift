@@ -65,28 +65,25 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     func setBoardType(boardType: String) {
         switch boardType {
         case "Triangle":
-            self.scene = TriangleScene(size: self.view.bounds.size)
+            self.scene = TriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
         case "Square":
-            self.scene = SquareScene(size: self.view.bounds.size)
+            self.scene = SquareScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
         case "Hexagon":
-            self.scene = HexagonScene(size: self.view.bounds.size)
+            self.scene = HexagonScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
         case "Octagon":
-            self.scene = OctagonSquareScene(size: self.view.bounds.size)
+            self.scene = OctagonSquareScene(size: self.view.frame.size, boardWidth: 9, boardHeight: 13, margins: true)
         case "Square & Triangle":
-            self.scene = SquareTriangleCrazyScene(size: self.view.bounds.size)
+            self.scene = SquareTriangleCrazyScene(size: self.view.frame.size, boardWidth: 12, boardHeight: 12, margins: true)
         case "Hexagon & Triangle":
-            self.scene = HexagonTriangleScene(size: self.view.bounds.size)
+            self.scene = HexagonTriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
         case "Hexagon & Square & Triangle":
-            self.scene = HexagonSquareTriangleScene(size: self.view.bounds.size)
+            self.scene = HexagonSquareTriangleScene(size: self.view.frame.size, boardWidth: 15, boardHeight: 13, margins: true)
         case "Dodeca-Hexa-Square":
-            self.scene = DodecagonHexagonSquareScene(size: self.view.bounds.size)
+            self.scene = DodecagonHexagonSquareScene(size: self.view.frame.size, boardWidth: 13, boardHeight: 13, margins: true)
 
         default:
-            self.scene = SquareScene(size: self.view.bounds.size)
+            self.scene = SquareScene(size: self.sceneView.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
         }
-        
-        self.scene.size = self.sceneView.frame.size
-        self.scene.sceneSizeDidChange()
         
         self.camera.setScale(1.0)
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
@@ -97,7 +94,11 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         
         self.sceneView.frameInterval = 3
         self.sceneView.showsFPS = true
+        self.sceneView.ignoresSiblingOrder = true
         self.sceneView.presentScene(self.scene)
+        
+        self.scene.size = self.sceneView.frame.size
+        self.scene.sceneSizeDidChange()
         
         self.scene.logicalBoard.generatePrim()
     }

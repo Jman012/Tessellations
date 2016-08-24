@@ -13,9 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var squareImage: UIImage?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let squareImage = SquareScene.imageForMenuItem(CGSize(width: 100,
+            height: 100))
+        //        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
+        self.squareImage = squareImage
+        
         return true
     }
 

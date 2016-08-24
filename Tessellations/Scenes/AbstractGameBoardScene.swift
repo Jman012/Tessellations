@@ -27,10 +27,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     weak var del: GameBoardSceneProtocol?
     
-    var logicalBoardWidth = 7
-    var logicalBoardHeight = 6
+    var logicalBoardWidth = 1
+    var logicalBoardHeight = 1
     
-    let margins = CGSize(width: 20, height: 44.0)
+    var margins = CGSize(width: 20, height: 44.0)
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
@@ -39,9 +39,15 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     var logicalBoard: AbstractGameBoard!
     
-    required override init(size: CGSize) {
+    required init(size: CGSize, boardWidth: Int, boardHeight: Int, margins: Bool) {
         
         super.init(size: size)
+        
+        logicalBoardWidth = boardWidth
+        logicalBoardHeight = boardHeight
+        if !margins {
+            self.margins = CGSizeZero
+        }
         
         self.logicalBoard = self.initLogicalBoard()
         self.logicalBoard.delegate = self
@@ -96,7 +102,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let (row, col) = (piece.row, piece.col)
             
             let node = self.nodeForPiece(piece)
-            
             self.addChild(node)
             self.rowColToNode[RowCol(row: row, col: col)] = node
             
@@ -249,6 +254,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
                 rootMarker.fillColor = baseColor
                 rootMarker.strokeColor = baseColor
                 rootMarker.lineWidth = 1.0
+                rootMarker.name = "Root Marker"
                 node.addChild(rootMarker)
                 node.rootMarker = rootMarker
             }
@@ -262,6 +268,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             if node.bubble == nil {
                 let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.2)
                 bubble.lineWidth = 1.0
+                bubble.name = "Bubble"
                 node.bubble = bubble
             }
             node.bubble?.strokeColor = pipe.fillColor

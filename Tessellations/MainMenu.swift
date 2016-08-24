@@ -19,7 +19,6 @@ class MainMenu: UICollectionViewController {
         
         self.title = " "
         
-//        self.collectionView?.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
     }
