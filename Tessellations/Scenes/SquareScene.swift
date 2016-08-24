@@ -12,24 +12,12 @@ import SpriteKit
 class SquareScene: AbstractGameBoardScene {
     
     var square: Square!
-    var totalHeight: CGFloat = 0
-    var totalWidth: CGFloat = 0
 
     override func initLogicalBoard() -> AbstractGameBoard {
-//        self.logicalBoardWidth = 7
-//        self.logicalBoardHeight = 10
         return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
-        let effectiveWidth: CGFloat, effectiveHeight: CGFloat
-        if margins == CGSizeZero {
-            effectiveWidth = size.width
-            effectiveHeight = size.height
-        } else {
-            effectiveWidth = size.width - self.margins.width*2
-            effectiveHeight = size.height - 20.0 - self.margins.height*2
-        }
         
         var squareWidth = effectiveWidth / CGFloat(self.logicalBoardWidth)
         totalHeight = CGFloat(self.logicalBoardHeight) * squareWidth
@@ -50,9 +38,7 @@ class SquareScene: AbstractGameBoardScene {
     override func pieceToPoint(piece: Piece) -> CGPoint {
         let x = square.width/2 + (CGFloat(piece.col) * square.width)
         let y = square.width/2 + (CGFloat(piece.row) * square.width)
-        var topMargin: CGFloat = 20.0
-        if margins == CGSizeZero { topMargin = 0.0 }
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - topMargin - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
     
     class func imageForMenuItem(size: CGSize) -> UIImage {

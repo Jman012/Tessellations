@@ -13,20 +13,12 @@ class TriangleScene: AbstractGameBoardScene {
 
     var triangleUp: TriangleUp!
     var triangleDown: TriangleDown!
-
-    var totalHeight: CGFloat = 0
-    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 8
         return TriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
-        
-        let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         
         // Measurements: http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle_files/image036.gif
         // http://www.treenshop.com/Treenshop/ArticlesPages/FiguresOfInterest_Article/The%20Equilateral%20Triangle.htm
@@ -61,7 +53,7 @@ class TriangleScene: AbstractGameBoardScene {
         } else {
             y += triangleUp.R
         }
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 
 }

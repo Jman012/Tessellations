@@ -23,18 +23,12 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
     var halfBandHeight: CGFloat {
         get { return bandHeight / 2.0 }
     }
-    var totalHeight: CGFloat = 0
-    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 13
-        self.logicalBoardHeight = 13
         return DodecagonHexagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
-        let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         
         let hSteps = CGFloat(self.logicalBoardWidth - 1) / 4.0
         let vSteps = CGFloat(self.logicalBoardHeight - 1) / 4.0
@@ -119,6 +113,6 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
 
         }
         
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 }

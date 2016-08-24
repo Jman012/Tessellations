@@ -31,6 +31,14 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var logicalBoardHeight = 1
     
     var margins = CGSize(width: 20, height: 44.0)
+    var effectiveWidth: CGFloat {
+        get { return size.width - margins.width*2 }
+    }
+    var effectiveHeight: CGFloat {
+        get { return size.height - margins.height*2 }
+    }
+    var totalHeight: CGFloat = 0
+    var totalWidth: CGFloat = 0
     
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]

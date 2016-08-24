@@ -18,11 +18,8 @@ class SquareTriangleCrazyScene: AbstractGameBoardScene {
     var triangleLeft: TriangleLeft!
     var triangleRight: TriangleRight!
     
-    var totalHeight: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 12
-        self.logicalBoardHeight = 12
         return SquareTriangleCrazyBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     

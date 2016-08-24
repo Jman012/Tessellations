@@ -14,19 +14,12 @@ class HexagonTriangleScene: AbstractGameBoardScene {
     var triangleUp: TriangleUp!
     var triangleDown: TriangleDown!
     var hexagon: Hexagon!
-
-    var totalHeight: CGFloat = 0
-    var totalWidth: CGFloat = 0
     
     override func initLogicalBoard() -> AbstractGameBoard {
-        self.logicalBoardWidth = 7
-        self.logicalBoardHeight = 10
         return HexagonTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func setShapePaths() {
-        let effectiveWidth = size.width - self.margins.width*2
-        let effectiveHeight = size.height - 20.0 - self.margins.height*2
         
         // Try by width
         var tri_a = (effectiveWidth / ceil(CGFloat(self.logicalBoardWidth)/2)) / 2
@@ -64,7 +57,7 @@ class HexagonTriangleScene: AbstractGameBoardScene {
             y -= triangleUp.R
         }
         
-        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - 20 - y - (size.height - totalHeight)/2)
+        return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 
 }

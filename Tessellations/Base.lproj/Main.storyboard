@@ -20,15 +20,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-he-w0k" customClass="SKView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="8TA-7g-juB"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="bottom" id="GaE-fi-63T"/>
                             <constraint firstItem="aGV-he-w0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="U1R-Vf-G9f"/>
+                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="e3V-d8-n4u"/>
                             <constraint firstAttribute="trailing" secondItem="aGV-he-w0k" secondAttribute="trailing" id="wF8-2S-EAM"/>
                         </constraints>
                     </view>
