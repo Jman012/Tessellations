@@ -11,13 +11,15 @@ import QuartzCore
 
 class MainMenu: UICollectionViewController {
 
-    let menuData: [[String]] = [["Triangle", "Square", "Hexagon", "Octagon", "Square & Triangle", "Hexagon & Triangle",
-                                 "Hexagon & Square & Triangle", "Dodeca-Hexa-Square"]]
+    var menuData: [[String]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = " "
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        menuData.append(appDelegate.sceneClassStrings)
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         

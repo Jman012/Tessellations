@@ -19,6 +19,7 @@ let pipeStrokeColor = UIColor.clearColor()
 let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
 let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
+
 protocol GameBoardSceneProtocol: class {
     func gameWon()
 }
@@ -76,6 +77,34 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func pieceToPoint(piece: Piece) -> CGPoint {
         fatalError("pieceToPoint() has not been implemented")
+    }
+    
+    class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        /* Override this */
+        return nil
+    }
+    
+    class func thumbnail(size: CGSize) -> UIImage? {
+        guard let scene = self.thumbnailScene(size) else {
+            return nil
+        }
+        
+        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+        scene.scaleMode = .AspectFit
+        skView.presentScene(scene)
+        
+        let window = UIApplication.sharedApplication().delegate!.window!
+        window!.addSubview(skView)
+        window!.sendSubviewToBack(skView)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        skView.removeFromSuperview()
+        
+        return image
     }
     
     func nodeForPiece(piece: Piece) -> PieceNode {
@@ -185,7 +214,9 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func piecePipeDidChangeState(piece: Piece, logicalDir: Direction, fromOldState oldState: PipeState) {
         guard let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] else {
-            print("Unexpected error: piece not found in dictionary")
+            if self.view != nil {
+                print("Unexpected error: piece not found in dictionary")
+            }
             return
         }
         

@@ -13,15 +13,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var squareImage: UIImage?
+    let sceneClassStrings: [String] = [
+        NSStringFromClass(TriangleScene.self),
+        NSStringFromClass(SquareScene.self),
+        NSStringFromClass(HexagonScene.self),
+        NSStringFromClass(OctagonSquareScene.self),
+        NSStringFromClass(SquareTriangleCrazyScene.self),
+        NSStringFromClass(HexagonTriangleScene.self),
+        NSStringFromClass(HexagonSquareTriangleScene.self),
+        NSStringFromClass(DodecagonHexagonSquareScene.self)
+    ]
+    var thumbnailImages: [String: UIImage] = [:]
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        let squareImage = SquareScene.imageForMenuItem(CGSize(width: 100,
-            height: 100))
-        //        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-        self.squareImage = squareImage
+        for classString in self.sceneClassStrings {
+            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
+                self.thumbnailImages[classString] = theClass.thumbnail(CGSize(width: 100, height: 100))
+            }
+        }
         
         return true
     }

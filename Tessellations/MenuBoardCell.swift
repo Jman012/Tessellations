@@ -12,15 +12,10 @@ class MenuBoardCell: UICollectionViewCell {
 
     var typeString: String! {
         didSet {
-            if typeString == "Square" {
-                let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-                self.imageView.image = appDelegate.squareImage
+            let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
+            if let image = appDelegate.thumbnailImages[typeString] {
+                self.imageView.image = image
                 self.label.hidden = true
-            } else {
-                if let image = UIImage(named: typeString) {
-                    self.imageView.image = image
-                    self.label.hidden = true
-                }
             }
         }
     }

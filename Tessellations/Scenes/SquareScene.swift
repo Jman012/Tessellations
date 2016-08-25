@@ -41,28 +41,14 @@ class SquareScene: AbstractGameBoardScene {
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
     
-    class func imageForMenuItem(size: CGSize) -> UIImage {
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
         let scene = SquareScene(size: size, boardWidth: 1, boardHeight: 1, margins: false)
-        scene.scaleMode = .AspectFit
-        skView.presentScene(scene)
-        
-        let window = UIApplication.sharedApplication().delegate!.window!
-        window!.addSubview(skView)
-        window!.sendSubviewToBack(skView)
         
         let piece = scene.logicalBoard.getPiece(row: 0, col: 0)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: piece, inTrueDir: .East)
-        scene.refreshAllPieces()
         
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        skView.removeFromSuperview()
-        
-        return image
+        return scene
     }
+    
 }
