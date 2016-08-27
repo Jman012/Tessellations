@@ -18,8 +18,7 @@ class MainMenu: UICollectionViewController {
         
         self.title = " "
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        menuData.append(appDelegate.sceneClassStrings)
+        menuData.append(sceneClassStrings)
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         
@@ -31,6 +30,14 @@ class MainMenu: UICollectionViewController {
         (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize =
             CGSize(width: self.collectionView!.frame.size.width / 2.0,
                    height: self.collectionView!.frame.size.width / 2.0)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        for cell in self.collectionView!.visibleCells() {
+            (cell as! MenuBoardCell).redoImage()
+        }
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

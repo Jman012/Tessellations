@@ -18,6 +18,8 @@
 		1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38EF1D68A64900A75469 /* PieceNode.swift */; };
 		1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */; };
 		1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */; };
+		1A8B38F81D6EA07900A75469 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F71D6EA07900A75469 /* Globals.swift */; };
+		1A8B38FB1D71041800A75469 /* PipeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38FA1D71041800A75469 /* PipeNode.swift */; };
 		1AA129C21D62AD4500146731 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C11D62AD4500146731 /* Square.swift */; };
 		1AA129C41D62E40600146731 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C31D62E40600146731 /* Shape.swift */; };
 		1AA129C61D6382F600146731 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C51D6382F600146731 /* Octagon.swift */; };
@@ -86,6 +88,8 @@
 		1A8B38EF1D68A64900A75469 /* PieceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceNode.swift; sourceTree = "<group>"; };
 		1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBoardCell.swift; sourceTree = "<group>"; };
+		1A8B38F71D6EA07900A75469 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Utils/Globals.swift; sourceTree = "<group>"; };
+		1A8B38FA1D71041800A75469 /* PipeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipeNode.swift; sourceTree = "<group>"; };
 		1AA129C11D62AD4500146731 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = Shapes/Square.swift; sourceTree = "<group>"; };
 		1AA129C31D62E40600146731 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Shapes/Shape.swift; sourceTree = "<group>"; };
 		1AA129C51D6382F600146731 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = Shapes/Octagon.swift; sourceTree = "<group>"; };
@@ -167,14 +171,14 @@
 		1A82DE441D1CC43B0008224D /* Tessellations */ = {
 			isa = PBXGroup;
 			children = (
-				1AA129C01D62AD1A00146731 /* Shapes */,
-				1AE82DAE1D3FF28100F8166F /* Scenes */,
+				1A8B38F91D7103DF00A75469 /* SpriteKit */,
+				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
+				1A8B38FA1D71041800A75469 /* PipeNode.swift */,
 				1AE82DAF1D3FF28600F8166F /* Boards */,
 				1A82DE751D1CC4CB0008224D /* Utils */,
 				1A8B38F31D6A4EDC00A75469 /* Navigation */,
 				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
 				1A82DE471D1CC43B0008224D /* ViewController.swift */,
-				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
 				1A82DE491D1CC43B0008224D /* Main.storyboard */,
 				1A82DE4C1D1CC43B0008224D /* Assets.xcassets */,
 				1A82DE4E1D1CC43B0008224D /* LaunchScreen.storyboard */,
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				1A82DE7C1D1CC5600008224D /* Utils.swift */,
+				1A8B38F71D6EA07900A75469 /* Globals.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -216,6 +221,15 @@
 				1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */,
 			);
 			name = Navigation;
+			sourceTree = "<group>";
+		};
+		1A8B38F91D7103DF00A75469 /* SpriteKit */ = {
+			isa = PBXGroup;
+			children = (
+				1AA129C01D62AD1A00146731 /* Shapes */,
+				1AE82DAE1D3FF28100F8166F /* Scenes */,
+			);
+			name = SpriteKit;
 			sourceTree = "<group>";
 		};
 		1AA129C01D62AD1A00146731 /* Shapes */ = {
@@ -242,14 +256,14 @@
 			isa = PBXGroup;
 			children = (
 				1AA129D31D6411C500146731 /* AbstractGameBoardScene.swift */,
-				1AA129D61D6411C500146731 /* OctagonSquareScene.swift */,
-				1AA129D41D6411C500146731 /* HexagonScene.swift */,
-				1AA129D71D6411C500146731 /* SquareScene.swift */,
-				1AA129D81D6411C500146731 /* SquareTriangleCrazyScene.swift */,
 				1AA129D91D6411C500146731 /* TriangleScene.swift */,
+				1AA129D71D6411C500146731 /* SquareScene.swift */,
+				1AA129D41D6411C500146731 /* HexagonScene.swift */,
+				1AA129D61D6411C500146731 /* OctagonSquareScene.swift */,
+				1AA129D81D6411C500146731 /* SquareTriangleCrazyScene.swift */,
 				1AA129D51D6411C500146731 /* HexagonTriangleScene.swift */,
-				1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */,
 				1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */,
+				1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -408,6 +422,7 @@
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
 				1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */,
 				1AA129F81D64E6C700146731 /* SquareN30.swift in Sources */,
+				1A8B38F81D6EA07900A75469 /* Globals.swift in Sources */,
 				1AA129EF1D6411CF00146731 /* SquareTriangleCrazyBoard.swift in Sources */,
 				1AA129FC1D66246A00146731 /* Hexagon30.swift in Sources */,
 				1AA129DD1D6411C500146731 /* OctagonSquareScene.swift in Sources */,
@@ -435,6 +450,7 @@
 				1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */,
 				1AA129F61D64E6BE00146731 /* Square30.swift in Sources */,
 				1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */,
+				1A8B38FB1D71041800A75469 /* PipeNode.swift in Sources */,
 				1AA129DF1D6411C500146731 /* SquareTriangleCrazyScene.swift in Sources */,
 				1AA129EB1D6411CF00146731 /* HexagonBoard.swift in Sources */,
 				1AA129C21D62AD4500146731 /* Square.swift in Sources */,

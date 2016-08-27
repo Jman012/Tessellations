@@ -13,26 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let sceneClassStrings: [String] = [
-        NSStringFromClass(TriangleScene.self),
-        NSStringFromClass(SquareScene.self),
-        NSStringFromClass(HexagonScene.self),
-        NSStringFromClass(OctagonSquareScene.self),
-        NSStringFromClass(SquareTriangleCrazyScene.self),
-        NSStringFromClass(HexagonTriangleScene.self),
-        NSStringFromClass(HexagonSquareTriangleScene.self),
-        NSStringFromClass(DodecagonHexagonSquareScene.self)
-    ]
-    var thumbnailImages: [String: UIImage] = [:]
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        for classString in self.sceneClassStrings {
-            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
-                self.thumbnailImages[classString] = theClass.thumbnail(CGSize(width: 100, height: 100))
-            }
-        }
         
         return true
     }
@@ -53,6 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        for classString in sceneClassStrings {
+            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
+                thumbnailImages[classString] = theClass.thumbnail(CGSize(width: 100, height: 100))
+            }
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

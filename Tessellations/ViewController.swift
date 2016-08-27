@@ -64,25 +64,25 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     func setBoardType(boardType: String) {
         switch boardType {
-        case "Triangle":
+        case sceneClassStrings[SceneIndex.Triangle.rawValue]:
             self.scene = TriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
-        case "Square":
+        case sceneClassStrings[SceneIndex.Square.rawValue]:
             self.scene = SquareScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
-        case "Hexagon":
+        case sceneClassStrings[SceneIndex.Hexagon.rawValue]:
             self.scene = HexagonScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
-        case "Octagon":
+        case sceneClassStrings[SceneIndex.OctagonSquare.rawValue]:
             self.scene = OctagonSquareScene(size: self.view.frame.size, boardWidth: 9, boardHeight: 13, margins: true)
-        case "Square & Triangle":
+        case sceneClassStrings[SceneIndex.SquareTriangle.rawValue]:
             self.scene = SquareTriangleCrazyScene(size: self.view.frame.size, boardWidth: 12, boardHeight: 12, margins: true)
-        case "Hexagon & Triangle":
+        case sceneClassStrings[SceneIndex.HexagonTriangle.rawValue]:
             self.scene = HexagonTriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
-        case "Hexagon & Square & Triangle":
+        case sceneClassStrings[SceneIndex.HexagonSquareTriangle.rawValue]:
             self.scene = HexagonSquareTriangleScene(size: self.view.frame.size, boardWidth: 15, boardHeight: 13, margins: true)
-        case "Dodeca-Hexa-Square":
+        case sceneClassStrings[SceneIndex.DodecagonHexagonSquare.rawValue]:
             self.scene = DodecagonHexagonSquareScene(size: self.view.frame.size, boardWidth: 13, boardHeight: 13, margins: true)
 
         default:
-            self.scene = SquareScene(size: self.sceneView.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
+            self.scene = SquareScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
         }
         
         self.camera.setScale(1.0)
@@ -92,8 +92,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
-        self.sceneView.frameInterval = 3
+        self.sceneView.frameInterval = 1
         self.sceneView.showsFPS = true
+        self.sceneView.showsNodeCount = true
+        self.sceneView.showsDrawCount = true
         self.sceneView.ignoresSiblingOrder = true
         self.sceneView.presentScene(self.scene)
         

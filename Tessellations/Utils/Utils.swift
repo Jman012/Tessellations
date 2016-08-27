@@ -8,6 +8,7 @@
 
 import Foundation
 import Darwin // needed to get M_PI
+import SpriteKit
 
 extension UInt8 {
     func forEachBit(callback: (bit: UInt, flag: Bool) -> Void) {
@@ -106,5 +107,27 @@ extension MutableCollectionType where Index == Int {
             guard i != j else { continue }
             swap(&self[i], &self[j])
         }
+    }
+}
+
+class Weak<T: AnyObject> {
+    weak var value : T?
+    init (value: T) {
+        self.value = value
+    }
+}
+
+class Pool<T> {
+    var thePool: Array<T> = []
+    
+    func getItem() -> T? {
+        if thePool.count > 0 {
+            return thePool.popLast()!
+        }
+        return nil
+    }
+    
+    func giveItem(item: T) {
+        thePool.append(item)
     }
 }

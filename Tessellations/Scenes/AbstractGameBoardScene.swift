@@ -44,13 +44,29 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var shapePaths: [PieceType: CGPath] = [:]
     var pipePaths: [PieceType: CGPath] = [:]
     
+    var shapeTextures: [PieceType: SKTexture] = [:]
+    var pipeTexturesEnabled: [PieceType: SKTexture] = [:]
+    var pipeTexturesDisabled: [PieceType: SKTexture] = [:]
+    
+    var pipeNodePool: [PieceType: Pool<PipeNode>] = [:]
+    
     var rowColToNode: [RowCol: PieceNode] = [:]
+    let pieceTree = SKNode()
+    let pipeTree = SKNode()
+    let rootMarkerTree = SKNode()
     
     var logicalBoard: AbstractGameBoard!
     
     required init(size: CGSize, boardWidth: Int, boardHeight: Int, margins: Bool) {
         
         super.init(size: size)
+        
+        pieceTree.zPosition = 0
+        self.addChild(pieceTree)
+        pipeTree.zPosition = 1
+        self.addChild(pipeTree)
+        rootMarkerTree.zPosition = 2
+        self.addChild(rootMarkerTree)
         
         logicalBoardWidth = boardWidth
         logicalBoardHeight = boardHeight
@@ -61,6 +77,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         self.logicalBoard = self.initLogicalBoard()
         self.logicalBoard.delegate = self
         self.setShapePaths()
+        self.constructTextures()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,6 +107,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+        skView.ignoresSiblingOrder = true
         scene.scaleMode = .AspectFit
         skView.presentScene(scene)
         
@@ -107,16 +125,64 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         return image
     }
     
+    func constructTextures() {
+        let skView = SKView()
+        let shapeNode = SKShapeNode()
+        shapeNode.fillColor = baseColor
+        shapeNode.strokeColor = baseColor
+        shapeNode.lineWidth = 1.0
+        
+        for (pieceType, path) in self.shapePaths {
+            shapeNode.path = path
+//            print("For pieceType \(pieceType), frame=\(shapeNode.frame)")
+            let largerSide: CGFloat
+            if shapeNode.frame.width > shapeNode.frame.height {
+                largerSide = shapeNode.frame.width
+//                print("Using width")
+            } else {
+                largerSide = shapeNode.frame.height
+//                print("Using height")
+            }
+            
+            let texture = skView.textureFromNode(shapeNode, crop:
+                CGRect(origin: CGPoint(x: -largerSide/2, y: -largerSide/2),
+                       size:   CGSize(width: largerSide, height: largerSide)))
+            self.shapeTextures[pieceType] = texture
+            
+            self.pipeNodePool[pieceType] = Pool<PipeNode>()
+        }
+        
+        shapeNode.fillColor = pipeOnColor
+        shapeNode.strokeColor = pipeOnColor
+        
+        for (pieceType, path) in self.pipePaths {
+            shapeNode.path = path
+            let pieceShapeSize = self.shapeTextures[pieceType]!.size()
+            let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
+            self.pipeTexturesEnabled[pieceType] = texture
+            
+        }
+        
+        shapeNode.fillColor = pipeOffColor
+        shapeNode.strokeColor = pipeOffColor
+        
+        for (pieceType, path) in self.pipePaths {
+            shapeNode.path = path
+            let pieceShapeSize = self.shapeTextures[pieceType]!.size()
+            let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
+            self.pipeTexturesDisabled[pieceType] = texture
+        }
+        
+        
+    }
+    
     func nodeForPiece(piece: Piece) -> PieceNode {
-        let node = PieceNode(path: self.shapePaths[piece.type]!)
+        let node = PieceNode(texture: self.shapeTextures[piece.type]!, type: piece.type, row: piece.row, col: piece.col)
         node.position = self.pieceToPoint(piece)
-        node.fillColor = baseColor
         
-        node.strokeColor = baseColor
-        node.lineWidth = 1.0
-        
-        node.row = piece.row
-        node.col = piece.col
+        node.abstractScene = self
+        node.name = "\(piece.type) \(node.row, node.col)"
+//        node.zPosition = 0
         
         return node
     }
@@ -130,7 +196,9 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     }
     
     func refreshAllPieces() {
-        self.removeAllChildren()
+        self.pieceTree.removeAllChildren()
+        self.pipeTree.removeAllChildren()
+        self.rootMarkerTree.removeAllChildren()
         
         self.logicalBoard.forAllPieces {
             (piece: Piece) in
@@ -139,7 +207,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let (row, col) = (piece.row, piece.col)
             
             let node = self.nodeForPiece(piece)
-            self.addChild(node)
+            self.pieceTree.addChild(node)
             self.rowColToNode[RowCol(row: row, col: col)] = node
             
             piece.forEachPipeState {
@@ -155,17 +223,18 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func sceneSizeDidChange() {
         self.setShapePaths()
+        self.constructTextures()
         self.refreshAllPieces()
     }
     
     func pieceAtPoint(location: CGPoint) -> PieceNode? {
         let nodes = self.nodesAtPoint(location).filter {
             theNode in
-            if let shapeNode = theNode as? PieceNode {
+            if let node = theNode as? PieceNode {
                 // TODO: Apply a rotation transform as a safeguard, even though
                 // pieces will always be in the same orientation.
-                let locationInNode = self.convertPoint(location, toNode: shapeNode)
-                return CGPathContainsPoint(shapeNode.path, nil, locationInNode, false)
+                let locationInNode = self.convertPoint(location, toNode: node)
+                return CGPathContainsPoint(self.shapePaths[node.pieceType]!, nil, locationInNode, false)
             } else {
                 return false
             }
@@ -181,8 +250,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     func gotTapAtLocation(location: CGPoint) {
         let location = self.convertPointFromView(location)
         if let node = self.pieceAtPoint(location) {
-            
-            self.logicalBoard.rotatePiece(row: node.row!, col: node.col!)
+            self.logicalBoard.rotatePiece(row: node.row, col: node.col)
         }
     }
     
@@ -193,12 +261,15 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     }
     
     func boardDidClear() {
-        for node in self.children {
+        for node in self.pieceTree.children {
             guard let pieceNode = node as? PieceNode else {
                 continue
             }
             // Remove the pipes of each piece
-            pieceNode.removeAllChildren()
+//            pieceNode.removeAllChildren()
+            for (_, pipe) in pieceNode.pipeNodes {
+                pipe.removeFromParent()
+            }
             pieceNode.pipeNodes.removeAll()
             pieceNode.rootMarker = nil
             pieceNode.bubble = nil
@@ -208,7 +279,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-            node.zRotation = -CGFloat(Double(piece.absLogicalAngle).degrees)
+//            node.zRotation = -CGFloat(Double(piece.absAngle).degrees)
+            node.rotateToDegrees(-CGFloat(Double(piece.absAngle).degrees))
         }
     }
     
@@ -221,103 +293,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         let newState = piece.pipeState(forTrueDir: piece.trueDirForLogicalDir(logicalDir))!
-        guard oldState != newState else {
-            return
-        }
         
-        if oldState == .None {
-            // New pipe is activated in some way
-            let path = self.pipePaths[piece.type]!
-            let pipe = SKShapeNode(path: path)
-            
-            switch newState {
-            case .Disabled:
-                pipe.fillColor = pipeOffColor
-            case .Branch:
-                fallthrough
-            case .Source:
-                pipe.fillColor = pipeOnColor
-                
-            default: break
-            }
-            
-            pipe.strokeColor = pipe.fillColor
-            pipe.lineWidth = 1.0
-            pipe.name = "Pipe \(logicalDir)"
-            node.addChild(pipe)
-            node.pipeNodes[logicalDir] = pipe
-        
-            pipe.runAction(SKAction.rotateToAngle(-CGFloat(Double(logicalDir.rawValue).degrees), duration: 0, shortestUnitArc: true))
-        }
-    
-        else if newState == .None {
-            // Remove the pipe from the node
-            // (shouldn't really ever happen)
-            
-            let pipe: SKShapeNode = node.pipeNodes[logicalDir]!
-            node.removeChildrenInArray([pipe])
-            pipe.removeFromParent()
-            node.pipeNodes.removeValueForKey(logicalDir)
-        }
-        
-        else {
-            // Pipe is changing between
-            // Disabled, Branch, and Source
-            // So just change color
-            
-            let pipe: SKShapeNode = node.pipeNodes[logicalDir]!
-            switch newState {
-            case .Disabled:
-                pipe.fillColor = pipeOffColor
-            case .Branch:
-                fallthrough
-            case .Source:
-                pipe.fillColor = pipeOnColor
-                
-            default: break
-            }
-            
-            pipe.strokeColor = pipe.fillColor
-        }
-        
-        
-        // Now for miscellaneous stuff to handle
-        // Root marker
-        if self.logicalBoard.pieceIsRoot(piece) {
-            let pipe = node.pipeNodes[logicalDir]!
-            
-            if node.rootMarker == nil {
-                let rootMarker = SKShapeNode(path: self.shapePaths[piece.type]!)
-                let pipeWidth = pipe.frame.size.width
-                rootMarker.runAction(SKAction.scaleTo(0.5 * (pipeWidth / node.frame.size.width), duration: 0))
-                rootMarker.fillColor = baseColor
-                rootMarker.strokeColor = baseColor
-                rootMarker.lineWidth = 1.0
-                rootMarker.name = "Root Marker"
-                node.addChild(rootMarker)
-                node.rootMarker = rootMarker
-            }
-            
-            node.rootMarker!.zPosition = 100
-        }
-        
-        // Bubble
-        if node.pipeNodes.count == 1 {
-            let pipe: SKShapeNode = node.pipeNodes[logicalDir]!
-            if node.bubble == nil {
-                let bubble = SKShapeNode(circleOfRadius: pipe.frame.size.width * 0.5 * 1.2)
-                bubble.lineWidth = 1.0
-                bubble.name = "Bubble"
-                node.bubble = bubble
-            }
-            node.bubble?.strokeColor = pipe.fillColor
-            node.bubble?.fillColor = pipe.fillColor
-            
-            node.bubble!.removeFromParent()
-            node.addChild(node.bubble!)
-        } else if node.bubble != nil {
-            node.bubble?.removeFromParent()
-        }
+        node.setPipeState(newState, forLogicalDirection: logicalDir)
         
     }
 }

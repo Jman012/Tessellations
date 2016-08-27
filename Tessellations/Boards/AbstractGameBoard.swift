@@ -86,7 +86,7 @@ class Piece: NSObject {
     var col: Int
     var type: PieceType
     var pipes: [PipeState]
-    var absLogicalAngle: Int
+    var absAngle: Int
     var angleStep: Int
     var legalDirections: [Direction]
     var enabling: Bool = false
@@ -96,7 +96,7 @@ class Piece: NSObject {
         self.col = col
         self.type = type
         self.pipes = Array<PipeState>(count: 16, repeatedValue: .None)
-        self.absLogicalAngle = 0
+        self.absAngle = 0
         
         switch type {
         case .Octagon:
@@ -145,11 +145,11 @@ class Piece: NSObject {
     }
     
     func trueDirForLogicalDir(dir: Direction) -> Direction {
-        return Direction(rawValue: (dir.rawValue + absLogicalAngle) % 360)!
+        return Direction(rawValue: (dir.rawValue + absAngle) % 360)!
     }
     
     func logicalDirForTrueDir(dir: Direction) -> Direction {
-        return Direction(rawValue: (dir.rawValue - absLogicalAngle + 360) % 360)!
+        return Direction(rawValue: (dir.rawValue - absAngle + 360) % 360)!
     }
     
     func pipeState(forTrueDir trueDir: Direction) -> PipeState? {
@@ -314,7 +314,7 @@ class AbstractGameBoard: NSObject {
 //        self.disablePipesFrom(piece)
         // TODO: Revisit pieces
     
-        piece.absLogicalAngle = (piece.absLogicalAngle + piece.angleStep) % 360
+        piece.absAngle = (piece.absAngle + piece.angleStep) % 360
         
         if let del = self.delegate {
             del.pieceDidRotate(piece)
@@ -470,7 +470,7 @@ class AbstractGameBoard: NSObject {
             piece in
             
             let numRots = Int(arc4random() % 16)
-            piece.absLogicalAngle = (numRots * piece.angleStep) % 360
+            piece.absAngle = (numRots * piece.angleStep) % 360
         }
         
         // After the rotation, try re-enabling any pipes

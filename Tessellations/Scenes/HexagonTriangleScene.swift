@@ -59,5 +59,33 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
+    
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        
+        let scene = HexagonTriangleScene(size: size, boardWidth: 2, boardHeight: 2, margins: false)
+        let newHexagonCornerDiameter = scene.hexagon.cornerDiameter - (scene.triangleUp.sideLength / 2.0)
+        
+        scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: 1)
+        scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: scene.hexagon.sideLength / 3.5)
+        scene.shapePaths[.Hexagon] = scene.hexagon.path
+        scene.pipePaths[.Hexagon] = scene.hexagon.pipePath
+        
+        scene.triangleUp = TriangleUp(sideLength: scene.hexagon.sideLength, pipeWidth: scene.hexagon.sideLength / 3.5)
+        scene.shapePaths[.TriangleUp] = scene.triangleUp.path
+        scene.pipePaths[.TriangleUp] = scene.triangleUp.pipePath
+        
+        
+        scene.logicalBoard.board[0][1] = nil
+        
+        let hPiece = scene.logicalBoard.getPiece(row: 1, col: 0)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: hPiece, inTrueDir: .SouthEastEast)
+        
+        let tPiece = scene.logicalBoard.getPiece(row: 1, col: 1)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: tPiece, inTrueDir: .NorthWestWest)
+        
+        scene.refreshAllPieces()
+        
+        return scene
+    }
 
 }

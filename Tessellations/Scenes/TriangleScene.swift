@@ -56,4 +56,13 @@ class TriangleScene: AbstractGameBoardScene {
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
 
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        
+        let scene = TriangleScene(size: size, boardWidth: 1, boardHeight: 1, margins: false)
+        
+        let piece = scene.logicalBoard.getPiece(row: 0, col: 0)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: piece, inTrueDir: .SouthEastEast)
+        
+        return scene
+    }
 }

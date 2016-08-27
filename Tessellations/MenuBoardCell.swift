@@ -12,8 +12,7 @@ class MenuBoardCell: UICollectionViewCell {
 
     var typeString: String! {
         didSet {
-            let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-            if let image = appDelegate.thumbnailImages[typeString] {
+            if let image = thumbnailImages[typeString] {
                 self.imageView.image = image
                 self.label.hidden = true
             }
@@ -32,6 +31,13 @@ class MenuBoardCell: UICollectionViewCell {
     override var selected: Bool {
         didSet {
             highlightView.hidden = !highlightView.hidden
+        }
+    }
+    
+    func redoImage() {
+        if let image = thumbnailImages[typeString] {
+            self.imageView.image = image
+            self.label.hidden = true
         }
     }
 }
