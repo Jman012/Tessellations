@@ -47,8 +47,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var shapeTextures: [PieceType: SKTexture] = [:]
     var pipeTexturesEnabled: [PieceType: SKTexture] = [:]
     var pipeTexturesDisabled: [PieceType: SKTexture] = [:]
+    var bubbleEnabledTexture: SKTexture?
+    var bubbleDisabledTexture: SKTexture?
     
     var pipeNodePool: [PieceType: Pool<PipeNode>] = [:]
+    var bubbleNodePool = Pool<SKSpriteNode>()
     
     var rowColToNode: [RowCol: PieceNode] = [:]
     let pieceTree = SKNode()
@@ -61,11 +64,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         
         super.init(size: size)
         
-        pieceTree.zPosition = 0
+        pieceTree.zPosition = 1
         self.addChild(pieceTree)
-        pipeTree.zPosition = 1
+        pipeTree.zPosition = 2
         self.addChild(pipeTree)
-        rootMarkerTree.zPosition = 2
+        rootMarkerTree.zPosition = 3
         self.addChild(rootMarkerTree)
         
         logicalBoardWidth = boardWidth
@@ -132,6 +135,9 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = baseColor
         shapeNode.lineWidth = 1.0
         
+        var pipeWidth: CGFloat = 0.0
+        
+        // Shape
         for (pieceType, path) in self.shapePaths {
             shapeNode.path = path
 //            print("For pieceType \(pieceType), frame=\(shapeNode.frame)")
@@ -152,6 +158,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             self.pipeNodePool[pieceType] = Pool<PipeNode>()
         }
         
+        // Pipe Enabled
         shapeNode.fillColor = pipeOnColor
         shapeNode.strokeColor = pipeOnColor
         
@@ -161,8 +168,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesEnabled[pieceType] = texture
             
+            pipeWidth = shapeNode.frame.width
+            
         }
         
+        // Pipe Disabled
         shapeNode.fillColor = pipeOffColor
         shapeNode.strokeColor = pipeOffColor
         
@@ -173,7 +183,15 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             self.pipeTexturesDisabled[pieceType] = texture
         }
         
-        
+        // Bubble
+        let bubble = SKShapeNode(circleOfRadius: pipeWidth * 0.5 * 1.2)
+        bubble.lineWidth = 1.0
+        bubble.fillColor = pipeOnColor
+        bubble.strokeColor = pipeOnColor
+        bubbleEnabledTexture = skView.textureFromNode(bubble)
+        bubble.fillColor = pipeOffColor
+        bubble.strokeColor = pipeOffColor
+        bubbleDisabledTexture = skView.textureFromNode(bubble)
     }
     
     func nodeForPiece(piece: Piece) -> PieceNode {
@@ -182,7 +200,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         
         node.abstractScene = self
         node.name = "\(piece.type) \(node.row, node.col)"
-//        node.zPosition = 0
+        node.zPosition = 1
         
         return node
     }

@@ -16,8 +16,8 @@ class PieceNode: SKSpriteNode {
     var col: Int
 
     var pipeNodes: [Direction: PipeNode] = [:]
-    var bubble: SKShapeNode?
-    var rootMarker: SKShapeNode?
+    var bubble: SKSpriteNode!
+    var rootMarker: SKSpriteNode!
     
     weak var abstractScene: AbstractGameBoardScene?
     var pipeEnabledTexture: SKTexture {
@@ -28,6 +28,15 @@ class PieceNode: SKSpriteNode {
     }
     var pipeNodePool: Pool<PipeNode> {
         get { return abstractScene!.pipeNodePool[self.pieceType]! }
+    }
+    var bubbleEnabledTexture: SKTexture {
+        get { return abstractScene!.bubbleEnabledTexture! }
+    }
+    var bubbleDisabledTexture: SKTexture {
+        get { return abstractScene!.bubbleDisabledTexture! }
+    }
+    var bubbleNodePool: Pool<SKSpriteNode> {
+        get { return abstractScene!.bubbleNodePool }
     }
     
     
@@ -56,6 +65,33 @@ class PieceNode: SKSpriteNode {
             let newPipeNode = self.getNewPipeNode()
             self.addPipe(newPipeNode, forLogicalDirection: logicalDirection, enabled: enabled)
         }
+        
+        if self.pipeNodes.count == 1 {
+            // If there's only one pipe
+            if self.bubble == nil {
+                // Make sure we have a bubble node on us and in the tree
+                self.bubble = self.getNewBubbleNode()
+                abstractScene?.pipeTree.addChild(self.bubble)
+            }
+            
+            let (_, singlePipe) = self.pipeNodes.first!
+            if singlePipe.enabled {
+                bubble.texture = bubbleEnabledTexture
+            } else {
+                bubble.texture = bubbleDisabledTexture
+            }
+            bubble.size = bubble.texture!.size()
+            bubble.position = self.position
+            bubble.zPosition = 2
+            bubble.name = "Bubble \(row, col) \(singlePipe.enabled)"
+            
+        } else {
+            if self.bubble != nil {
+                abstractScene?.pipeTree.removeChildrenInArray([self.bubble])
+                bubbleNodePool.giveItem(self.bubble)
+                self.bubble = nil
+            }
+        }
     }
     
     func rotateToDegrees(degrees: CGFloat) {
@@ -66,6 +102,16 @@ class PieceNode: SKSpriteNode {
     }
     
     
+    
+    private func getNewBubbleNode() -> SKSpriteNode {
+        if let bubbleNode = bubbleNodePool.getItem() {
+            // Got node from Pool
+            return bubbleNode
+        } else {
+            // Make new pipe node
+            return SKSpriteNode()
+        }
+    }
     
     private func getNewPipeNode() -> PipeNode {
         
@@ -92,6 +138,7 @@ class PieceNode: SKSpriteNode {
         
         pipeNode.name = "\(self.pieceType) Pipe pointing \(logicalDirection)"
         pipeNode.position = self.position
+        pipeNode.zPosition = 2
         pipeNode.zRotation = self.zRotation - CGFloat(Double(logicalDirection.rawValue).degrees)
         if enabled {
             pipeNode.texture = pipeEnabledTexture

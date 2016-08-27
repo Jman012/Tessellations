@@ -26,7 +26,7 @@ class SquareTriangleCrazyScene: AbstractGameBoardScene {
     override func setShapePaths() {
         
         let squareWidth: CGFloat = 45.0
-        let pipeWidth = squareWidth / 3.0
+        let pipeWidth = squareWidth / 4.0
         
         square = Square(width: squareWidth, pipeWidth: pipeWidth)
         self.shapePaths[.Square] = square.path

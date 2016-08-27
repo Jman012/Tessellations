@@ -59,7 +59,8 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
     }
     
     func makeShapesForHexa30Width(hexagon30Width: CGFloat) {
-        let pipeWidth = hexagon30Width / 5.0
+        hexagon30 = Hexagon30(edgeDiameter: hexagon30Width, pipeWidth: 0)
+        let pipeWidth = hexagon30.sideLength / 5.0
         
         hexagon30 = Hexagon30(edgeDiameter: hexagon30Width, pipeWidth: pipeWidth)
         self.shapePaths[.Hexagon30] = hexagon30.path
