@@ -57,6 +57,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     let pieceTree = SKNode()
     let pipeTree = SKNode()
     let rootMarkerTree = SKNode()
+    let rootMarker = SKShapeNode()
+    var currentBoardPipeWidth: CGFloat = 0.0
     
     var logicalBoard: AbstractGameBoard!
     
@@ -70,6 +72,12 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         self.addChild(pipeTree)
         rootMarkerTree.zPosition = 3
         self.addChild(rootMarkerTree)
+        
+        rootMarker.fillColor = baseColor
+        rootMarker.strokeColor = baseColor
+        rootMarker.lineWidth = 1.0
+        rootMarker.name = "Root Marker"
+        rootMarker.zPosition = 4
         
         logicalBoardWidth = boardWidth
         logicalBoardHeight = boardHeight
@@ -135,7 +143,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = baseColor
         shapeNode.lineWidth = 1.0
         
-        var pipeWidth: CGFloat = 0.0
         
         // Shape
         for (pieceType, path) in self.shapePaths {
@@ -168,7 +175,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesEnabled[pieceType] = texture
             
-            pipeWidth = shapeNode.frame.width
+            currentBoardPipeWidth = shapeNode.frame.width
             
         }
         
@@ -184,7 +191,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Bubble
-        let bubble = SKShapeNode(circleOfRadius: pipeWidth * 0.5 * 1.2)
+        let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2)
         bubble.lineWidth = 1.0
         bubble.fillColor = pipeOnColor
         bubble.strokeColor = pipeOnColor
@@ -284,12 +291,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
                 continue
             }
             // Remove the pipes of each piece
-//            pieceNode.removeAllChildren()
             for (_, pipe) in pieceNode.pipeNodes {
                 pipe.removeFromParent()
             }
             pieceNode.pipeNodes.removeAll()
-            pieceNode.rootMarker = nil
             pieceNode.bubble = nil
             pieceNode.runAction(SKAction.rotateToAngle(0, duration: 0))
         }
@@ -297,7 +302,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func pieceDidRotate(piece: Piece) {
         if let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)] {
-//            node.zRotation = -CGFloat(Double(piece.absAngle).degrees)
             node.rotateToDegrees(-CGFloat(Double(piece.absAngle).degrees))
         }
     }
@@ -314,6 +318,20 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         
         node.setPipeState(newState, forLogicalDirection: logicalDir)
         
+        
+        if self.logicalBoard.pieceIsRoot(piece) {
+            if rootMarker.parent == nil {
+                rootMarkerTree.addChild(rootMarker)
+            }
+            
+            let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)]!
+            rootMarker.path = self.shapePaths[piece.type]!
+            
+            rootMarker.runAction(SKAction.scaleTo(0.5 * (currentBoardPipeWidth / node.frame.size.width), duration: 0))
+            
+            rootMarker.position = node.position
+            rootMarker.zPosition = 4
+        }
     }
 }
 

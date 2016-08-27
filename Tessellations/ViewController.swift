@@ -92,7 +92,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
-        self.sceneView.frameInterval = 1
         self.sceneView.showsFPS = true
         self.sceneView.showsNodeCount = true
         self.sceneView.showsDrawCount = true

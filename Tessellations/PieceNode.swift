@@ -17,7 +17,6 @@ class PieceNode: SKSpriteNode {
 
     var pipeNodes: [Direction: PipeNode] = [:]
     var bubble: SKSpriteNode!
-    var rootMarker: SKSpriteNode!
     
     weak var abstractScene: AbstractGameBoardScene?
     var pipeEnabledTexture: SKTexture {
