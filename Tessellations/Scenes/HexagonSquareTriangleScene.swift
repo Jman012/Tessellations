@@ -113,4 +113,34 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
+    
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        let scene = HexagonSquareTriangleScene(size: size, boardWidth: 4, boardHeight: 2, margins: false)
+        
+        scene.logicalBoard.board[1][0] = nil
+        scene.logicalBoard.board[1][1] = nil
+        scene.logicalBoard.board[0][3] = nil
+        scene.logicalBoard.sourceCol = 1
+        
+        scene.totalWidth = scene.effectiveWidth
+        scene.totalHeight = scene.effectiveHeight
+        
+        let newHexagon30Width = scene.hexagon30.edgeDiameter * 1.3
+        scene.makeShapesForHexa30Width(newHexagon30Width)
+        scene.constructTextures()
+        scene.refreshAllPieces()
+        
+        let hPiece = scene.logicalBoard.getPiece(row: 0, col: 1)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: hPiece, inTrueDir: .SouthSouthEast)
+        
+        let sPiece = scene.logicalBoard.getPiece(row: 1, col: 2)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: sPiece, inTrueDir: .NorthEastEast)
+        scene.logicalBoard.setPipeState(.Source, ofPiece: sPiece, inTrueDir: .NorthNorthWest)
+        
+        let tPiece = scene.logicalBoard.getPiece(row: 1, col: 3)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: tPiece, inTrueDir: .SouthWestWest)
+
+        
+        return scene
+    }
 }

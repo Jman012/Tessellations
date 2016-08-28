@@ -115,4 +115,25 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
         
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
     }
+    
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        let scene = DodecagonHexagonSquareScene(size: size, boardWidth: 3, boardHeight: 2, margins: false)
+        
+        scene.logicalBoard.board[1][0] = nil
+        scene.logicalBoard.board[0][2] = nil
+        
+        scene.totalHeight -= scene.halfBandHeight
+        
+        let dPiece = scene.logicalBoard.getPiece(row: 0, col: 0)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: dPiece, inTrueDir: .SouthEastEast)
+        
+        let sPiece = scene.logicalBoard.getPiece(row: 1, col: 1)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: sPiece, inTrueDir: .NorthEastEast)
+        
+        let hPiece = scene.logicalBoard.getPiece(row: 1, col: 2)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: hPiece, inTrueDir: .NorthWestWest)
+        scene.logicalBoard.setPipeState(.Source, ofPiece: hPiece, inTrueDir: .SouthWestWest)
+        
+        return scene
+    }
 }
