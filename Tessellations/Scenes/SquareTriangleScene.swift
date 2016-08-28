@@ -30,12 +30,14 @@ class SquareTriangleScene: AbstractGameBoardScene {
     
     override func setShapePaths() {
         
-        let numOdd = floor(Double(self.logicalBoardWidth) / 2.0)
-        let numEven = ceil(Double(self.logicalBoardWidth) / 2.0)
+        let numOddW = floor(Double(self.logicalBoardWidth) / 2.0)
+        let numEvenW = ceil(Double(self.logicalBoardWidth) / 2.0)
+        let numOddH = floor(Double(self.logicalBoardHeight) / 2.0)
+        let numEvenH = ceil(Double(self.logicalBoardHeight) / 2.0)
         
         var denominator = (1.0 + sqrt(3.0))/(2.0)
-        denominator += (0.5 * numOdd)
-        denominator += (sqrt(3.0)/2.0)*(numEven - 1.0)
+        denominator += (0.5 * numOddW)
+        denominator += (sqrt(3.0)/2.0)*(numEvenW - 1.0)
         let sideLength = effectiveWidth / CGFloat(denominator)
         
         self.makeShapesForSideLength(sideLength)
@@ -43,7 +45,7 @@ class SquareTriangleScene: AbstractGameBoardScene {
         totalWidth = effectiveWidth
         let a = triangleUp.sideLength
         let h = triangleUp.height
-        totalHeight = a + (CGFloat(numOdd) * h) + (CGFloat(numEven) - 1.0) * 0.5 * a
+        totalHeight = a + (CGFloat(numOddH) * h) + (CGFloat(numEvenH) - 1.0) * 0.5 * a
         
         if totalHeight > effectiveHeight {
             // Change the proportions to fit the screen is the original didn't fit nicely
@@ -52,7 +54,7 @@ class SquareTriangleScene: AbstractGameBoardScene {
             totalWidth = totalWidth * percent
             totalHeight = effectiveHeight
             
-            self.makeShapesForSideLength(sideLength)
+            self.makeShapesForSideLength(sideLength * percent)
         }
         
     }
@@ -112,6 +114,20 @@ class SquareTriangleScene: AbstractGameBoardScene {
         }
         
         return CGPoint(x: x + (size.width - totalWidth)/2, y: size.height - y - (size.height - totalHeight)/2)
+    }
+    
+    override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
+        
+        let scene = SquareTriangleScene(size: size, boardWidth: 1, boardHeight: 2, margins: false)
+        scene.logicalBoard.sourceRow = 1
+        
+        let tPiece = scene.logicalBoard.getPiece(row: 0, col: 0)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: tPiece, inTrueDir: .SouthSouthWest)
+        
+        let sPiece = scene.logicalBoard.getPiece(row: 1, col: 0)!
+        scene.logicalBoard.setPipeState(.Source, ofPiece: sPiece, inTrueDir: .NorthNorthEast)
+        
+        return scene
     }
 
 }

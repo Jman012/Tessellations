@@ -64,18 +64,22 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         
         let scene = HexagonTriangleScene(size: size, boardWidth: 2, boardHeight: 2, margins: false)
         let newHexagonCornerDiameter = scene.hexagon.cornerDiameter - (scene.triangleUp.sideLength / 2.0)
-        
+
         scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: 1)
         scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: scene.hexagon.sideLength / 3.5)
         scene.shapePaths[.Hexagon] = scene.hexagon.path
         scene.pipePaths[.Hexagon] = scene.hexagon.pipePath
-        
+//
         scene.triangleUp = TriangleUp(sideLength: scene.hexagon.sideLength, pipeWidth: scene.hexagon.sideLength / 3.5)
         scene.shapePaths[.TriangleUp] = scene.triangleUp.path
         scene.pipePaths[.TriangleUp] = scene.triangleUp.pipePath
         
+        scene.totalWidth = scene.effectiveWidth
+        scene.totalHeight = scene.hexagon.edgeDiameter
         
         scene.logicalBoard.board[0][1] = nil
+        scene.logicalBoard.sourceRow = 1
+        scene.logicalBoard.sourceCol = 0
         
         let hPiece = scene.logicalBoard.getPiece(row: 1, col: 0)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: hPiece, inTrueDir: .SouthEastEast)
@@ -83,7 +87,7 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         let tPiece = scene.logicalBoard.getPiece(row: 1, col: 1)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: tPiece, inTrueDir: .NorthWestWest)
         
-        scene.refreshAllPieces()
+        scene.constructTextures()
         
         return scene
     }
