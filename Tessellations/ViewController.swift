@@ -30,6 +30,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
         self.sceneView.addGestureRecognizer(tapRecognizer)
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -152,8 +154,11 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         }
     }
 
+    @IBAction func back(sender: UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
     
-    @IBAction func zoom(sender: UIBarButtonItem) {
+    @IBAction func zoom(sender: UIButton) {
         if self.camera.xScale == 1.0 {
             self.camera.setScale(0.7)
         } else {

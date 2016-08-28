@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="epI-HC-wrn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="epI-HC-wrn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,23 +21,70 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-he-w0k" customClass="SKView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVd-tz-Kpw">
+                                        <rect key="frame" x="281" y="8" width="38" height="30"/>
+                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <state key="normal" title="001">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwM-YK-VZd">
+                                        <rect key="frame" x="537" y="8" width="55" height="30"/>
+                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <state key="normal" title="Zoom"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="zoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OtN-ND-2hw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUA-Rv-Pnz">
+                                        <rect key="frame" x="8" y="8" width="48" height="30"/>
+                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <state key="normal" title="Back"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ie7-Lc-ZpP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="leading" secondItem="aGV-he-w0k" secondAttribute="leading" constant="8" id="QRV-hj-Vn4"/>
+                                    <constraint firstAttribute="trailing" secondItem="mwM-YK-VZd" secondAttribute="trailing" constant="8" id="TFg-es-FXY"/>
+                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="UD5-mx-F6e"/>
+                                    <constraint firstItem="mwM-YK-VZd" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="X1d-hd-CFl"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="owL-dV-Yzj"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="qmx-2H-Eqa"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="ExO-MS-jfA"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="bottom" id="GaE-fi-63T"/>
                             <constraint firstItem="aGV-he-w0k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="U1R-Vf-G9f"/>
-                            <constraint firstItem="aGV-he-w0k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="e3V-d8-n4u"/>
                             <constraint firstAttribute="trailing" secondItem="aGV-he-w0k" secondAttribute="trailing" id="wF8-2S-EAM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="001" id="Hpw-bS-nxi">
-                        <barButtonItem key="rightBarButtonItem" title="Zoom" id="cxg-IV-kkc">
-                            <connections>
-                                <action selector="zoom:" destination="BYZ-38-t0r" id="o8e-3V-xiE"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Zoom" id="cxg-IV-kkc"/>
                     </navigationItem>
                     <connections>
                         <outlet property="sceneView" destination="aGV-he-w0k" id="rck-ec-gGF"/>
@@ -50,7 +97,8 @@
         <!--Navigation Controller-->
         <scene sceneID="CwD-qJ-09s">
             <objects>
-                <navigationController id="epI-HC-wrn" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="epI-HC-wrn" sceneMemberID="viewController">
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fX8-5K-wlR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -78,7 +126,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuBoardCell" id="cV6-Ke-OC7" customClass="MenuBoardCell" customModule="Tessellations" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="160" height="160"/>
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
