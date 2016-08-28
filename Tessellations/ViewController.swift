@@ -73,7 +73,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         case sceneClassStrings[SceneIndex.OctagonSquare.rawValue]:
             self.scene = OctagonSquareScene(size: self.view.frame.size, boardWidth: 9, boardHeight: 13, margins: true)
         case sceneClassStrings[SceneIndex.SquareTriangle.rawValue]:
-            self.scene = SquareTriangleCrazyScene(size: self.view.frame.size, boardWidth: 12, boardHeight: 12, margins: true)
+            self.scene = SquareTriangleScene(size: self.view.frame.size, boardWidth: 11, boardHeight: 13, margins: true)
         case sceneClassStrings[SceneIndex.HexagonTriangle.rawValue]:
             self.scene = HexagonTriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
         case sceneClassStrings[SceneIndex.HexagonSquareTriangle.rawValue]:
@@ -114,7 +114,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             var translation = recognizer.translationInView(recognizer.view)
             translation = CGPointMake(-translation.x, translation.y)
             
-            var newPosition = CGPoint(x: self.camera.position.x + translation.x, y: self.camera.position.y + translation.y)
+            var newPosition = CGPoint(x: self.camera.position.x + translation.x * camera.xScale, y: self.camera.position.y + translation.y * camera.yScale)
             
             let cameraBounds = CGRect(x: self.scene.size.width / 2.0,
                                       y: self.scene.size.height / 2.0,

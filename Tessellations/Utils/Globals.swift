@@ -13,7 +13,7 @@ let sceneClassStrings: [String] = [
     NSStringFromClass(SquareScene.self),
     NSStringFromClass(HexagonScene.self),
     NSStringFromClass(OctagonSquareScene.self),
-    NSStringFromClass(SquareTriangleCrazyScene.self),
+    NSStringFromClass(SquareTriangleScene.self),
     NSStringFromClass(HexagonTriangleScene.self),
     NSStringFromClass(HexagonSquareTriangleScene.self),
     NSStringFromClass(DodecagonHexagonSquareScene.self)
