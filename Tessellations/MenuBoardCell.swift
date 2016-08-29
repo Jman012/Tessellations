@@ -34,6 +34,12 @@ class MenuBoardCell: UICollectionViewCell {
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.contentView.backgroundColor = Singleton.shared.palette.background
+    }
+    
     func redoImage() {
         if let image = thumbnailImages[typeString] {
             self.imageView.image = image

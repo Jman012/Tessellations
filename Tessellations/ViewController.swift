@@ -38,6 +38,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         backButton.backgroundColor = Singleton.shared.palette.buttonBackground
         zoomButton.backgroundColor = Singleton.shared.palette.buttonBackground
         titleButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        
+        self.view.backgroundColor = Singleton.shared.palette.background
     }
     
     override func viewDidLayoutSubviews() {

@@ -18,6 +18,7 @@ class MainMenu: UICollectionViewController {
         
         self.title = " "
         
+        
         menuData.append(sceneClassStrings)
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
