@@ -9,15 +9,15 @@
 import UIKit
 import SpriteKit
 
-let bgColor =         UIColor.whiteColor()
-let baseColor =       UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+//let bgColor =         UIColor.whiteColor()
+//let baseColor =       UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
 //let baseColor =      UIColor.whiteColor()
-let secondaryColor =  UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
+//let secondaryColor =  UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
 //let pathStrokeColor = UIColor.whiteColor()
-let pathStrokeColor = UIColor.clearColor()
-let pipeStrokeColor = UIColor.clearColor()
-let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
-let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
+//let pathStrokeColor = UIColor.clearColor()
+//let pipeStrokeColor = UIColor.clearColor()
+//let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
+//let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
 
 protocol GameBoardSceneProtocol: class {
@@ -73,8 +73,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         rootMarkerTree.zPosition = 3
         self.addChild(rootMarkerTree)
         
-        rootMarker.fillColor = baseColor
-        rootMarker.strokeColor = baseColor
+        rootMarker.fillColor = Singleton.shared.palette.piece
+        rootMarker.strokeColor = Singleton.shared.palette.piece
         rootMarker.lineWidth = 1.0
         rootMarker.name = "Root Marker"
         rootMarker.zPosition = 4
@@ -139,8 +139,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     func constructTextures() {
         let skView = SKView()
         let shapeNode = SKShapeNode()
-        shapeNode.fillColor = baseColor
-        shapeNode.strokeColor = baseColor
+        shapeNode.fillColor = Singleton.shared.palette.piece
+        shapeNode.strokeColor = Singleton.shared.palette.piece
         shapeNode.lineWidth = 1.0
         
         
@@ -166,8 +166,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Pipe Enabled
-        shapeNode.fillColor = pipeOnColor
-        shapeNode.strokeColor = pipeOnColor
+        shapeNode.fillColor = Singleton.shared.palette.pipeEnabled
+        shapeNode.strokeColor = Singleton.shared.palette.pipeEnabled
         
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = path
@@ -180,8 +180,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Pipe Disabled
-        shapeNode.fillColor = pipeOffColor
-        shapeNode.strokeColor = pipeOffColor
+        shapeNode.fillColor = Singleton.shared.palette.pipeDisabled
+        shapeNode.strokeColor = Singleton.shared.palette.pipeDisabled
         
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = path
@@ -193,11 +193,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         // Bubble
         let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2)
         bubble.lineWidth = 1.0
-        bubble.fillColor = pipeOnColor
-        bubble.strokeColor = pipeOnColor
+        bubble.fillColor = Singleton.shared.palette.pipeEnabled
+        bubble.strokeColor = Singleton.shared.palette.pipeEnabled
         bubbleEnabledTexture = skView.textureFromNode(bubble)
-        bubble.fillColor = pipeOffColor
-        bubble.strokeColor = pipeOffColor
+        bubble.fillColor = Singleton.shared.palette.pipeDisabled
+        bubble.strokeColor = Singleton.shared.palette.pipeDisabled
         bubbleDisabledTexture = skView.textureFromNode(bubble)
     }
     
@@ -215,7 +215,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         
-        self.backgroundColor = bgColor
+        self.backgroundColor = Singleton.shared.palette.background
         
         self.refreshAllPieces()
     }

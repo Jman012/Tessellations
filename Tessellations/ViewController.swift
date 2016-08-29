@@ -18,6 +18,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     let panRecognizer = UIPanGestureRecognizer()
     let tapRecognizer = UITapGestureRecognizer()
     
+    @IBOutlet var backButton: UIButton!
+    @IBOutlet var zoomButton: UIButton!
+    @IBOutlet var titleButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -31,7 +35,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         tapRecognizer.numberOfTouchesRequired = 1
         self.sceneView.addGestureRecognizer(tapRecognizer)
         
-        
+        backButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        zoomButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        titleButton.backgroundColor = Singleton.shared.palette.buttonBackground
     }
     
     override func viewDidLayoutSubviews() {

@@ -26,9 +26,7 @@
                                         <rect key="frame" x="281" y="8" width="38" height="30"/>
                                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                        <state key="normal" title="001">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
+                                        <state key="normal" title="001"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
@@ -87,7 +85,10 @@
                         <barButtonItem key="rightBarButtonItem" title="Zoom" id="cxg-IV-kkc"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="lUA-Rv-Pnz" id="PNt-7p-kht"/>
                         <outlet property="sceneView" destination="aGV-he-w0k" id="rck-ec-gGF"/>
+                        <outlet property="titleButton" destination="pVd-tz-Kpw" id="4C1-6H-xQd"/>
+                        <outlet property="zoomButton" destination="mwM-YK-VZd" id="J4d-Za-ayP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

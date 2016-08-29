@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A2710561D73DBC6000F779A /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710551D73DBC6000F779A /* Singleton.swift */; };
+		1A2710581D73E0C7000F779A /* Palettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2710571D73E0C7000F779A /* Palettes.plist */; };
 		1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE451D1CC43B0008224D /* AppDelegate.swift */; };
 		1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE471D1CC43B0008224D /* ViewController.swift */; };
 		1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE491D1CC43B0008224D /* Main.storyboard */; };
@@ -73,6 +75,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A2710551D73DBC6000F779A /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		1A2710571D73E0C7000F779A /* Palettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Palettes.plist; sourceTree = "<group>"; };
 		1A82DE421D1CC43B0008224D /* Tessellations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tessellations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE451D1CC43B0008224D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A82DE471D1CC43B0008224D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A2710541D73DBB9000F779A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1A2710551D73DBC6000F779A /* Singleton.swift */,
+				1A2710571D73E0C7000F779A /* Palettes.plist */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		1A82DE391D1CC43B0008224D = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +188,7 @@
 		1A82DE441D1CC43B0008224D /* Tessellations */ = {
 			isa = PBXGroup;
 			children = (
+				1A2710541D73DBB9000F779A /* Data */,
 				1A8B38F91D7103DF00A75469 /* SpriteKit */,
 				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
 				1A8B38FA1D71041800A75469 /* PipeNode.swift */,
@@ -397,6 +411,7 @@
 			files = (
 				1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */,
 				1A82DE4D1D1CC43B0008224D /* Assets.xcassets in Resources */,
+				1A2710581D73E0C7000F779A /* Palettes.plist in Resources */,
 				1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */,
+				1A2710561D73DBC6000F779A /* Singleton.swift in Sources */,
 				1AA129EC1D6411CF00146731 /* HexagonTriangleBoard.swift in Sources */,
 				1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
