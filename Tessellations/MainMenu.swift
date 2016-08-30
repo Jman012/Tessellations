@@ -9,49 +9,77 @@
 import UIKit
 import QuartzCore
 
-class MainMenu: UICollectionViewController {
+class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    /* Menu:
+     * Section 0:
+     *   Size | Color dropdowns
+     * Section 1:
+     *   Shuffle button
+     * Section 2:
+     *   Board buttons
+     */
 
     var menuData: [[String]] = []
+    
+    var selection: SizeColorSelection = .None
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = " "
         
-        
+        menuData.append([])
+//        menuData.append(["Shuffle"])
         menuData.append(sceneClassStrings)
         
-        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        self.collectionView?.backgroundColor = Singleton.shared.palette.background
         
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        (self.collectionViewLayout as! UICollectionViewFlowLayout).itemSize =
-            CGSize(width: self.collectionView!.frame.size.width / 2.0,
-                   height: self.collectionView!.frame.size.width / 2.0)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         for cell in self.collectionView!.visibleCells() {
-            (cell as! MenuBoardCell).redoImage()
+            if let boardCell = cell as? MenuBoardCell {
+                boardCell.redoImage()
+            }
         }
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return menuData.count
+        return menuData.count + 1
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return menuData[section].count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return menuData[section].count
+        default:
+            return 0
+        }
+        
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MenuBoardCell", forIndexPath: indexPath) as! MenuBoardCell
+        switch indexPath.section {
+        case 0:
+            return self.constructSizeColorCellForIndexPath(indexPath)
+            
+        case 1:
+            return self.constructBoardCellForIndexPath(indexPath)
+        
+        default:
+            fatalError("Bad index path")
+        }
+    }
+    
+    func constructBoardCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuBoardCell", forIndexPath: indexPath) as! MenuBoardCell
         
         cell.backgroundColor = UIColor.whiteColor()
         cell.highlightView.hidden = true
@@ -65,8 +93,28 @@ class MainMenu: UICollectionViewController {
         return cell
     }
     
+    func constructSizeColorCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuSizeColorCell", forIndexPath: indexPath) as! MenuSizeColorCell
+        
+        cell.collectionVC = self
+        
+        return cell
+    }
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("MenuBoardCellSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
+        switch indexPath.section {
+        case 0:
+            // SizeColorCell will do its own touch recognizing and use
+            // its weak reference to self to do work
+            break
+            
+        case 1:
+            self.performSegueWithIdentifier("MenuBoardCellSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
+            
+        default:
+            break
+        }
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -74,6 +122,25 @@ class MainMenu: UICollectionViewController {
             let viewController = segue.destinationViewController as! ViewController
             let cell = sender as! MenuBoardCell
             viewController.setBoardType(cell.label!.text!)
+        }
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        switch indexPath.section {
+        case 0:
+            if selection == .None {
+                return CGSize(width: collectionView.frame.width, height: 44.0)
+            } else {
+                return CGSize(width: collectionView.frame.width, height: 88.0)
+            }
+            
+        case 1:
+            return CGSize(width: self.collectionView!.frame.size.width / 2.0,
+                          height: self.collectionView!.frame.size.width / 2.0)
+            
+        default:
+            return CGSizeZero
         }
     }
 
