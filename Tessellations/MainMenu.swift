@@ -98,6 +98,9 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         
         cell.collectionVC = self
         
+        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+        cell.layer.borderWidth = 0.25
+        
         return cell
     }
     

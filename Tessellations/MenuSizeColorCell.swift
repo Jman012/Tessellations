@@ -24,6 +24,7 @@ class MenuSizeColorCell: UICollectionViewCell {
     @IBOutlet var colorLabel: UILabel!
     @IBOutlet var colorArrow: UIImageView!
     @IBOutlet var colorPickerView: UIView!
+    @IBOutlet var colorPickerScroll: UIScrollView!
     
     var selection: SizeColorSelection = .None
     var boardSize: BoardSize = .Small {
@@ -43,6 +44,17 @@ class MenuSizeColorCell: UICollectionViewCell {
         
         sizeSlider.value = 0
         boardSize = .Small
+        
+        colorPickerScroll.contentSize = CGSize(width: CGFloat(Singleton.shared.allPalettes.count) * 44.0, height: 44.0)
+        var point = CGPointZero
+        for palette in Singleton.shared.allPalettes {
+            let image = Singleton.shared.imageForPalette(palette)
+            let imageView = UIImageView(image: image)
+            imageView.frame.origin = point
+            colorPickerScroll.addSubview(imageView)
+            
+            point.x += 44.0
+        }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {

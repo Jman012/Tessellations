@@ -247,6 +247,9 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWn-BA-ETO" userLabel="Color Picker View">
                                             <rect key="frame" x="0.0" y="44" width="236" height="44"/>
                                             <subviews>
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6D-YX-PoD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="236" height="44"/>
+                                                </scrollView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW9-wW-ZSI" userLabel="Color Hairline">
                                                     <rect key="frame" x="0.0" y="0.0" width="118" height="0.5"/>
                                                     <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -256,9 +259,13 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="E6D-YX-PoD" firstAttribute="top" secondItem="fWn-BA-ETO" secondAttribute="top" id="1Yz-zq-I9k"/>
                                                 <constraint firstItem="fW9-wW-ZSI" firstAttribute="top" secondItem="fWn-BA-ETO" secondAttribute="top" id="9rW-Z1-ssP"/>
+                                                <constraint firstItem="E6D-YX-PoD" firstAttribute="leading" secondItem="fWn-BA-ETO" secondAttribute="leading" id="F5P-en-cKb"/>
                                                 <constraint firstItem="fW9-wW-ZSI" firstAttribute="leading" secondItem="fWn-BA-ETO" secondAttribute="leading" id="T6v-kk-IrJ"/>
                                                 <constraint firstItem="fW9-wW-ZSI" firstAttribute="width" secondItem="fWn-BA-ETO" secondAttribute="width" multiplier="0.5" id="Vd3-JF-wg8"/>
+                                                <constraint firstAttribute="trailing" secondItem="E6D-YX-PoD" secondAttribute="trailing" id="clD-OW-vhQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="E6D-YX-PoD" secondAttribute="bottom" id="glK-is-P3g"/>
                                                 <constraint firstAttribute="height" constant="44" id="h5T-O3-252"/>
                                             </constraints>
                                         </view>
@@ -320,6 +327,7 @@
                                 <connections>
                                     <outlet property="colorArrow" destination="obx-Um-fp9" id="Odc-Kp-qxu"/>
                                     <outlet property="colorLabel" destination="2YH-pF-CaB" id="cQe-pd-npJ"/>
+                                    <outlet property="colorPickerScroll" destination="E6D-YX-PoD" id="KTs-1y-OpC"/>
                                     <outlet property="colorPickerView" destination="fWn-BA-ETO" id="k5v-Dz-KJ8"/>
                                     <outlet property="sizeArrow" destination="9e7-Tx-r5d" id="iFi-V1-AsA"/>
                                     <outlet property="sizeLabel" destination="qgD-AR-OWU" id="e8T-CJ-BRf"/>

@@ -38,6 +38,10 @@ struct ScenePalette {
     init() {
         self.init(hexStrings: ["8490A3", "93B58B", "86D68C", "F5FFF4", "BBEACA"])
     }
+    
+    func allColors() -> [UIColor] {
+        return [pipeEnabled, pipeDisabled, piece, background, buttonBackground]
+    }
 }
 
 class Singleton {
@@ -45,16 +49,43 @@ class Singleton {
     static let shared = Singleton()
     
     let palette: ScenePalette
+    let currentPalette = 0
+    var allPalettes: [ScenePalette] = []
     
     private init() {
         
         // Load Color Palette
         if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String]] {
-            palette = ScenePalette(hexStrings: allPalettes[1])
+            for colors in allPalettes {
+                self.allPalettes.append(ScenePalette(hexStrings: colors))
+            }
+            palette = self.allPalettes[1]
         } else {
             print("Can't find Palettes.plist, defaulting to standard palette.")
             palette = ScenePalette()
         }
+    }
+    
+    func imageForPalette(palette: ScenePalette) -> UIImage {
+        let container = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 44.0, height: 44.0)))
+        let view = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 44.0, height: 44.0/5.0)))
+        container.addSubview(view)
+        
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(44.0, 44.0), true, 0.0)
+        let ctx = UIGraphicsGetCurrentContext()
+        
+        for color in palette.allColors() {
+            view.backgroundColor = color
+            container.layer.renderInContext(ctx!)
+//            view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x + 44.0/5.0, y: 0), size: view.frame.size)
+            view.frame.origin.y += 44.0/5.0
+            
+            
+        }
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
     
 }
