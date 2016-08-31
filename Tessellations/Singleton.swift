@@ -44,12 +44,18 @@ struct ScenePalette {
     }
 }
 
+protocol SingletonProtocol: class {
+    func singleton(singleton: Singleton, didMoveToPalette palette: ScenePalette)
+}
+
 class Singleton {
     
     static let shared = Singleton()
     
-    let palette: ScenePalette
-    let currentPalette = 0
+//    var delegates: [Weak<SingletonProtocol>] = []
+    weak var delegate: SingletonProtocol?
+    var palette: ScenePalette
+//    let currentPalette = 0
     var allPalettes: [ScenePalette] = []
     
     private init() {
@@ -86,6 +92,13 @@ class Singleton {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    func setAppPalette(palette: ScenePalette) {
+        self.palette = palette
+        if let del = delegate {
+            del.singleton(self, didMoveToPalette: palette)
+        }
     }
     
 }

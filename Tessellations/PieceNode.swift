@@ -17,6 +17,7 @@ class PieceNode: SKSpriteNode {
 
     var pipeNodes: [Direction: PipeNode] = [:]
     var bubble: SKSpriteNode!
+    var transientZRotation: CGFloat = 0.0
     
     weak var abstractScene: AbstractGameBoardScene?
     var pipeEnabledTexture: SKTexture {
@@ -95,8 +96,8 @@ class PieceNode: SKSpriteNode {
     
     func rotateToDegrees(degrees: CGFloat) {
         for (direction, pipeNode) in self.pipeNodes {
-            self.zRotation = degrees
-            pipeNode.zRotation = self.zRotation - CGFloat(Double(direction.rawValue).degrees)
+            self.transientZRotation = degrees
+            pipeNode.zRotation = self.transientZRotation - CGFloat(Double(direction.rawValue).degrees)
         }
     }
     
@@ -138,7 +139,7 @@ class PieceNode: SKSpriteNode {
         pipeNode.name = "\(self.pieceType) Pipe pointing \(logicalDirection)"
         pipeNode.position = self.position
         pipeNode.zPosition = 2
-        pipeNode.zRotation = self.zRotation - CGFloat(Double(logicalDirection.rawValue).degrees)
+        pipeNode.zRotation = self.transientZRotation - CGFloat(Double(logicalDirection.rawValue).degrees)
         if enabled {
             pipeNode.texture = pipeEnabledTexture
         } else {

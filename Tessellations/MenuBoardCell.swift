@@ -34,9 +34,7 @@ class MenuBoardCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    func setColors() {
         self.contentView.backgroundColor = Singleton.shared.palette.background
     }
     

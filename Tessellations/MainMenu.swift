@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, SingletonProtocol {
     
     /* Menu:
      * Section 0:
@@ -35,6 +35,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         menuData.append(sceneClassStrings)
         
         self.collectionView?.backgroundColor = Singleton.shared.palette.background
+        Singleton.shared.delegate = self
         
     }
     
@@ -46,6 +47,11 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
                 boardCell.redoImage()
             }
         }
+    }
+    
+    func singleton(singleton: Singleton, didMoveToPalette palette: ScenePalette) {
+        self.collectionView?.backgroundColor = Singleton.shared.palette.background
+        self.collectionView?.reloadData()
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -81,7 +87,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     func constructBoardCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuBoardCell", forIndexPath: indexPath) as! MenuBoardCell
         
-        cell.backgroundColor = UIColor.whiteColor()
+        cell.setColors()
         cell.highlightView.hidden = true
         cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
         cell.layer.borderWidth = 0.25
@@ -96,6 +102,8 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     func constructSizeColorCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuSizeColorCell", forIndexPath: indexPath) as! MenuSizeColorCell
         
+        cell.setColors()
+        cell.sizeSlider.tintColor = Singleton.shared.palette.piece
         cell.collectionVC = self
         
         cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
