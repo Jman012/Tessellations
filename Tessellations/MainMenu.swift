@@ -23,7 +23,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var menuData: [[String]] = []
     
     var selection: SizeColorSelection = .None
-
+    var boardSize: BoardSize = .Small
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,7 +121,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout {
         if segue.identifier == "MenuBoardCellSegue" {
             let viewController = segue.destinationViewController as! ViewController
             let cell = sender as! MenuBoardCell
-            viewController.setBoardType(cell.label!.text!)
+            viewController.setBoardType(cell.label!.text!, forBoardSize: boardSize)
         }
     }
     

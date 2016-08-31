@@ -8,6 +8,13 @@
 
 import UIKit
 
+private let sizes: [(Int, Int)] = [
+    (3, 5), /* Small */
+    (7, 5), /* Medium */
+    (7, 9), /* Large */
+    (11, 13)  /* Huge */
+]
+
 class SquareTriangleScene: AbstractGameBoardScene {
     
     var triangleUp: TriangleUp!
@@ -16,13 +23,12 @@ class SquareTriangleScene: AbstractGameBoardScene {
     var triangleRight: TriangleRight!
     var square30: Square30!
     var squareN30: SquareN30!
+
     
-//    var bandHeight: CGFloat {
-//        get { return dodecagon.edgeRadius - square.halfWidth }
-//    }
-//    var halfBandHeight: CGFloat {
-//        get { return bandHeight / 2.0 }
-//    }
+    override func initLogicalBoard(boardSize boardSize: BoardSize) -> AbstractGameBoard {
+        (self.logicalBoardWidth, self.logicalBoardHeight) = sizes[boardSize.rawValue]
+        return SquareTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    }
     
     override func initLogicalBoard() -> AbstractGameBoard {
         return SquareTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)

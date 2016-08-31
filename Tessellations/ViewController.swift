@@ -72,27 +72,27 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         // Dispose of any resources that can be recreated.
     }
     
-    func setBoardType(boardType: String) {
+    func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
         switch boardType {
         case sceneClassStrings[SceneIndex.Triangle.rawValue]:
-            self.scene = TriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
+            self.scene = TriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.Square.rawValue]:
-            self.scene = SquareScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
+            self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.Hexagon.rawValue]:
-            self.scene = HexagonScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 8, margins: true)
+            self.scene = HexagonScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.OctagonSquare.rawValue]:
-            self.scene = OctagonSquareScene(size: self.view.frame.size, boardWidth: 9, boardHeight: 13, margins: true)
+            self.scene = OctagonSquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.SquareTriangle.rawValue]:
-            self.scene = SquareTriangleScene(size: self.view.frame.size, boardWidth: 11, boardHeight: 13, margins: true)
+            self.scene = SquareTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.HexagonTriangle.rawValue]:
-            self.scene = HexagonTriangleScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
+            self.scene = HexagonTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.HexagonSquareTriangle.rawValue]:
-            self.scene = HexagonSquareTriangleScene(size: self.view.frame.size, boardWidth: 15, boardHeight: 13, margins: true)
+            self.scene = HexagonSquareTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         case sceneClassStrings[SceneIndex.DodecagonHexagonSquare.rawValue]:
-            self.scene = DodecagonHexagonSquareScene(size: self.view.frame.size, boardWidth: 13, boardHeight: 13, margins: true)
+            self.scene = DodecagonHexagonSquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
 
         default:
-            self.scene = SquareScene(size: self.view.frame.size, boardWidth: 7, boardHeight: 10, margins: true)
+            self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         }
         
         self.camera.setScale(1.0)

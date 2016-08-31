@@ -9,10 +9,22 @@
 import UIKit
 import SpriteKit
 
+private let sizes: [(Int, Int)] = [
+    (5, 5), /* Small */
+    (6, 7), /* Medium */
+    (7, 8), /* Large */
+    (9, 10) /* Huge */
+]
+
 class SquareScene: AbstractGameBoardScene {
     
     var square: Square!
 
+    override func initLogicalBoard(boardSize boardSize: BoardSize) -> AbstractGameBoard {
+        (self.logicalBoardWidth, self.logicalBoardHeight) = sizes[boardSize.rawValue]
+        return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    }
+    
     override func initLogicalBoard() -> AbstractGameBoard {
         return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }

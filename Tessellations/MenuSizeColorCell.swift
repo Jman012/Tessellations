@@ -26,8 +26,13 @@ class MenuSizeColorCell: UICollectionViewCell {
     @IBOutlet var colorPickerView: UIView!
     
     var selection: SizeColorSelection = .None
+    var boardSize: BoardSize = .Small {
+        didSet {
+            self.collectionVC?.boardSize = self.boardSize
+            self.sizeLabel.text = self.boardSize.text()
+        }
+    }
     weak var collectionVC: MainMenu?
-    let sizeOptions = ["Small", "Medium", "Large", "Extreme"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +42,7 @@ class MenuSizeColorCell: UICollectionViewCell {
         sizeSlider.tintColor = Singleton.shared.palette.piece
         
         sizeSlider.value = 0
-        sizeLabel.text = sizeOptions[Int(sizeSlider.value)]
+        boardSize = .Small
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -80,7 +85,7 @@ class MenuSizeColorCell: UICollectionViewCell {
     
     @IBAction func valueChanged(sender: UISlider) {
         sizeSlider.value = round(sizeSlider.value)
-        sizeLabel.text = sizeOptions[Int(sizeSlider.value)]
+        boardSize = BoardSize(rawValue: Int(sizeSlider.value))!
     }
     
     func setSelection(selection: SizeColorSelection) {

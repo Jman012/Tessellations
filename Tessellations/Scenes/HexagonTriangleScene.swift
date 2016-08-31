@@ -9,11 +9,23 @@
 import UIKit
 import SpriteKit
 
+private let sizes: [(Int, Int)] = [
+    (3, 6), /* Small */
+    (5, 6), /* Medium */
+    (7, 10), /* Large */
+    (9, 14)  /* Huge */
+]
+
 class HexagonTriangleScene: AbstractGameBoardScene {
 
     var triangleUp: TriangleUp!
     var triangleDown: TriangleDown!
     var hexagon: Hexagon!
+    
+    override func initLogicalBoard(boardSize boardSize: BoardSize) -> AbstractGameBoard {
+        (self.logicalBoardWidth, self.logicalBoardHeight) = sizes[boardSize.rawValue]
+        return HexagonTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
+    }
     
     override func initLogicalBoard() -> AbstractGameBoard {
         return HexagonTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)

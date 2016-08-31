@@ -20,6 +20,22 @@ import SpriteKit
 //let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
 
 
+enum BoardSize: Int {
+    case Small = 0
+    case Medium = 1
+    case Large = 2
+    case Huge = 3
+    
+    func text() -> String {
+        switch self {
+        case .Small: return "Small"
+        case .Medium: return "Medium"
+        case .Large: return "Large"
+        case .Huge: return "Huge"
+        }
+    }
+}
+
 protocol GameBoardSceneProtocol: class {
     func gameWon()
 }
@@ -62,9 +78,35 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     var logicalBoard: AbstractGameBoard!
     
-    required init(size: CGSize, boardWidth: Int, boardHeight: Int, margins: Bool) {
+    required init(size: CGSize, boardSize: BoardSize, margins: Bool) {
         
         super.init(size: size)
+        
+        self.requiredInitialization(margins)
+        
+        self.logicalBoard = self.initLogicalBoard(boardSize: boardSize)
+        
+        self.logicalBoard.delegate = self
+        self.setShapePaths()
+        self.constructTextures()
+    }
+    
+    init(size: CGSize, boardWidth: Int, boardHeight: Int, margins: Bool) {
+        
+        super.init(size: size)
+        
+        self.requiredInitialization(margins)
+        
+        self.logicalBoardWidth = boardWidth
+        self.logicalBoardHeight = boardHeight
+        self.logicalBoard = self.initLogicalBoard()
+        
+        self.logicalBoard.delegate = self
+        self.setShapePaths()
+        self.constructTextures()
+    }
+    
+    func requiredInitialization(margins: Bool) {
         
         pieceTree.zPosition = 1
         self.addChild(pieceTree)
@@ -79,20 +121,17 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         rootMarker.name = "Root Marker"
         rootMarker.zPosition = 4
         
-        logicalBoardWidth = boardWidth
-        logicalBoardHeight = boardHeight
         if !margins {
             self.margins = CGSizeZero
         }
-        
-        self.logicalBoard = self.initLogicalBoard()
-        self.logicalBoard.delegate = self
-        self.setShapePaths()
-        self.constructTextures()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func initLogicalBoard(boardSize boardSize: BoardSize) -> AbstractGameBoard {
+        fatalError("initLogialBoard(boardSize:) has not been implemented")
     }
     
     func initLogicalBoard() -> AbstractGameBoard {

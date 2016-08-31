@@ -9,6 +9,13 @@
 import UIKit
 import SpriteKit
 
+private let sizes: [(Int, Int)] = [
+    (5, 5), /* Small */
+    (9, 5), /* Medium */
+    (13, 9), /* Large */
+    (13, 13)/* Huge */
+]
+
 class DodecagonHexagonSquareScene: AbstractGameBoardScene {
 
     var dodecagon: Dodecagon!
@@ -22,6 +29,11 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
     }
     var halfBandHeight: CGFloat {
         get { return bandHeight / 2.0 }
+    }
+    
+    override func initLogicalBoard(boardSize boardSize: BoardSize) -> AbstractGameBoard {
+        (self.logicalBoardWidth, self.logicalBoardHeight) = sizes[boardSize.rawValue]
+        return DodecagonHexagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
     override func initLogicalBoard() -> AbstractGameBoard {
