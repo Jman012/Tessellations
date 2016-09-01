@@ -14,29 +14,32 @@ struct ScenePalette {
     let piece:            UIColor
     let background:       UIColor
     let buttonBackground: UIColor
+    let name:             String
     
-    init(pipeEnabled: UIColor, pipeDisabled: UIColor, piece: UIColor, background: UIColor, buttonBackground: UIColor) {
+    init(pipeEnabled: UIColor, pipeDisabled: UIColor, piece: UIColor, background: UIColor, buttonBackground: UIColor, name: String) {
         self.pipeEnabled =      pipeEnabled
         self.pipeDisabled =     pipeDisabled
         self.piece =            piece
         self.background =       background
         self.buttonBackground = buttonBackground
+        self.name =             name
     }
     
-    init(pipeEnabled: String, pipeDisabled: String, piece: String, background: String, buttonBackground: String) {
+    init(pipeEnabled: String, pipeDisabled: String, piece: String, background: String, buttonBackground: String, name: String) {
         self.pipeEnabled =      UIColor(hexString: pipeEnabled)
         self.pipeDisabled =     UIColor(hexString: pipeDisabled)
         self.piece =            UIColor(hexString: piece)
         self.background =       UIColor(hexString: background)
         self.buttonBackground = UIColor(hexString: buttonBackground)
+        self.name =             name
     }
     
     init(hexStrings: [String]) {
-        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4])
+        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4], name: hexStrings[5])
     }
     
     init() {
-        self.init(hexStrings: ["8490A3", "93B58B", "86D68C", "F5FFF4", "BBEACA"])
+        self.init(hexStrings: ["8490A3", "93B58B", "86D68C", "F5FFF4", "BBEACA", "Default"])
     }
     
     func allColors() -> [UIColor] {
@@ -51,25 +54,63 @@ protocol SingletonProtocol: class {
 class Singleton {
     
     static let shared = Singleton()
-    
-//    var delegates: [Weak<SingletonProtocol>] = []
     weak var delegate: SingletonProtocol?
-    var palette: ScenePalette
-//    let currentPalette = 0
+    
+    var palette: ScenePalette {
+        get { return allPalettes[currentPalette] }
+    }
+    var currentPalette = 0
     var allPalettes: [ScenePalette] = []
+    
+    // ClassString -> [Size -> Number completed]
+    var progress: [String: [BoardSize: UInt]] = [:]
     
     private init() {
         
+    }
+    
+    func load() {
+        self.loadColorPalettes()
+        self.loadProgress()
+    }
+    
+    func loadColorPalettes() {
         // Load Color Palette
         if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String]] {
             for colors in allPalettes {
                 self.allPalettes.append(ScenePalette(hexStrings: colors))
             }
-            palette = self.allPalettes[1]
+            currentPalette = 0
         } else {
             print("Can't find Palettes.plist, defaulting to standard palette.")
-            palette = ScenePalette()
+            allPalettes = [ScenePalette()]
         }
+    }
+    
+    func loadProgress() {
+        // Load progress
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let theProgress = defaults.objectForKey("Progress") as? [String: [Int: UInt]] {
+            for (classString, boardSizeToProgress) in theProgress {
+                var classDict: [BoardSize: UInt] = [:]
+                for (boardSizeInt, progress) in boardSizeToProgress {
+                    classDict[BoardSize(rawValue: boardSizeInt)!] = progress
+                }
+                self.progress[classString] = classDict
+            }
+        } else {
+            // Make fresh one
+            for classString in sceneClassStrings {
+                self.progress[classString] = [:]
+                for boardSizeNum in 0..<BoardSize.count() {
+                    self.progress[classString]![BoardSize(rawValue: boardSizeNum)!] = 0
+                }
+            }
+        }
+    }
+    
+    func syncProgress() {
+        
     }
     
     func imageForPalette(palette: ScenePalette) -> UIImage {
@@ -83,10 +124,7 @@ class Singleton {
         for color in palette.allColors() {
             view.backgroundColor = color
             container.layer.renderInContext(ctx!)
-//            view.frame = CGRect(origin: CGPoint(x: view.frame.origin.x + 44.0/5.0, y: 0), size: view.frame.size)
             view.frame.origin.y += 44.0/5.0
-            
-            
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -94,11 +132,14 @@ class Singleton {
         return image
     }
     
-    func setAppPalette(palette: ScenePalette) {
-        self.palette = palette
+    func setAppPalette(paletteNum: Int) {
+        currentPalette = paletteNum
         if let del = delegate {
             del.singleton(self, didMoveToPalette: palette)
         }
+        
+        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
+        appDelegate.generateThumbnails()
     }
     
 }

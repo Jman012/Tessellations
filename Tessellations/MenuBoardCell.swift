@@ -19,8 +19,11 @@ class MenuBoardCell: UICollectionViewCell {
         }
     }
     @IBOutlet var label: UILabel!
+    @IBOutlet var progressLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var highlightView: UIView!
+    
+    weak var collectionVC: MainMenu!
     
     override var highlighted: Bool {
         didSet {
@@ -34,14 +37,32 @@ class MenuBoardCell: UICollectionViewCell {
         }
     }
     
+    override func awakeFromNib() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
+    }
+    
     func setColors() {
         self.contentView.backgroundColor = Singleton.shared.palette.background
     }
     
-    func redoImage() {
-        if let image = thumbnailImages[typeString] {
-            self.imageView.image = image
-            self.label.hidden = true
+    func redoImage(sender: NSNotification?) {
+        if let not = sender {
+            let classString = not.userInfo![kClassString]! as! String
+            if classString == self.typeString {
+                if let image = thumbnailImages[typeString] {
+                    self.imageView.image = image
+                    self.label.hidden = true
+                }
+            }
+        } else {
+            if let image = thumbnailImages[typeString] {
+                self.imageView.image = image
+                self.label.hidden = true
+            }
         }
+    }
+    
+    func updateProgressText() {
+        progressLabel.text = "\(Singleton.shared.progress[typeString]![collectionVC.boardSize]) / 100"
     }
 }

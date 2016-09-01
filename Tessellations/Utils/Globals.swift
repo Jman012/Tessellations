@@ -8,6 +8,9 @@
 
 import UIKit
 
+let kThumbnailImageDidChange = "ThumbnailImageDidChange"
+let kClassString = "ClassString"
+
 let sceneClassStrings: [String] = [
     NSStringFromClass(TriangleScene.self),
     NSStringFromClass(SquareScene.self),
@@ -30,3 +33,8 @@ enum SceneIndex: Int {
 }
 
 var thumbnailImages: [String: UIImage] = [:]
+
+func setNewThumbnailImage(image: UIImage, forClassString classString: String) {
+    thumbnailImages[classString] = image
+    NSNotificationCenter.defaultCenter().postNotificationName(kThumbnailImageDidChange, object: nil, userInfo: [kClassString: classString])
+}

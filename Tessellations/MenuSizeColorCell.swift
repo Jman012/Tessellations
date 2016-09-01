@@ -63,7 +63,7 @@ class MenuSizeColorCell: UICollectionViewCell {
     }
     
     func paletteButtonTouched(sender: UIButton) {
-        Singleton.shared.setAppPalette(Singleton.shared.allPalettes[sender.tag])
+//        Singleton.shared.setAppPalette(Singleton.shared.allPalettes[sender.tag])
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {

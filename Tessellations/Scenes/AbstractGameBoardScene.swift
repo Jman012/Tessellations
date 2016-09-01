@@ -34,6 +34,10 @@ enum BoardSize: Int {
         case .Huge: return "Huge"
         }
     }
+    
+    static func count() -> Int {
+        return 4
+    }
 }
 
 protocol GameBoardSceneProtocol: class {
@@ -151,9 +155,9 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         return nil
     }
     
-    class func thumbnail(size: CGSize) -> UIImage? {
+    class func thumbnail(size: CGSize, addToView view: UIView, completion: ((image: UIImage) -> Void)) {
         guard let scene = self.thumbnailScene(size) else {
-            return nil
+            fatalError("Couldn't get thumbnail scene of type \(self.self)")
         }
         
         let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
@@ -161,18 +165,24 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         scene.scaleMode = .AspectFit
         skView.presentScene(scene)
         
-        let window = UIApplication.sharedApplication().delegate!.window!
-        window!.addSubview(skView)
-        window!.sendSubviewToBack(skView)
+        dispatch_sync(dispatch_get_main_queue(), {
+            view.addSubview(skView)
+        })
+        
+//        let window = UIApplication.sharedApplication().delegate!.window!
+//        window!.addSubview(skView)
+//        window!.sendSubviewToBack(skView)
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        skView.removeFromSuperview()
+//        skView.removeFromSuperview()
         
-        return image
+        completion(image: image)
+        
+//        return image
     }
     
     func constructTextures() {

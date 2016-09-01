@@ -11,10 +11,20 @@ import QuartzCore
 
 class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, SingletonProtocol {
     
-    /* Menu:
+    /* Menu: (old)
      * Section 0:
      *   Size | Color dropdowns
      * Section 1:
+     *   Shuffle button
+     * Section 2:
+     *   Board buttons
+     */
+    
+    /* Menu:
+     * Section 0:
+     *   Color leftright (row 0)
+     *   Size leftright  (row 1)
+     * Section 1: (not done yet)
      *   Shuffle button
      * Section 2:
      *   Board buttons
@@ -30,7 +40,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         self.title = " "
         
-        menuData.append([])
+        menuData.append(["Color", "Size"])
 //        menuData.append(["Shuffle"])
         menuData.append(sceneClassStrings)
         
@@ -44,7 +54,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         for cell in self.collectionView!.visibleCells() {
             if let boardCell = cell as? MenuBoardCell {
-                boardCell.redoImage()
+                boardCell.redoImage(nil)
             }
         }
     }
@@ -55,18 +65,19 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return menuData.count + 1
+        return menuData.count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return menuData[section].count
-        default:
-            return 0
-        }
+        return menuData[section].count
+//        switch section {
+//        case 0:
+//            return 1
+//        case 1:
+//            return menuData[section].count
+//        default:
+//            return 0
+//        }
         
     }
     
@@ -74,7 +85,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         switch indexPath.section {
         case 0:
-            return self.constructSizeColorCellForIndexPath(indexPath)
+            return self.constructLeftRightCellForIndexPath(indexPath)
             
         case 1:
             return self.constructBoardCellForIndexPath(indexPath)
@@ -88,6 +99,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuBoardCell", forIndexPath: indexPath) as! MenuBoardCell
         
         cell.setColors()
+        cell.collectionVC = self
         cell.highlightView.hidden = true
         cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
         cell.layer.borderWidth = 0.25
@@ -95,6 +107,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.typeString = menuData[indexPath.section][indexPath.row]
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]
+        print("Made cell for \(cell.typeString)")
         
         return cell
     }
@@ -108,6 +121,41 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
         cell.layer.borderWidth = 0.25
+        
+        return cell
+    }
+    
+    func constructLeftRightCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuLeftRightOptionCell", forIndexPath: indexPath) as! MenuLeftRightOptionCell
+        
+        cell.setColors()
+        
+        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+        cell.layer.borderWidth = 0.25
+        
+        if indexPath.row == 0 {
+            cell.maxValue = Singleton.shared.allPalettes.count - 1
+            cell.value = Singleton.shared.currentPalette
+            cell.label.text = "Color: \(Singleton.shared.palette.name)"
+            
+            cell.valueDidChange = {
+                sender in
+                
+                Singleton.shared.setAppPalette(sender.value)
+                sender.label.text = "Color: \(Singleton.shared.palette.name)"
+            }
+        } else if indexPath.row == 1 {
+            cell.maxValue = BoardSize.count() - 1
+            cell.value = boardSize.rawValue
+            cell.label.text = "Difficulty: \(boardSize.text())"
+            
+            cell.valueDidChange = {
+                sender in
+                
+                self.boardSize = BoardSize(rawValue: sender.value)!
+                sender.label.text = "Difficulty: \(self.boardSize.text())"
+            }
+        }
         
         return cell
     }

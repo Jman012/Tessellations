@@ -8,6 +8,7 @@
 		<string>86D68C</string>
 		<string>F5FFF4</string>
 		<string>BBEACA</string>
+		<string>Light Green</string>
 	</array>
 	<array>
 		<string>51344D</string>
@@ -15,6 +16,7 @@
 		<string>A78682</string>
 		<string>E7EBC5</string>
 		<string>989788</string>
+		<string>Brown</string>
 	</array>
 	<array>
 		<string>393A10</string>
@@ -22,6 +24,7 @@
 		<string>4A6D7C</string>
 		<string>C6C5B9</string>
 		<string>62929E</string>
+		<string>Marine</string>
 	</array>
 	<array>
 		<string>2081C3</string>
@@ -29,6 +32,7 @@
 		<string>78D5D7</string>
 		<string>F7F9F9</string>
 		<string>BED8D4</string>
+		<string>Sky</string>
 	</array>
 	<array>
 		<string>56351E</string>
@@ -36,6 +40,7 @@
 		<string>F19953</string>
 		<string>EDF7F6</string>
 		<string>2660A4</string>
+		<string>Halloween</string>
 	</array>
 	<array>
 		<string>231B1B</string>
@@ -43,6 +48,7 @@
 		<string>E980FC</string>
 		<string>FFD2FC</string>
 		<string>DDFFF7</string>
+		<string>Dark Pink</string>
 	</array>
 	<array>
 		<string>7A43D8</string>
@@ -50,6 +56,7 @@
 		<string>D6B4E8</string>
 		<string>FFEAEC</string>
 		<string>F2D2ED</string>
+		<string>Light Pink</string>
 	</array>
 	<array>
 		<string>615D6C</string>
@@ -57,6 +64,7 @@
 		<string>89BBFE</string>
 		<string>CAE5FF</string>
 		<string>ACEDFF</string>
+		<string>Blue</string>
 	</array>
 	<array>
 		<string>4F4F4F</string>
@@ -64,6 +72,15 @@
 		<string>A5A5A5</string>
 		<string>F2F2F2</string>
 		<string>DDDDDD</string>
+		<string>Night</string>
+	</array>
+	<array>
+		<string>6B9080</string>
+		<string>A4C3B2</string>
+		<string>CCE3DE</string>
+		<string>F6FFF8</string>
+		<string>EAF4F4</string>
+		<string>Grass</string>
 	</array>
 	<array>
 		<string>8490A3</string>
@@ -71,13 +88,7 @@
 		<string>86D68C</string>
 		<string>F5FFF4</string>
 		<string>BBEACA</string>
-	</array>
-	<array>
-		<string>8490A3</string>
-		<string>93B58B</string>
-		<string>86D68C</string>
-		<string>F5FFF4</string>
-		<string>BBEACA</string>
+		<string>Green</string>
 	</array>
 </array>
 </plist>

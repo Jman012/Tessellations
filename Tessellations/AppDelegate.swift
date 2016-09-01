@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Singleton.shared.load()
+        
+        self.generateThumbnails()
         
         return true
     }
@@ -35,17 +40,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        for classString in sceneClassStrings {
-            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
-                thumbnailImages[classString] = theClass.thumbnail(CGSize(width: 100, height: 100))
-            }
-        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    func generateThumbnails() {
+        let size = CGSize(width: 100, height: 100)
+        var views: [String: SKView] = [:]
+        
+        for classString in sceneClassStrings {
+            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
+                
+                let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+                let scene = theClass.thumbnailScene(size)!
+                skView.ignoresSiblingOrder = true
+                scene.scaleMode = .AspectFit
+                skView.presentScene(scene)
+                
+                self.window!.addSubview(skView)
+                self.window!.sendSubviewToBack(skView)
+                
+                views[classString] = skView
+            }
+        }
+        
+        for classString in sceneClassStrings {
+            
+            let skView = views[classString]!
+            
+            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+            skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            setNewThumbnailImage(image, forClassString: classString)
+            
+        }
+        
+        for classString in sceneClassStrings {
+            
+            let skView = views[classString]!
+            skView.removeFromSuperview()
+        }
+    }
 
 }
 
