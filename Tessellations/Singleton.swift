@@ -34,12 +34,12 @@ struct ScenePalette {
         self.name =             name
     }
     
-    init(hexStrings: [String]) {
-        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4], name: hexStrings[5])
+    init(name: String, hexStrings: [String]) {
+        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4], name: name)
     }
     
     init() {
-        self.init(hexStrings: ["8490A3", "93B58B", "86D68C", "F5FFF4", "BBEACA", "Default"])
+        self.init(name: "Default", hexStrings: ["8490A3", "93B58B", "86D68C", "F5FFF4", "BBEACA"])
     }
     
     func allColors() -> [UIColor] {
@@ -76,9 +76,15 @@ class Singleton {
     
     func loadColorPalettes() {
         // Load Color Palette
-        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String]] {
-            for colors in allPalettes {
-                self.allPalettes.append(ScenePalette(hexStrings: colors))
+        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSDictionary(contentsOfFile: path) as? [String: [String: String]] {
+            for (colorName, colorDict) in allPalettes {
+                self.allPalettes.append(ScenePalette(
+                    pipeEnabled:      colorDict["pipeEnabled"]!,
+                    pipeDisabled:     colorDict["pipeDisabled"]!,
+                    piece:            colorDict["piece"]!,
+                    background:       colorDict["background"]!,
+                    buttonBackground: colorDict["backgroundSecondary"]!,
+                    name: colorName))
             }
             currentPalette = 0
         } else {
