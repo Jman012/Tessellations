@@ -264,7 +264,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     override func didMoveToView(view: SKView) {
         super.didMoveToView(view)
         
-        self.backgroundColor = Singleton.shared.palette.background
+        if margins != CGSizeZero {
+            self.backgroundColor = Singleton.shared.palette.background
+        } else {
+            self.backgroundColor = UIColor.clearColor()
+        }
         
         self.refreshAllPieces()
     }

@@ -12,6 +12,7 @@
 		1A27105E1D74B645000F779A /* MenuButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A27105D1D74B645000F779A /* MenuButtonCell.swift */; };
 		1A2710601D7551C6000F779A /* MenuSizeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A27105F1D7551C6000F779A /* MenuSizeColorCell.swift */; };
 		1A2710621D774DE7000F779A /* MenuLeftRightOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */; };
+		1A2710641D78F79A000F779A /* SquarePieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710631D78F79A000F779A /* SquarePieProgressView.swift */; };
 		1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE451D1CC43B0008224D /* AppDelegate.swift */; };
 		1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE471D1CC43B0008224D /* ViewController.swift */; };
 		1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE491D1CC43B0008224D /* Main.storyboard */; };
@@ -82,6 +83,7 @@
 		1A27105D1D74B645000F779A /* MenuButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButtonCell.swift; sourceTree = "<group>"; };
 		1A27105F1D7551C6000F779A /* MenuSizeColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuSizeColorCell.swift; sourceTree = "<group>"; };
 		1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLeftRightOptionCell.swift; sourceTree = "<group>"; };
+		1A2710631D78F79A000F779A /* SquarePieProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquarePieProgressView.swift; sourceTree = "<group>"; };
 		1A82DE421D1CC43B0008224D /* Tessellations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tessellations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE451D1CC43B0008224D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A82DE471D1CC43B0008224D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			children = (
 				1A82DE7C1D1CC5600008224D /* Utils.swift */,
 				1A8B38F71D6EA07900A75469 /* Globals.swift */,
+				1A2710631D78F79A000F779A /* SquarePieProgressView.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				1A8B38FF1D72BA4900A75469 /* SquareTriangleScene.swift in Sources */,
 				1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */,
 				1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */,
+				1A2710641D78F79A000F779A /* SquarePieProgressView.swift in Sources */,
 				1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */,
 				1AA129E01D6411C500146731 /* TriangleScene.swift in Sources */,
 				1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */,

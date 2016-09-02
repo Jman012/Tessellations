@@ -22,6 +22,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     @IBOutlet var zoomButton: UIButton!
     @IBOutlet var titleButton: UIButton!
     
+    var boardType: String!
+    var boardSize: BoardSize!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -73,6 +76,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
     
     func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
+        self.boardType = boardType
+        self.boardSize = boardSize
+        
         switch boardType {
         case sceneClassStrings[SceneIndex.Triangle.rawValue]:
             self.scene = TriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
@@ -176,6 +182,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
     
     func gameWon() {
+        Singleton.shared.progress[boardType]![boardSize]! += 1
+        
         let alert = UIAlertController(title: "Won!", message: "Congrats", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "K.", style: .Cancel, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)

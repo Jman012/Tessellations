@@ -16,12 +16,17 @@ class MenuBoardCell: UICollectionViewCell {
                 self.imageView.image = image
                 self.label.hidden = true
             }
+            self.updateProgress()
         }
     }
     @IBOutlet var label: UILabel!
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var highlightView: UIView!
+    @IBOutlet var progressView: SquarePieProgressView!
+    var progress: UInt {
+        get { return Singleton.shared.progress[typeString]![collectionVC.boardSize]! }
+    }
     
     weak var collectionVC: MainMenu!
     
@@ -39,6 +44,7 @@ class MenuBoardCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
+        
     }
     
     func setColors() {
@@ -62,7 +68,8 @@ class MenuBoardCell: UICollectionViewCell {
         }
     }
     
-    func updateProgressText() {
-        progressLabel.text = "\(Singleton.shared.progress[typeString]![collectionVC.boardSize]) / 100"
+    func updateProgress() {
+        progressLabel.text = "\(self.progress) / 100"
+        progressView.percent = CGFloat(self.progress) / 100.0
     }
 }

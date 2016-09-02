@@ -133,6 +133,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8io-yI-imZ" customClass="SquarePieProgressView" customModule="Tessellations" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KNi-bg-Kzo">
                                             <rect key="frame" x="59" y="69" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -158,7 +161,9 @@
                                 <constraints>
                                     <constraint firstItem="HUc-KK-uhu" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="0P0-aU-Ob6"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="tBk-4n-xsB" secondAttribute="bottom" constant="-8" id="4gK-Og-6Rf"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="8io-yI-imZ" secondAttribute="bottom" constant="-8" id="6I3-Zt-zCY"/>
                                     <constraint firstItem="qO3-Na-ywm" firstAttribute="height" secondItem="cV6-Ke-OC7" secondAttribute="height" multiplier="0.5" id="8nu-Ck-DKg"/>
+                                    <constraint firstItem="8io-yI-imZ" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="9nY-jc-HAh"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="B3l-F2-lj3"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="tBk-4n-xsB" secondAttribute="trailing" constant="-8" id="HSk-ra-unP"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="HUc-KK-uhu" secondAttribute="bottom" id="ItK-13-qW4"/>
@@ -168,13 +173,17 @@
                                     <constraint firstItem="qO3-Na-ywm" firstAttribute="width" secondItem="cV6-Ke-OC7" secondAttribute="width" multiplier="0.5" id="Way-1c-Upg"/>
                                     <constraint firstItem="KNi-bg-Kzo" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="bjV-eG-Q8L"/>
                                     <constraint firstItem="qO3-Na-ywm" firstAttribute="centerY" secondItem="cV6-Ke-OC7" secondAttribute="centerY" id="rDH-2B-mnf"/>
+                                    <constraint firstItem="8io-yI-imZ" firstAttribute="leading" secondItem="cV6-Ke-OC7" secondAttribute="leadingMargin" constant="-8" id="vsm-o3-cmL"/>
                                     <constraint firstItem="tBk-4n-xsB" firstAttribute="top" secondItem="cV6-Ke-OC7" secondAttribute="topMargin" constant="-8" id="vwJ-gM-cwe"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="8io-yI-imZ" secondAttribute="trailing" constant="-8" id="xFO-j8-DJW"/>
                                     <constraint firstItem="qO3-Na-ywm" firstAttribute="centerX" secondItem="cV6-Ke-OC7" secondAttribute="centerX" id="zos-dD-0d9"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="highlightView" destination="tBk-4n-xsB" id="rOu-tX-1c1"/>
                                     <outlet property="imageView" destination="qO3-Na-ywm" id="4lM-ou-S6J"/>
                                     <outlet property="label" destination="KNi-bg-Kzo" id="N0m-yf-Sbo"/>
+                                    <outlet property="progressLabel" destination="HUc-KK-uhu" id="aid-Pz-453"/>
+                                    <outlet property="progressView" destination="8io-yI-imZ" id="feo-u4-HTq"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuSizeColorCell" id="6Kg-N0-hFX" customClass="MenuSizeColorCell" customModule="Tessellations" customModuleProvider="target">

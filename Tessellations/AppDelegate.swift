@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
                 let scene = theClass.thumbnailScene(size)!
                 skView.ignoresSiblingOrder = true
+                skView.opaque = false
                 scene.scaleMode = .AspectFit
                 skView.presentScene(scene)
                 

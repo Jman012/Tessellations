@@ -54,7 +54,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         for cell in self.collectionView!.visibleCells() {
             if let boardCell = cell as? MenuBoardCell {
-                boardCell.redoImage(nil)
+                boardCell.updateProgress()
             }
         }
     }
@@ -70,15 +70,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return menuData[section].count
-//        switch section {
-//        case 0:
-//            return 1
-//        case 1:
-//            return menuData[section].count
-//        default:
-//            return 0
-//        }
-        
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -107,7 +98,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.typeString = menuData[indexPath.section][indexPath.row]
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]
-        print("Made cell for \(cell.typeString)")
         
         return cell
     }
@@ -154,6 +144,13 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
                 
                 self.boardSize = BoardSize(rawValue: sender.value)!
                 sender.label.text = "Difficulty: \(self.boardSize.text())"
+                
+                for cell in self.collectionView!.visibleCells() {
+                    if let boardCell = cell as? MenuBoardCell {
+                        boardCell.redoImage(nil)
+                        boardCell.updateProgress()
+                    }
+                }
             }
         }
         
