@@ -33,7 +33,7 @@ class SquarePieProgressView: UIView {
         let ctx = UIGraphicsGetCurrentContext()
         CGContextClearRect(ctx, rect)
         CGContextAddPath(ctx, path)
-        CGContextSetFillColorWithColor(ctx, Singleton.shared.palette.pipeDisabled.CGColor)
+        CGContextSetFillColorWithColor(ctx, UIColor(white: 0.5, alpha: 0.1).CGColor)
         CGContextFillPath(ctx)
     }
 
