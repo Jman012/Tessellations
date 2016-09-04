@@ -469,7 +469,7 @@ class AbstractGameBoard: NSObject {
         self.forAllPieces {
             piece in
             
-            let numRots = Int(arc4random() % 16)
+            let numRots = Int(TessellationsPuzzleGenRand() % 16)
             piece.absAngle = (numRots * piece.angleStep) % 360
         }
         
@@ -485,9 +485,11 @@ class AbstractGameBoard: NSObject {
     }
     
     func randomPiece() -> Piece {
-        var piece = self.getPiece(row: Int(arc4random()) % self.boardHeight, col: Int(arc4random()) % self.boardWidth)
+        var piece = self.getPiece(row: Int(TessellationsPuzzleGenRand() % UInt(self.boardHeight)),
+                                  col: Int(TessellationsPuzzleGenRand() % UInt(self.boardWidth)))
         while piece == nil {
-            piece = self.getPiece(row: Int(arc4random()) % self.boardHeight, col: Int(arc4random()) % self.boardWidth)
+            piece = self.getPiece(row: Int(TessellationsPuzzleGenRand() % UInt(self.boardHeight)),
+                                  col: Int(TessellationsPuzzleGenRand() % UInt(self.boardWidth)))
         }
         return piece!
     }

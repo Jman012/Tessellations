@@ -10,6 +10,19 @@ import Foundation
 import Darwin // needed to get M_PI
 import SpriteKit
 
+private var next: UInt = 1
+func TessellationsSeed(forClassString classString: String, boardSize: BoardSize, number: Int) -> UInt {
+    let wholeString = "\(classString) \(boardSize.rawValue) \(number)"
+    return UInt(bitPattern: wholeString.hashValue)
+}
+func TessellationsPuzzleGenSeed(seed: UInt) {
+    next = seed
+}
+func TessellationsPuzzleGenRand() -> UInt {
+    next = next &* 1103515245 &+ 12345
+    return next
+}
+
 extension UInt8 {
     func forEachBit(callback: (bit: UInt, flag: Bool) -> Void) {
         for i: UInt in 0..<8 {
@@ -59,7 +72,7 @@ extension Double {
 
 extension Array {
     func randomItem() -> Element {
-        let index = Int(arc4random_uniform(UInt32(self.count)))
+        let index = TessellationsPuzzleGenRand() % UInt(self.count)
         return self[index]
     }
     
@@ -103,7 +116,7 @@ extension MutableCollectionType where Index == Int {
         if count < 2 { return }
         
         for i in 0..<count - 1 {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            let j = Int(TessellationsPuzzleGenRand() % UInt(count - i)) + i
             guard i != j else { continue }
             swap(&self[i], &self[j])
         }

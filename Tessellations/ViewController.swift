@@ -78,6 +78,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
         self.boardType = boardType
         self.boardSize = boardSize
+        let nextBoardNumber = Singleton.shared.progress[boardType]![boardSize]! + 1
+        let seed = TessellationsSeed(forClassString: boardType, boardSize: boardSize, number: Int(nextBoardNumber))
+        TessellationsPuzzleGenSeed(seed)
         
         switch boardType {
         case sceneClassStrings[SceneIndex.Triangle.rawValue]:
