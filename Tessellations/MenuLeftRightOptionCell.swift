@@ -10,7 +10,8 @@ import UIKit
 
 class MenuLeftRightOptionCell: UICollectionViewCell {
     
-    @IBOutlet var label: UILabel!
+    @IBOutlet var optionLabel: UILabel!
+    @IBOutlet var valueLabel: UILabel!
     @IBOutlet var leftButton: UIButton!
     @IBOutlet var rightButton: UIButton!
     var value: Int = 0
@@ -19,6 +20,9 @@ class MenuLeftRightOptionCell: UICollectionViewCell {
     
     func setColors() {
         self.contentView.backgroundColor = Singleton.shared.palette.background
+        
+        self.leftButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        self.rightButton.backgroundColor = Singleton.shared.palette.buttonBackground
     }
     
     @IBAction func buttonTouched(sender: UIButton) {

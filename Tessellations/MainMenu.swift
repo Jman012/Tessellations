@@ -126,24 +126,26 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         if indexPath.row == 0 {
             cell.maxValue = Singleton.shared.allPalettes.count - 1
             cell.value = Singleton.shared.currentPalette
-            cell.label.text = "Color: \(Singleton.shared.palette.name)"
+            cell.optionLabel.text = "Color:"
+            cell.valueLabel.text = "\(Singleton.shared.palette.name)"
             
             cell.valueDidChange = {
                 sender in
                 
                 Singleton.shared.setAppPalette(sender.value)
-                sender.label.text = "Color: \(Singleton.shared.palette.name)"
+                sender.valueLabel.text = "\(Singleton.shared.palette.name)"
             }
         } else if indexPath.row == 1 {
             cell.maxValue = BoardSize.count() - 1
             cell.value = boardSize.rawValue
-            cell.label.text = "Difficulty: \(boardSize.text())"
+            cell.optionLabel.text = "Difficulty:"
+            cell.valueLabel.text = "\(boardSize.text())"
             
             cell.valueDidChange = {
                 sender in
                 
                 self.boardSize = BoardSize(rawValue: sender.value)!
-                sender.label.text = "Difficulty: \(self.boardSize.text())"
+                sender.valueLabel.text = "\(self.boardSize.text())"
                 
                 for cell in self.collectionView!.visibleCells() {
                     if let boardCell = cell as? MenuBoardCell {
