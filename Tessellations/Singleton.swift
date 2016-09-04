@@ -76,6 +76,12 @@ class Singleton {
     
     func loadColorPalettes() {
         // Load Color Palette
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var paletteIndex: Int = 0
+        if let thePaletteIndex = userDefaults.objectForKey("PaletteIndex") as? Int {
+            paletteIndex = thePaletteIndex
+        }
+        
         if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSDictionary(contentsOfFile: path) as? [String: [String: String]] {
             for (colorName, colorDict) in allPalettes {
                 self.allPalettes.append(ScenePalette(
@@ -86,7 +92,7 @@ class Singleton {
                     buttonBackground: colorDict["backgroundSecondary"]!,
                     name: colorName))
             }
-            currentPalette = 0
+            currentPalette = paletteIndex
         } else {
             print("Can't find Palettes.plist, defaulting to standard palette.")
             allPalettes = [ScenePalette()]
@@ -96,11 +102,11 @@ class Singleton {
     func loadProgress() {
         // Load progress
         let defaults = NSUserDefaults.standardUserDefaults()
-        if let theProgress = defaults.objectForKey("Progress") as? [String: [Int: UInt]] {
+        if let theProgress = defaults.objectForKey("Progress") as? [String: [String: UInt]] {
             for (classString, boardSizeToProgress) in theProgress {
                 var classDict: [BoardSize: UInt] = [:]
-                for (boardSizeInt, progress) in boardSizeToProgress {
-                    classDict[BoardSize(rawValue: boardSizeInt)!] = progress
+                for (boardSizeStr, progressUInt) in boardSizeToProgress {
+                    classDict[BoardSize(rawValue: Int(boardSizeStr)!)!] = progressUInt
                 }
                 self.progress[classString] = classDict
             }
@@ -117,7 +123,23 @@ class Singleton {
     }
     
     func syncProgress() {
+        let defaults = NSUserDefaults.standardUserDefaults()
         
+//        var theProgress: [String: [Int: Int]] = [:]
+        let theProgress = NSMutableDictionary()
+        for (classString, boardSizeToProgress) in self.progress {
+//            theProgress[classString] = [:]
+            theProgress.setObject(NSMutableDictionary(), forKey: classString)
+            for (boardSize, prog) in boardSizeToProgress {
+//                theProgress[classString]![boardSize.rawValue] = Int(prog)
+                let boardSizeStr = "\(boardSize.rawValue)"
+                let progNum = NSNumber(integer: Int(prog))
+                theProgress.objectForKey(classString)!.setObject(progNum, forKey: boardSizeStr)
+            }
+        }
+        
+        defaults.setObject(theProgress, forKey: "Progress")
+        defaults.synchronize()
     }
     
     func imageForPalette(palette: ScenePalette) -> UIImage {
@@ -147,6 +169,9 @@ class Singleton {
         
         let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
         appDelegate.generateThumbnails()
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setInteger(currentPalette, forKey: "PaletteIndex")
     }
     
 }
