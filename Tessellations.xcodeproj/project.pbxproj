@@ -13,6 +13,7 @@
 		1A2710621D774DE7000F779A /* MenuLeftRightOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */; };
 		1A2710641D78F79A000F779A /* SquarePieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710631D78F79A000F779A /* SquarePieProgressView.swift */; };
 		1A2710661D793FF7000F779A /* Palettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2710651D793FF7000F779A /* Palettes.plist */; };
+		1A2710681D7CF79E000F779A /* Palettes.v1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2710671D7CF79E000F779A /* Palettes.v1.plist */; };
 		1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE451D1CC43B0008224D /* AppDelegate.swift */; };
 		1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE471D1CC43B0008224D /* ViewController.swift */; };
 		1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE491D1CC43B0008224D /* Main.storyboard */; };
@@ -84,6 +85,7 @@
 		1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLeftRightOptionCell.swift; sourceTree = "<group>"; };
 		1A2710631D78F79A000F779A /* SquarePieProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquarePieProgressView.swift; sourceTree = "<group>"; };
 		1A2710651D793FF7000F779A /* Palettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Palettes.plist; sourceTree = "<group>"; };
+		1A2710671D7CF79E000F779A /* Palettes.v1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Palettes.v1.plist; sourceTree = "<group>"; };
 		1A82DE421D1CC43B0008224D /* Tessellations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tessellations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE451D1CC43B0008224D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A82DE471D1CC43B0008224D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				1A2710551D73DBC6000F779A /* Singleton.swift */,
 				1A2710651D793FF7000F779A /* Palettes.plist */,
+				1A2710671D7CF79E000F779A /* Palettes.v1.plist */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */,
+				1A2710681D7CF79E000F779A /* Palettes.v1.plist in Resources */,
 				1A82DE4D1D1CC43B0008224D /* Assets.xcassets in Resources */,
 				1A2710661D793FF7000F779A /* Palettes.plist in Resources */,
 				1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */,

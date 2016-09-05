@@ -92,11 +92,12 @@ class Singleton {
                     buttonBackground: colorDict["backgroundSecondary"]!,
                     name: colorName))
             }
-            currentPalette = paletteIndex
         } else {
             print("Can't find Palettes.plist, defaulting to standard palette.")
             allPalettes = [ScenePalette()]
         }
+        
+        currentPalette = min(paletteIndex, self.allPalettes.count + 1)
     }
     
     func loadProgress() {
