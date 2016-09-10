@@ -43,20 +43,19 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
     
     override func setShapePaths() {
         
-        let hSteps = CGFloat(self.logicalBoardWidth - 3) / 4.0
-//        let vSteps = CGFloat(self.logicalBoardHeight - 1) / 4.0
+        let evenCols = ceil(CGFloat(self.logicalBoardWidth) / 2.0)
+        let oddCols = floor(CGFloat(self.logicalBoardWidth) / 2.0)
+        let evenRows = ceil(CGFloat(self.logicalBoardHeight) / 2.0)
+        let oddRows = floor(CGFloat(self.logicalBoardHeight) / 2.0)
         
-        /* The code is the reverse of the following line */
-        /* totalWidth = (hexagon30.edgeRadius + square.width + hexagon30.edgeDiameter) + (hexagon30.edgeDiameter + square.width) * hSteps */
-        let temp = 2.0 / sqrt(3.0)
-        let hexagon30Width = CGFloat(2.0) * effectiveWidth / CGFloat(3.0 + temp + (2 + temp) * Double(hSteps))
-//        let hexagon30Width: CGFloat = 50.0
         
-        self.makeShapesForHexa30Width(hexagon30Width)
+        let temp: CGFloat = 1.0 / sqrt(3.0)
+        let hexagonEdgeRadius = effectiveWidth / ((temp + 1.0) + oddCols + (evenCols - 1.0)*temp)
+        
+        self.makeShapesForHexa30EdgeRadius(hexagonEdgeRadius)
         
         totalWidth = effectiveWidth
-        totalHeight = effectiveHeight
-//        totalHeight = dodecagon.edgeDiameter + (vSteps * (2 * hexagon.edgeDiameter + square.width + dodecagon.edgeDiameter))
+        totalHeight = hexagon30.cornerDiameter + (evenRows-1) * (square.width + triangleUp.r) + oddRows * (triangleUp.height)
         
         if totalHeight > effectiveHeight {
             // Change the proportions to fit the screen is the original didn't fit nicely
@@ -65,9 +64,19 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
             totalWidth = totalWidth * percent
             totalHeight = effectiveHeight
             
-            self.makeShapesForHexa30Width(hexagon30Width * percent)
+            self.makeShapesForHexa30EdgeRadius(hexagonEdgeRadius * percent)
         }
         
+    }
+    
+    func makeShapesForHexa30SideLength(hexagon30SideLength: CGFloat) {
+        let hex = Hexagon30(triangleSide: hexagon30SideLength, pipeWidth: 0.0)
+        self.makeShapesForHexa30Width(hex.edgeDiameter)
+    }
+    
+    func makeShapesForHexa30EdgeRadius(hexagon30EdgeRadius: CGFloat) {
+        let hex = Hexagon30(edgeRadius: hexagon30EdgeRadius, pipeWidth: 0.0)
+        self.makeShapesForHexa30Width(hex.edgeDiameter)
     }
     
     func makeShapesForHexa30Width(hexagon30Width: CGFloat) {
@@ -103,23 +112,47 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         let (row, col) = (piece.row, piece.col)
         var x: CGFloat = 0, y: CGFloat = 0
         
-        if (row % 4 == 0 && col % 4 == 1) || (row % 4 == 2 && col % 4 == 3) || /* Hex 30 */
-           (row % 4 == 0 && col % 4 == 3) || (row % 4 == 2 && col % 4 == 1) {  /* Square */
-            /* BOTH Hexagon 30 Degrees AND Square (Regular) */
-            x = (square.halfWidth + hexagon30.edgeRadius) + (square.halfWidth + hexagon30.edgeRadius) * CGFloat(col - 1) * 0.5
-            y = hexagon30.cornerRadius + (hexagon30.cornerRadius + triangleUp.height + square.halfWidth) * (CGFloat(row) * 0.5)
-            
+        if margins != CGSizeZero {
+            // Normal
+            if (row % 4 == 0 && col % 4 == 1) || (row % 4 == 2 && col % 4 == 3) || /* Hex 30 */
+               (row % 4 == 0 && col % 4 == 3) || (row % 4 == 2 && col % 4 == 1) {  /* Square */
+                /* BOTH Hexagon 30 Degrees AND Square (Regular) */
+                x = (square.halfWidth + hexagon30.edgeRadius) + (square.halfWidth + hexagon30.edgeRadius) * CGFloat(col - 1) * 0.5
+                y = hexagon30.cornerRadius + (hexagon30.cornerRadius + triangleUp.height + square.halfWidth) * (CGFloat(row) * 0.5)
+                
+            } else {
+                /* Sq30, Sq-30, TUp, and TDown */
+                x = (square.halfWidth + hexagon30.edgeRadius) * 0.5 + CGFloat(col) * (hexagon30.edgeRadius + square.halfWidth) * 0.5
+                y = (hexagon30.cornerRadius + square.halfWidth + halfBandHeight) + CGFloat(row - 1) * 0.5 * (bandHeight + square.width)
+                
+                if (row % 4 == 1 && col % 4 == 1) || (row % 4 == 3 && col % 4 == 3) {
+                    /* Triangle Up */
+                    y = y + halfBandHeight - triangleUp.r
+                } else if (row % 4 == 1 && col % 4 == 3) || (row % 4 == 3 && col % 4 == 1) {
+                    /* Triangle Down */
+                    y = y - halfBandHeight + triangleDown.r
+                }
+            }
         } else {
-            /* Sq30, Sq-30, TUp, and TDown */
-            x = (square.halfWidth + hexagon30.edgeRadius) * 0.5 + CGFloat(col) * (hexagon30.edgeRadius + square.halfWidth) * 0.5
-            y = (hexagon30.cornerRadius + square.halfWidth + halfBandHeight) + CGFloat(row - 1) * 0.5 * (bandHeight + square.width)
-            
-            if (row % 4 == 1 && col % 4 == 1) || (row % 4 == 3 && col % 4 == 3) {
-                /* Triangle Up */
-                y = y + halfBandHeight - triangleUp.r
-            } else if (row % 4 == 1 && col % 4 == 3) || (row % 4 == 3 && col % 4 == 1) {
-                /* Triangle Down */
-                y = y - halfBandHeight + triangleDown.r
+            // Thumbnail, slightly different
+            if (row % 4 == 0 && col % 4 == 1) || (row % 4 == 2 && col % 4 == 3) || /* Hex 30 */
+                (row % 4 == 0 && col % 4 == 3) || (row % 4 == 2 && col % 4 == 1) {  /* Square */
+                /* BOTH Hexagon 30 Degrees AND Square (Regular) */
+                x = hexagon30.edgeRadius + (square.halfWidth + hexagon30.edgeRadius) * CGFloat(col - 1) * 0.5
+                y = hexagon30.cornerRadius + (hexagon30.cornerRadius + triangleUp.height + square.halfWidth) * (CGFloat(row) * 0.5)
+                
+            } else {
+                /* Sq30, Sq-30, TUp, and TDown */
+                x = ((square.halfWidth + hexagon30.edgeRadius) * 0.5 - square.halfWidth) + CGFloat(col) * (hexagon30.edgeRadius + square.halfWidth) * 0.5
+                y = (hexagon30.cornerRadius + square.halfWidth + halfBandHeight) + CGFloat(row - 1) * 0.5 * (bandHeight + square.width)
+                
+                if (row % 4 == 1 && col % 4 == 1) || (row % 4 == 3 && col % 4 == 3) {
+                    /* Triangle Up */
+                    y = y + halfBandHeight - triangleUp.r
+                } else if (row % 4 == 1 && col % 4 == 3) || (row % 4 == 3 && col % 4 == 1) {
+                    /* Triangle Down */
+                    y = y - halfBandHeight + triangleDown.r
+                }
             }
         }
         
@@ -134,11 +167,24 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         scene.logicalBoard.board[0][3] = nil
         scene.logicalBoard.sourceCol = 1
         
-        scene.totalWidth = scene.effectiveWidth
-        scene.totalHeight = scene.effectiveHeight
+        let hexagonSideLength = size.width / CGFloat(1.0 + sqrt(3.0))
+        scene.makeShapesForHexa30SideLength(hexagonSideLength)
         
-        let newHexagon30Width = scene.hexagon30.edgeDiameter * 1.3
-        scene.makeShapesForHexa30Width(newHexagon30Width)
+        let evenRows = ceil(CGFloat(scene.logicalBoardHeight) / 2.0)
+        let oddRows = floor(CGFloat(scene.logicalBoardHeight) / 2.0)
+        scene.totalHeight = scene.hexagon30.cornerDiameter + (evenRows-1) * (scene.square.width + scene.triangleUp.r) + oddRows * (scene.triangleUp.height)
+        scene.totalWidth = scene.effectiveWidth
+        
+        if scene.totalHeight > scene.effectiveHeight {
+            // Change the proportions to fit the screen is the original didn't fit nicely
+            let percent = scene.effectiveHeight / scene.totalHeight
+            
+            scene.totalWidth = scene.totalWidth * percent
+            scene.totalHeight = scene.effectiveHeight
+            
+            scene.makeShapesForHexa30SideLength(hexagonSideLength * percent)
+        }
+        
         scene.constructTextures()
         scene.refreshAllPieces()
         
