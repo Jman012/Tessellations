@@ -57,16 +57,16 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
         
         totalWidth = effectiveWidth
         totalHeight = dodecagon.edgeDiameter + (vSteps * (2 * hexagon.edgeDiameter + square.width + dodecagon.edgeDiameter))
-//        
-//        if totalHeight > effectiveHeight {
-//            // Change the proportions to fit the screen is the original didn't fit nicely
-//            let percent = effectiveHeight / totalHeight
-//            
-//            totalWidth = totalWidth * percent
-//            totalHeight = effectiveHeight
-//            
-//            self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter * percent)
-//        }
+        
+        if totalHeight > effectiveHeight {
+            // Change the proportions to fit the screen is the original didn't fit nicely
+            let percent = effectiveHeight / totalHeight
+            
+            totalWidth = totalWidth * percent
+            totalHeight = effectiveHeight
+            
+            self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter * percent)
+        }
         
     }
     
