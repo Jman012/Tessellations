@@ -712,7 +712,7 @@ extension AbstractGameBoard {
             let neighbors = self.freeNeighbors(row: mazeRow, col: mazeCol)
             
             if neighbors.count > 0 {
-                let neighborDir = neighbors.randomItem()
+                let neighborDir = neighbors.randomItemTessellations()
                 let neighbor = self.getPiece(inDir: neighborDir, ofPiece: mazePiece)!
                 
                 self.setPipeState(.Branch, ofPiece: mazePiece, inTrueDir: neighborDir)
@@ -726,7 +726,7 @@ extension AbstractGameBoard {
             } else if let (row, col) = hunt() {
                 let huntedPiece = self.getPiece(row: row, col: col)!
                 
-                let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItem()
+                let neighborDir = self.adjacentNeighbors(row: row, col: col).randomItemTessellations()
                 let neighbor = self.getPiece(inDir: neighborDir, ofPiece: huntedPiece)!
                 
                 self.setPipeState(.Source, ofPiece: huntedPiece, inTrueDir: neighborDir)

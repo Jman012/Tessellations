@@ -59,6 +59,7 @@
 		1AA129FA1D658A6400146731 /* HexagonSquareTriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F91D658A6300146731 /* HexagonSquareTriangleBoard.swift */; };
 		1AA129FC1D66246A00146731 /* Hexagon30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129FB1D66246A00146731 /* Hexagon30.swift */; };
 		1AA129FE1D6629D800146731 /* HexagonSquareTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */; };
+		1AA2C10D1D847EEC00CCCDF1 /* MenuTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		1AA129F91D658A6300146731 /* HexagonSquareTriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonSquareTriangleBoard.swift; path = Boards/HexagonSquareTriangleBoard.swift; sourceTree = "<group>"; };
 		1AA129FB1D66246A00146731 /* Hexagon30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon30.swift; path = Shapes/Hexagon30.swift; sourceTree = "<group>"; };
 		1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonSquareTriangleScene.swift; path = Scenes/HexagonSquareTriangleScene.swift; sourceTree = "<group>"; };
+		1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTitleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 				1A27105D1D74B645000F779A /* MenuButtonCell.swift */,
 				1A27105F1D7551C6000F779A /* MenuSizeColorCell.swift */,
 				1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */,
+				1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				1AA129C61D6382F600146731 /* Octagon.swift in Sources */,
 				1AA129FE1D6629D800146731 /* HexagonSquareTriangleScene.swift in Sources */,
 				1AA129C81D63918F00146731 /* Square45.swift in Sources */,
+				1AA2C10D1D847EEC00CCCDF1 /* MenuTitleCell.swift in Sources */,
 				1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */,
 				1AA129DE1D6411C500146731 /* SquareScene.swift in Sources */,
 				1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */,

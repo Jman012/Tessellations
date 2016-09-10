@@ -24,7 +24,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
      * Section 0:
      *   Color leftright (row 0)
      *   Size leftright  (row 1)
-     * Section 1: (not done yet)
+     * Section 1:
      *   Shuffle button
      * Section 2:
      *   Board buttons
@@ -40,8 +40,9 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         self.title = " "
         
+        menuData.append(["Title"])
         menuData.append(["Color", "Size"])
-//        menuData.append(["Shuffle"])
+        menuData.append(["Shuffle"])
         menuData.append(sceneClassStrings)
         
         self.collectionView?.backgroundColor = Singleton.shared.palette.background
@@ -60,7 +61,8 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     }
     
     func singleton(singleton: Singleton, didMoveToPalette palette: ScenePalette) {
-        self.collectionView?.backgroundColor = Singleton.shared.palette.background
+        self.collectionView?.backgroundColor = singleton.palette.background
+        self.view.backgroundColor = singleton.palette.background
         self.collectionView?.reloadData()
     }
     
@@ -76,9 +78,15 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         
         switch indexPath.section {
         case 0:
-            return self.constructLeftRightCellForIndexPath(indexPath)
+            return self.constructTitleCellForIndexPath(indexPath)
             
         case 1:
+            return self.constructLeftRightCellForIndexPath(indexPath)
+            
+        case 2:
+            return self.constructButtonCellForIndexPath(indexPath)
+            
+        case 3:
             return self.constructBoardCellForIndexPath(indexPath)
         
         default:
@@ -98,19 +106,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.typeString = menuData[indexPath.section][indexPath.row]
         cell.label.textColor = UIColor.blackColor()
         cell.label.text = menuData[indexPath.section][indexPath.row]
-        
-        return cell
-    }
-    
-    func constructSizeColorCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuSizeColorCell", forIndexPath: indexPath) as! MenuSizeColorCell
-        
-        cell.setColors()
-        cell.sizeSlider.tintColor = Singleton.shared.palette.piece
-        cell.collectionVC = self
-        
-        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        cell.layer.borderWidth = 0.25
         
         return cell
     }
@@ -159,14 +154,38 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         return cell
     }
     
+    func constructButtonCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuButtonCell", forIndexPath: indexPath) as! MenuButtonCell
+        
+        cell.setColors()
+        cell.label.text = "Shuffle"
+        
+        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+        cell.layer.borderWidth = 0.25
+        
+        return cell
+    }
+    
+    func constructTitleCellForIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuTitleCell", forIndexPath: indexPath) as! MenuTitleCell
+        
+        cell.setColors()
+        
+        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
+        cell.layer.borderWidth = 0.25
+        
+        return cell
+    }
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
-        case 0:
-            // SizeColorCell will do its own touch recognizing and use
-            // its weak reference to self to do work
+        
+        case 2:
+            // Shuffle
+            self.performSegueWithIdentifier("MenuBoardCellSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
             break
             
-        case 1:
+        case 3:
             self.performSegueWithIdentifier("MenuBoardCellSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
             
         default:
@@ -178,22 +197,25 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "MenuBoardCellSegue" {
             let viewController = segue.destinationViewController as! ViewController
-            let cell = sender as! MenuBoardCell
-            viewController.setBoardType(cell.label!.text!, forBoardSize: boardSize)
+            if let cell = sender as? MenuBoardCell {
+                viewController.setBoardType(cell.label!.text!, forBoardSize: boardSize)
+            } else if (sender as? MenuButtonCell) != nil {
+                viewController.shuffle(forBoardTypes: sceneClassStrings, boardSize: boardSize)
+            }
         }
     }
     
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         switch indexPath.section {
+        
         case 0:
-            if selection == .None {
-                return CGSize(width: collectionView.frame.width, height: 44.0)
-            } else {
-                return CGSize(width: collectionView.frame.width, height: 88.0)
-            }
+            return CGSize(width: self.collectionView!.frame.size.width, height: 88.0)
             
-        case 1:
+        case 1, 2:
+            return CGSize(width: self.collectionView!.frame.size.width, height: 44.0)
+            
+        case 3:
             return CGSize(width: self.collectionView!.frame.size.width / 2.0,
                           height: self.collectionView!.frame.size.width / 2.0)
             

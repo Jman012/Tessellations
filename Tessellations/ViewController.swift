@@ -24,7 +24,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var winnerLabel: UILabel!
     
-    var boardType: String!
+    var shuffle = false
+    var boardType: String = ""
+    var allBoardTypes: [String] = []
     var boardSize: BoardSize!
     var boardNumber: UInt = 0
     
@@ -82,6 +84,23 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func shuffle(forBoardTypes boardTypes: [String], boardSize: BoardSize) {
+        self.shuffle = true
+        self.allBoardTypes = boardTypes
+        self.boardSize = boardSize
+        
+        self.doShuffle()
+    }
+    
+    func doShuffle() {
+        var type = self.allBoardTypes.randomItemTrueRandom()
+        while type == self.boardType {
+            type = self.allBoardTypes.randomItemTrueRandom()
+        }
+        
+        self.setBoardType(type, forBoardSize: self.boardSize)
     }
     
     func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
@@ -203,7 +222,11 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.winnerLabel.hidden = true
         self.titleButton.hidden = false
         
-        self.setBoardType(self.boardType, forBoardSize: self.boardSize)
+        if shuffle == false {
+            self.setBoardType(self.boardType, forBoardSize: self.boardSize)
+        } else {
+            self.doShuffle()
+        }
     }
     
     func gameWon() {

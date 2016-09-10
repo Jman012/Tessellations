@@ -71,8 +71,13 @@ extension Double {
 }
 
 extension Array {
-    func randomItem() -> Element {
+    func randomItemTessellations() -> Element {
         let index = TessellationsPuzzleGenRand() % UInt(self.count)
+        return self[index]
+    }
+    
+    func randomItemTrueRandom() -> Element {
+        let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
     }
     

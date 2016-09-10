@@ -382,7 +382,7 @@
                                     <outlet property="sizeSliderView" destination="NTe-Md-O0b" id="4qg-Wk-Ayy"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuButtonCell" id="Egr-Zq-wim" customClass="MenuButtonCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuButtonCell" id="Egr-Zq-wim" customClass="MenuButtonCell" customModule="Tessellations" customModuleProvider="target">
                                 <rect key="frame" x="440" y="35.5" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -486,6 +486,29 @@
                                     <outlet property="rightButton" destination="UCr-s1-Mfv" id="XdP-nb-PLZ"/>
                                     <outlet property="valueLabel" destination="sSN-X9-HaD" id="nkq-Lh-Xd3"/>
                                 </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="MenuTitleCell" id="mdM-Y5-ABl" customClass="MenuTitleCell" customModule="Tessellations" customModuleProvider="target">
+                                <rect key="frame" x="228" y="258.5" width="160" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-mF-h8j">
+                                            <rect key="frame" x="25" y="42.5" width="111" height="74"/>
+                                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="32"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="centerX" secondItem="mdM-Y5-ABl" secondAttribute="centerX" id="11i-Bx-bti"/>
+                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="L8I-mF-h8j" secondAttribute="trailing" constant="8" id="ZaA-cB-IME"/>
+                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mdM-Y5-ABl" secondAttribute="leadingMargin" constant="8" id="d9w-Mg-qE1"/>
+                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="centerY" secondItem="mdM-Y5-ABl" secondAttribute="centerY" id="fvg-Ie-zgY"/>
+                                </constraints>
                             </collectionViewCell>
                         </cells>
                         <connections>
