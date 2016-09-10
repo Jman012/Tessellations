@@ -21,9 +21,12 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var zoomButton: UIButton!
     @IBOutlet var titleButton: UIButton!
+    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var winnerLabel: UILabel!
     
     var boardType: String!
     var boardSize: BoardSize!
+    var boardNumber: UInt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +44,14 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         backButton.backgroundColor = Singleton.shared.palette.buttonBackground
         zoomButton.backgroundColor = Singleton.shared.palette.buttonBackground
         titleButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        nextButton.backgroundColor = Singleton.shared.palette.buttonBackground
+        
+        nextButton.hidden = true
+        winnerLabel.hidden = true
         
         self.view.backgroundColor = Singleton.shared.palette.background
+        
+        self.titleButton.setTitle("\(self.boardNumber)", forState: .Normal)
     }
     
     override func viewDidLayoutSubviews() {
@@ -78,9 +87,13 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
         self.boardType = boardType
         self.boardSize = boardSize
-        let nextBoardNumber = Singleton.shared.progress[boardType]![boardSize]! + 1
-        let seed = TessellationsSeed(forClassString: boardType, boardSize: boardSize, number: Int(nextBoardNumber))
+        self.boardNumber = Singleton.shared.progress[boardType]![boardSize]! + 1
+        let seed = TessellationsSeed(forClassString: boardType, boardSize: boardSize, number: Int(self.boardNumber))
         TessellationsPuzzleGenSeed(seed)
+        
+        if let titleBut = self.titleButton {
+            titleBut.setTitle("\(self.boardNumber)", forState: .Normal)
+        }
         
         switch boardType {
         case sceneClassStrings[SceneIndex.Triangle.rawValue]:
@@ -111,9 +124,9 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
-        self.sceneView.showsFPS = true
-        self.sceneView.showsNodeCount = true
-        self.sceneView.showsDrawCount = true
+//        self.sceneView.showsFPS = true
+//        self.sceneView.showsNodeCount = true
+//        self.sceneView.showsDrawCount = true
         self.sceneView.ignoresSiblingOrder = true
         self.sceneView.presentScene(self.scene)
         
@@ -177,19 +190,35 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func zoom(sender: UIButton) {
         if self.camera.xScale == 1.0 {
-            self.camera.setScale(0.7)
+            self.camera.setScale(0.6)
         } else {
             self.camera.setScale(1.0)
         }
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
     }
     
+    @IBAction func next(sender: UIButton) {
+//        self.sceneView.paused = false
+        self.nextButton.hidden = true
+        self.winnerLabel.hidden = true
+        self.titleButton.hidden = false
+        
+        self.setBoardType(self.boardType, forBoardSize: self.boardSize)
+    }
+    
     func gameWon() {
+        self.camera.setScale(1.0)
+//        self.sceneView.paused = true
+        
+        self.nextButton.hidden = false
+        self.winnerLabel.hidden = false
+        self.titleButton.hidden = true
+        
         Singleton.shared.progress[boardType]![boardSize]! += 1
         
-        let alert = UIAlertController(title: "Won!", message: "Congrats", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "K.", style: .Cancel, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Won!", message: "Congrats", preferredStyle: .Alert)
+//        alert.addAction(UIAlertAction(title: "K.", style: .Cancel, handler: nil))
+//        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }

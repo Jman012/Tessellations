@@ -35,6 +35,22 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o50-p5-VYO">
+                                        <rect key="frame" x="273" y="534" width="54" height="38"/>
+                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V6b-W7-Cdv"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwM-YK-VZd">
                                         <rect key="frame" x="562" y="8" width="30" height="38"/>
                                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
@@ -63,14 +79,24 @@
                                             <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ie7-Lc-ZpP"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAt-gu-Ys2">
+                                        <rect key="frame" x="269" y="16" width="63" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="o50-p5-VYO" secondAttribute="bottom" constant="8" id="Q3W-YQ-aAd"/>
                                     <constraint firstItem="lUA-Rv-Pnz" firstAttribute="leading" secondItem="aGV-he-w0k" secondAttribute="leading" constant="8" id="QRV-hj-Vn4"/>
                                     <constraint firstAttribute="trailing" secondItem="mwM-YK-VZd" secondAttribute="trailing" constant="8" id="TFg-es-FXY"/>
                                     <constraint firstItem="lUA-Rv-Pnz" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="UD5-mx-F6e"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerY" secondItem="hAt-gu-Ys2" secondAttribute="centerY" id="WBT-wD-ipF"/>
                                     <constraint firstItem="mwM-YK-VZd" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="X1d-hd-CFl"/>
+                                    <constraint firstItem="o50-p5-VYO" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="coC-Oz-WSm"/>
                                     <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="owL-dV-Yzj"/>
+                                    <constraint firstItem="hAt-gu-Ys2" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="p3i-Dr-OZZ"/>
                                     <constraint firstItem="pVd-tz-Kpw" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="qmx-2H-Eqa"/>
                                 </constraints>
                             </view>
@@ -88,8 +114,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="lUA-Rv-Pnz" id="PNt-7p-kht"/>
+                        <outlet property="nextButton" destination="o50-p5-VYO" id="syd-BS-y05"/>
                         <outlet property="sceneView" destination="aGV-he-w0k" id="rck-ec-gGF"/>
-                        <outlet property="titleButton" destination="pVd-tz-Kpw" id="4C1-6H-xQd"/>
+                        <outlet property="titleButton" destination="pVd-tz-Kpw" id="eFW-Y1-bWB"/>
+                        <outlet property="winnerLabel" destination="hAt-gu-Ys2" id="EoK-Xu-kNE"/>
                         <outlet property="zoomButton" destination="mwM-YK-VZd" id="J4d-Za-ayP"/>
                     </connections>
                 </viewController>

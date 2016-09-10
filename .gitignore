@@ -29,3 +29,4 @@ Tessellations.xcodeproj/project.xcworkspace/xcuserdata/james.xcuserdatad/UserInt
 *.xcuserstate
 
 Art/*
+.DS_Store

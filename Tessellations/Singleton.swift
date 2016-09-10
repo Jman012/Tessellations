@@ -76,6 +76,7 @@ class Singleton {
     
     func loadColorPalettes() {
         // Load Color Palette
+        // http://paletton.com/palette.php?uid=10u0u0k72%2B%2B0j%2B%2B3u%2B%2BdTO0reqW
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var paletteIndex: Int = 0
         if let thePaletteIndex = userDefaults.objectForKey("PaletteIndex") as? Int {

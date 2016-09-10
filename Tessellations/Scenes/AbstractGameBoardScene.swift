@@ -81,6 +81,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var currentBoardPipeWidth: CGFloat = 0.0
     
     var logicalBoard: AbstractGameBoard!
+    var gameIsWon = false
     
     required init(size: CGSize, boardSize: BoardSize, margins: Bool) {
         
@@ -326,6 +327,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     }
     
     func gotTapAtLocation(location: CGPoint) {
+        guard gameIsWon == false else {
+            return
+        }
+        
         let location = self.convertPointFromView(location)
         if let node = self.pieceAtPoint(location) {
             self.logicalBoard.rotatePiece(row: node.row, col: node.col)
@@ -333,6 +338,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     }
     
     func gameWon() {
+        gameIsWon = true
         if let del = self.del {
             del.gameWon()
         }
