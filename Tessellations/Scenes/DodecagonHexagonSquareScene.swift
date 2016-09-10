@@ -42,27 +42,31 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
     
     override func setShapePaths() {
         
-        let hSteps = CGFloat(self.logicalBoardWidth - 1) / 4.0
+//        let hSteps = CGFloat(self.logicalBoardWidth - 1) / 4.0
         let vSteps = CGFloat(self.logicalBoardHeight - 1) / 4.0
+        let numEvenWidth = ceil(CGFloat(self.logicalBoardWidth) / 2.0)
         
         /* The code is the reverse of the following line */
         /* totalWidth = dodecagon.edgeDiameter + (dodecagon.edgeDiameter + dodecagon.sideLength) * steps */
-        let dodecagonEdgeDiameter = effectiveWidth / (1 + hSteps + 0.25*CGFloat(sqrt(6.0) - sqrt(2.0))*hSteps)
+//        let dodecagonEdgeDiameter = effectiveWidth / (1 + hSteps + 0.25*CGFloat(sqrt(6.0) - sqrt(2.0))*hSteps)
+        let temp = 0.5 + (1.0 / (2.0*(2.0 + sqrt(3.0))))
+        let denominator = (1.0 + (numEvenWidth - 1.0)*CGFloat(temp))
+        let dodecagonEdgeDiameter = effectiveWidth / denominator
         
         self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter)
         
         totalWidth = effectiveWidth
         totalHeight = dodecagon.edgeDiameter + (vSteps * (2 * hexagon.edgeDiameter + square.width + dodecagon.edgeDiameter))
-        
-        if totalHeight > effectiveHeight {
-            // Change the proportions to fit the screen is the original didn't fit nicely
-            let percent = effectiveHeight / totalHeight
-            
-            totalWidth = totalWidth * percent
-            totalHeight = effectiveHeight
-            
-            self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter * percent)
-        }
+//        
+//        if totalHeight > effectiveHeight {
+//            // Change the proportions to fit the screen is the original didn't fit nicely
+//            let percent = effectiveHeight / totalHeight
+//            
+//            totalWidth = totalWidth * percent
+//            totalHeight = effectiveHeight
+//            
+//            self.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter * percent)
+//        }
         
     }
     
@@ -135,6 +139,13 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
         scene.logicalBoard.board[0][2] = nil
         
         scene.totalHeight -= scene.halfBandHeight
+//        scene.totalWidth = scene.totalWidth - scene.dodecagon.edgeRadius + scene.hexagon.cornerRadius
+        
+        let denominator = 1.0 + (3 / (2.0*(2.0 + sqrt(3.0))))
+        let dodecagonEdgeDiameter = size.width / CGFloat(denominator)
+        scene.makeShapesForDodecaEdgeDiameter(dodecagonEdgeDiameter)
+        scene.constructTextures()
+        scene.refreshAllPieces()
         
         let dPiece = scene.logicalBoard.getPiece(row: 0, col: 0)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: dPiece, inTrueDir: .SouthEastEast)
