@@ -231,6 +231,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     func gameWon() {
         self.camera.setScale(1.0)
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
 //        self.sceneView.paused = true
         
         self.nextButton.hidden = false
