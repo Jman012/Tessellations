@@ -29,6 +29,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var allBoardTypes: [String] = []
     var boardSize: BoardSize!
     var boardNumber: UInt = 0
+    var won = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,6 +209,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
     
     @IBAction func zoom(sender: UIButton) {
+        guard self.won == false else {
+            return
+        }
+        
         if self.camera.xScale == 1.0 {
             self.camera.setScale(0.6)
         } else {
@@ -218,6 +223,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     
     @IBAction func next(sender: UIButton) {
 //        self.sceneView.paused = false
+        self.won = false
         self.nextButton.hidden = true
         self.winnerLabel.hidden = true
         self.titleButton.hidden = false
@@ -234,6 +240,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
 //        self.sceneView.paused = true
         
+        self.won = true
         self.nextButton.hidden = false
         self.winnerLabel.hidden = false
         self.titleButton.hidden = true
