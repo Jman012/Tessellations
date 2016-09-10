@@ -200,10 +200,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
 //            print("For pieceType \(pieceType), frame=\(shapeNode.frame)")
             let largerSide: CGFloat
             if shapeNode.frame.width > shapeNode.frame.height {
-                largerSide = shapeNode.frame.width
+                largerSide = shapeNode.frame.width * 1.2
 //                print("Using width")
             } else {
-                largerSide = shapeNode.frame.height
+                largerSide = shapeNode.frame.height * 1.2
 //                print("Using height")
             }
             
