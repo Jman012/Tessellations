@@ -83,7 +83,8 @@ class PieceNode: SKSpriteNode {
             } else {
                 bubble.texture = bubbleDisabledTexture
             }
-            bubble.size = bubble.texture!.size()
+            let theSize = bubble.texture!.size()
+            bubble.size = CGSize(width: theSize.width * kCameraZoomIn, height: theSize.height * kCameraZoomIn)
             bubble.position = self.position
             bubble.zPosition = 2
             bubble.name = "Bubble \(row, col) \(singlePipe.enabled)"

@@ -240,7 +240,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Bubble
-        let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2 * kCameraZoomIn)
+        let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2)
         bubble.lineWidth = 1.0
         bubble.fillColor = Singleton.shared.palette.pipeEnabled
         bubble.strokeColor = Singleton.shared.palette.pipeEnabled
