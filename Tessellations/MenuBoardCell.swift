@@ -21,6 +21,7 @@ class MenuBoardCell: UICollectionViewCell {
     }
     @IBOutlet var label: UILabel!
     @IBOutlet var progressLabel: UILabel!
+    @IBOutlet var progressMaxLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var highlightView: UIView!
     @IBOutlet var progressView: SquarePieProgressView!
@@ -70,7 +71,8 @@ class MenuBoardCell: UICollectionViewCell {
     }
     
     func updateProgress() {
-        progressLabel.text = "\(self.progress) / 100"
+        progressLabel.text = "\(self.progress)"
+        progressMaxLabel.text = "100"
         progressView.percent = CGFloat(self.progress) / 100.0
     }
 }
