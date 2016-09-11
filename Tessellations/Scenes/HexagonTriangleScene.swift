@@ -45,15 +45,15 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         }
         
         
-        triangleUp = TriangleUp(sideLength: tri_a, pipeWidth: tri_a / 3.5)
+        triangleUp = TriangleUp(sideLength: tri_a, pipeWidth: tri_a / 5)
         self.shapePaths[.TriangleUp] = triangleUp.path
         self.pipePaths[.TriangleUp] = triangleUp.pipePath
         
-        triangleDown = TriangleDown(sideLength: tri_a, pipeWidth: tri_a / 3.5)
+        triangleDown = TriangleDown(sideLength: tri_a, pipeWidth: tri_a / 5)
         self.shapePaths[.TriangleDown] = triangleDown.path
         self.pipePaths[.TriangleDown] = triangleDown.pipePath
         
-        hexagon = Hexagon(triangleSide: tri_a, pipeWidth: tri_a / 3.5)
+        hexagon = Hexagon(triangleSide: tri_a, pipeWidth: tri_a / 5)
         self.shapePaths[.Hexagon] = hexagon.path
         self.pipePaths[.Hexagon] = hexagon.pipePath
         
