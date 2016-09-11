@@ -55,7 +55,7 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         self.makeShapesForHexa30EdgeRadius(hexagonEdgeRadius)
         
         totalWidth = effectiveWidth
-        totalHeight = hexagon30.cornerDiameter + (evenRows-1) * (square.width + triangleUp.r) + oddRows * (triangleUp.height)
+        totalHeight = hexagon30.cornerDiameter + (evenRows-1) * (square.width + (hexagon30.cornerRadius-square.halfWidth)) + oddRows * (triangleUp.height)
         
         if totalHeight > effectiveHeight {
             // Change the proportions to fit the screen is the original didn't fit nicely
