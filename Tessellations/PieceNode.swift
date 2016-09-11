@@ -46,10 +46,8 @@ class PieceNode: SKSpriteNode {
         self.row = row
         self.col = col
         
-        super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
-        
-        self.xScale = kCameraZoomIn
-        self.yScale = kCameraZoomIn
+        let theSize = CGSize(width: texture.size().width * kCameraZoomIn, height: texture.size().height * kCameraZoomIn)
+        super.init(texture: texture, color: UIColor.clearColor(), size: theSize)
     }
     
     required init?(coder aDecoder: NSCoder) {

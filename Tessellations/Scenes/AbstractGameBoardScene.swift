@@ -193,11 +193,12 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = Singleton.shared.palette.piece
         shapeNode.lineWidth = 1.0
         
-        var zoomScale = CGAffineTransformMakeScale(1.0 + kCameraZoomIn, 1.0 + kCameraZoomIn)
+        var zoomScale = CGAffineTransformMakeScale(1.0 / kCameraZoomIn, 1.0 / kCameraZoomIn)
         
         // Shape
         for (pieceType, path) in self.shapePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
+//            shapeNode.path = path
 
             let largerSide: CGFloat
             if shapeNode.frame.width > shapeNode.frame.height {
@@ -313,9 +314,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
                 // pieces will always be in the same orientation.
                 let locationInNode = self.convertPoint(location, toNode: node)
                 
-                var zoomScale = CGAffineTransformMakeScale(1.0 + kCameraZoomIn, 1.0 + kCameraZoomIn)
-                let scaledPath = CGPathCreateCopyByTransformingPath(self.shapePaths[node.pieceType]!, &zoomScale)
-                return CGPathContainsPoint(scaledPath, nil, locationInNode, false)
+                return CGPathContainsPoint(self.shapePaths[node.pieceType]!, nil, locationInNode, false)
             } else {
                 return false
             }
