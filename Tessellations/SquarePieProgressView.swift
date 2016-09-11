@@ -13,6 +13,10 @@ class SquarePieProgressView: UIView {
     var percent: CGFloat = 0.0 {
         didSet { self.setNeedsDisplay() }
     }
+    
+    var progressColor: UIColor? {
+        didSet { self.setNeedsDisplay() }
+    }
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -33,7 +37,7 @@ class SquarePieProgressView: UIView {
         let ctx = UIGraphicsGetCurrentContext()
         CGContextClearRect(ctx, rect)
         CGContextAddPath(ctx, path)
-        CGContextSetFillColorWithColor(ctx, Singleton.shared.palette.buttonBackground.CGColor)
+        CGContextSetFillColorWithColor(ctx, self.progressColor?.CGColor)
         CGContextFillPath(ctx)
     }
 

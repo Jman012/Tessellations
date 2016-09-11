@@ -25,11 +25,15 @@ class MenuLeftRightOptionCell: UICollectionViewCell {
         self.rightButton.backgroundColor = Singleton.shared.palette.buttonBackground
     }
     
+    override func awakeFromNib() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
+    }
+    
     @IBAction func buttonTouched(sender: UIButton) {
         if sender == leftButton {
             value -= 1
             if value < 0 {
-                value = 0
+                value = maxValue
             }
             if let callback = valueDidChange {
                 callback(sender: self)
@@ -37,7 +41,7 @@ class MenuLeftRightOptionCell: UICollectionViewCell {
         } else if sender == rightButton {
             value += 1
             if value > maxValue {
-                value = maxValue
+                value = 0
             }
             if let callback = valueDidChange {
                 callback(sender: self)

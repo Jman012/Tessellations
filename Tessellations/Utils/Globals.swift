@@ -9,6 +9,7 @@
 import UIKit
 
 let kThumbnailImageDidChange = "ThumbnailImageDidChange"
+let kPaletteDidChange = "PaletteDidChange"
 let kClassString = "ClassString"
 
 let kCameraZoomIn:CGFloat = 0.6

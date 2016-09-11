@@ -63,7 +63,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     func singleton(singleton: Singleton, didMoveToPalette palette: ScenePalette) {
         self.collectionView?.backgroundColor = singleton.palette.background
         self.view.backgroundColor = singleton.palette.background
-        self.collectionView?.reloadData()
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

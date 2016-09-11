@@ -44,11 +44,12 @@ class MenuBoardCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
     func setColors() {
         self.contentView.backgroundColor = Singleton.shared.palette.background
+        self.progressView.progressColor = Singleton.shared.palette.buttonBackground
     }
     
     func redoImage(sender: NSNotification?) {

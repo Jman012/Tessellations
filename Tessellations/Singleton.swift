@@ -172,6 +172,8 @@ class Singleton {
         let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
         appDelegate.generateThumbnails()
         
+        NSNotificationCenter.defaultCenter().postNotificationName(kPaletteDidChange, object: nil)
+        
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setInteger(currentPalette, forKey: "PaletteIndex")
     }
