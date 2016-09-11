@@ -193,18 +193,17 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = Singleton.shared.palette.piece
         shapeNode.lineWidth = 1.0
         
+        var zoomScale = CGAffineTransformMakeScale(1.0 + kCameraZoomIn, 1.0 + kCameraZoomIn)
         
         // Shape
         for (pieceType, path) in self.shapePaths {
-            shapeNode.path = path
-//            print("For pieceType \(pieceType), frame=\(shapeNode.frame)")
+            shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
+
             let largerSide: CGFloat
             if shapeNode.frame.width > shapeNode.frame.height {
                 largerSide = shapeNode.frame.width * 1.2
-//                print("Using width")
             } else {
                 largerSide = shapeNode.frame.height * 1.2
-//                print("Using height")
             }
             
             let texture = skView.textureFromNode(shapeNode, crop:
@@ -220,7 +219,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = Singleton.shared.palette.pipeEnabled
         
         for (pieceType, path) in self.pipePaths {
-            shapeNode.path = path
+            shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
             let pieceShapeSize = self.shapeTextures[pieceType]!.size()
             let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesEnabled[pieceType] = texture
@@ -234,14 +233,14 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         shapeNode.strokeColor = Singleton.shared.palette.pipeDisabled
         
         for (pieceType, path) in self.pipePaths {
-            shapeNode.path = path
+            shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
             let pieceShapeSize = self.shapeTextures[pieceType]!.size()
             let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesDisabled[pieceType] = texture
         }
         
         // Bubble
-        let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2)
+        let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2 * kCameraZoomIn)
         bubble.lineWidth = 1.0
         bubble.fillColor = Singleton.shared.palette.pipeEnabled
         bubble.strokeColor = Singleton.shared.palette.pipeEnabled
@@ -313,7 +312,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
                 // TODO: Apply a rotation transform as a safeguard, even though
                 // pieces will always be in the same orientation.
                 let locationInNode = self.convertPoint(location, toNode: node)
-                return CGPathContainsPoint(self.shapePaths[node.pieceType]!, nil, locationInNode, false)
+                
+                var zoomScale = CGAffineTransformMakeScale(1.0 + kCameraZoomIn, 1.0 + kCameraZoomIn)
+                let scaledPath = CGPathCreateCopyByTransformingPath(self.shapePaths[node.pieceType]!, &zoomScale)
+                return CGPathContainsPoint(scaledPath, nil, locationInNode, false)
             } else {
                 return false
             }
@@ -342,6 +344,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         if let del = self.del {
             del.gameWon()
         }
+    }
+    
+    override func didFinishUpdate() {
+        
     }
     
     func boardDidClear() {
@@ -386,7 +392,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)]!
             rootMarker.path = self.shapePaths[piece.type]!
             
-            rootMarker.runAction(SKAction.scaleTo(0.5 * (currentBoardPipeWidth / node.frame.size.width), duration: 0))
+            rootMarker.runAction(SKAction.scaleTo(kCameraZoomIn * 0.5 * (currentBoardPipeWidth / node.frame.size.width), duration: 0))
             
             rootMarker.position = node.position
             rootMarker.zPosition = 4

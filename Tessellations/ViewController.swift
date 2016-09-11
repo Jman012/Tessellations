@@ -137,7 +137,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         }
         
-        self.camera.setScale(1.0)
+        self.camera.setScale(kCameraZoomOut)
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
         self.scene.camera = self.camera
         
@@ -213,10 +213,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             return
         }
         
-        if self.camera.xScale == 1.0 {
-            self.camera.setScale(0.6)
+        if self.camera.xScale == kCameraZoomOut {
+            self.camera.setScale(kCameraZoomIn)
         } else {
-            self.camera.setScale(1.0)
+            self.camera.setScale(kCameraZoomOut)
         }
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
     }
@@ -236,7 +236,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
     
     func gameWon() {
-        self.camera.setScale(1.0)
+        self.camera.setScale(kCameraZoomOut)
         self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
 //        self.sceneView.paused = true
         

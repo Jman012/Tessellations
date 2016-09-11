@@ -47,6 +47,9 @@ class PieceNode: SKSpriteNode {
         self.col = col
         
         super.init(texture: texture, color: UIColor.clearColor(), size: texture.size())
+        
+        self.xScale = kCameraZoomIn
+        self.yScale = kCameraZoomIn
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,8 +98,8 @@ class PieceNode: SKSpriteNode {
     }
     
     func rotateToDegrees(degrees: CGFloat) {
+        self.transientZRotation = degrees
         for (direction, pipeNode) in self.pipeNodes {
-            self.transientZRotation = degrees
             pipeNode.zRotation = self.transientZRotation - CGFloat(Double(direction.rawValue).degrees)
         }
     }
@@ -145,7 +148,8 @@ class PieceNode: SKSpriteNode {
         } else {
             pipeNode.texture = pipeDisabledTexture
         }
-        pipeNode.size = pipeNode.texture!.size()
+        let theSize = pipeNode.texture!.size()
+        pipeNode.size = CGSize(width: theSize.width * kCameraZoomIn, height: theSize.height * kCameraZoomIn)
         
         
         /* Add to structures */

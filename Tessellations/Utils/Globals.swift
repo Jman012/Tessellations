@@ -11,6 +11,9 @@ import UIKit
 let kThumbnailImageDidChange = "ThumbnailImageDidChange"
 let kClassString = "ClassString"
 
+let kCameraZoomIn:CGFloat = 0.6
+let kCameraZoomOut: CGFloat = 1.0
+
 let sceneClassStrings: [String] = [
     NSStringFromClass(TriangleScene.self),
     NSStringFromClass(SquareScene.self),
