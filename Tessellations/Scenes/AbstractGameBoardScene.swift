@@ -42,6 +42,7 @@ enum BoardSize: Int {
 
 protocol GameBoardSceneProtocol: class {
     func gameWon()
+    func boardDidFinishDestructing()
 }
 
 class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
@@ -342,6 +343,12 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         gameIsWon = true
         if let del = self.del {
             del.gameWon()
+        }
+    }
+    
+    func boardDidFinishDestructing() {
+        if let del = self.del {
+            del.boardDidFinishDestructing()
         }
     }
     

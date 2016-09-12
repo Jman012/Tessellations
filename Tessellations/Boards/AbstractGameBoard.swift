@@ -79,6 +79,7 @@ protocol AbstractGameBoardProtocol: class {
     func pieceDidRotate(piece: Piece)
     func boardDidClear()
     func gameWon()
+    func boardDidFinishDestructing()
 }
 
 class Piece: NSObject {
@@ -480,6 +481,36 @@ class AbstractGameBoard: NSObject {
             self.forAllPieces {
                 piece in
                 del.pieceDidRotate(piece)
+            }
+        }
+    }
+    
+    func destructBoard() {
+        self.destructBoard([self.rootPiece()!])
+    }
+    
+    @objc private func destructBoard(pieces: [Piece]) {
+        var nextPieces: [Piece] = []
+        
+        for piece in pieces {
+            piece.forEachPipeState {
+                trueDir, state in
+                guard state != .None else {
+                    return
+                }
+                
+                let newPiece = self.getPiece(inDir: piece.logicalDirForTrueDir(trueDir), ofPiece: piece)!
+                nextPieces.append(newPiece)
+                
+                self.setPipeState(.None, ofPiece: piece, inTrueDir: trueDir)
+            }
+        }
+        
+        if nextPieces.count > 0 {
+            self.performSelector(#selector(AbstractGameBoard.destructBoard(_:)), withObject: nextPieces, afterDelay: 0.05)
+        } else {
+            if let del = self.delegate {
+                del.boardDidFinishDestructing()
             }
         }
     }

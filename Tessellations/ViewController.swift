@@ -30,6 +30,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     var boardSize: BoardSize!
     var boardNumber: UInt = 0
     var won = false
+    var destructing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,7 +223,26 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     }
     
     @IBAction func next(sender: UIButton) {
-//        self.sceneView.paused = false
+        if self.destructing == false {
+            self.destructing = true
+            self.scene.logicalBoard.destructBoard()
+        }
+    }
+    
+    func gameWon() {
+        self.camera.setScale(kCameraZoomOut)
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
+        
+        self.won = true
+        self.nextButton.hidden = false
+        self.winnerLabel.hidden = false
+        self.titleButton.hidden = true
+        
+        Singleton.shared.progress[boardType]![boardSize]! += 1
+    }
+    
+    func boardDidFinishDestructing() {
+        self.destructing = false
         self.won = false
         self.nextButton.hidden = true
         self.winnerLabel.hidden = true
@@ -233,23 +253,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         } else {
             self.doShuffle()
         }
-    }
-    
-    func gameWon() {
-        self.camera.setScale(kCameraZoomOut)
-        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
-//        self.sceneView.paused = true
-        
-        self.won = true
-        self.nextButton.hidden = false
-        self.winnerLabel.hidden = false
-        self.titleButton.hidden = true
-        
-        Singleton.shared.progress[boardType]![boardSize]! += 1
-        
-//        let alert = UIAlertController(title: "Won!", message: "Congrats", preferredStyle: .Alert)
-//        alert.addAction(UIAlertAction(title: "K.", style: .Cancel, handler: nil))
-//        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }
