@@ -72,7 +72,7 @@ class MenuBoardCell: UICollectionViewCell {
     
     func updateProgress() {
         progressLabel.text = "\(self.progress)"
-        progressMaxLabel.text = "100"
-        progressView.percent = CGFloat(self.progress) / 100.0
+        progressMaxLabel.text = "\(Int(floor(CGFloat(self.progress) / 100) + 1) * 100)"
+        progressView.percent = (CGFloat(self.progress % 100)) / 100.0
     }
 }

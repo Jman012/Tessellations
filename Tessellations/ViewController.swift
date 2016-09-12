@@ -54,7 +54,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         
         self.view.backgroundColor = Singleton.shared.palette.background
         
-        self.titleButton.setTitle("\(self.boardNumber)", forState: .Normal)
+        self.titleButton.setTitle("\(self.boardSize.text()) - #\(self.boardNumber)", forState: .Normal)
     }
     
     override func viewDidLayoutSubviews() {
@@ -112,7 +112,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         TessellationsPuzzleGenSeed(seed)
         
         if let titleBut = self.titleButton {
-            titleBut.setTitle("\(self.boardNumber)", forState: .Normal)
+            titleBut.setTitle("\(self.boardSize.text()) - #\(self.boardNumber)", forState: .Normal)
         }
         
         switch boardType {
