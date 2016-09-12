@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuButtonCell: UICollectionViewCell {
+class MenuButtonCell: MenuBaseCell {
     
     @IBOutlet var label: UILabel!
     @IBOutlet var highlightView: UIView!
@@ -28,8 +28,5 @@ class MenuButtonCell: UICollectionViewCell {
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
-    
-    func setColors() {
-        self.contentView.backgroundColor = Singleton.shared.palette.background
-    }
+
 }

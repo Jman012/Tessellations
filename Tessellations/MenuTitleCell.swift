@@ -8,13 +8,10 @@
 
 import UIKit
 
-class MenuTitleCell: UICollectionViewCell {
+class MenuTitleCell: MenuBaseCell {
     
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
-    func setColors() {
-        self.contentView.backgroundColor = Singleton.shared.palette.background
-    }
 }

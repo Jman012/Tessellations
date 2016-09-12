@@ -32,7 +32,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
 
     var menuData: [[String]] = []
     
-    var selection: SizeColorSelection = .None
     var boardSize: BoardSize = .Small
     
     override func viewDidLoad() {
@@ -99,8 +98,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.setColors()
         cell.collectionVC = self
         cell.highlightView.hidden = true
-        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        cell.layer.borderWidth = 0.25
         
         cell.typeString = menuData[indexPath.section][indexPath.row]
         cell.label.textColor = UIColor.blackColor()
@@ -113,9 +110,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuLeftRightOptionCell", forIndexPath: indexPath) as! MenuLeftRightOptionCell
         
         cell.setColors()
-        
-        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        cell.layer.borderWidth = 0.25
         
         if indexPath.row == 0 {
             cell.maxValue = Singleton.shared.allPalettes.count - 1
@@ -159,9 +153,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.setColors()
         cell.label.text = "Shuffle"
         
-        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        cell.layer.borderWidth = 0.25
-        
         return cell
     }
     
@@ -169,9 +160,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         let cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier("MenuTitleCell", forIndexPath: indexPath) as! MenuTitleCell
         
         cell.setColors()
-        
-        cell.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        cell.layer.borderWidth = 0.25
         
         return cell
     }

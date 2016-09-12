@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuLeftRightOptionCell: UICollectionViewCell {
+class MenuLeftRightOptionCell: MenuBaseCell {
     
     @IBOutlet var optionLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
@@ -18,8 +18,8 @@ class MenuLeftRightOptionCell: UICollectionViewCell {
     var maxValue: Int = 0
     var valueDidChange: ((sender: MenuLeftRightOptionCell) -> Void)?
     
-    func setColors() {
-        self.contentView.backgroundColor = Singleton.shared.palette.background
+    override func setColors() {
+        super.setColors()
         
         self.leftButton.backgroundColor = Singleton.shared.palette.buttonBackground
         self.rightButton.backgroundColor = Singleton.shared.palette.buttonBackground

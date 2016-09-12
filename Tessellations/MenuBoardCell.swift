@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuBoardCell: UICollectionViewCell {
+class MenuBoardCell: MenuBaseCell {
 
     var typeString: String! {
         didSet {
@@ -48,8 +48,8 @@ class MenuBoardCell: UICollectionViewCell {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
-    func setColors() {
-        self.contentView.backgroundColor = Singleton.shared.palette.background
+    override func setColors() {
+        super.setColors()
         self.progressView.progressColor = Singleton.shared.palette.buttonBackground
     }
     
