@@ -239,6 +239,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.titleButton.hidden = true
         
         Singleton.shared.progress[boardType]![boardSize]! += 1
+        Singleton.shared.syncProgress()
     }
     
     func boardDidFinishDestructing() {
