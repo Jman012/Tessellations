@@ -108,7 +108,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
     func setBoardType(boardType: String, forBoardSize boardSize: BoardSize) {
         self.boardType = boardType
         self.boardSize = boardSize
-        self.boardNumber = Singleton.shared.progress[boardType]![boardSize]! + 1
+        self.boardNumber = Singleton.shared.nextBoardNumberToComplete(forBoardType: boardType, size: boardSize)
+
         let seed = TessellationsSeed(forClassString: boardType, boardSize: boardSize, number: Int(self.boardNumber))
         TessellationsPuzzleGenSeed(seed)
         
@@ -238,7 +239,7 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.winnerLabel.hidden = false
         self.titleButton.hidden = true
         
-        Singleton.shared.progress[boardType]![boardSize]! += 1
+        Singleton.shared.progressDidComplete(number: self.boardNumber, forBoardType: boardType, size: boardSize)
         Singleton.shared.syncProgress()
     }
     

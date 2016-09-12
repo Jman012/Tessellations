@@ -63,7 +63,7 @@ class Singleton {
     var allPalettes: [ScenePalette] = []
     
     // ClassString -> [Size -> Number completed]
-    var progress: [String: [BoardSize: UInt]] = [:]
+    private var progress: [String: [BoardSize: UInt]] = [:]
     
     private init() {
         
@@ -127,13 +127,10 @@ class Singleton {
     func syncProgress() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-//        var theProgress: [String: [Int: Int]] = [:]
         let theProgress = NSMutableDictionary()
         for (classString, boardSizeToProgress) in self.progress {
-//            theProgress[classString] = [:]
             theProgress.setObject(NSMutableDictionary(), forKey: classString)
             for (boardSize, prog) in boardSizeToProgress {
-//                theProgress[classString]![boardSize.rawValue] = Int(prog)
                 let boardSizeStr = "\(boardSize.rawValue)"
                 let progNum = NSNumber(integer: Int(prog))
                 theProgress.objectForKey(classString)!.setObject(progNum, forKey: boardSizeStr)
@@ -142,6 +139,26 @@ class Singleton {
         
         defaults.setObject(theProgress, forKey: "Progress")
         defaults.synchronize()
+    }
+    
+    func progress(forBoardType boardType: String, size boardSize: BoardSize) -> UInt {
+        if let prog = progress[boardType]?[boardSize] {
+            return prog
+        } else {
+            fatalError("No entry for \(boardType) with \(boardSize.text()) size")
+        }
+    }
+    
+    func nextBoardNumberToComplete(forBoardType boardType: String, size boardSize: BoardSize) -> UInt {
+        return progress(forBoardType: boardType, size: boardSize) + 1
+    }
+    
+    func progressDidComplete(number number: UInt, forBoardType boardType: String, size boardSize: BoardSize) {
+        if self.progress(forBoardType: boardType, size: boardSize) == number - 1 {
+            self.progress[boardType]![boardSize] = number
+        } else {
+            fatalError("Progress out of order for \(boardType) of size \(boardSize). Last completed was #\(self.progress(forBoardType: boardType, size: boardSize)), trying to say #\(number) has been completed.")
+        }
     }
     
     func imageForPalette(palette: ScenePalette) -> UIImage {

@@ -26,7 +26,7 @@ class MenuBoardCell: UICollectionViewCell {
     @IBOutlet var highlightView: UIView!
     @IBOutlet var progressView: SquarePieProgressView!
     var progress: UInt {
-        get { return Singleton.shared.progress[typeString]![collectionVC.boardSize]! }
+        get { return Singleton.shared.progress(forBoardType: typeString, size: collectionVC.boardSize) }
     }
     
     weak var collectionVC: MainMenu!
