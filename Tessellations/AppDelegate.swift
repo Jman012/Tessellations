@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func generateThumbnails() {
-        let size = CGSize(width: 100, height: 100)
+        let size = CGSize(width: window!.frame.width/2.0, height: window!.frame.width/2.0)
         var views: [String: SKView] = [:]
         
         for classString in sceneClassStrings {
