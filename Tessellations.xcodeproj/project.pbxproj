@@ -7,13 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2710561D73DBC6000F779A /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710551D73DBC6000F779A /* Singleton.swift */; };
-		1A27105E1D74B645000F779A /* MenuButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A27105D1D74B645000F779A /* MenuButtonCell.swift */; };
-		1A2710621D774DE7000F779A /* MenuLeftRightOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */; };
-		1A2710641D78F79A000F779A /* SquarePieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2710631D78F79A000F779A /* SquarePieProgressView.swift */; };
-		1A2710661D793FF7000F779A /* Palettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2710651D793FF7000F779A /* Palettes.plist */; };
-		1A2710681D7CF79E000F779A /* Palettes.v1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A2710671D7CF79E000F779A /* Palettes.v1.plist */; };
-		1A38D8B71D87628100227A06 /* MenuBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8B61D87628100227A06 /* MenuBaseCell.swift */; };
+		1A38D8B91D87646000227A06 /* SquarePieProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8B81D87646000227A06 /* SquarePieProgressView.swift */; };
+		1A38D8C01D87646D00227A06 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BA1D87646D00227A06 /* MainMenu.swift */; };
+		1A38D8C11D87646D00227A06 /* MenuBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BB1D87646D00227A06 /* MenuBaseCell.swift */; };
+		1A38D8C21D87646D00227A06 /* MenuBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BC1D87646D00227A06 /* MenuBoardCell.swift */; };
+		1A38D8C31D87646D00227A06 /* MenuButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BD1D87646D00227A06 /* MenuButtonCell.swift */; };
+		1A38D8C41D87646D00227A06 /* MenuLeftRightOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BE1D87646D00227A06 /* MenuLeftRightOptionCell.swift */; };
+		1A38D8C51D87646D00227A06 /* MenuTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8BF1D87646D00227A06 /* MenuTitleCell.swift */; };
+		1A38D8CA1D87647E00227A06 /* PieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8C61D87647E00227A06 /* PieceNode.swift */; };
+		1A38D8CB1D87647E00227A06 /* PipeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8C71D87647E00227A06 /* PipeNode.swift */; };
+		1A38D8DD1D8764A500227A06 /* Dodecagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D01D8764A500227A06 /* Dodecagon.swift */; };
+		1A38D8DE1D8764A500227A06 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D11D8764A500227A06 /* Hexagon.swift */; };
+		1A38D8DF1D8764A500227A06 /* Hexagon30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D21D8764A500227A06 /* Hexagon30.swift */; };
+		1A38D8E01D8764A500227A06 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D31D8764A500227A06 /* Octagon.swift */; };
+		1A38D8E11D8764A500227A06 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D41D8764A500227A06 /* Shape.swift */; };
+		1A38D8E21D8764A500227A06 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D51D8764A500227A06 /* Square.swift */; };
+		1A38D8E31D8764A500227A06 /* Square30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D61D8764A500227A06 /* Square30.swift */; };
+		1A38D8E41D8764A500227A06 /* Square45.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D71D8764A500227A06 /* Square45.swift */; };
+		1A38D8E51D8764A500227A06 /* SquareN30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D81D8764A500227A06 /* SquareN30.swift */; };
+		1A38D8E61D8764A500227A06 /* TriangleDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8D91D8764A500227A06 /* TriangleDown.swift */; };
+		1A38D8E71D8764A500227A06 /* TriangleLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8DA1D8764A500227A06 /* TriangleLeft.swift */; };
+		1A38D8E81D8764A500227A06 /* TriangleRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8DB1D8764A500227A06 /* TriangleRight.swift */; };
+		1A38D8E91D8764A500227A06 /* TriangleUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8DC1D8764A500227A06 /* TriangleUp.swift */; };
+		1A38D8F31D8764AC00227A06 /* AbstractGameBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8EA1D8764AC00227A06 /* AbstractGameBoardScene.swift */; };
+		1A38D8F41D8764AC00227A06 /* DodecagonHexagonSquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8EB1D8764AC00227A06 /* DodecagonHexagonSquareScene.swift */; };
+		1A38D8F51D8764AC00227A06 /* HexagonScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8EC1D8764AC00227A06 /* HexagonScene.swift */; };
+		1A38D8F61D8764AC00227A06 /* HexagonSquareTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8ED1D8764AC00227A06 /* HexagonSquareTriangleScene.swift */; };
+		1A38D8F71D8764AC00227A06 /* HexagonTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8EE1D8764AC00227A06 /* HexagonTriangleScene.swift */; };
+		1A38D8F81D8764AC00227A06 /* OctagonSquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8EF1D8764AC00227A06 /* OctagonSquareScene.swift */; };
+		1A38D8F91D8764AC00227A06 /* SquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8F01D8764AC00227A06 /* SquareScene.swift */; };
+		1A38D8FA1D8764AC00227A06 /* SquareTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8F11D8764AC00227A06 /* SquareTriangleScene.swift */; };
+		1A38D8FB1D8764AC00227A06 /* TriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8F21D8764AC00227A06 /* TriangleScene.swift */; };
+		1A38D8FF1D8764B700227A06 /* Palettes.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A38D8FC1D8764B700227A06 /* Palettes.plist */; };
+		1A38D9001D8764B700227A06 /* Palettes.v1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A38D8FD1D8764B700227A06 /* Palettes.v1.plist */; };
+		1A38D9011D8764B700227A06 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A38D8FE1D8764B700227A06 /* Singleton.swift */; };
 		1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE451D1CC43B0008224D /* AppDelegate.swift */; };
 		1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE471D1CC43B0008224D /* ViewController.swift */; };
 		1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A82DE491D1CC43B0008224D /* Main.storyboard */; };
@@ -22,28 +49,8 @@
 		1A82DE5B1D1CC43B0008224D /* TessellationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE5A1D1CC43B0008224D /* TessellationsTests.swift */; };
 		1A82DE661D1CC43B0008224D /* TessellationsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */; };
 		1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A82DE7C1D1CC5600008224D /* Utils.swift */; };
-		1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38EF1D68A64900A75469 /* PieceNode.swift */; };
-		1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */; };
-		1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */; };
 		1A8B38F81D6EA07900A75469 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38F71D6EA07900A75469 /* Globals.swift */; };
-		1A8B38FB1D71041800A75469 /* PipeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38FA1D71041800A75469 /* PipeNode.swift */; };
 		1A8B38FD1D72B73400A75469 /* SquareTriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38FC1D72B73300A75469 /* SquareTriangleBoard.swift */; };
-		1A8B38FF1D72BA4900A75469 /* SquareTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8B38FE1D72BA4900A75469 /* SquareTriangleScene.swift */; };
-		1AA129C21D62AD4500146731 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C11D62AD4500146731 /* Square.swift */; };
-		1AA129C41D62E40600146731 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C31D62E40600146731 /* Shape.swift */; };
-		1AA129C61D6382F600146731 /* Octagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C51D6382F600146731 /* Octagon.swift */; };
-		1AA129C81D63918F00146731 /* Square45.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C71D63918F00146731 /* Square45.swift */; };
-		1AA129CA1D63A06E00146731 /* Hexagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129C91D63A06E00146731 /* Hexagon.swift */; };
-		1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CB1D63B03E00146731 /* TriangleUp.swift */; };
-		1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CD1D63B47200146731 /* TriangleDown.swift */; };
-		1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129CF1D63B59700146731 /* TriangleLeft.swift */; };
-		1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D11D63B5BA00146731 /* TriangleRight.swift */; };
-		1AA129DA1D6411C500146731 /* AbstractGameBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D31D6411C500146731 /* AbstractGameBoardScene.swift */; };
-		1AA129DB1D6411C500146731 /* HexagonScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D41D6411C500146731 /* HexagonScene.swift */; };
-		1AA129DC1D6411C500146731 /* HexagonTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D51D6411C500146731 /* HexagonTriangleScene.swift */; };
-		1AA129DD1D6411C500146731 /* OctagonSquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D61D6411C500146731 /* OctagonSquareScene.swift */; };
-		1AA129DE1D6411C500146731 /* SquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D71D6411C500146731 /* SquareScene.swift */; };
-		1AA129E01D6411C500146731 /* TriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129D91D6411C500146731 /* TriangleScene.swift */; };
 		1AA129E91D6411CF00146731 /* AbstractGameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E11D6411CF00146731 /* AbstractGameBoard.swift */; };
 		1AA129EA1D6411CF00146731 /* DodecagonHexagonSquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E21D6411CF00146731 /* DodecagonHexagonSquareBoard.swift */; };
 		1AA129EB1D6411CF00146731 /* HexagonBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E31D6411CF00146731 /* HexagonBoard.swift */; };
@@ -52,14 +59,7 @@
 		1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E61D6411CF00146731 /* SquareBoard.swift */; };
 		1AA129EF1D6411CF00146731 /* SquareTriangleCrazyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E71D6411CF00146731 /* SquareTriangleCrazyBoard.swift */; };
 		1AA129F01D6411CF00146731 /* TriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129E81D6411CF00146731 /* TriangleBoard.swift */; };
-		1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */; };
-		1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F31D641FF100146731 /* Dodecagon.swift */; };
-		1AA129F61D64E6BE00146731 /* Square30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F51D64E6BE00146731 /* Square30.swift */; };
-		1AA129F81D64E6C700146731 /* SquareN30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F71D64E6C700146731 /* SquareN30.swift */; };
 		1AA129FA1D658A6400146731 /* HexagonSquareTriangleBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129F91D658A6300146731 /* HexagonSquareTriangleBoard.swift */; };
-		1AA129FC1D66246A00146731 /* Hexagon30.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129FB1D66246A00146731 /* Hexagon30.swift */; };
-		1AA129FE1D6629D800146731 /* HexagonSquareTriangleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */; };
-		1AA2C10D1D847EEC00CCCDF1 /* MenuTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,13 +80,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A2710551D73DBC6000F779A /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
-		1A27105D1D74B645000F779A /* MenuButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuButtonCell.swift; sourceTree = "<group>"; };
-		1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLeftRightOptionCell.swift; sourceTree = "<group>"; };
-		1A2710631D78F79A000F779A /* SquarePieProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquarePieProgressView.swift; sourceTree = "<group>"; };
-		1A2710651D793FF7000F779A /* Palettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Palettes.plist; sourceTree = "<group>"; };
-		1A2710671D7CF79E000F779A /* Palettes.v1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Palettes.v1.plist; sourceTree = "<group>"; };
-		1A38D8B61D87628100227A06 /* MenuBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBaseCell.swift; sourceTree = "<group>"; };
+		1A38D8B81D87646000227A06 /* SquarePieProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquarePieProgressView.swift; path = Utils/SquarePieProgressView.swift; sourceTree = "<group>"; };
+		1A38D8BA1D87646D00227A06 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMenu.swift; path = Menu/MainMenu.swift; sourceTree = "<group>"; };
+		1A38D8BB1D87646D00227A06 /* MenuBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBaseCell.swift; path = Menu/MenuBaseCell.swift; sourceTree = "<group>"; };
+		1A38D8BC1D87646D00227A06 /* MenuBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuBoardCell.swift; path = Menu/MenuBoardCell.swift; sourceTree = "<group>"; };
+		1A38D8BD1D87646D00227A06 /* MenuButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuButtonCell.swift; path = Menu/MenuButtonCell.swift; sourceTree = "<group>"; };
+		1A38D8BE1D87646D00227A06 /* MenuLeftRightOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuLeftRightOptionCell.swift; path = Menu/MenuLeftRightOptionCell.swift; sourceTree = "<group>"; };
+		1A38D8BF1D87646D00227A06 /* MenuTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuTitleCell.swift; path = Menu/MenuTitleCell.swift; sourceTree = "<group>"; };
+		1A38D8C61D87647E00227A06 /* PieceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PieceNode.swift; path = SpriteKit/PieceNode.swift; sourceTree = "<group>"; };
+		1A38D8C71D87647E00227A06 /* PipeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PipeNode.swift; path = SpriteKit/PipeNode.swift; sourceTree = "<group>"; };
+		1A38D8D01D8764A500227A06 /* Dodecagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dodecagon.swift; path = SpriteKit/Shapes/Dodecagon.swift; sourceTree = "<group>"; };
+		1A38D8D11D8764A500227A06 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon.swift; path = SpriteKit/Shapes/Hexagon.swift; sourceTree = "<group>"; };
+		1A38D8D21D8764A500227A06 /* Hexagon30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon30.swift; path = SpriteKit/Shapes/Hexagon30.swift; sourceTree = "<group>"; };
+		1A38D8D31D8764A500227A06 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = SpriteKit/Shapes/Octagon.swift; sourceTree = "<group>"; };
+		1A38D8D41D8764A500227A06 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = SpriteKit/Shapes/Shape.swift; sourceTree = "<group>"; };
+		1A38D8D51D8764A500227A06 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = SpriteKit/Shapes/Square.swift; sourceTree = "<group>"; };
+		1A38D8D61D8764A500227A06 /* Square30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square30.swift; path = SpriteKit/Shapes/Square30.swift; sourceTree = "<group>"; };
+		1A38D8D71D8764A500227A06 /* Square45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square45.swift; path = SpriteKit/Shapes/Square45.swift; sourceTree = "<group>"; };
+		1A38D8D81D8764A500227A06 /* SquareN30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareN30.swift; path = SpriteKit/Shapes/SquareN30.swift; sourceTree = "<group>"; };
+		1A38D8D91D8764A500227A06 /* TriangleDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleDown.swift; path = SpriteKit/Shapes/TriangleDown.swift; sourceTree = "<group>"; };
+		1A38D8DA1D8764A500227A06 /* TriangleLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleLeft.swift; path = SpriteKit/Shapes/TriangleLeft.swift; sourceTree = "<group>"; };
+		1A38D8DB1D8764A500227A06 /* TriangleRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleRight.swift; path = SpriteKit/Shapes/TriangleRight.swift; sourceTree = "<group>"; };
+		1A38D8DC1D8764A500227A06 /* TriangleUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleUp.swift; path = SpriteKit/Shapes/TriangleUp.swift; sourceTree = "<group>"; };
+		1A38D8EA1D8764AC00227A06 /* AbstractGameBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractGameBoardScene.swift; path = SpriteKit/Scenes/AbstractGameBoardScene.swift; sourceTree = "<group>"; };
+		1A38D8EB1D8764AC00227A06 /* DodecagonHexagonSquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DodecagonHexagonSquareScene.swift; path = SpriteKit/Scenes/DodecagonHexagonSquareScene.swift; sourceTree = "<group>"; };
+		1A38D8EC1D8764AC00227A06 /* HexagonScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonScene.swift; path = SpriteKit/Scenes/HexagonScene.swift; sourceTree = "<group>"; };
+		1A38D8ED1D8764AC00227A06 /* HexagonSquareTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonSquareTriangleScene.swift; path = SpriteKit/Scenes/HexagonSquareTriangleScene.swift; sourceTree = "<group>"; };
+		1A38D8EE1D8764AC00227A06 /* HexagonTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonTriangleScene.swift; path = SpriteKit/Scenes/HexagonTriangleScene.swift; sourceTree = "<group>"; };
+		1A38D8EF1D8764AC00227A06 /* OctagonSquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OctagonSquareScene.swift; path = SpriteKit/Scenes/OctagonSquareScene.swift; sourceTree = "<group>"; };
+		1A38D8F01D8764AC00227A06 /* SquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareScene.swift; path = SpriteKit/Scenes/SquareScene.swift; sourceTree = "<group>"; };
+		1A38D8F11D8764AC00227A06 /* SquareTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareTriangleScene.swift; path = SpriteKit/Scenes/SquareTriangleScene.swift; sourceTree = "<group>"; };
+		1A38D8F21D8764AC00227A06 /* TriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleScene.swift; path = SpriteKit/Scenes/TriangleScene.swift; sourceTree = "<group>"; };
+		1A38D8FC1D8764B700227A06 /* Palettes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Palettes.plist; path = Singleton/Palettes.plist; sourceTree = "<group>"; };
+		1A38D8FD1D8764B700227A06 /* Palettes.v1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Palettes.v1.plist; path = Singleton/Palettes.v1.plist; sourceTree = "<group>"; };
+		1A38D8FE1D8764B700227A06 /* Singleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Singleton.swift; path = Singleton/Singleton.swift; sourceTree = "<group>"; };
 		1A82DE421D1CC43B0008224D /* Tessellations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tessellations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A82DE451D1CC43B0008224D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A82DE471D1CC43B0008224D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,28 +128,8 @@
 		1A82DE651D1CC43B0008224D /* TessellationsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TessellationsUITests.swift; sourceTree = "<group>"; };
 		1A82DE671D1CC43B0008224D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A82DE7C1D1CC5600008224D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Utils/Utils.swift; sourceTree = "<group>"; };
-		1A8B38EF1D68A64900A75469 /* PieceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieceNode.swift; sourceTree = "<group>"; };
-		1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
-		1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBoardCell.swift; sourceTree = "<group>"; };
 		1A8B38F71D6EA07900A75469 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Utils/Globals.swift; sourceTree = "<group>"; };
-		1A8B38FA1D71041800A75469 /* PipeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PipeNode.swift; sourceTree = "<group>"; };
 		1A8B38FC1D72B73300A75469 /* SquareTriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareTriangleBoard.swift; path = Boards/SquareTriangleBoard.swift; sourceTree = "<group>"; };
-		1A8B38FE1D72BA4900A75469 /* SquareTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareTriangleScene.swift; path = Scenes/SquareTriangleScene.swift; sourceTree = "<group>"; };
-		1AA129C11D62AD4500146731 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square.swift; path = Shapes/Square.swift; sourceTree = "<group>"; };
-		1AA129C31D62E40600146731 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Shapes/Shape.swift; sourceTree = "<group>"; };
-		1AA129C51D6382F600146731 /* Octagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Octagon.swift; path = Shapes/Octagon.swift; sourceTree = "<group>"; };
-		1AA129C71D63918F00146731 /* Square45.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square45.swift; path = Shapes/Square45.swift; sourceTree = "<group>"; };
-		1AA129C91D63A06E00146731 /* Hexagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon.swift; path = Shapes/Hexagon.swift; sourceTree = "<group>"; };
-		1AA129CB1D63B03E00146731 /* TriangleUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleUp.swift; path = Shapes/TriangleUp.swift; sourceTree = "<group>"; };
-		1AA129CD1D63B47200146731 /* TriangleDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleDown.swift; path = Shapes/TriangleDown.swift; sourceTree = "<group>"; };
-		1AA129CF1D63B59700146731 /* TriangleLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleLeft.swift; path = Shapes/TriangleLeft.swift; sourceTree = "<group>"; };
-		1AA129D11D63B5BA00146731 /* TriangleRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleRight.swift; path = Shapes/TriangleRight.swift; sourceTree = "<group>"; };
-		1AA129D31D6411C500146731 /* AbstractGameBoardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractGameBoardScene.swift; path = Scenes/AbstractGameBoardScene.swift; sourceTree = "<group>"; };
-		1AA129D41D6411C500146731 /* HexagonScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonScene.swift; path = Scenes/HexagonScene.swift; sourceTree = "<group>"; };
-		1AA129D51D6411C500146731 /* HexagonTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonTriangleScene.swift; path = Scenes/HexagonTriangleScene.swift; sourceTree = "<group>"; };
-		1AA129D61D6411C500146731 /* OctagonSquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OctagonSquareScene.swift; path = Scenes/OctagonSquareScene.swift; sourceTree = "<group>"; };
-		1AA129D71D6411C500146731 /* SquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareScene.swift; path = Scenes/SquareScene.swift; sourceTree = "<group>"; };
-		1AA129D91D6411C500146731 /* TriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleScene.swift; path = Scenes/TriangleScene.swift; sourceTree = "<group>"; };
 		1AA129E11D6411CF00146731 /* AbstractGameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AbstractGameBoard.swift; path = Boards/AbstractGameBoard.swift; sourceTree = "<group>"; };
 		1AA129E21D6411CF00146731 /* DodecagonHexagonSquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DodecagonHexagonSquareBoard.swift; path = Boards/DodecagonHexagonSquareBoard.swift; sourceTree = "<group>"; };
 		1AA129E31D6411CF00146731 /* HexagonBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonBoard.swift; path = Boards/HexagonBoard.swift; sourceTree = "<group>"; };
@@ -131,14 +138,7 @@
 		1AA129E61D6411CF00146731 /* SquareBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareBoard.swift; path = Boards/SquareBoard.swift; sourceTree = "<group>"; };
 		1AA129E71D6411CF00146731 /* SquareTriangleCrazyBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareTriangleCrazyBoard.swift; path = Boards/SquareTriangleCrazyBoard.swift; sourceTree = "<group>"; };
 		1AA129E81D6411CF00146731 /* TriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TriangleBoard.swift; path = Boards/TriangleBoard.swift; sourceTree = "<group>"; };
-		1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DodecagonHexagonSquareScene.swift; path = Scenes/DodecagonHexagonSquareScene.swift; sourceTree = "<group>"; };
-		1AA129F31D641FF100146731 /* Dodecagon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dodecagon.swift; path = Shapes/Dodecagon.swift; sourceTree = "<group>"; };
-		1AA129F51D64E6BE00146731 /* Square30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Square30.swift; path = Shapes/Square30.swift; sourceTree = "<group>"; };
-		1AA129F71D64E6C700146731 /* SquareN30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SquareN30.swift; path = Shapes/SquareN30.swift; sourceTree = "<group>"; };
 		1AA129F91D658A6300146731 /* HexagonSquareTriangleBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonSquareTriangleBoard.swift; path = Boards/HexagonSquareTriangleBoard.swift; sourceTree = "<group>"; };
-		1AA129FB1D66246A00146731 /* Hexagon30.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hexagon30.swift; path = Shapes/Hexagon30.swift; sourceTree = "<group>"; };
-		1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HexagonSquareTriangleScene.swift; path = Scenes/HexagonSquareTriangleScene.swift; sourceTree = "<group>"; };
-		1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTitleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,14 +166,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A2710541D73DBB9000F779A /* Data */ = {
+		1A2710541D73DBB9000F779A /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
-				1A2710551D73DBC6000F779A /* Singleton.swift */,
-				1A2710651D793FF7000F779A /* Palettes.plist */,
-				1A2710671D7CF79E000F779A /* Palettes.v1.plist */,
+				1A38D8FC1D8764B700227A06 /* Palettes.plist */,
+				1A38D8FD1D8764B700227A06 /* Palettes.v1.plist */,
+				1A38D8FE1D8764B700227A06 /* Singleton.swift */,
 			);
-			name = Data;
+			name = Singleton;
+			sourceTree = "<group>";
+		};
+		1A38D8CE1D87648600227A06 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				1A38D8EA1D8764AC00227A06 /* AbstractGameBoardScene.swift */,
+				1A38D8EB1D8764AC00227A06 /* DodecagonHexagonSquareScene.swift */,
+				1A38D8EC1D8764AC00227A06 /* HexagonScene.swift */,
+				1A38D8ED1D8764AC00227A06 /* HexagonSquareTriangleScene.swift */,
+				1A38D8EE1D8764AC00227A06 /* HexagonTriangleScene.swift */,
+				1A38D8EF1D8764AC00227A06 /* OctagonSquareScene.swift */,
+				1A38D8F01D8764AC00227A06 /* SquareScene.swift */,
+				1A38D8F11D8764AC00227A06 /* SquareTriangleScene.swift */,
+				1A38D8F21D8764AC00227A06 /* TriangleScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		1A38D8CF1D87649D00227A06 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				1A38D8D01D8764A500227A06 /* Dodecagon.swift */,
+				1A38D8D11D8764A500227A06 /* Hexagon.swift */,
+				1A38D8D21D8764A500227A06 /* Hexagon30.swift */,
+				1A38D8D31D8764A500227A06 /* Octagon.swift */,
+				1A38D8D41D8764A500227A06 /* Shape.swift */,
+				1A38D8D51D8764A500227A06 /* Square.swift */,
+				1A38D8D61D8764A500227A06 /* Square30.swift */,
+				1A38D8D71D8764A500227A06 /* Square45.swift */,
+				1A38D8D81D8764A500227A06 /* SquareN30.swift */,
+				1A38D8D91D8764A500227A06 /* TriangleDown.swift */,
+				1A38D8DA1D8764A500227A06 /* TriangleLeft.swift */,
+				1A38D8DB1D8764A500227A06 /* TriangleRight.swift */,
+				1A38D8DC1D8764A500227A06 /* TriangleUp.swift */,
+			);
+			name = Shapes;
 			sourceTree = "<group>";
 		};
 		1A82DE391D1CC43B0008224D = {
@@ -199,13 +235,11 @@
 		1A82DE441D1CC43B0008224D /* Tessellations */ = {
 			isa = PBXGroup;
 			children = (
-				1A2710541D73DBB9000F779A /* Data */,
+				1A2710541D73DBB9000F779A /* Singleton */,
 				1A8B38F91D7103DF00A75469 /* SpriteKit */,
-				1A8B38EF1D68A64900A75469 /* PieceNode.swift */,
-				1A8B38FA1D71041800A75469 /* PipeNode.swift */,
 				1AE82DAF1D3FF28600F8166F /* Boards */,
 				1A82DE751D1CC4CB0008224D /* Utils */,
-				1A8B38F31D6A4EDC00A75469 /* Navigation */,
+				1A8B38F31D6A4EDC00A75469 /* Menu */,
 				1A82DE451D1CC43B0008224D /* AppDelegate.swift */,
 				1A82DE471D1CC43B0008224D /* ViewController.swift */,
 				1A82DE491D1CC43B0008224D /* Main.storyboard */,
@@ -239,67 +273,33 @@
 			children = (
 				1A82DE7C1D1CC5600008224D /* Utils.swift */,
 				1A8B38F71D6EA07900A75469 /* Globals.swift */,
-				1A2710631D78F79A000F779A /* SquarePieProgressView.swift */,
+				1A38D8B81D87646000227A06 /* SquarePieProgressView.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		1A8B38F31D6A4EDC00A75469 /* Navigation */ = {
+		1A8B38F31D6A4EDC00A75469 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				1A8B38F11D6A4ECD00A75469 /* MainMenu.swift */,
-				1A38D8B61D87628100227A06 /* MenuBaseCell.swift */,
-				1A8B38F41D6A4F3300A75469 /* MenuBoardCell.swift */,
-				1A27105D1D74B645000F779A /* MenuButtonCell.swift */,
-				1A2710611D774DE7000F779A /* MenuLeftRightOptionCell.swift */,
-				1AA2C10C1D847EEC00CCCDF1 /* MenuTitleCell.swift */,
+				1A38D8BA1D87646D00227A06 /* MainMenu.swift */,
+				1A38D8BB1D87646D00227A06 /* MenuBaseCell.swift */,
+				1A38D8BC1D87646D00227A06 /* MenuBoardCell.swift */,
+				1A38D8BD1D87646D00227A06 /* MenuButtonCell.swift */,
+				1A38D8BE1D87646D00227A06 /* MenuLeftRightOptionCell.swift */,
+				1A38D8BF1D87646D00227A06 /* MenuTitleCell.swift */,
 			);
-			name = Navigation;
+			name = Menu;
 			sourceTree = "<group>";
 		};
 		1A8B38F91D7103DF00A75469 /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
-				1AA129C01D62AD1A00146731 /* Shapes */,
-				1AE82DAE1D3FF28100F8166F /* Scenes */,
+				1A38D8CF1D87649D00227A06 /* Shapes */,
+				1A38D8CE1D87648600227A06 /* Scenes */,
+				1A38D8C61D87647E00227A06 /* PieceNode.swift */,
+				1A38D8C71D87647E00227A06 /* PipeNode.swift */,
 			);
 			name = SpriteKit;
-			sourceTree = "<group>";
-		};
-		1AA129C01D62AD1A00146731 /* Shapes */ = {
-			isa = PBXGroup;
-			children = (
-				1AA129C31D62E40600146731 /* Shape.swift */,
-				1AA129C11D62AD4500146731 /* Square.swift */,
-				1AA129C51D6382F600146731 /* Octagon.swift */,
-				1AA129C71D63918F00146731 /* Square45.swift */,
-				1AA129C91D63A06E00146731 /* Hexagon.swift */,
-				1AA129CB1D63B03E00146731 /* TriangleUp.swift */,
-				1AA129CD1D63B47200146731 /* TriangleDown.swift */,
-				1AA129CF1D63B59700146731 /* TriangleLeft.swift */,
-				1AA129D11D63B5BA00146731 /* TriangleRight.swift */,
-				1AA129F31D641FF100146731 /* Dodecagon.swift */,
-				1AA129F51D64E6BE00146731 /* Square30.swift */,
-				1AA129F71D64E6C700146731 /* SquareN30.swift */,
-				1AA129FB1D66246A00146731 /* Hexagon30.swift */,
-			);
-			name = Shapes;
-			sourceTree = "<group>";
-		};
-		1AE82DAE1D3FF28100F8166F /* Scenes */ = {
-			isa = PBXGroup;
-			children = (
-				1AA129D31D6411C500146731 /* AbstractGameBoardScene.swift */,
-				1AA129D91D6411C500146731 /* TriangleScene.swift */,
-				1AA129D71D6411C500146731 /* SquareScene.swift */,
-				1AA129D41D6411C500146731 /* HexagonScene.swift */,
-				1AA129D61D6411C500146731 /* OctagonSquareScene.swift */,
-				1A8B38FE1D72BA4900A75469 /* SquareTriangleScene.swift */,
-				1AA129D51D6411C500146731 /* HexagonTriangleScene.swift */,
-				1AA129FD1D6629D800146731 /* HexagonSquareTriangleScene.swift */,
-				1AA129F11D641FBC00146731 /* DodecagonHexagonSquareScene.swift */,
-			);
-			name = Scenes;
 			sourceTree = "<group>";
 		};
 		1AE82DAF1D3FF28600F8166F /* Boards */ = {
@@ -425,9 +425,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A82DE501D1CC43B0008224D /* LaunchScreen.storyboard in Resources */,
-				1A2710681D7CF79E000F779A /* Palettes.v1.plist in Resources */,
+				1A38D9001D8764B700227A06 /* Palettes.v1.plist in Resources */,
 				1A82DE4D1D1CC43B0008224D /* Assets.xcassets in Resources */,
-				1A2710661D793FF7000F779A /* Palettes.plist in Resources */,
+				1A38D8FF1D8764B700227A06 /* Palettes.plist in Resources */,
 				1A82DE4B1D1CC43B0008224D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,52 +453,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A38D8E21D8764A500227A06 /* Square.swift in Sources */,
+				1A38D8E31D8764A500227A06 /* Square30.swift in Sources */,
+				1A38D8E81D8764A500227A06 /* TriangleRight.swift in Sources */,
+				1A38D8C31D87646D00227A06 /* MenuButtonCell.swift in Sources */,
+				1A38D8E41D8764A500227A06 /* Square45.swift in Sources */,
 				1A82DE7D1D1CC5600008224D /* Utils.swift in Sources */,
-				1A2710561D73DBC6000F779A /* Singleton.swift in Sources */,
-				1A38D8B71D87628100227A06 /* MenuBaseCell.swift in Sources */,
+				1A38D8E01D8764A500227A06 /* Octagon.swift in Sources */,
+				1A38D8B91D87646000227A06 /* SquarePieProgressView.swift in Sources */,
+				1A38D8DF1D8764A500227A06 /* Hexagon30.swift in Sources */,
+				1A38D8E71D8764A500227A06 /* TriangleLeft.swift in Sources */,
 				1AA129EC1D6411CF00146731 /* HexagonTriangleBoard.swift in Sources */,
-				1AA129D21D63B5BA00146731 /* TriangleRight.swift in Sources */,
+				1A38D8E51D8764A500227A06 /* SquareN30.swift in Sources */,
+				1A38D8E11D8764A500227A06 /* Shape.swift in Sources */,
+				1A38D8FB1D8764AC00227A06 /* TriangleScene.swift in Sources */,
 				1A82DE481D1CC43B0008224D /* ViewController.swift in Sources */,
-				1AA129CE1D63B47200146731 /* TriangleDown.swift in Sources */,
-				1AA129F81D64E6C700146731 /* SquareN30.swift in Sources */,
+				1A38D8F71D8764AC00227A06 /* HexagonTriangleScene.swift in Sources */,
+				1A38D8F31D8764AC00227A06 /* AbstractGameBoardScene.swift in Sources */,
 				1A8B38F81D6EA07900A75469 /* Globals.swift in Sources */,
 				1AA129EF1D6411CF00146731 /* SquareTriangleCrazyBoard.swift in Sources */,
-				1AA129FC1D66246A00146731 /* Hexagon30.swift in Sources */,
-				1A27105E1D74B645000F779A /* MenuButtonCell.swift in Sources */,
-				1AA129DD1D6411C500146731 /* OctagonSquareScene.swift in Sources */,
+				1A38D8F41D8764AC00227A06 /* DodecagonHexagonSquareScene.swift in Sources */,
+				1A38D8C01D87646D00227A06 /* MainMenu.swift in Sources */,
 				1AA129FA1D658A6400146731 /* HexagonSquareTriangleBoard.swift in Sources */,
-				1AA129DC1D6411C500146731 /* HexagonTriangleScene.swift in Sources */,
-				1AA129DB1D6411C500146731 /* HexagonScene.swift in Sources */,
-				1AA129CA1D63A06E00146731 /* Hexagon.swift in Sources */,
-				1AA129C61D6382F600146731 /* Octagon.swift in Sources */,
-				1AA129FE1D6629D800146731 /* HexagonSquareTriangleScene.swift in Sources */,
-				1AA129C81D63918F00146731 /* Square45.swift in Sources */,
-				1AA2C10D1D847EEC00CCCDF1 /* MenuTitleCell.swift in Sources */,
-				1AA129F41D641FF100146731 /* Dodecagon.swift in Sources */,
-				1AA129DE1D6411C500146731 /* SquareScene.swift in Sources */,
-				1AA129D01D63B59700146731 /* TriangleLeft.swift in Sources */,
-				1A8B38FF1D72BA4900A75469 /* SquareTriangleScene.swift in Sources */,
-				1A8B38F21D6A4ECD00A75469 /* MainMenu.swift in Sources */,
-				1A8B38F51D6A4F3300A75469 /* MenuBoardCell.swift in Sources */,
-				1A2710641D78F79A000F779A /* SquarePieProgressView.swift in Sources */,
+				1A38D8C21D87646D00227A06 /* MenuBoardCell.swift in Sources */,
+				1A38D8C51D87646D00227A06 /* MenuTitleCell.swift in Sources */,
+				1A38D8F81D8764AC00227A06 /* OctagonSquareScene.swift in Sources */,
+				1A38D8E91D8764A500227A06 /* TriangleUp.swift in Sources */,
+				1A38D8C11D87646D00227A06 /* MenuBaseCell.swift in Sources */,
+				1A38D8CB1D87647E00227A06 /* PipeNode.swift in Sources */,
 				1AA129EE1D6411CF00146731 /* SquareBoard.swift in Sources */,
-				1AA129E01D6411C500146731 /* TriangleScene.swift in Sources */,
-				1AA129CC1D63B03E00146731 /* TriangleUp.swift in Sources */,
+				1A38D8F61D8764AC00227A06 /* HexagonSquareTriangleScene.swift in Sources */,
+				1A38D8FA1D8764AC00227A06 /* SquareTriangleScene.swift in Sources */,
 				1AA129ED1D6411CF00146731 /* OctagonSquareBoard.swift in Sources */,
-				1AA129DA1D6411C500146731 /* AbstractGameBoardScene.swift in Sources */,
-				1AA129C41D62E40600146731 /* Shape.swift in Sources */,
+				1A38D8F91D8764AC00227A06 /* SquareScene.swift in Sources */,
 				1AA129E91D6411CF00146731 /* AbstractGameBoard.swift in Sources */,
 				1AA129EA1D6411CF00146731 /* DodecagonHexagonSquareBoard.swift in Sources */,
+				1A38D8C41D87646D00227A06 /* MenuLeftRightOptionCell.swift in Sources */,
+				1A38D8DD1D8764A500227A06 /* Dodecagon.swift in Sources */,
+				1A38D9011D8764B700227A06 /* Singleton.swift in Sources */,
+				1A38D8DE1D8764A500227A06 /* Hexagon.swift in Sources */,
 				1AA129F01D6411CF00146731 /* TriangleBoard.swift in Sources */,
-				1AA129F21D641FBC00146731 /* DodecagonHexagonSquareScene.swift in Sources */,
-				1AA129F61D64E6BE00146731 /* Square30.swift in Sources */,
-				1A8B38F01D68A64900A75469 /* PieceNode.swift in Sources */,
-				1A8B38FB1D71041800A75469 /* PipeNode.swift in Sources */,
 				1A8B38FD1D72B73400A75469 /* SquareTriangleBoard.swift in Sources */,
-				1A2710621D774DE7000F779A /* MenuLeftRightOptionCell.swift in Sources */,
 				1AA129EB1D6411CF00146731 /* HexagonBoard.swift in Sources */,
-				1AA129C21D62AD4500146731 /* Square.swift in Sources */,
+				1A38D8E61D8764A500227A06 /* TriangleDown.swift in Sources */,
+				1A38D8F51D8764AC00227A06 /* HexagonScene.swift in Sources */,
 				1A82DE461D1CC43B0008224D /* AppDelegate.swift in Sources */,
+				1A38D8CA1D87647E00227A06 /* PieceNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
