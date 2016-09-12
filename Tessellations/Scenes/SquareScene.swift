@@ -13,7 +13,7 @@ private let sizes: [(Int, Int)] = [
     (5, 5), /* Small */
     (6, 7), /* Medium */
     (7, 8), /* Large */
-    (9, 10) /* Huge */
+    (9, 11) /* Huge */
 ]
 
 class SquareScene: AbstractGameBoardScene {

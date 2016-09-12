@@ -11,7 +11,7 @@ import SpriteKit
 
 private let sizes: [(Int, Int)] = [
     (7, 5), /* Small */
-    (7, 5), /* Medium */
+    (11, 5), /* Medium */
     (11, 9), /* Large */
     (15, 13)  /* Huge */
 ]

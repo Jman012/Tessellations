@@ -13,7 +13,7 @@ private let sizes: [(Int, Int)] = [
     (3, 6), /* Small */
     (5, 6), /* Medium */
     (7, 10), /* Large */
-    (9, 14)  /* Huge */
+    (11, 16)  /* Huge */
 ]
 
 class HexagonTriangleScene: AbstractGameBoardScene {
