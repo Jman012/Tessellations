@@ -17,7 +17,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackgroundTile" translatesAutoresizingMaskIntoConstraints="NO" id="scv-n5-RCz">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vj1-lS-eaj">
                                 <rect key="frame" x="0.0" y="20" width="600" height="88"/>
@@ -25,19 +27,19 @@
                                     <constraint firstAttribute="height" constant="88" id="Qj0-xo-IUy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="48"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.84313725490196079" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vj1-lS-eaj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3ds-Se-Gid"/>
-                            <constraint firstItem="6R2-Lt-2e6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="LTj-kI-qDw"/>
+                            <constraint firstItem="scv-n5-RCz" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="FVI-kK-Zky"/>
+                            <constraint firstItem="scv-n5-RCz" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="HkB-SF-p5v"/>
                             <constraint firstAttribute="trailing" secondItem="vj1-lS-eaj" secondAttribute="trailing" id="QWm-Ag-IgT"/>
+                            <constraint firstAttribute="trailing" secondItem="scv-n5-RCz" secondAttribute="trailing" id="Vgj-7D-m1U"/>
                             <constraint firstItem="vj1-lS-eaj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="VoX-ff-Nre"/>
-                            <constraint firstAttribute="trailing" secondItem="6R2-Lt-2e6" secondAttribute="trailing" id="YiF-qz-F8Z"/>
-                            <constraint firstItem="6R2-Lt-2e6" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="oE0-78-xNb"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="6R2-Lt-2e6" secondAttribute="bottom" id="rpa-RG-m7V"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="scv-n5-RCz" secondAttribute="bottom" id="wbf-xj-164"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -47,5 +49,6 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BackgroundTile" width="134" height="134"/>
     </resources>
 </document>
