@@ -29,6 +29,10 @@ class SquareScene: AbstractGameBoardScene {
         return SquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
         var squareWidth = effectiveWidth / CGFloat(self.logicalBoardWidth)

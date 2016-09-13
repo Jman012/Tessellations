@@ -30,6 +30,10 @@ class OctagonSquareScene: AbstractGameBoardScene {
         return OctagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
         let octWide = ceil(CGFloat(self.logicalBoardWidth) / 2.0)

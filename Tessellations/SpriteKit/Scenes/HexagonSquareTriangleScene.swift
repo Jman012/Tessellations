@@ -41,6 +41,10 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
         return HexagonSquareTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
         let evenCols = ceil(CGFloat(self.logicalBoardWidth) / 2.0)

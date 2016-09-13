@@ -31,6 +31,10 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         return HexagonTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
         // Try by width

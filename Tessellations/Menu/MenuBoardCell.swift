@@ -25,6 +25,7 @@ class MenuBoardCell: MenuBaseCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var highlightView: UIView!
     @IBOutlet var progressView: SquarePieProgressView!
+    @IBOutlet var sizeLabel: UILabel!
     var progress: UInt {
         get { return Singleton.shared.progress(forBoardType: typeString, size: collectionVC.boardSize) }
     }

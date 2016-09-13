@@ -34,6 +34,10 @@ class SquareTriangleScene: AbstractGameBoardScene {
         return SquareTriangleBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
         let numOddW = floor(Double(self.logicalBoardWidth) / 2.0)

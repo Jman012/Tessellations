@@ -99,9 +99,15 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         cell.collectionVC = self
         cell.highlightView.hidden = true
         
-        cell.typeString = menuData[indexPath.section][indexPath.row]
+        let classString = menuData[indexPath.section][indexPath.row]
+        
+        cell.typeString = classString
         cell.label.textColor = UIColor.blackColor()
-        cell.label.text = menuData[indexPath.section][indexPath.row]
+        cell.label.text = classString
+        
+        let theClass = NSClassFromString(classString)! as! AbstractGameBoardScene.Type
+        let size = theClass.size(self.boardSize)
+        cell.sizeLabel.text = "\(size.0) x \(size.1)"
         
         return cell
     }
@@ -139,6 +145,10 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
                     if let boardCell = cell as? MenuBoardCell {
                         boardCell.redoImage(nil)
                         boardCell.updateProgress()
+                        
+                        let theClass = NSClassFromString(boardCell.typeString)! as! AbstractGameBoardScene.Type
+                        let size = theClass.size(self.boardSize)
+                        boardCell.sizeLabel.text = "\(size.0) x \(size.1)"
                     }
                 }
             }

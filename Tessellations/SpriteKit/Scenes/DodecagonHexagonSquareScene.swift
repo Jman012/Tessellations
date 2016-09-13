@@ -40,6 +40,10 @@ class DodecagonHexagonSquareScene: AbstractGameBoardScene {
         return DodecagonHexagonSquareBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
     
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
+    
     override func setShapePaths() {
         
 //        let hSteps = CGFloat(self.logicalBoardWidth - 1) / 4.0

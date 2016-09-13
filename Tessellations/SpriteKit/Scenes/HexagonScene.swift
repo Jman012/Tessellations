@@ -29,6 +29,10 @@ class HexagonScene: AbstractGameBoardScene {
     override func initLogicalBoard() -> AbstractGameBoard {
         return HexagonBoard(width: self.logicalBoardWidth, height: self.logicalBoardHeight)
     }
+    
+    override class func size(boardSize: BoardSize) -> (Int, Int) {
+        return sizes[boardSize.rawValue]
+    }
 
     override func setShapePaths() {
         
