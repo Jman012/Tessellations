@@ -14,4 +14,9 @@ class MenuTitleCell: MenuBaseCell {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
+    override func setColors() {
+        self.backgroundColor = UIColor.clearColor()
+        self.contentView.backgroundColor = UIColor.clearColor()
+    }
+    
 }

@@ -157,6 +157,10 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenBackground" id="p2T-PN-GvX">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuBoardCell" id="cV6-Ke-OC7" customClass="MenuBoardCell" customModule="Tessellations" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="35.5" width="160" height="160"/>
@@ -533,8 +537,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-mF-h8j">
-                                            <rect key="frame" x="24" y="42" width="113.5" height="76.5"/>
-                                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="32"/>
+                                            <rect key="frame" x="20.5" y="-6" width="120.5" height="172.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="48"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -569,6 +573,7 @@
         <image name="ArrowLeft" width="8" height="13"/>
         <image name="ArrowRight" width="8" height="13"/>
         <image name="BackArrow" width="13" height="21"/>
+        <image name="LaunchScreenBackground" width="866" height="926"/>
         <image name="Zoom" width="14" height="14"/>
     </resources>
 </document>

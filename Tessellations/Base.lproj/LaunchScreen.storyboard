@@ -25,7 +25,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="Qj0-xo-IUy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="32"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="48"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -48,6 +48,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreenBackground" width="2016" height="2493"/>
+        <image name="LaunchScreenBackground" width="867" height="926"/>
     </resources>
 </document>

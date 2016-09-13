@@ -44,7 +44,8 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         menuData.append(["Shuffle"])
         menuData.append(sceneClassStrings)
         
-        self.collectionView?.backgroundColor = Singleton.shared.palette.background
+//        self.collectionView?.backgroundColor = Singleton.shared.palette.background
+        self.collectionView?.backgroundColor = UIColor.clearColor()
         Singleton.shared.delegate = self
         
     }
