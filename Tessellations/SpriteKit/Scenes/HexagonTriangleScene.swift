@@ -78,11 +78,11 @@ class HexagonTriangleScene: AbstractGameBoardScene {
         let newHexagonCornerDiameter = scene.hexagon.cornerDiameter - (scene.triangleUp.sideLength / 2.0)
 
         scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: 1)
-        scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: scene.hexagon.sideLength / 3.5)
+        scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: scene.hexagon.sideLength / 5)
         scene.shapePaths[.Hexagon] = scene.hexagon.path
         scene.pipePaths[.Hexagon] = scene.hexagon.pipePath
 //
-        scene.triangleUp = TriangleUp(sideLength: scene.hexagon.sideLength, pipeWidth: scene.hexagon.sideLength / 3.5)
+        scene.triangleUp = TriangleUp(sideLength: scene.hexagon.sideLength, pipeWidth: scene.hexagon.sideLength / 5)
         scene.shapePaths[.TriangleUp] = scene.triangleUp.path
         scene.pipePaths[.TriangleUp] = scene.triangleUp.pipePath
         
