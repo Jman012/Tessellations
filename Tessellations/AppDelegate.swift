@@ -44,25 +44,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         // Generate launch screen bg, for dev purposes
-        /*let size = CGSize(width: 2048, height: 2048)
-        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
-        let scene = SquareTriangleScene(size: size, boardWidth: 40, boardHeight: 40, margins: true)
-        skView.ignoresSiblingOrder = true
-        skView.opaque = false
-        scene.scaleMode = .AspectFit
-        skView.presentScene(scene)
-        
-        self.window!.addSubview(skView)
-        self.window!.sendSubviewToBack(skView)
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
-        skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let filePath = paths.first?.stringByAppendingString("Background.png")
-        UIImagePNGRepresentation(image)?.writeToFile(filePath!, atomically: true)
+        /*
+        for (i, palette) in Singleton.shared.allPalettes.enumerate() {
+            Singleton.shared.setAppPalette(i)
+            
+            let size = CGSize(width: 2048, height: 2048)
+            let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+            let scene = SquareTriangleScene(size: size, boardWidth: 40, boardHeight: 40, margins: false)
+            skView.ignoresSiblingOrder = true
+            skView.opaque = false
+            scene.scaleMode = .AspectFit
+            skView.presentScene(scene)
+            
+            self.window!.addSubview(skView)
+            self.window!.sendSubviewToBack(skView)
+            
+            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
+            skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            let filePath = paths.first?.stringByAppendingString("Background-\(palette.name).png")
+            UIImagePNGRepresentation(image)?.writeToFile(filePath!, atomically: true)
+        }
         */
     }
 

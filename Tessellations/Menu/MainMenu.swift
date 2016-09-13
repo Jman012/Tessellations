@@ -29,6 +29,9 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
      * Section 2:
      *   Board buttons
      */
+    
+    @IBOutlet var backgroundImageView: UIImageView!
+    let bgImage = UIImage(named: "BackgroundTile")!.imageWithRenderingMode(.AlwaysTemplate)
 
     var menuData: [[String]] = []
     
@@ -44,7 +47,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         menuData.append(["Shuffle"])
         menuData.append(sceneClassStrings)
         
-//        self.collectionView?.backgroundColor = Singleton.shared.palette.background
         self.collectionView?.backgroundColor = UIColor.clearColor()
         Singleton.shared.delegate = self
         
@@ -52,6 +54,9 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        self.backgroundImageView.image = self.bgImage
+        self.backgroundImageView.tintColor = Singleton.shared.palette.piece
         
         for cell in self.collectionView!.visibleCells() {
             if let boardCell = cell as? MenuBoardCell {
@@ -129,6 +134,8 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
                 
                 Singleton.shared.setAppPalette(sender.value)
                 sender.valueLabel.text = "\(Singleton.shared.palette.name)"
+                
+                self.backgroundImageView.tintColor = Singleton.shared.palette.piece
             }
         } else if indexPath.row == 1 {
             cell.maxValue = BoardSize.count() - 1
