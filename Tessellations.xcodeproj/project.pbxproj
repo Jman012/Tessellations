@@ -169,9 +169,9 @@
 		1A2710541D73DBB9000F779A /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
+				1A38D8FE1D8764B700227A06 /* Singleton.swift */,
 				1A38D8FC1D8764B700227A06 /* Palettes.plist */,
 				1A38D8FD1D8764B700227A06 /* Palettes.v1.plist */,
-				1A38D8FE1D8764B700227A06 /* Singleton.swift */,
 			);
 			name = Singleton;
 			sourceTree = "<group>";

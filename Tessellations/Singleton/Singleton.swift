@@ -102,9 +102,10 @@ class Singleton {
     }
     
     func loadProgress() {
-        // Load progress
         let defaults = NSUserDefaults.standardUserDefaults()
+        
         if let theProgress = defaults.objectForKey("Progress") as? [String: [String: UInt]] {
+            // Load saved progress
             for (classString, boardSizeToProgress) in theProgress {
                 var classDict: [BoardSize: UInt] = [:]
                 for (boardSizeStr, progressUInt) in boardSizeToProgress {
@@ -127,6 +128,7 @@ class Singleton {
     func syncProgress() {
         let defaults = NSUserDefaults.standardUserDefaults()
         
+        // Convert progress to an NS-liked data structure
         let theProgress = NSMutableDictionary()
         for (classString, boardSizeToProgress) in self.progress {
             theProgress.setObject(NSMutableDictionary(), forKey: classString)
@@ -137,6 +139,7 @@ class Singleton {
             }
         }
         
+        // Then save it
         defaults.setObject(theProgress, forKey: "Progress")
         defaults.synchronize()
     }

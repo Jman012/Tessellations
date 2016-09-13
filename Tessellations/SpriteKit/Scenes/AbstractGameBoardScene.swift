@@ -9,16 +9,6 @@
 import UIKit
 import SpriteKit
 
-//let bgColor =         UIColor.whiteColor()
-//let baseColor =       UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
-//let baseColor =      UIColor.whiteColor()
-//let secondaryColor =  UIColor(colorLiteralRed: 0.831, green: 0.655, blue: 0.416, alpha: 1.0)
-//let pathStrokeColor = UIColor.whiteColor()
-//let pathStrokeColor = UIColor.clearColor()
-//let pipeStrokeColor = UIColor.clearColor()
-//let pipeOnColor =     UIColor(colorLiteralRed: 0.502, green: 0.322, blue: 0.082, alpha: 1.0)
-//let pipeOffColor =    UIColor(colorLiteralRed: 0.667, green: 0.475, blue: 0.224, alpha: 1.0)
-
 
 enum BoardSize: Int {
     case Small = 0
@@ -152,39 +142,13 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         fatalError("pieceToPoint() has not been implemented")
     }
     
+    class func size(boardSize: BoardSize) -> (Int, Int) {
+        fatalError("size() has not been implemented")
+    }
+    
     class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         /* Override this */
         return nil
-    }
-    
-    class func thumbnail(size: CGSize, addToView view: UIView, completion: ((image: UIImage) -> Void)) {
-        guard let scene = self.thumbnailScene(size) else {
-            fatalError("Couldn't get thumbnail scene of type \(self.self)")
-        }
-        
-        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
-        skView.ignoresSiblingOrder = true
-        scene.scaleMode = .AspectFit
-        skView.presentScene(scene)
-        
-        dispatch_sync(dispatch_get_main_queue(), {
-            view.addSubview(skView)
-        })
-        
-//        let window = UIApplication.sharedApplication().delegate!.window!
-//        window!.addSubview(skView)
-//        window!.sendSubviewToBack(skView)
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-//        skView.removeFromSuperview()
-        
-        completion(image: image)
-        
-//        return image
     }
     
     func constructTextures() {

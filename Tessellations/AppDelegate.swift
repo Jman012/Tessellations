@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func generateThumbnails() {
         let size = CGSize(width: window!.frame.width/2.0, height: window!.frame.width/2.0)
+//        let size = CGSize(width: 1024, height: 1024)
         var views: [String: SKView] = [:]
         
         for classString in sceneClassStrings {
@@ -70,14 +71,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+//        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        
         for classString in sceneClassStrings {
             
             let skView = views[classString]!
             
-            UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
             skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
+            
+//            let filePath = paths.first?.stringByAppendingString(classString).stringByAppendingString(".png")
+//            UIImagePNGRepresentation(image)?.writeToFile(filePath!, atomically: true)
             
             setNewThumbnailImage(image, forClassString: classString)
             
