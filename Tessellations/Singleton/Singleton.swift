@@ -208,6 +208,7 @@ class Singleton {
     
     func setOverridePalette(palette: ScenePalette?) {
         self.paletteOverride = palette
+        self.setAppPalette(self.currentPalette)
     }
     
 }

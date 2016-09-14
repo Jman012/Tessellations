@@ -94,54 +94,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Reset app-wide palette
         Singleton.shared.setOverridePalette(nil)
+        
     }
     
     func generateThumbnails() -> [String: UIImage] {
         let size = CGSize(width: window!.frame.width/2.0, height: window!.frame.width/2.0)
 //        let size = CGSize(width: 1024, height: 1024)
-        var views: [String: SKView] = [:]
         var ret: [String: UIImage] = [:]
+        
+        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+        skView.ignoresSiblingOrder = true
+        skView.opaque = false
         
         for classString in sceneClassStrings {
             if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
                 
-                let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
                 let scene = theClass.thumbnailScene(size)!
-                skView.ignoresSiblingOrder = true
-                skView.opaque = false
                 scene.scaleMode = .AspectFit
                 skView.presentScene(scene)
+
+                let image = UIImage(CGImage: skView.textureFromNode(scene)!.CGImage())
                 
-                self.window!.addSubview(skView)
-                self.window!.sendSubviewToBack(skView)
+                ret[classString] = image.imageWithRenderingMode(.AlwaysTemplate)
                 
-                views[classString] = skView
+                skView.presentScene(nil)
             }
-        }
-        
-//        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        
-        for classString in sceneClassStrings {
-            
-            let skView = views[classString]!
-            
-            UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.mainScreen().scale)
-            skView.drawViewHierarchyInRect(skView.bounds, afterScreenUpdates: true)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-//            let filePath = paths.first?.stringByAppendingString(classString).stringByAppendingString(".png")
-//            UIImagePNGRepresentation(image)?.writeToFile(filePath!, atomically: true)
-            
-//            setNewThumbnailImage(image, forClassString: classString)
-            ret[classString] = image.imageWithRenderingMode(.AlwaysTemplate)
-            
-        }
-        
-        for classString in sceneClassStrings {
-            
-            let skView = views[classString]!
-            skView.removeFromSuperview()
         }
         
         return ret

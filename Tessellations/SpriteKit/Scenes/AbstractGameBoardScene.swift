@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+let renderingView = SKView()
 
 enum BoardSize: Int {
     case Small = 0
@@ -152,7 +153,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     }
     
     func constructTextures() {
-        let skView = SKView()
         let shapeNode = SKShapeNode()
         shapeNode.fillColor = Singleton.shared.palette.piece
         shapeNode.strokeColor = Singleton.shared.palette.piece
@@ -163,7 +163,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         // Shape
         for (pieceType, path) in self.shapePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
-//            shapeNode.path = path
 
             let largerSide: CGFloat
             if shapeNode.frame.width > shapeNode.frame.height {
@@ -172,7 +171,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
                 largerSide = shapeNode.frame.height * 1.2
             }
             
-            let texture = skView.textureFromNode(shapeNode, crop:
+            let texture = renderingView.textureFromNode(shapeNode, crop:
                 CGRect(origin: CGPoint(x: -largerSide/2, y: -largerSide/2),
                        size:   CGSize(width: largerSide, height: largerSide)))
             self.shapeTextures[pieceType] = texture
@@ -187,7 +186,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
             let pieceShapeSize = self.shapeTextures[pieceType]!.size()
-            let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
+            let texture = renderingView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesEnabled[pieceType] = texture
             
             currentBoardPipeWidth = shapeNode.frame.width
@@ -201,7 +200,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
             let pieceShapeSize = self.shapeTextures[pieceType]!.size()
-            let texture = skView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
+            let texture = renderingView.textureFromNode(shapeNode, crop: CGRect(origin: CGPoint(x: -pieceShapeSize.width/2, y: -pieceShapeSize.height/2), size: pieceShapeSize))
             self.pipeTexturesDisabled[pieceType] = texture
         }
         
@@ -210,10 +209,10 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         bubble.lineWidth = 1.0
         bubble.fillColor = Singleton.shared.palette.pipeEnabled
         bubble.strokeColor = Singleton.shared.palette.pipeEnabled
-        bubbleEnabledTexture = skView.textureFromNode(bubble)
+        bubbleEnabledTexture = renderingView.textureFromNode(bubble)
         bubble.fillColor = Singleton.shared.palette.pipeDisabled
         bubble.strokeColor = Singleton.shared.palette.pipeDisabled
-        bubbleDisabledTexture = skView.textureFromNode(bubble)
+        bubbleDisabledTexture = renderingView.textureFromNode(bubble)
     }
     
     func nodeForPiece(piece: Piece) -> PieceNode {
@@ -316,10 +315,6 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
     }
     
-    override func didFinishUpdate() {
-        
-    }
-    
     func boardDidClear() {
         for node in self.pieceTree.children {
             guard let pieceNode = node as? PieceNode else {
@@ -362,7 +357,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
             let node = self.rowColToNode[RowCol(row: piece.row, col: piece.col)]!
             rootMarker.path = self.shapePaths[piece.type]!
             
-            rootMarker.runAction(SKAction.scaleTo(kCameraZoomIn * 0.5 * (currentBoardPipeWidth / node.frame.size.width), duration: 0))
+//            rootMarker.runAction(SKAction.scaleTo(kCameraZoomIn * 0.5 * (currentBoardPipeWidth / node.frame.size.width), duration: 0))
+            rootMarker.setScale(kCameraZoomIn * 0.5 * (currentBoardPipeWidth / node.frame.size.width))
             
             rootMarker.position = node.position
             rootMarker.zPosition = 4

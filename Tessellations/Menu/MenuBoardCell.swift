@@ -12,15 +12,11 @@ class MenuBoardCell: MenuBaseCell {
 
     var typeString: String! {
         didSet {
-            if let pieceImage = pieceThumbnailImages[typeString],
-                pipeImage = pipeThumbnailImages[typeString],
-                rootImage = rootThumbnailImages[typeString] {
-                
-                self.pieceImageView.image = pieceImage
-                self.pipeImageView.image = pipeImage
-                self.rootImageView.image = rootImage
-                self.label.hidden = true
-            }
+            self.pieceImageView.image = pieceThumbnailImages[typeString]
+            self.pipeImageView.image = pipeThumbnailImages[typeString]
+            self.rootImageView.image = rootThumbnailImages[typeString]
+            
+            self.label.hidden = true
             self.updateProgress()
         }
     }
@@ -54,7 +50,6 @@ class MenuBoardCell: MenuBaseCell {
     }
     
     override func awakeFromNib() {
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
@@ -66,23 +61,6 @@ class MenuBoardCell: MenuBaseCell {
         self.pipeImageView.tintColor = Singleton.shared.palette.pipeEnabled
         self.rootImageView.tintColor = Singleton.shared.palette.rootMarker
     }
-    
-//    func redoImage(sender: NSNotification?) {
-//        if let not = sender {
-//            let classString = not.userInfo![kClassString]! as! String
-//            if classString == self.typeString {
-//                if let image = thumbnailImages[typeString] {
-//                    self.imageView.image = image
-//                    self.label.hidden = true
-//                }
-//            }
-//        } else {
-//            if let image = thumbnailImages[typeString] {
-//                self.imageView.image = image
-//                self.label.hidden = true
-//            }
-//        }
-//    }
     
     func updateProgress() {
         progressLabel.text = "\(self.progress)"
