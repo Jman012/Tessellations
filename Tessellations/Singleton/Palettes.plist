@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>Red</key>
+<array>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>D72020</string>
@@ -14,8 +13,9 @@
 		<string>FFE3E3</string>
 		<key>background</key>
 		<string>FFFDFD</string>
+		<key>name</key>
+		<string>Red</string>
 	</dict>
-	<key>Magenta</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>AC1A6D</string>
@@ -27,8 +27,9 @@
 		<string>FFE3F3</string>
 		<key>background</key>
 		<string>FFFDFE</string>
+		<key>name</key>
+		<string>Magenta</string>
 	</dict>
-	<key>Purple</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>661C8F</string>
@@ -40,8 +41,9 @@
 		<string>F6E5FF</string>
 		<key>background</key>
 		<string>FEFDFF</string>
+		<key>name</key>
+		<string>Purple</string>
 	</dict>
-	<key>Indigo</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>3F2494</string>
@@ -53,8 +55,9 @@
 		<string>ECE7FF</string>
 		<key>background</key>
 		<string>FDFDFF</string>
+		<key>name</key>
+		<string>Indigo</string>
 	</dict>
-	<key>Blue</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>224390</string>
@@ -66,8 +69,9 @@
 		<string>E6EEFF</string>
 		<key>background</key>
 		<string>FDFEFF</string>
+		<key>name</key>
+		<string>Blue</string>
 	</dict>
-	<key>Teal</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>138181</string>
@@ -79,8 +83,9 @@
 		<string>E3FFFF</string>
 		<key>background</key>
 		<string>FDFFFF</string>
+		<key>name</key>
+		<string>Teal</string>
 	</dict>
-	<key>Green</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>1AAC1A</string>
@@ -92,8 +97,9 @@
 		<string>E3FFE3</string>
 		<key>background</key>
 		<string>FDFFFD</string>
+		<key>name</key>
+		<string>Green</string>
 	</dict>
-	<key>Lime</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>8FC81E</string>
@@ -105,8 +111,9 @@
 		<string>F6FFE3</string>
 		<key>background</key>
 		<string>FEFFFD</string>
+		<key>name</key>
+		<string>Lime</string>
 	</dict>
-	<key>Yellow</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>D7D420</string>
@@ -118,8 +125,9 @@
 		<string>FFFFE3</string>
 		<key>background</key>
 		<string>FFFFFD</string>
+		<key>name</key>
+		<string>Yellow</string>
 	</dict>
-	<key>Dark Yellow</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>D7B720</string>
@@ -131,8 +139,9 @@
 		<string>FFFAE3</string>
 		<key>background</key>
 		<string>FFFFFD</string>
+		<key>name</key>
+		<string>Dark Yellow</string>
 	</dict>
-	<key>Light Orange</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>D79A20</string>
@@ -144,8 +153,9 @@
 		<string>FFF6E3</string>
 		<key>background</key>
 		<string>FFFEFD</string>
+		<key>name</key>
+		<string>Light Orange</string>
 	</dict>
-	<key>Orange</key>
 	<dict>
 		<key>pipeEnabled</key>
 		<string>D77320</string>
@@ -157,6 +167,8 @@
 		<string>FFF0E3</string>
 		<key>background</key>
 		<string>FFFEFD</string>
+		<key>name</key>
+		<string>Orange</string>
 	</dict>
-</dict>
+</array>
 </plist>

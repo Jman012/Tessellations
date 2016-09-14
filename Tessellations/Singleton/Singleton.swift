@@ -93,8 +93,8 @@ class Singleton {
             paletteIndex = thePaletteIndex
         }
         
-        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSDictionary(contentsOfFile: path) as? [String: [String: String]] {
-            for (colorName, colorDict) in allPalettes {
+        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String: String]] {
+            for colorDict in allPalettes {
                 self.allPalettes.append(ScenePalette(
                     pipeEnabled:      colorDict["pipeEnabled"]!,
                     pipeDisabled:     colorDict["pipeDisabled"]!,
@@ -102,7 +102,7 @@ class Singleton {
                     background:       colorDict["background"]!,
                     buttonBackground: colorDict["backgroundSecondary"]!,
                     rootMarker:       colorDict["piece"]!,
-                    name: colorName))
+                    name:             colorDict["name"]!))
             }
         } else {
             print("Can't find Palettes.plist, defaulting to standard palette.")
