@@ -111,8 +111,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         rootMarkerTree.zPosition = 3
         self.addChild(rootMarkerTree)
         
-        rootMarker.fillColor = Singleton.shared.palette.piece
-        rootMarker.strokeColor = Singleton.shared.palette.piece
+        rootMarker.fillColor = Singleton.shared.palette.rootMarker
+        rootMarker.strokeColor = Singleton.shared.palette.rootMarker
         rootMarker.lineWidth = 1.0
         rootMarker.name = "Root Marker"
         rootMarker.zPosition = 4

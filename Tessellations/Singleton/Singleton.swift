@@ -14,28 +14,31 @@ struct ScenePalette {
     let piece:            UIColor
     let background:       UIColor
     let buttonBackground: UIColor
+    let rootMarker:       UIColor
     let name:             String
     
-    init(pipeEnabled: UIColor, pipeDisabled: UIColor, piece: UIColor, background: UIColor, buttonBackground: UIColor, name: String) {
+    init(pipeEnabled: UIColor, pipeDisabled: UIColor, piece: UIColor, background: UIColor, buttonBackground: UIColor, rootMarker: UIColor, name: String) {
         self.pipeEnabled =      pipeEnabled
         self.pipeDisabled =     pipeDisabled
         self.piece =            piece
         self.background =       background
         self.buttonBackground = buttonBackground
+        self.rootMarker =       rootMarker
         self.name =             name
     }
     
-    init(pipeEnabled: String, pipeDisabled: String, piece: String, background: String, buttonBackground: String, name: String) {
+    init(pipeEnabled: String, pipeDisabled: String, piece: String, background: String, buttonBackground: String, rootMarker: String, name: String) {
         self.pipeEnabled =      UIColor(hexString: pipeEnabled)
         self.pipeDisabled =     UIColor(hexString: pipeDisabled)
         self.piece =            UIColor(hexString: piece)
         self.background =       UIColor(hexString: background)
         self.buttonBackground = UIColor(hexString: buttonBackground)
+        self.rootMarker =       UIColor(hexString: rootMarker)
         self.name =             name
     }
     
     init(name: String, hexStrings: [String]) {
-        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4], name: name)
+        self.init(pipeEnabled: hexStrings[0], pipeDisabled: hexStrings[1], piece: hexStrings[2], background: hexStrings[3], buttonBackground: hexStrings[4], rootMarker: hexStrings[5], name: name)
     }
     
     init() {
@@ -57,10 +60,17 @@ class Singleton {
     weak var delegate: SingletonProtocol?
     
     var palette: ScenePalette {
-        get { return allPalettes[currentPalette] }
+        get {
+            if let override = self.paletteOverride {
+                return override
+            } else {
+                return allPalettes[currentPalette]
+            }
+        }
     }
     var currentPalette = 0
     var allPalettes: [ScenePalette] = []
+    var paletteOverride: ScenePalette?
     
     // ClassString -> [Size -> Number completed]
     private var progress: [String: [BoardSize: UInt]] = [:]
@@ -91,6 +101,7 @@ class Singleton {
                     piece:            colorDict["piece"]!,
                     background:       colorDict["background"]!,
                     buttonBackground: colorDict["backgroundSecondary"]!,
+                    rootMarker:       colorDict["piece"]!,
                     name: colorName))
             }
         } else {
@@ -189,13 +200,14 @@ class Singleton {
             del.singleton(self, didMoveToPalette: palette)
         }
         
-        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-        appDelegate.generateThumbnails()
-        
         NSNotificationCenter.defaultCenter().postNotificationName(kPaletteDidChange, object: nil)
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setInteger(currentPalette, forKey: "PaletteIndex")
+    }
+    
+    func setOverridePalette(palette: ScenePalette?) {
+        self.paletteOverride = palette
     }
     
 }

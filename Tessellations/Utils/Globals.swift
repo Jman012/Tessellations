@@ -36,9 +36,6 @@ enum SceneIndex: Int {
     case DodecagonHexagonSquare = 7
 }
 
-var thumbnailImages: [String: UIImage] = [:]
-
-func setNewThumbnailImage(image: UIImage, forClassString classString: String) {
-    thumbnailImages[classString] = image
-    NSNotificationCenter.defaultCenter().postNotificationName(kThumbnailImageDidChange, object: nil, userInfo: [kClassString: classString])
-}
+var pieceThumbnailImages: [String: UIImage] = [:]
+var pipeThumbnailImages: [String: UIImage] = [:]
+var rootThumbnailImages: [String: UIImage] = [:]

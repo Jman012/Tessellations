@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Singleton.shared.load()
         
-        self.generateThumbnails()
+        self.generateAllThumbnailImages()
         
         return true
     }
@@ -75,11 +75,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func generateAllThumbnailImages() {
+        let fullPalette = Singleton.shared.palette
+        let clear = UIColor.clearColor()
+        let piecePalette = ScenePalette(pipeEnabled: clear, pipeDisabled: clear, piece: fullPalette.piece, background: clear, buttonBackground: clear, rootMarker: clear, name: "piecePalette")
+        let pipePalette = ScenePalette(pipeEnabled: fullPalette.pipeEnabled, pipeDisabled: clear, piece: clear, background: clear, buttonBackground: clear, rootMarker: clear, name: "pipePalette")
+        let rootPalette = ScenePalette(pipeEnabled: clear, pipeDisabled: clear, piece: clear, background: clear, buttonBackground: clear, rootMarker: fullPalette.rootMarker, name: "rootPalette")
+        
+        // Set and generate each layer
+        Singleton.shared.setOverridePalette(piecePalette)
+        pieceThumbnailImages = self.generateThumbnails()
+        
+        Singleton.shared.setOverridePalette(pipePalette)
+        pipeThumbnailImages = self.generateThumbnails()
+        
+        Singleton.shared.setOverridePalette(rootPalette)
+        rootThumbnailImages = self.generateThumbnails()
+        
+        // Reset app-wide palette
+        Singleton.shared.setOverridePalette(nil)
+    }
     
-    func generateThumbnails() {
+    func generateThumbnails() -> [String: UIImage] {
         let size = CGSize(width: window!.frame.width/2.0, height: window!.frame.width/2.0)
 //        let size = CGSize(width: 1024, height: 1024)
         var views: [String: SKView] = [:]
+        var ret: [String: UIImage] = [:]
         
         for classString in sceneClassStrings {
             if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
@@ -112,7 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            let filePath = paths.first?.stringByAppendingString(classString).stringByAppendingString(".png")
 //            UIImagePNGRepresentation(image)?.writeToFile(filePath!, atomically: true)
             
-            setNewThumbnailImage(image, forClassString: classString)
+//            setNewThumbnailImage(image, forClassString: classString)
+            ret[classString] = image.imageWithRenderingMode(.AlwaysTemplate)
             
         }
         
@@ -121,6 +143,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let skView = views[classString]!
             skView.removeFromSuperview()
         }
+        
+        return ret
     }
 
 }

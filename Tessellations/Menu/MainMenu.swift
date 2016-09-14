@@ -151,7 +151,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
                 
                 for cell in self.collectionView!.visibleCells() {
                     if let boardCell = cell as? MenuBoardCell {
-                        boardCell.redoImage(nil)
                         boardCell.updateProgress()
                         
                         let theClass = NSClassFromString(boardCell.typeString)! as! AbstractGameBoardScene.Type

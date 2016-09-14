@@ -12,8 +12,13 @@ class MenuBoardCell: MenuBaseCell {
 
     var typeString: String! {
         didSet {
-            if let image = thumbnailImages[typeString] {
-                self.imageView.image = image
+            if let pieceImage = pieceThumbnailImages[typeString],
+                pipeImage = pipeThumbnailImages[typeString],
+                rootImage = rootThumbnailImages[typeString] {
+                
+                self.pieceImageView.image = pieceImage
+                self.pipeImageView.image = pipeImage
+                self.rootImageView.image = rootImage
                 self.label.hidden = true
             }
             self.updateProgress()
@@ -22,7 +27,11 @@ class MenuBoardCell: MenuBaseCell {
     @IBOutlet var label: UILabel!
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var progressMaxLabel: UILabel!
-    @IBOutlet var imageView: UIImageView!
+    
+    @IBOutlet var pieceImageView: UIImageView!
+    @IBOutlet var pipeImageView: UIImageView!
+    @IBOutlet var rootImageView: UIImageView!
+    
     @IBOutlet var highlightView: UIView!
     @IBOutlet var progressView: SquarePieProgressView!
     @IBOutlet var sizeLabel: UILabel!
@@ -45,31 +54,35 @@ class MenuBoardCell: MenuBaseCell {
     }
     
     override func awakeFromNib() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.redoImage), name: kThumbnailImageDidChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
     }
     
     override func setColors() {
         super.setColors()
         self.progressView.progressColor = Singleton.shared.palette.buttonBackground
+        
+        self.pieceImageView.tintColor = Singleton.shared.palette.piece
+        self.pipeImageView.tintColor = Singleton.shared.palette.pipeEnabled
+        self.rootImageView.tintColor = Singleton.shared.palette.rootMarker
     }
     
-    func redoImage(sender: NSNotification?) {
-        if let not = sender {
-            let classString = not.userInfo![kClassString]! as! String
-            if classString == self.typeString {
-                if let image = thumbnailImages[typeString] {
-                    self.imageView.image = image
-                    self.label.hidden = true
-                }
-            }
-        } else {
-            if let image = thumbnailImages[typeString] {
-                self.imageView.image = image
-                self.label.hidden = true
-            }
-        }
-    }
+//    func redoImage(sender: NSNotification?) {
+//        if let not = sender {
+//            let classString = not.userInfo![kClassString]! as! String
+//            if classString == self.typeString {
+//                if let image = thumbnailImages[typeString] {
+//                    self.imageView.image = image
+//                    self.label.hidden = true
+//                }
+//            }
+//        } else {
+//            if let image = thumbnailImages[typeString] {
+//                self.imageView.image = image
+//                self.label.hidden = true
+//            }
+//        }
+//    }
     
     func updateProgress() {
         progressLabel.text = "\(self.progress)"
