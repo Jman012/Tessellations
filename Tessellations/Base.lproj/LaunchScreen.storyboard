@@ -21,8 +21,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vj1-lS-eaj">
-                                <rect key="frame" x="0.0" y="20" width="600" height="88"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="vj1-lS-eaj">
+                                <rect key="frame" x="16" y="20" width="568" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="Qj0-xo-IUy"/>
                                 </constraints>
@@ -33,10 +33,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vj1-lS-eaj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3ds-Se-Gid"/>
+                            <constraint firstItem="vj1-lS-eaj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="16" id="3ds-Se-Gid"/>
                             <constraint firstItem="scv-n5-RCz" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="FVI-kK-Zky"/>
                             <constraint firstItem="scv-n5-RCz" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="HkB-SF-p5v"/>
-                            <constraint firstAttribute="trailing" secondItem="vj1-lS-eaj" secondAttribute="trailing" id="QWm-Ag-IgT"/>
+                            <constraint firstAttribute="trailing" secondItem="vj1-lS-eaj" secondAttribute="trailing" constant="16" id="QWm-Ag-IgT"/>
                             <constraint firstAttribute="trailing" secondItem="scv-n5-RCz" secondAttribute="trailing" id="Vgj-7D-m1U"/>
                             <constraint firstItem="vj1-lS-eaj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="VoX-ff-Nre"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="scv-n5-RCz" secondAttribute="bottom" id="wbf-xj-164"/>

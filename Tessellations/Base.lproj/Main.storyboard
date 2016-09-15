@@ -553,8 +553,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-mF-h8j">
-                                            <rect key="frame" x="20.5" y="-6" width="120.5" height="172.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tessellations" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-mF-h8j">
+                                            <rect key="frame" x="16" y="0.0" width="128" height="160"/>
                                             <fontDescription key="fontDescription" type="system" weight="black" pointSize="48"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -564,10 +564,18 @@
                                 </view>
                                 <constraints>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="centerX" secondItem="mdM-Y5-ABl" secondAttribute="centerX" id="11i-Bx-bti"/>
-                                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="L8I-mF-h8j" secondAttribute="trailing" constant="8" id="ZaA-cB-IME"/>
-                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mdM-Y5-ABl" secondAttribute="leadingMargin" constant="8" id="d9w-Mg-qE1"/>
+                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="top" secondItem="mdM-Y5-ABl" secondAttribute="top" id="4Er-Ph-uWO"/>
+                                    <constraint firstAttribute="trailing" secondItem="L8I-mF-h8j" secondAttribute="trailing" constant="16" id="ZaA-cB-IME"/>
+                                    <constraint firstItem="L8I-mF-h8j" firstAttribute="leading" secondItem="mdM-Y5-ABl" secondAttribute="leading" constant="16" id="d9w-Mg-qE1"/>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="centerY" secondItem="mdM-Y5-ABl" secondAttribute="centerY" id="fvg-Ie-zgY"/>
+                                    <constraint firstAttribute="bottom" secondItem="L8I-mF-h8j" secondAttribute="bottom" id="pNa-QM-cfY"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="11i-Bx-bti"/>
+                                        <exclude reference="fvg-Ie-zgY"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="label" destination="L8I-mF-h8j" id="bxG-Y3-dvK"/>
                                 </connections>
