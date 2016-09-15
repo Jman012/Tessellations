@@ -11,6 +11,7 @@ import UIKit
 class MenuTitleCell: MenuBaseCell {
     
     @IBOutlet var label: UILabel!
+    @IBOutlet var infoButton: UIButton!
     
     override func awakeFromNib() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
@@ -28,6 +29,7 @@ class MenuTitleCell: MenuBaseCell {
         self.contentView.backgroundColor = UIColor.clearColor()
         
         self.label.textColor = Singleton.shared.palette.pipeEnabled
+        self.infoButton.tintColor = Singleton.shared.palette.pipeEnabled
     }
     
 }

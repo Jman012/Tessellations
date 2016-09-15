@@ -546,7 +546,7 @@
                                     <outlet property="valueLabel" destination="sSN-X9-HaD" id="nkq-Lh-Xd3"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" reuseIdentifier="MenuTitleCell" id="mdM-Y5-ABl" customClass="MenuTitleCell" customModule="Tessellations" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MenuTitleCell" id="mdM-Y5-ABl" customClass="MenuTitleCell" customModule="Tessellations" customModuleProvider="target">
                                 <rect key="frame" x="228" y="258.5" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -559,14 +559,22 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJE-5C-AKt">
+                                            <rect key="frame" x="130" y="130" width="22" height="22"/>
+                                            <connections>
+                                                <segue destination="FBx-fG-ofB" kind="show" id="srM-6p-P5h"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="centerX" secondItem="mdM-Y5-ABl" secondAttribute="centerX" id="11i-Bx-bti"/>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="top" secondItem="mdM-Y5-ABl" secondAttribute="top" id="4Er-Ph-uWO"/>
+                                    <constraint firstItem="SJE-5C-AKt" firstAttribute="bottom" secondItem="mdM-Y5-ABl" secondAttribute="bottomMargin" id="YWs-5Y-PeY"/>
                                     <constraint firstAttribute="trailing" secondItem="L8I-mF-h8j" secondAttribute="trailing" constant="16" id="ZaA-cB-IME"/>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="leading" secondItem="mdM-Y5-ABl" secondAttribute="leading" constant="16" id="d9w-Mg-qE1"/>
+                                    <constraint firstItem="SJE-5C-AKt" firstAttribute="trailing" secondItem="mdM-Y5-ABl" secondAttribute="trailingMargin" id="eFV-fT-XRQ"/>
                                     <constraint firstItem="L8I-mF-h8j" firstAttribute="centerY" secondItem="mdM-Y5-ABl" secondAttribute="centerY" id="fvg-Ie-zgY"/>
                                     <constraint firstAttribute="bottom" secondItem="L8I-mF-h8j" secondAttribute="bottom" id="pNa-QM-cfY"/>
                                 </constraints>
@@ -577,6 +585,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
+                                    <outlet property="infoButton" destination="SJE-5C-AKt" id="Nvv-Cs-iQa"/>
                                     <outlet property="label" destination="L8I-mF-h8j" id="bxG-Y3-dvK"/>
                                 </connections>
                             </collectionViewCell>
@@ -596,6 +605,103 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xgq-yJ-Dni" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="335" y="364"/>
+        </scene>
+        <!--Info View Controller-->
+        <scene sceneID="RIu-B0-zTm">
+            <objects>
+                <viewController id="FBx-fG-ofB" customClass="InfoViewController" customModule="Tessellations" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O8o-CZ-5Ah"/>
+                        <viewControllerLayoutGuide type="bottom" id="e0D-DI-Vr6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8vY-dw-NCZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eug-23-GvQ">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Tessellations
+
+Made by James N Linnell
+
+Questions? Comments? Bugs?
+Contact: james.n.linnell@gmail.com
+
+Want to learn more about polygons and Tessellations?
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">- http://gwydir.demon.co.uk/jo/tess/grids.htm
+- http://www.had2know.com/academics/octagon-measurement-calculator.html
+- http://mathworld.wolfram.com/TrigonometryAnglesPi12.html
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+Other resources:
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">- http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap
+- http://paletton.com/
+- https://coolors.co/
+- http://www.appicon.build/</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDJ-xC-h4O">
+                                <rect key="frame" x="8" y="28" width="29" height="38"/>
+                                <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                <state key="normal" image="BackArrow"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JyD-1H-9ny"/>
+                                    <action selector="backButtonPressed:" destination="FBx-fG-ofB" eventType="touchUpInside" id="0vd-JF-DBm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="e0D-DI-Vr6" firstAttribute="top" secondItem="Eug-23-GvQ" secondAttribute="bottom" id="1Lf-OR-sA1"/>
+                            <constraint firstItem="Eug-23-GvQ" firstAttribute="leading" secondItem="8vY-dw-NCZ" secondAttribute="leading" id="31S-ea-j59"/>
+                            <constraint firstItem="hDJ-xC-h4O" firstAttribute="leading" secondItem="8vY-dw-NCZ" secondAttribute="leading" constant="8" id="7XV-Te-fmg"/>
+                            <constraint firstItem="Eug-23-GvQ" firstAttribute="top" secondItem="O8o-CZ-5Ah" secondAttribute="bottom" id="GAT-vw-Mff"/>
+                            <constraint firstItem="hDJ-xC-h4O" firstAttribute="top" secondItem="O8o-CZ-5Ah" secondAttribute="bottom" constant="8" id="QDL-8A-94t"/>
+                            <constraint firstAttribute="trailing" secondItem="Eug-23-GvQ" secondAttribute="trailing" id="TSh-YU-nAk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="hDJ-xC-h4O" id="zmF-mX-Jbx"/>
+                        <outlet property="textView" destination="Eug-23-GvQ" id="jTt-vG-O3c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Utl-lY-pfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="335" y="1092"/>
         </scene>
     </scenes>
     <resources>
