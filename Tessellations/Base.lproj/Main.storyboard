@@ -22,19 +22,33 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-he-w0k" customClass="SKView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <subviews>
-                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVd-tz-Kpw">
-                                        <rect key="frame" x="277" y="8" width="46" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUA-Rv-Pnz">
+                                        <rect key="frame" x="8" y="8" width="29" height="38"/>
                                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                                        <state key="normal" title="001">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        </state>
+                                        <state key="normal" image="BackArrow"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ie7-Lc-ZpP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwM-YK-VZd">
+                                        <rect key="frame" x="562" y="8" width="30" height="38"/>
+                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                        <state key="normal" image="Zoom"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="zoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OtN-ND-2hw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o50-p5-VYO">
                                         <rect key="frame" x="273" y="535" width="54" height="37"/>
@@ -53,36 +67,22 @@
                                             <action selector="next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V6b-W7-Cdv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwM-YK-VZd">
-                                        <rect key="frame" x="562" y="8" width="30" height="38"/>
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pVd-tz-Kpw">
+                                        <rect key="frame" x="277" y="8" width="46" height="37"/>
                                         <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                                         <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                                        <state key="normal" image="Zoom"/>
+                                        <state key="normal" title="001">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                 <integer key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="zoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OtN-ND-2hw"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUA-Rv-Pnz">
-                                        <rect key="frame" x="8" y="8" width="29" height="38"/>
-                                        <color key="backgroundColor" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
-                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
-                                        <state key="normal" image="BackArrow"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ie7-Lc-ZpP"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Winner!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAt-gu-Ys2">
-                                        <rect key="frame" x="267.5" y="17" width="66.5" height="20.5"/>
+                                        <rect key="frame" x="267" y="16.5" width="66.5" height="20.5"/>
                                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -90,16 +90,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="o50-p5-VYO" secondAttribute="bottom" constant="8" id="Q3W-YQ-aAd"/>
-                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="leading" secondItem="aGV-he-w0k" secondAttribute="leading" constant="8" id="QRV-hj-Vn4"/>
-                                    <constraint firstAttribute="trailing" secondItem="mwM-YK-VZd" secondAttribute="trailing" constant="8" id="TFg-es-FXY"/>
-                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="UD5-mx-F6e"/>
-                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerY" secondItem="hAt-gu-Ys2" secondAttribute="centerY" id="WBT-wD-ipF"/>
-                                    <constraint firstItem="mwM-YK-VZd" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="X1d-hd-CFl"/>
-                                    <constraint firstItem="o50-p5-VYO" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="coC-Oz-WSm"/>
-                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="owL-dV-Yzj"/>
-                                    <constraint firstItem="hAt-gu-Ys2" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="p3i-Dr-OZZ"/>
-                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="qmx-2H-Eqa"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="1ld-ro-Z9U"/>
+                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="leading" secondItem="aGV-he-w0k" secondAttribute="leading" constant="8" id="2lc-ST-zl4"/>
+                                    <constraint firstAttribute="trailing" secondItem="mwM-YK-VZd" secondAttribute="trailing" constant="8" id="6Me-sb-JRi"/>
+                                    <constraint firstItem="hAt-gu-Ys2" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="BxC-Sp-LQj"/>
+                                    <constraint firstItem="o50-p5-VYO" firstAttribute="centerX" secondItem="aGV-he-w0k" secondAttribute="centerX" id="F3N-kx-2uP"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="centerY" secondItem="hAt-gu-Ys2" secondAttribute="centerY" id="Iyq-cE-fof"/>
+                                    <constraint firstItem="pVd-tz-Kpw" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="iJF-Gs-CXM"/>
+                                    <constraint firstItem="lUA-Rv-Pnz" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="ojD-Eb-jWu"/>
+                                    <constraint firstAttribute="bottom" secondItem="o50-p5-VYO" secondAttribute="bottom" constant="8" id="pFP-Kr-vAh"/>
+                                    <constraint firstItem="mwM-YK-VZd" firstAttribute="top" secondItem="aGV-he-w0k" secondAttribute="top" constant="8" id="rwc-gQ-RtV"/>
                                 </constraints>
                             </view>
                         </subviews>

@@ -75,6 +75,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
         self.navigationController!.navigationBar.shadowImage = UIImage()
         self.navigationController!.navigationBar.translucent = true
+        
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -139,10 +141,6 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
         }
         
-        self.camera.setScale(kCameraZoomOut)
-        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
-        self.scene.camera = self.camera
-        
         self.scene.scaleMode = .AspectFit
         self.scene.del = self
         
@@ -154,6 +152,10 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
         
         self.scene.size = self.sceneView.frame.size
         self.scene.sceneSizeDidChange()
+        
+        self.camera.setScale(kCameraZoomOut)
+        self.camera.position = CGPoint(x: self.scene.size.width / 2.0, y: self.scene.size.height / 2.0)
+        self.scene.camera = self.camera
         
         self.scene.logicalBoard.generatePrim()
     }
