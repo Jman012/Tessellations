@@ -16,7 +16,11 @@ class MenuBaseCell: UICollectionViewCell {
     
     override func didMoveToSuperview() {
         self.layer.borderColor = UIColor(white: 0.75, alpha: 1.0).CGColor
-        self.layer.borderWidth = 0.25
+        if UIScreen.mainScreen().scale == 1.0 {
+            self.layer.borderWidth = 0.5
+        } else {
+            self.layer.borderWidth = 0.25
+        }
     }
     
     func setColors() {
