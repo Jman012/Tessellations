@@ -94,6 +94,8 @@ class Singleton {
     var pieceThumbnailImages: [String: UIImage] { get { return self.thumbnailImages[.Piece]! } }
     var pipeThumbnailImages: [String: UIImage]  { get { return self.thumbnailImages[.Pipe]! } }
     var rootThumbnailImages: [String: UIImage]  { get { return self.thumbnailImages[.Root]! } }
+    var thumbGeningSKView: SKView!
+    var thumbGeningScene: SKScene!
     
     var version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]! as! String
     
@@ -105,8 +107,10 @@ class Singleton {
         self.loadColorPalettes()
         self.loadProgress()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            self.loadThumbnails()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0)) {
+            autoreleasepool {
+                self.loadThumbnails()
+            }
         }
     }
     
@@ -320,15 +324,19 @@ class Singleton {
         let separatePalettes: [ThumbnailImageType: ScenePalette] = [.Piece: piecePalette, .Pipe: pipePalette, .Root: rootPalette]
         
         for thumbnailType in ThumbnailImageType.all() {
-            self.setThumbnailPalette(separatePalettes[thumbnailType]!)
-            let images = self.generateThumbnails()
-            for (key, value) in images {
-                self.setThumbnailImage(value, forClass: key, type: thumbnailType)
+            autoreleasepool {
+                self.setThumbnailPalette(separatePalettes[thumbnailType]!)
+                print("On \(thumbnailType)")
+                let images = self.generateThumbnails()
+                for (key, value) in images {
+                    self.setThumbnailImage(value, forClass: key, type: thumbnailType)
+                }
             }
         }
         
         self.setThumbnailPalette(nil)
-        
+        self.thumbGeningSKView = nil
+        self.thumbGeningScene = nil
     }
     
     func generateThumbnails() -> [String: UIImage] {
@@ -337,22 +345,26 @@ class Singleton {
         //        let size = CGSize(width: 1024, height: 1024)
         var ret: [String: UIImage] = [:]
         
-        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
-        skView.ignoresSiblingOrder = true
-        skView.opaque = false
+        if self.thumbGeningSKView == nil {
+            self.thumbGeningSKView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+            self.thumbGeningSKView.ignoresSiblingOrder = true
+            self.thumbGeningSKView.opaque = false
+        }
         
         for classString in sceneClassStrings {
             if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
                 
-                let scene = theClass.thumbnailScene(size)!
-                scene.scaleMode = .AspectFit
-                skView.presentScene(scene)
+                self.thumbGeningScene = theClass.thumbnailScene(size)!
+                self.thumbGeningScene.scaleMode = .AspectFit
+                self.thumbGeningSKView.presentScene(self.thumbGeningScene)
                 
-                let image = UIImage(CGImage: skView.textureFromNode(scene)!.CGImage())
+                let image = UIImage(CGImage: self.thumbGeningSKView.textureFromNode(self.thumbGeningScene)!.CGImage())
+                print("Made \(classString)")
                 
                 ret[classString] = image.imageWithRenderingMode(.AlwaysTemplate)
                 
-                skView.presentScene(nil)
+                self.thumbGeningScene = nil
+                self.thumbGeningSKView.presentScene(nil)
             }
         }
         
