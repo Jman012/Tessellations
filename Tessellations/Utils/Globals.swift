@@ -35,7 +35,3 @@ enum SceneIndex: Int {
     case HexagonSquareTriangle = 6
     case DodecagonHexagonSquare = 7
 }
-
-var pieceThumbnailImages: [String: UIImage] = [:]
-var pipeThumbnailImages: [String: UIImage] = [:]
-var rootThumbnailImages: [String: UIImage] = [:]

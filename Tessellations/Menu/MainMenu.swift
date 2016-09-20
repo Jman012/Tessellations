@@ -108,8 +108,6 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         let classString = menuData[indexPath.section][indexPath.row]
         
         cell.typeString = classString
-        cell.label.textColor = UIColor.blackColor()
-        cell.label.text = classString
         
         let theClass = NSClassFromString(classString)! as! AbstractGameBoardScene.Type
         let size = theClass.size(self.boardSize)
@@ -202,7 +200,7 @@ class MainMenu: UICollectionViewController, UICollectionViewDelegateFlowLayout, 
         if segue.identifier == "MenuBoardCellSegue" {
             let viewController = segue.destinationViewController as! ViewController
             if let cell = sender as? MenuBoardCell {
-                viewController.setBoardType(cell.label!.text!, forBoardSize: boardSize)
+                viewController.setBoardType(cell.typeString, forBoardSize: boardSize)
             } else if (sender as? MenuButtonCell) != nil {
                 viewController.shuffle(forBoardTypes: sceneClassStrings, boardSize: boardSize)
             }

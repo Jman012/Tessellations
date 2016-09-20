@@ -43,7 +43,16 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var logicalBoardWidth = 1
     var logicalBoardHeight = 1
     
-    var margins = CGSize(width: 20, height: 44.0)
+    var thumbnailMode: Bool
+    var margins: CGSize {
+        get {
+            if self.thumbnailMode {
+                return CGSizeZero
+            } else {
+                return CGSize(width: 20, height: 44.0)
+            }
+        }
+    }
     var effectiveWidth: CGFloat {
         get { return size.width - margins.width*2 }
     }
@@ -75,11 +84,21 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     var logicalBoard: AbstractGameBoard!
     var gameIsWon = false
     
-    required init(size: CGSize, boardSize: BoardSize, margins: Bool) {
-        
+    var palette: ScenePalette {
+        get {
+            if thumbnailMode {
+                return Singleton.shared.thumbnailPalette!
+            } else {
+                return Singleton.shared.palette
+            }
+        }
+    }
+    
+    required init(size: CGSize, boardSize: BoardSize, thumbnailMode: Bool) {
+        self.thumbnailMode = thumbnailMode
         super.init(size: size)
         
-        self.requiredInitialization(margins)
+        self.requiredInitialization()
         
         self.logicalBoard = self.initLogicalBoard(boardSize: boardSize)
         
@@ -88,11 +107,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         self.constructTextures()
     }
     
-    init(size: CGSize, boardWidth: Int, boardHeight: Int, margins: Bool) {
-        
+    init(size: CGSize, boardWidth: Int, boardHeight: Int, thumbnailMode: Bool) {
+        self.thumbnailMode = thumbnailMode
         super.init(size: size)
         
-        self.requiredInitialization(margins)
+        self.requiredInitialization()
         
         self.logicalBoardWidth = boardWidth
         self.logicalBoardHeight = boardHeight
@@ -103,7 +122,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         self.constructTextures()
     }
     
-    func requiredInitialization(margins: Bool) {
+    func requiredInitialization() {
         
         pieceTree.zPosition = 1
         self.addChild(pieceTree)
@@ -112,15 +131,12 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         rootMarkerTree.zPosition = 3
         self.addChild(rootMarkerTree)
         
-        rootMarker.fillColor = Singleton.shared.palette.rootMarker
-        rootMarker.strokeColor = Singleton.shared.palette.rootMarker
+        rootMarker.fillColor = palette.rootMarker
+        rootMarker.strokeColor = palette.rootMarker
         rootMarker.lineWidth = 1.0
         rootMarker.name = "Root Marker"
         rootMarker.zPosition = 4
         
-        if !margins {
-            self.margins = CGSizeZero
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -154,8 +170,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
     
     func constructTextures() {
         let shapeNode = SKShapeNode()
-        shapeNode.fillColor = Singleton.shared.palette.piece
-        shapeNode.strokeColor = Singleton.shared.palette.piece
+        shapeNode.fillColor = palette.piece
+        shapeNode.strokeColor = palette.piece
         shapeNode.lineWidth = 1.0
         
         var zoomScale = CGAffineTransformMakeScale(1.0 / kCameraZoomIn, 1.0 / kCameraZoomIn)
@@ -180,8 +196,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Pipe Enabled
-        shapeNode.fillColor = Singleton.shared.palette.pipeEnabled
-        shapeNode.strokeColor = Singleton.shared.palette.pipeEnabled
+        shapeNode.fillColor = palette.pipeEnabled
+        shapeNode.strokeColor = palette.pipeEnabled
         
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
@@ -194,8 +210,8 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         }
         
         // Pipe Disabled
-        shapeNode.fillColor = Singleton.shared.palette.pipeDisabled
-        shapeNode.strokeColor = Singleton.shared.palette.pipeDisabled
+        shapeNode.fillColor = palette.pipeDisabled
+        shapeNode.strokeColor = palette.pipeDisabled
         
         for (pieceType, path) in self.pipePaths {
             shapeNode.path = CGPathCreateCopyByTransformingPath(path, &zoomScale)
@@ -207,11 +223,11 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         // Bubble
         let bubble = SKShapeNode(circleOfRadius: currentBoardPipeWidth * 0.5 * 1.2)
         bubble.lineWidth = 1.0
-        bubble.fillColor = Singleton.shared.palette.pipeEnabled
-        bubble.strokeColor = Singleton.shared.palette.pipeEnabled
+        bubble.fillColor = palette.pipeEnabled
+        bubble.strokeColor = palette.pipeEnabled
         bubbleEnabledTexture = renderingView.textureFromNode(bubble)
-        bubble.fillColor = Singleton.shared.palette.pipeDisabled
-        bubble.strokeColor = Singleton.shared.palette.pipeDisabled
+        bubble.fillColor = palette.pipeDisabled
+        bubble.strokeColor = palette.pipeDisabled
         bubbleDisabledTexture = renderingView.textureFromNode(bubble)
     }
     
@@ -230,7 +246,7 @@ class AbstractGameBoardScene: SKScene, AbstractGameBoardProtocol {
         super.didMoveToView(view)
         
         if margins != CGSizeZero {
-            self.backgroundColor = Singleton.shared.palette.background
+            self.backgroundColor = palette.background
         } else {
             self.backgroundColor = UIColor.clearColor()
         }

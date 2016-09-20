@@ -164,7 +164,7 @@ class HexagonSquareTriangleScene: AbstractGameBoardScene {
     }
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
-        let scene = HexagonSquareTriangleScene(size: size, boardWidth: 4, boardHeight: 2, margins: false)
+        let scene = HexagonSquareTriangleScene(size: size, boardWidth: 4, boardHeight: 2, thumbnailMode: true)
         
         scene.logicalBoard.board[1][0] = nil
         scene.logicalBoard.board[1][1] = nil

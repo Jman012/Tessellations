@@ -12,15 +12,12 @@ class MenuBoardCell: MenuBaseCell {
 
     var typeString: String! {
         didSet {
-            self.pieceImageView.image = pieceThumbnailImages[typeString]
-            self.pipeImageView.image = pipeThumbnailImages[typeString]
-            self.rootImageView.image = rootThumbnailImages[typeString]
+            self.applyImage(nil)
             
-            self.label.hidden = true
             self.updateProgress()
         }
     }
-    @IBOutlet var label: UILabel!
+    @IBOutlet var indicator: UIActivityIndicatorView!
     @IBOutlet var progressLabel: UILabel!
     @IBOutlet var progressMaxLabel: UILabel!
     
@@ -36,6 +33,7 @@ class MenuBoardCell: MenuBaseCell {
     }
     
     weak var collectionVC: MainMenu!
+
     
     override var highlighted: Bool {
         didSet {
@@ -50,7 +48,35 @@ class MenuBoardCell: MenuBaseCell {
     }
     
     override func awakeFromNib() {
+        self.indicator.startAnimating()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.setColors), name: kPaletteDidChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuBoardCell.applyImage(_:)), name: kThumbnailImageDidChange, object: nil)
+    }
+    
+    func applyImage(sender: NSNotification?) {
+        if let userInfo = sender?.userInfo, let theClass = userInfo[kClassString] as? String where theClass != self.typeString {
+            return
+        }
+        
+        self.pieceImageView.image = Singleton.shared.pieceThumbnailImages[typeString]
+        self.pipeImageView.image = Singleton.shared.pipeThumbnailImages[typeString]
+        self.rootImageView.image = Singleton.shared.rootThumbnailImages[typeString]
+        
+        if pieceImageView.image != nil && pipeImageView.image != nil && rootImageView.image != nil {
+            self.pieceImageView.hidden = false
+            self.pipeImageView.hidden = false
+            self.rootImageView.hidden = false
+            
+            self.indicator.stopAnimating()
+            self.indicator.hidden = true
+        } else {
+            self.pieceImageView.hidden = true
+            self.pipeImageView.hidden = true
+            self.rootImageView.hidden = true
+            
+            self.indicator.startAnimating()
+            self.indicator.hidden = false
+        }
     }
     
     override func setColors() {

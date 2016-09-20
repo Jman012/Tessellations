@@ -78,7 +78,7 @@ class OctagonSquareScene: AbstractGameBoardScene {
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let scene = OctagonSquareScene(size: size, boardWidth: 2, boardHeight: 2, margins: false)
+        let scene = OctagonSquareScene(size: size, boardWidth: 2, boardHeight: 2, thumbnailMode: true)
         
         let oPiece = scene.logicalBoard.getPiece(row: 0, col: 0)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: oPiece, inTrueDir: .SouthEast)

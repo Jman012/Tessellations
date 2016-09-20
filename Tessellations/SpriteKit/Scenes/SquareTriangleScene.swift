@@ -128,7 +128,7 @@ class SquareTriangleScene: AbstractGameBoardScene {
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let scene = SquareTriangleScene(size: size, boardWidth: 1, boardHeight: 2, margins: false)
+        let scene = SquareTriangleScene(size: size, boardWidth: 1, boardHeight: 2, thumbnailMode: true)
         scene.logicalBoard.sourceRow = 1
         
         let tPiece = scene.logicalBoard.getPiece(row: 0, col: 0)!

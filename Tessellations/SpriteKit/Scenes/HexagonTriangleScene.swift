@@ -78,7 +78,7 @@ class HexagonTriangleScene: AbstractGameBoardScene {
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let scene = HexagonTriangleScene(size: size, boardWidth: 2, boardHeight: 2, margins: false)
+        let scene = HexagonTriangleScene(size: size, boardWidth: 2, boardHeight: 2, thumbnailMode: true)
         let newHexagonCornerDiameter = scene.hexagon.cornerDiameter - (scene.triangleUp.sideLength / 2.0)
 
         scene.hexagon = Hexagon(cornerDiameter: newHexagonCornerDiameter, pipeWidth: 1)

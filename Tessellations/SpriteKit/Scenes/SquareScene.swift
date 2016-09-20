@@ -59,7 +59,7 @@ class SquareScene: AbstractGameBoardScene {
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let scene = SquareScene(size: size, boardWidth: 1, boardHeight: 1, margins: false)
+        let scene = SquareScene(size: size, boardWidth: 1, boardHeight: 1, thumbnailMode: true)
         
         let piece = scene.logicalBoard.getPiece(row: 0, col: 0)!
         scene.logicalBoard.setPipeState(.Source, ofPiece: piece, inTrueDir: .East)

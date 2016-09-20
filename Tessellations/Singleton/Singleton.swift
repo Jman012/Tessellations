@@ -7,6 +7,25 @@
 //
 
 import UIKit
+import SpriteKit
+
+enum ThumbnailImageType {
+    case Piece
+    case Pipe
+    case Root
+    
+    func text() -> String {
+        switch self {
+        case .Piece: return "Piece"
+        case .Pipe: return "Pipe"
+        case .Root: return "Root"
+        }
+    }
+    
+    static func all() -> [ThumbnailImageType] {
+        return [.Piece, .Pipe, .Root]
+    }
+}
 
 struct ScenePalette {
     let pipeEnabled:      UIColor
@@ -61,19 +80,22 @@ class Singleton {
     
     var palette: ScenePalette {
         get {
-            if let override = self.paletteOverride {
-                return override
-            } else {
-                return allPalettes[currentPalette]
-            }
+            return allPalettes[currentPalette]
         }
     }
     var currentPalette = 0
     var allPalettes: [ScenePalette] = []
-    var paletteOverride: ScenePalette?
+    var thumbnailPalette: ScenePalette?
     
     // ClassString -> [Size -> Number completed]
     private var progress: [String: [BoardSize: UInt]] = [:]
+    
+    var thumbnailImages: [ThumbnailImageType: [String: UIImage]] = [.Piece: [:], .Pipe: [:], .Root: [:]]
+    var pieceThumbnailImages: [String: UIImage] { get { return self.thumbnailImages[.Piece]! } }
+    var pipeThumbnailImages: [String: UIImage]  { get { return self.thumbnailImages[.Pipe]! } }
+    var rootThumbnailImages: [String: UIImage]  { get { return self.thumbnailImages[.Root]! } }
+    
+    var version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]! as! String
     
     private init() {
         
@@ -82,35 +104,13 @@ class Singleton {
     func load() {
         self.loadColorPalettes()
         self.loadProgress()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            self.loadThumbnails()
+        }
     }
     
-    func loadColorPalettes() {
-        // Load Color Palette
-        // http://paletton.com/palette.php?uid=10u0u0k72%2B%2B0j%2B%2B3u%2B%2BdTO0reqW
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        var paletteIndex: Int = 0
-        if let thePaletteIndex = userDefaults.objectForKey("PaletteIndex") as? Int {
-            paletteIndex = thePaletteIndex
-        }
-        
-        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String: String]] {
-            for colorDict in allPalettes {
-                self.allPalettes.append(ScenePalette(
-                    pipeEnabled:      colorDict["pipeEnabled"]!,
-                    pipeDisabled:     colorDict["pipeDisabled"]!,
-                    piece:            colorDict["piece"]!,
-                    background:       colorDict["background"]!,
-                    buttonBackground: colorDict["backgroundSecondary"]!,
-                    rootMarker:       colorDict["piece"]!,
-                    name:             colorDict["name"]!))
-            }
-        } else {
-            print("Can't find Palettes.plist, defaulting to standard palette.")
-            allPalettes = [ScenePalette()]
-        }
-        
-        currentPalette = min(paletteIndex, self.allPalettes.count + 1)
-    }
+    /* Progress */
     
     func loadProgress() {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -175,6 +175,36 @@ class Singleton {
         }
     }
     
+    /* Palettes */
+    
+    func loadColorPalettes() {
+        // Load Color Palette
+        // http://paletton.com/palette.php?uid=10u0u0k72%2B%2B0j%2B%2B3u%2B%2BdTO0reqW
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var paletteIndex: Int = 0
+        if let thePaletteIndex = userDefaults.objectForKey("PaletteIndex") as? Int {
+            paletteIndex = thePaletteIndex
+        }
+        
+        if let path = NSBundle.mainBundle().pathForResource("Palettes", ofType: "plist"), allPalettes = NSArray(contentsOfFile: path) as? [[String: String]] {
+            for colorDict in allPalettes {
+                self.allPalettes.append(ScenePalette(
+                    pipeEnabled:      colorDict["pipeEnabled"]!,
+                    pipeDisabled:     colorDict["pipeDisabled"]!,
+                    piece:            colorDict["piece"]!,
+                    background:       colorDict["background"]!,
+                    buttonBackground: colorDict["backgroundSecondary"]!,
+                    rootMarker:       colorDict["piece"]!,
+                    name:             colorDict["name"]!))
+            }
+        } else {
+            print("Can't find Palettes.plist, defaulting to standard palette.")
+            allPalettes = [ScenePalette()]
+        }
+        
+        currentPalette = min(paletteIndex, self.allPalettes.count + 1)
+    }
+    
     func imageForPalette(palette: ScenePalette) -> UIImage {
         let container = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 44.0, height: 44.0)))
         let view = UIView(frame: CGRect(origin: CGPointZero, size: CGSize(width: 44.0, height: 44.0/5.0)))
@@ -206,9 +236,135 @@ class Singleton {
         userDefaults.setInteger(currentPalette, forKey: "PaletteIndex")
     }
     
-    func setOverridePalette(palette: ScenePalette?) {
-        self.paletteOverride = palette
-        self.setAppPalette(self.currentPalette)
+    /* Thumbnails */
+    
+    func loadThumbnails() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        var lastSavedVersion = userDefaults.stringForKey("Version")
+        if lastSavedVersion == nil {
+            lastSavedVersion = ""
+        }
+        
+        var needsUpdateThumbnails = false
+        if lastSavedVersion! != self.version {
+            /* App was updated, so re-make the thumbnails */
+            print("App went from version \(lastSavedVersion) to \(self.version). Should re-gen thumbs.")
+            needsUpdateThumbnails = true
+        } else {
+            /* App was not updated, try finding saved thumbnails */
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            if let path = paths.first {
+                let filePath = NSURL(fileURLWithPath: path)
+                outer: for theClass in sceneClassStrings {
+                    for thumbnailType in ThumbnailImageType.all() {
+                        // For every class+thumbnail layer iteration
+                        // try to load the image. If so, store it.
+                        // If not there, generate all new thumbnails
+                        let imageName = theClass.stringByAppendingString(thumbnailType.text()).stringByAppendingString(".png")
+                        let imagePath = filePath.URLByAppendingPathComponent(imageName)
+                        let image = UIImage(contentsOfFile: imagePath.path!)
+                        
+                        if image == nil {
+                            print("App version same, missing at least one image in documents. Should re-gen thumbs.")
+                            print("    Couldn't fine image \(imageName) at \(imagePath.path!)")
+                            needsUpdateThumbnails = true
+                            break outer
+                        } else {
+                            self.setThumbnailImage(image!, forClass: theClass, type: thumbnailType)
+                        }
+                    }
+                }
+            } else {
+                print("Error finding documents directory. Re-gen thumbs.")
+                needsUpdateThumbnails = true
+            }
+        }
+        
+            
+        // Now if, for whatever reason above, we need to update
+        // thumbnails, do it now
+        if needsUpdateThumbnails {
+            print("Re-generating thumbs...")
+            self.generateAllThumbnailImages()
+            
+            // And now save them
+            print("Saving thumbs...")
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            let filePath = NSURL(fileURLWithPath: paths.first!)
+            for (thumbType, classToImage) in self.thumbnailImages {
+                for (theClass, image) in classToImage {
+                    let imageName = theClass.stringByAppendingString(thumbType.text()).stringByAppendingString(".png")
+                    let imagePath = filePath.URLByAppendingPathComponent(imageName)
+                    UIImagePNGRepresentation(image)!.writeToFile(imagePath.path!, atomically: true)
+                }
+            }
+            userDefaults.setObject(self.version, forKey: "Version")
+            userDefaults.synchronize()
+            print("Done.")
+        }
+        
+        
+    }
+    
+    func setThumbnailPalette(palette: ScenePalette?) {
+        self.thumbnailPalette = palette
+    }
+    
+    func generateAllThumbnailImages() {
+        let fullPalette = self.palette
+        let clear = UIColor.clearColor()
+        let piecePalette = ScenePalette(pipeEnabled: clear, pipeDisabled: clear, piece: fullPalette.piece, background: clear, buttonBackground: clear, rootMarker: clear, name: "piecePalette")
+        let pipePalette = ScenePalette(pipeEnabled: fullPalette.pipeEnabled, pipeDisabled: clear, piece: clear, background: clear, buttonBackground: clear, rootMarker: clear, name: "pipePalette")
+        let rootPalette = ScenePalette(pipeEnabled: clear, pipeDisabled: clear, piece: clear, background: clear, buttonBackground: clear, rootMarker: fullPalette.rootMarker, name: "rootPalette")
+        
+        let separatePalettes: [ThumbnailImageType: ScenePalette] = [.Piece: piecePalette, .Pipe: pipePalette, .Root: rootPalette]
+        
+        for thumbnailType in ThumbnailImageType.all() {
+            self.setThumbnailPalette(separatePalettes[thumbnailType]!)
+            let images = self.generateThumbnails()
+            for (key, value) in images {
+                self.setThumbnailImage(value, forClass: key, type: thumbnailType)
+            }
+        }
+        
+        self.setThumbnailPalette(nil)
+        
+    }
+    
+    func generateThumbnails() -> [String: UIImage] {
+        let window = UIApplication.sharedApplication().delegate!.window!!
+        let size = CGSize(width: window.frame.width/2.0, height: window.frame.width/2.0)
+        //        let size = CGSize(width: 1024, height: 1024)
+        var ret: [String: UIImage] = [:]
+        
+        let skView = SKView(frame: CGRect(origin: CGPointZero, size: size))
+        skView.ignoresSiblingOrder = true
+        skView.opaque = false
+        
+        for classString in sceneClassStrings {
+            if let theClass = NSClassFromString(classString) as? AbstractGameBoardScene.Type {
+                
+                let scene = theClass.thumbnailScene(size)!
+                scene.scaleMode = .AspectFit
+                skView.presentScene(scene)
+                
+                let image = UIImage(CGImage: skView.textureFromNode(scene)!.CGImage())
+                
+                ret[classString] = image.imageWithRenderingMode(.AlwaysTemplate)
+                
+                skView.presentScene(nil)
+            }
+        }
+        
+        return ret
+    }
+    
+    func setThumbnailImage(image: UIImage, forClass theClass: String, type: ThumbnailImageType) {
+        self.thumbnailImages[type]![theClass] = image
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            NSNotificationCenter.defaultCenter().postNotificationName(kThumbnailImageDidChange, object: nil, userInfo: [kClassString: theClass])
+        }
     }
     
 }

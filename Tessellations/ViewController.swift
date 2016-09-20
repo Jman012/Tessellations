@@ -119,27 +119,8 @@ class ViewController: UIViewController, GameBoardSceneProtocol {
             titleBut.setTitle("\(self.boardSize.text()) - #\(self.boardNumber)", forState: .Normal)
         }
         
-        switch boardType {
-        case sceneClassStrings[SceneIndex.Triangle.rawValue]:
-            self.scene = TriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.Square.rawValue]:
-            self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.Hexagon.rawValue]:
-            self.scene = HexagonScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.OctagonSquare.rawValue]:
-            self.scene = OctagonSquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.SquareTriangle.rawValue]:
-            self.scene = SquareTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.HexagonTriangle.rawValue]:
-            self.scene = HexagonTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.HexagonSquareTriangle.rawValue]:
-            self.scene = HexagonSquareTriangleScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        case sceneClassStrings[SceneIndex.DodecagonHexagonSquare.rawValue]:
-            self.scene = DodecagonHexagonSquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-
-        default:
-            self.scene = SquareScene(size: self.view.frame.size, boardSize: boardSize, margins: true)
-        }
+        let boardClass = NSClassFromString(boardType) as! AbstractGameBoardScene.Type
+        self.scene = boardClass.init(size: self.view.frame.size, boardSize: boardSize, thumbnailMode: false)
         
         self.scene.scaleMode = .AspectFit
         self.scene.del = self

@@ -63,7 +63,7 @@ class HexagonScene: AbstractGameBoardScene {
     
     override class func thumbnailScene(size: CGSize) -> AbstractGameBoardScene? {
         
-        let scene = HexagonScene(size: size, boardWidth: 1, boardHeight: 1, margins: false)
+        let scene = HexagonScene(size: size, boardWidth: 1, boardHeight: 1, thumbnailMode: true)
         scene.logicalBoard.board[0][0] = Piece(row: 0, col: 0, type: .Hexagon)
         scene.shouldMoveDown = false
         
